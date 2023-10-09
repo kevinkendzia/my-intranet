@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-@Theme(value = "my-app", variant = Lumo.DARK)
+@Theme(value = "my-intranet", variant = Lumo.DARK)
 public class Application implements AppShellConfigurator {
 
     public static void main(String[] args) {

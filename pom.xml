@@ -3,8 +3,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!-- Project from https://start.vaadin.com/project/db752c5d-62f2-4d3b-996b-6f97114c0b1b -->
-    <groupId>de.kkendzia.myintranet</groupId>
-    <artifactId>my-app</artifactId>
+    <groupId>de.kkendzia</groupId>
+    <artifactId>my-intranet</artifactId>
     <name>my-app</name>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
