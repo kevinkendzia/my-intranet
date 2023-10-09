@@ -1,0 +1,17 @@
+{
+  "frontendFolder": "C:/Users/kkendzia/Repositories/test/my-intranet/./frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "C:/Users/kkendzia/Repositories/test/my-intranet/./frontend/generated/jar-resources",
+  "staticOutput": "C:/Users/kkendzia/Repositories/test/my-intranet/target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "C:\\Users\\kkendzia\\Repositories\\test\\my-intranet\\target\\classes\\META-INF\\VAADIN\\config",
+  "frontendBundleOutput": "C:\\Users\\kkendzia\\Repositories\\test\\my-intranet\\target\\classes\\META-INF\\VAADIN\\webapp",
+  "devBundleOutput": "C:/Users/kkendzia/Repositories/test/my-intranet/src/main/dev-bundle/webapp",
+  "devBundleStatsOutput": "C:/Users/kkendzia/Repositories/test/my-intranet/src/main/dev-bundle/config",
+  "jarResourcesFolder": "C:/Users/kkendzia/Repositories/test/my-intranet/./frontend/generated/jar-resources",
+  "themeName": "my-intranet",
+  "clientServiceWorkerSource": "C:\\Users\\kkendzia\\Repositories\\test\\my-intranet\\target\\sw.ts",
+  "pwaEnabled": false,
+  "offlineEnabled": false,
+  "offlinePath": "'offline.html'"
+}
