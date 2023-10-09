@@ -8,7 +8,7 @@ import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility.FontSize;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
-import de.kkendzia.myintranet.ei.ui._api.EIComponent;
+import de.kkendzia.myintranet.ei.ui._framework.EIComponent;
 
 public class EIAppBar extends EIComponent<HorizontalLayout> implements AfterNavigationObserver
 {

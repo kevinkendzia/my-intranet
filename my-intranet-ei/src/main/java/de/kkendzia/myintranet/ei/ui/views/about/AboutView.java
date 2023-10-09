@@ -7,10 +7,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
-import de.kkendzia.myintranet.ei.ui.layout.MainLayout;
+import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
 
 @PageTitle("About")
-@Route(value = "about", layout = MainLayout.class)
+@Route(value = "about", layout = EIMainLayout.class)
 public class AboutView extends VerticalLayout {
 
     public AboutView() {

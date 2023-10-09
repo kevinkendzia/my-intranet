@@ -7,9 +7,10 @@ import de.kkendzia.myintranet.ei.ui.layout.menu.EIMainMenu;
 /**
  * The main view is a top-level placeholder for other views.
  */
-public class MainLayout extends AppLayout
+public class EIMainLayout
+        extends AppLayout
 {
-    public MainLayout()
+    public EIMainLayout()
     {
         setPrimarySection(Section.DRAWER);
         addToDrawer(new EIMainMenu());
