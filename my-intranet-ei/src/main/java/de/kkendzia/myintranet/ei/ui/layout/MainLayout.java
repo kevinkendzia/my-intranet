@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.views;
+package de.kkendzia.myintranet.ei.ui.layout;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -11,8 +11,8 @@ import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import de.kkendzia.myintranet.views.about.AboutView;
-import de.kkendzia.myintranet.views.helloworld.HelloWorldView;
+import de.kkendzia.myintranet.ei.ui.views.about.AboutView;
+import de.kkendzia.myintranet.ei.ui.views.helloworld.HelloWorldView;
 import org.vaadin.lineawesome.LineAwesomeIcon;
 
 /**
@@ -48,14 +48,14 @@ public class MainLayout extends AppLayout {
         addToDrawer(header, scroller, createFooter());
     }
 
-    private SideNav createNavigation() {
-        SideNav nav = new SideNav();
-
-        nav.addItem(new SideNavItem("Hello World", HelloWorldView.class, LineAwesomeIcon.GLOBE_SOLID.create()));
-        nav.addItem(new SideNavItem("About", AboutView.class, LineAwesomeIcon.FILE.create()));
-
-        return nav;
-    }
+//    private SideNav createNavigation() {
+//        SideNav nav = new SideNav();
+//
+//        nav.addItem(new SideNavItem("Hello World", HelloWorldView.class, LineAwesomeIcon.GLOBE_SOLID.create()));
+//        nav.addItem(new SideNavItem("About", AboutView.class, LineAwesomeIcon.FILE.create()));
+//
+//        return nav;
+//    }
 
     private Footer createFooter() {
         Footer layout = new Footer();

@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet;
+package de.kkendzia.myintranet.ei;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;

@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.views.about;
+package de.kkendzia.myintranet.ei.ui.views.about;
 
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
@@ -7,7 +7,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
-import de.kkendzia.myintranet.views.MainLayout;
+import de.kkendzia.myintranet.ei.ui.layout.MainLayout;
 
 @PageTitle("About")
 @Route(value = "about", layout = MainLayout.class)

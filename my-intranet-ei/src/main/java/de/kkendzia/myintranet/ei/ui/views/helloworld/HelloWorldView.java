@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.views.helloworld;
+package de.kkendzia.myintranet.ei.ui.views.helloworld;
 
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
@@ -8,7 +8,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import de.kkendzia.myintranet.views.MainLayout;
+import de.kkendzia.myintranet.ei.ui.layout.MainLayout;
 
 @PageTitle("Hello World")
 @Route(value = "hello", layout = MainLayout.class)
