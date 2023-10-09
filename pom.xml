@@ -2,20 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!-- Project from https://start.vaadin.com/project/db752c5d-62f2-4d3b-996b-6f97114c0b1b -->
-    <groupId>de.kkendzia</groupId>
-    <artifactId>my-intranet</artifactId>
-    <name>my-intranet</name>
-    <modules>
-        <module>my-intranet-ei</module>
-    </modules>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-
-    <properties>
-        <java.version>17</java.version>
-        <vaadin.version>24.1.12</vaadin.version>
-    </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -23,6 +9,21 @@
         <version>3.1.2</version>
     </parent>
 
+    <!-- Project from https://start.vaadin.com/project/db752c5d-62f2-4d3b-996b-6f97114c0b1b -->
+    <groupId>de.kkendzia</groupId>
+    <artifactId>my-intranet</artifactId>
+    <name>my-intranet</name>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>my-intranet-ei</module>
+    </modules>
+
+    <properties>
+        <java.version>17</java.version>
+        <vaadin.version>24.1.12</vaadin.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>

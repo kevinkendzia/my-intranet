@@ -8,12 +8,18 @@ import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
+import com.vaadin.flow.router.RouteConfiguration;
+import com.vaadin.flow.router.RouteData;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import de.kkendzia.myintranet.ei.ui.views.about.AboutView;
-import de.kkendzia.myintranet.ei.ui.views.helloworld.HelloWorldView;
-import org.vaadin.lineawesome.LineAwesomeIcon;
+import de.kkendzia.myintranet.ei.ui.layout.menu.MenuRouteAnalyzer.MenuRouteData;
 
-public class EIMainMenu extends Composite<VerticalLayout>
+import java.util.List;
+import java.util.Optional;
+
+import static com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment.STRETCH;
+
+public class EIMainMenu
+        extends Composite<VerticalLayout>
 {
     public EIMainMenu()
     {
@@ -22,23 +28,34 @@ public class EIMainMenu extends Composite<VerticalLayout>
         Header header = new Header(appName);
 
         VerticalLayout root = getContent();
+        root.setAlignItems(STRETCH);
+        root.setHeightFull();
+
         root.add(header);
         root.add(new Scroller(createNavigation()));
-        root.add(footer);
+        root.add(new Footer());
     }
 
-    private SideNav createNavigation() {
+    private SideNav createNavigation()
+    {
         SideNav nav = new SideNav();
 
-        nav.addItem(new SideNavItem("Hello World", HelloWorldView.class, LineAwesomeIcon.GLOBE_SOLID.create()));
-        nav.addItem(new SideNavItem("About", AboutView.class, LineAwesomeIcon.FILE.create()));
+        MenuRouteAnalyzer analyzer = MenuRouteAnalyzer.getInstance();
+        List<RouteData> routes = RouteConfiguration.forSessionScope().getAvailableRoutes();
+        for (RouteData route : routes)
+        {
+            Optional<MenuRouteData> menuRoute = analyzer.analyze(route);
+            if (menuRoute.isPresent())
+            {
+                MenuRouteData menuRouteData = menuRoute.get();
+                SideNavItem itm = new SideNavItem(
+                        getTranslation(menuRouteData.label()),
+                        route.getNavigationTarget(),
+                        menuRouteData.iconSupplier().get());
+                nav.addItem(itm);
+            }
+        }
 
         return nav;
-    }
-
-    private Footer createFooter() {
-        Footer layout = new Footer();
-
-        return layout;
     }
 }
