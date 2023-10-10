@@ -4,6 +4,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.function.SerializableSupplier;
 import com.vaadin.flow.router.RouteData;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.vaadin.lineawesome.LineAwesomeIcon.PLANE_SOLID;
@@ -19,7 +20,7 @@ public class MenuRouteAnalyzer
         MenuRoute annotation = target.getAnnotation(MenuRoute.class);
         if (annotation != null)
         {
-            return Optional.of(new MenuRouteData(annotation.label(), PLANE_SOLID::create));
+            return Optional.of(new MenuRouteData(annotation.label(), PLANE_SOLID::create, route.getNavigationTarget()));
         }
         return Optional.empty();
     }
@@ -33,7 +34,7 @@ public class MenuRouteAnalyzer
      * TYPES
      */
 
-    public record MenuRouteData(String label, SerializableSupplier<Component> iconSupplier)
+    public record MenuRouteData(String label, SerializableSupplier<Component> iconSupplier, Class<? extends Component> navigationTarget, List<MenuRouteData> subRoutes)
     {
         // just a record
     }

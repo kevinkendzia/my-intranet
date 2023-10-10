@@ -10,7 +10,7 @@ import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.layout.menu.MenuRoute;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@MenuRoute(label = "menu.create")
+@MenuRoute(label = "menu.create", group = "ah/create")
 @Route(value = "ah/new", layout = EIMainLayout.class)
 public class AhCreateView extends AbstractEIView<VerticalLayout>
 {

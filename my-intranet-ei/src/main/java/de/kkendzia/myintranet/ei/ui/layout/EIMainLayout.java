@@ -13,7 +13,10 @@ public class EIMainLayout
     public EIMainLayout()
     {
         setPrimarySection(Section.DRAWER);
-        addToDrawer(new EIMainMenu());
+        addToDrawer(
+                new EIMainMenu(
+                        new EIMainMenu.MenuHeader(),
+                        new EIMainMenu.MenuFooter()));
         addToNavbar(new EIAppBar());
     }
 }

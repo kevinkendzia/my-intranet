@@ -7,7 +7,7 @@ import de.kkendzia.myintranet.ei.ui._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.layout.menu.MenuRoute;
 
-@MenuRoute(label = "menu.search")
+@MenuRoute(label = "menu.search", group = "ah/search")
 @Route(value = "ah/search", layout = EIMainLayout.class)
 public class AhSearchView
         extends AbstractEIView<VerticalLayout>

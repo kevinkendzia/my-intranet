@@ -8,6 +8,5 @@ import java.lang.annotation.*;
 public @interface MenuRoute
 {
     String label();
-
-    String description() default "";
+    String group() default "";
 }
