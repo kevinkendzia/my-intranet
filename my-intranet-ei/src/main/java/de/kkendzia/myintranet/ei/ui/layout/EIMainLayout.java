@@ -22,6 +22,7 @@ public class EIMainLayout
         menu.setItemProvider(
                 new AnnotationItemProvider(
                         List.of(
+                                new DrawerMenu.DrawerMenuItem("nav", "menu.group.nav"),
                                 new DrawerMenu.DrawerMenuItem("ah", "menu.group.ah"),
                                 new DrawerMenu.DrawerMenuItem("other", "menu.group.other"))));
 
