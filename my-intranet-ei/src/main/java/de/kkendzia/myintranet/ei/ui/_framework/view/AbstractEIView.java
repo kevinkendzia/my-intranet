@@ -2,12 +2,15 @@ package de.kkendzia.myintranet.ei.ui._framework.view;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
+import com.vaadin.flow.router.HasDynamicTitle;
 import de.kkendzia.myintranet.ei.ui._framework.EIComponent;
 import de.kkendzia.myintranet.ei.ui._framework.parameters.ParameterDefinition;
 
-public class AbstractEIView<C extends Component> extends EIComponent<C>
+public abstract class AbstractEIView<C extends Component> extends EIComponent<C> implements HasDynamicTitle
 {
-    public AbstractEIView()
+    private String pageTitle;
+
+    protected AbstractEIView()
     {
 
     }
@@ -20,5 +23,16 @@ public class AbstractEIView<C extends Component> extends EIComponent<C>
     {
         //noinspection unchecked
         return (T) ComponentUtil.getData(this, definition.getName());
+    }
+
+    @Override
+    public String getPageTitle()
+    {
+        return pageTitle;
+    }
+
+    protected void setPageTitle(String pageTitle)
+    {
+        this.pageTitle = pageTitle;
     }
 }

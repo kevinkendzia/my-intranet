@@ -27,8 +27,7 @@ public class EIMainLayout
                                 new DrawerMenu.DrawerMenuItem("other", "menu.group.other"))));
 
         setPrimarySection(Section.DRAWER);
-        addToDrawer(
-                menu);
+        addToDrawer(menu);
         addToNavbar(new EIAppBar());
     }
 }
