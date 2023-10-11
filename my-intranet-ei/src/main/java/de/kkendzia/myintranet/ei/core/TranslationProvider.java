@@ -1,6 +1,7 @@
 package de.kkendzia.myintranet.ei.core;
 
 import com.vaadin.flow.i18n.I18NProvider;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
@@ -11,39 +12,46 @@ import java.util.*;
 public class TranslationProvider implements I18NProvider
 {
     public static final String BUNDLE_PREFIX = "translate";
-
     public final Locale LOCALE_DE = new Locale("de", "DE");
     public final Locale LOCALE_EN = new Locale("en", "GB");
-
     private List<Locale> locales = Collections
             .unmodifiableList(Arrays.asList(LOCALE_DE, LOCALE_EN));
 
+    private static Logger LOGGER = LoggerFactory.getLogger(TranslationProvider.class);
+
     @Override
-    public List<Locale> getProvidedLocales() {
+    public List<Locale> getProvidedLocales()
+    {
         return locales;
     }
 
     @Override
-    public String getTranslation(String key, Locale locale, Object... params) {
-        if (key == null) {
-            LoggerFactory.getLogger(TranslationProvider.class.getName())
-                    .warn("Got lang request for key with null value!");
+    public String getTranslation(String key, Locale locale, Object... params)
+    {
+        if (key == null)
+        {
+            LOGGER.warn("Got lang request for key with null value!");
             return "";
         }
 
         final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_PREFIX, locale);
 
         String value;
-        try {
+        try
+        {
             value = bundle.getString(key);
-        } catch (final MissingResourceException e) {
-            LoggerFactory.getLogger(TranslationProvider.class.getName())
-                    .warn("Missing resource", e);
+        }
+        catch (final MissingResourceException e)
+        {
+            LOGGER.warn("Missing resource key {}", e.getKey());
             return "!" + locale.getLanguage() + ": " + key;
         }
-        if (params.length > 0) {
+
+        if (params.length > 0)
+        {
             value = MessageFormat.format(value, params);
         }
+
         return value;
     }
 }
