@@ -37,7 +37,7 @@ public class EIMainLayoutPresenter
                         case AH -> AhSearchView.class;
                         default -> throw new IllegalStateException("Not implemented!");
                     },
-                    QueryParameters.of("searchtext", value.name()));
+                    QueryParameters.of("searchtext", value.searchText()));
         }
     }
 
@@ -68,10 +68,16 @@ public class EIMainLayoutPresenter
         return 5;
     }
 
+    public SearchPreviewItem createSearchPreviewItem(String text)
+    {
+        return new SearchPreviewItem(text, OTHER, DEFAULT,-1,text);
+    }
+
     //region TYPES
     public enum SearchTarget
     {
         // TODO
+        OTHER,
         AH,
         VL,
         AKTION;

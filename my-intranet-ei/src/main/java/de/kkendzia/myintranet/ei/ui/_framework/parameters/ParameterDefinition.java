@@ -14,10 +14,14 @@ public class ParameterDefinition<T>
         return name;
     }
 
-    // STATIC
-
+    //region STATIC FACTORIES
     public static ParameterDefinition<Long> longParam(String name)
     {
         return new ParameterDefinition<>(name);
     }
+    public static ParameterDefinition<String> stringParam(String name)
+    {
+        return new ParameterDefinition<>(name);
+    }
+    //endregion
 }

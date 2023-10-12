@@ -5,6 +5,7 @@ import com.vaadin.flow.component.ItemLabelGenerator;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.data.provider.DataProvider;
+import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.function.SerializablePredicate;
 import com.vaadin.flow.i18n.LocaleChangeEvent;
 import com.vaadin.flow.i18n.LocaleChangeObserver;
@@ -26,7 +27,8 @@ public class EIAppBar
             DataProvider<SearchPreviewItem, String> searchDataProvider,
             SearchChangeListener<SearchPreviewItem> valueChangeListener,
             SerializablePredicate<SearchPreviewItem> searchItemEnabledPredicate,
-            ItemLabelGenerator<SearchPreviewItem> searchItemTitleGenerator)
+            ItemLabelGenerator<SearchPreviewItem> searchItemTitleGenerator,
+            SerializableFunction<String, SearchPreviewItem> itemCreator)
     {
         DrawerToggle toggle = new DrawerToggle();
         toggle.setAriaLabel("Menu toggle");
@@ -35,6 +37,7 @@ public class EIAppBar
         searchField.setTitleGenerator(searchItemTitleGenerator);
         searchField.setItems(searchDataProvider);
         searchField.addValueChangeListener(valueChangeListener);
+        searchField.setItemCreator(itemCreator);
 
         HorizontalLayout root = getContent();
         root.addClassNames(Padding.Right.MEDIUM);

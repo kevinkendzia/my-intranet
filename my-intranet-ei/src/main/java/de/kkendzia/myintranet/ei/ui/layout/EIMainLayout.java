@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchItemType.DEFAULT;
-
 /**
  * The main view is a top-level placeholder for other views.
  */
@@ -46,12 +44,13 @@ public class EIMainLayout
                 new EIAppBar(
                         presenter.createSearchPreviewDataProvider(),
                         e -> presenter.search(e.getValue()),
-                        item -> item.type() == DEFAULT,
+                        item -> true, //item.type() == DEFAULT,
                         item -> switch (item.type())
                         {
-                            case DEFAULT -> item.name();
-                            case HEADER -> getTranslation("search.group.header." + item.target());
-                            case FOOTER -> getTranslation("search.group.footer." + item.target());
-                        }));
+                            case DEFAULT -> item.name() + " - " + item.searchText();
+                            case HEADER -> getTranslation("search.group.header." + item.target() + " - " + item.searchText());
+                            case FOOTER -> getTranslation("search.group.footer." + item.target() + " - " + item.searchText());
+                        },
+                        text -> presenter.createSearchPreviewItem(text)));
     }
 }

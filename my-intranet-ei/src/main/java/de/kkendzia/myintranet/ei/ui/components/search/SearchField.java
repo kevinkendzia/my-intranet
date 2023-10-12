@@ -7,6 +7,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.function.SerializablePredicate;
 
 import java.util.List;
@@ -15,12 +16,15 @@ public class SearchField<T> extends AbstractCompositeField<ComboBox<T>, SearchFi
 {
     private SerializablePredicate<T> enabledPredicate = itm -> true;
     private ItemLabelGenerator<T> titleGenerator = String::valueOf;
+    private SerializableFunction<String, T> itemCreator;
 
     public SearchField()
     {
         super(null);
+
         ComboBox<T> cbo = getContent();
         cbo.setRenderer(new ComponentRenderer<>(this::createItemComponent));
+        cbo.setClearButtonVisible(true);
         cbo.addValueChangeListener(e ->
         {
             if (e.isFromClient())
@@ -82,6 +86,16 @@ public class SearchField<T> extends AbstractCompositeField<ComboBox<T>, SearchFi
     public void setTitleGenerator(ItemLabelGenerator<T> titleGenerator)
     {
         this.titleGenerator = titleGenerator;
+    }
+
+    public void setItemCreator(SerializableFunction<String, T> itemCreator)
+    {
+        this.itemCreator = itemCreator;
+    }
+
+    protected SerializableFunction<String, T> getItemCreator()
+    {
+        return itemCreator;
     }
 
     public void setPlaceholder(String placeholder)
