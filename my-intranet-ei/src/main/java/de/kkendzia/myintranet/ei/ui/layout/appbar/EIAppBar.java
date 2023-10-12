@@ -1,7 +1,11 @@
 package de.kkendzia.myintranet.ei.ui.layout.appbar;
 
+import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.component.ItemLabelGenerator;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.data.provider.DataProvider;
+import com.vaadin.flow.function.SerializablePredicate;
 import com.vaadin.flow.i18n.LocaleChangeEvent;
 import com.vaadin.flow.i18n.LocaleChangeObserver;
 import com.vaadin.flow.router.AfterNavigationEvent;
@@ -10,24 +14,27 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import de.kkendzia.myintranet.ei.ui._framework.EIComponent;
 import de.kkendzia.myintranet.ei.ui._framework.utils.PageTitleUtil;
 import de.kkendzia.myintranet.ei.ui.components.search.SearchField;
+import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchPreviewItem;
 
-import java.util.List;
-
-public class EIAppBar extends EIComponent<HorizontalLayout> implements AfterNavigationObserver, LocaleChangeObserver
+public class EIAppBar
+        extends EIComponent<HorizontalLayout>
+        implements AfterNavigationObserver, LocaleChangeObserver
 {
-    private SearchField<Test, String> searchField = new SearchField<>();
+    private SearchField<SearchPreviewItem> searchField = new SearchField<>();
 
-    public EIAppBar()
+    public EIAppBar(
+            DataProvider<SearchPreviewItem, String> searchDataProvider,
+            SearchChangeListener<SearchPreviewItem> valueChangeListener,
+            SerializablePredicate<SearchPreviewItem> searchItemEnabledPredicate,
+            ItemLabelGenerator<SearchPreviewItem> searchItemTitleGenerator)
     {
         DrawerToggle toggle = new DrawerToggle();
         toggle.setAriaLabel("Menu toggle");
 
-        searchField.setGroupingFunction(Test::group);
-        searchField.setItems(
-                List.of(
-                        new Test("ah", "HOMA"),
-                        new Test("ah", "HANS"),
-                        new Test("vl", "VL1")));
+        searchField.setEnabledPredicate(searchItemEnabledPredicate);
+        searchField.setTitleGenerator(searchItemTitleGenerator);
+        searchField.setItems(searchDataProvider);
+        searchField.addValueChangeListener(valueChangeListener);
 
         HorizontalLayout root = getContent();
         root.addClassNames(Padding.Right.MEDIUM);
@@ -35,19 +42,14 @@ public class EIAppBar extends EIComponent<HorizontalLayout> implements AfterNavi
         root.addAndExpand(searchField);
     }
 
-    public static record Test(
-            String group,
-            String name)
-    {
-        // just a record
-    }
-
     @Override
     public void afterNavigation(AfterNavigationEvent event)
     {
         // TODO
         String pageTitle = PageTitleUtil.getPageTitle(event.getActiveChain());
-        searchField.setPlaceholder(pageTitle != null ? "Search in " + pageTitle : "Search in...");
+        searchField.setPlaceholder(pageTitle != null
+                                   ? "Search in " + pageTitle
+                                   : "Search in...");
     }
 
     @Override
@@ -55,6 +57,15 @@ public class EIAppBar extends EIComponent<HorizontalLayout> implements AfterNavi
     {
         // TODO
         String pageTitle = PageTitleUtil.getPageTitle();
-        searchField.setPlaceholder(pageTitle != null ? "Search in " + pageTitle : "Search in...");
+        searchField.setPlaceholder(pageTitle != null
+                                   ? "Search in " + pageTitle
+                                   : "Search in...");
     }
+
+    //region TYPES
+    public interface SearchChangeListener<T> extends HasValue.ValueChangeListener<HasValue.ValueChangeEvent<T>>
+    {
+        // just Type Alias
+    }
+    //endregion
 }

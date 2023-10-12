@@ -4,8 +4,11 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import de.kkendzia.myintranet.ei.ui.components.menu.DrawerMenu;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider;
 import de.kkendzia.myintranet.ei.ui.layout.appbar.EIAppBar;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+
+import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchItemType.DEFAULT;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -13,8 +16,13 @@ import java.util.List;
 public class EIMainLayout
         extends AppLayout
 {
-    public EIMainLayout()
+    private EIMainLayoutPresenter presenter;
+
+    @Autowired
+    public EIMainLayout(EIMainLayoutPresenter presenter)
     {
+        this.presenter = presenter;
+
         DrawerMenu menu =
                 new DrawerMenu(
                         new DrawerMenu.MenuHeader(),
@@ -22,12 +30,28 @@ public class EIMainLayout
         menu.setItemProvider(
                 new AnnotationItemProvider(
                         List.of(
-                                new DrawerMenu.DrawerMenuItem("nav", "menu.group.nav"),
-                                new DrawerMenu.DrawerMenuItem("ah", "menu.group.ah"),
-                                new DrawerMenu.DrawerMenuItem("other", "menu.group.other"))));
+                                new DrawerMenu.DrawerMenuItem(
+                                        "nav",
+                                        "menu.target.nav"),
+                                new DrawerMenu.DrawerMenuItem(
+                                        "ah",
+                                        "menu.target.ah"),
+                                new DrawerMenu.DrawerMenuItem(
+                                        "other",
+                                        "menu.target.other"))));
 
         setPrimarySection(Section.DRAWER);
         addToDrawer(menu);
-        addToNavbar(new EIAppBar());
+        addToNavbar(
+                new EIAppBar(
+                        presenter.createSearchPreviewDataProvider(),
+                        e -> presenter.search(e.getValue()),
+                        item -> item.type() == DEFAULT,
+                        item -> switch (item.type())
+                        {
+                            case DEFAULT -> item.name();
+                            case HEADER -> getTranslation("search.group.header." + item.target());
+                            case FOOTER -> getTranslation("search.group.footer." + item.target());
+                        }));
     }
 }

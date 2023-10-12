@@ -1,224 +1,106 @@
 package de.kkendzia.myintranet.ei.ui.components.search;
 
+import com.vaadin.flow.component.AbstractCompositeField;
 import com.vaadin.flow.component.AbstractField;
-import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.ItemLabelGenerator;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.data.provider.BackEndDataProvider;
 import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.data.provider.DataProviderListener;
-import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.function.SerializableFunction;
-import com.vaadin.flow.shared.Registration;
+import com.vaadin.flow.function.SerializablePredicate;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class SearchField<T, G> extends Composite<ComboBox<SearchField.Item<T>>>
+public class SearchField<T> extends AbstractCompositeField<ComboBox<T>, SearchField<T>, T>
 {
-    private SerializableFunction<T, G> groupingFunction;
-    private boolean groupSelectable = false;
+    private SerializablePredicate<T> enabledPredicate = itm -> true;
+    private ItemLabelGenerator<T> titleGenerator = String::valueOf;
 
     public SearchField()
     {
-        ComboBox<Item<T>> cbo = getContent();
-//        cbo.setPageSize(1);
-//        cbo.setItems(
-//                DataProvider.fromFilteringCallbacks(
-//                        query -> load(query.getFilter().orElse(""))
-//                                .skip(query.getOffset())
-//                                .limit(query.getLimit()),
-//                        query -> Math.toIntExact(load(query.getFilter().orElse("")).count())));
+        super(null);
+        ComboBox<T> cbo = getContent();
         cbo.setRenderer(new ComponentRenderer<>(this::createItemComponent));
-        cbo.addValueChangeListener(this::preventGroupSelection);
-    }
-
-    private Span createItemComponent(Item<T> itm)
-    {
-        Span span = new Span(itm.text());
-
-        if (itm.separator())
+        cbo.addValueChangeListener(e ->
         {
-            span.getStyle().set("opacity", "0.5");
-        }
-        else
-        {
-            span.getStyle().set("padding-left", "10px");
-            span.getStyle().set("pointer-events", "auto");
-        }
-        return span;
-    }
-
-    private void preventGroupSelection(AbstractField.ComponentValueChangeEvent<ComboBox<Item<T>>, Item<T>> e)
-    {
-        if (isGroupSelectable())
-        {
-            return;
-        }
-
-        if ((e.getValue() != null) && e.getValue().separator())
-        {
-            ComboBox<Item<T>> cbo = getContent();
-            if ((e.getOldValue() != null))
+            if (e.isFromClient())
             {
-                cbo.setValue(e.getOldValue());
-            }
-            else
-            {
-                cbo.clear();
-            }
-        }
-    }
-
-    public void setItems(List<T> items)
-    {
-        if (groupingFunction != null)
-        {
-            Map<G, List<T>> groups = items.stream().collect(Collectors.groupingBy(groupingFunction));
-            getContent().setItems(
-                    groups
-                            .entrySet()
-                            .stream()
-                            .flatMap(x ->
-                                             Stream.concat(
-                                                     Stream.of(new Item<T>(true, String.valueOf(x.getKey()), null)),
-                                                     x.getValue().stream().map(y -> new Item<>(
-                                                             false,
-                                                             String.valueOf(y),
-                                                             y))))
-                            .toList());
-        }
-        else
-        {
-            getContent().setItems(items.stream().map(x -> new Item<>(false, String.valueOf(x), x)).toList());
-        }
-    }
-
-    public void setItems(BackEndDataProvider<T, String> dataProvider)
-    {
-        getContent().setItems(new DataProvider<Item<T>, String>()
-        {
-            @Override
-            public boolean isInMemory()
-            {
-                return false;
-            }
-
-            @Override
-            public int size(Query<Item<T>, String> query)
-            {
-                return dataProvider.size(convertQuery(query));
-            }
-
-            @Override
-            public Stream<Item<T>> fetch(Query<Item<T>, String> query)
-            {
-                return dataProvider
-                        .fetch(convertQuery(query))
-                        .flatMap(x -> Stream.concat(
-                                Stream.of(new Item<T>(true, String.valueOf(x.getKey()), null)),
-                                x.getValue().stream().map(y -> new Item<>(
-                                        false,
-                                        String.valueOf(y),
-                                        y))));
-            }
-
-            private Query<T, String> convertQuery(Query<Item<T>, String> query)
-            {
-                if (query.getInMemorySorting() != null)
+                T item = e.getValue();
+                if (getEnabledPredicate().test(item))
                 {
-                    throw new IllegalStateException("Can't set InMemorySorting!");
+                    setModelValue(e.getValue(), true);
                 }
-                return new Query<>(
-                        query.getOffset(),
-                        query.getLimit(),
-                        query.getSortOrders(),
-                        null,
-                        query.getFilter().orElse(null));
-            }
-
-            @Override
-            public void refreshItem(Item<T> item)
-            {
-
-            }
-
-            @Override
-            public void refreshAll()
-            {
-
-            }
-
-            @Override
-            public Registration addDataProviderListener(DataProviderListener<Item<T>> listener)
-            {
-                return null;
+                resetComboBox(e);
             }
         });
     }
 
-    public void setGroupingFunction(SerializableFunction<T, G> groupingFunction)
+
+    private Span createItemComponent(T itm)
     {
-        this.groupingFunction = groupingFunction;
+        Span span = new Span(titleGenerator.apply(itm));
+
+        if (enabledPredicate.test(itm))
+        {
+            span.getStyle().set("padding-left", "10px");
+            span.getStyle().set("pointer-events", "auto");
+        }
+        else
+        {
+            span.getStyle().set("opacity", "0.5");
+        }
+
+        return span;
     }
 
-    public void setGroupSelectable(boolean groupSelectable)
+    @Override
+    protected void setPresentationValue(T newPresentationValue)
     {
-        this.groupSelectable = groupSelectable;
+        getContent().setValue(newPresentationValue);
     }
 
-    protected boolean isGroupSelectable()
+    public void setItems(List<T> items)
     {
-        return groupSelectable;
+        getContent().setItems(items);
     }
 
-    //    private static Stream<Item> load(String s)
-//    {
-//        return Stream.of(
-//                        separator("AHs - Zeige alle AHs"),
-//                        item("test1"),
-//                        item("test2"),
-//                        separator("VLs"),
-//                        item("test3"),
-//                        item("test4"),
-//                        item("test5"),
-//                        separator("Modelle/Artikel"),
-//                        item("test6"),
-//                        item("test7"),
-//                        item("test8"),
-//                        separator("Aktionen"),
-//                        item("test9"),
-//                        item("test10"),
-//                        separator("Prospektseiten"),
-//                        item("test11"))
-//                .filter(x -> x.separator() || x.text().contains(s));
-//    }
+    public void setItems(DataProvider<T, String> dataProvider)
+    {
+        getContent().setItems(dataProvider);
+    }
+
+    protected SerializablePredicate<T> getEnabledPredicate()
+    {
+        return enabledPredicate;
+    }
+
+    public void setEnabledPredicate(SerializablePredicate<T> enabledPredicate)
+    {
+        this.enabledPredicate = enabledPredicate;
+    }
+
+    public void setTitleGenerator(ItemLabelGenerator<T> titleGenerator)
+    {
+        this.titleGenerator = titleGenerator;
+    }
 
     public void setPlaceholder(String placeholder)
     {
         getContent().setPlaceholder(placeholder);
     }
 
-    /*
-     * TYPES
-     */
-
-    public record Item<T>(
-            boolean separator,
-            String text,
-            T value)
+    //region STATIC
+    private static <T> void resetComboBox(AbstractField.ComponentValueChangeEvent<ComboBox<T>, T> e)
     {
-//        public static Item separator(String text)
-//        {
-//            return new Item(true, text);
-//        }
-//
-//        public static Item item(String text)
-//        {
-//            return new Item(false, text);
-//        }
+        ComboBox<T> cb = e.getSource();
+        if (e.getOldValue() != null)
+        {
+            cb.setValue(e.getOldValue());
+        }
+        else
+        {
+            cb.clear();
+        }
     }
+    //endregion
 }
