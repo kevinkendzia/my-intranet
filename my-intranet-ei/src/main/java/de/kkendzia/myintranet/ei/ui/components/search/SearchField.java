@@ -1,10 +1,10 @@
 package de.kkendzia.myintranet.ei.ui.components.search;
 
 import com.vaadin.flow.component.AbstractCompositeField;
-import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.ItemLabelGenerator;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.function.SerializableFunction;
@@ -15,16 +15,17 @@ import java.util.List;
 public class SearchField<T> extends AbstractCompositeField<ComboBox<T>, SearchField<T>, T>
 {
     private SerializablePredicate<T> enabledPredicate = itm -> true;
-    private ItemLabelGenerator<T> titleGenerator = String::valueOf;
-    private SerializableFunction<String, T> itemCreator;
+    private ItemLabelGenerator<T> itemLabelGenerator = String::valueOf;
+    private SerializableFunction<String, T> itemCreator = searchText -> null;
 
     public SearchField()
     {
         super(null);
 
         ComboBox<T> cbo = getContent();
+        cbo.setAutoOpen(false);
         cbo.setRenderer(new ComponentRenderer<>(this::createItemComponent));
-        cbo.setClearButtonVisible(true);
+        cbo.setPrefixComponent(VaadinIcon.SEARCH.create());
         cbo.addValueChangeListener(e ->
         {
             if (e.isFromClient())
@@ -32,17 +33,50 @@ public class SearchField<T> extends AbstractCompositeField<ComboBox<T>, SearchFi
                 T item = e.getValue();
                 if (getEnabledPredicate().test(item))
                 {
-                    setModelValue(e.getValue(), true);
+                    setModelValue(item, true);
                 }
-                resetComboBox(e);
+                else
+                {
+                    resetComboBox(e.getOldValue());
+                }
             }
         });
+        cbo.setAllowCustomValue(true);
+        cbo.addCustomValueSetListener(e ->
+        {
+            T item = getItemCreator().apply(e.getDetail());
+            if (getEnabledPredicate().test(item))
+            {
+                setModelValue(item, true);
+            }
+            else
+            {
+                resetComboBox(null);
+            }
+        });
+
+        // 13.10.2023 KK: Workaround can be replaced when feature was implemented:
+        // https://github.com/vaadin/flow-components/issues/5314
+        // https://github.com/vaadin/web-components/pull/2750
+        cbo.getElement().setAttribute("autoselect", true);
     }
 
+    private void resetComboBox(T oldValue)
+    {
+        ComboBox<T> cb = getContent();
+        if (oldValue != null)
+        {
+            cb.setValue(oldValue);
+        }
+        else
+        {
+            cb.clear();
+        }
+    }
 
     private Span createItemComponent(T itm)
     {
-        Span span = new Span(titleGenerator.apply(itm));
+        Span span = new Span(itemLabelGenerator.apply(itm));
 
         if (enabledPredicate.test(itm))
         {
@@ -83,9 +117,10 @@ public class SearchField<T> extends AbstractCompositeField<ComboBox<T>, SearchFi
         this.enabledPredicate = enabledPredicate;
     }
 
-    public void setTitleGenerator(ItemLabelGenerator<T> titleGenerator)
+    public void setItemLabelGenerator(ItemLabelGenerator<T> itemLabelGenerator)
     {
-        this.titleGenerator = titleGenerator;
+        this.itemLabelGenerator = itemLabelGenerator;
+        getContent().setItemLabelGenerator(itemLabelGenerator);
     }
 
     public void setItemCreator(SerializableFunction<String, T> itemCreator)
@@ -102,19 +137,4 @@ public class SearchField<T> extends AbstractCompositeField<ComboBox<T>, SearchFi
     {
         getContent().setPlaceholder(placeholder);
     }
-
-    //region STATIC
-    private static <T> void resetComboBox(AbstractField.ComponentValueChangeEvent<ComboBox<T>, T> e)
-    {
-        ComboBox<T> cb = e.getSource();
-        if (e.getOldValue() != null)
-        {
-            cb.setValue(e.getOldValue());
-        }
-        else
-        {
-            cb.clear();
-        }
-    }
-    //endregion
 }

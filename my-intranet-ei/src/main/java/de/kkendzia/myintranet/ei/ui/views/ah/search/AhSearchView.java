@@ -7,6 +7,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 import de.kkendzia.myintranet.ei.ui._framework.parameters.ParameterDefinition;
+import de.kkendzia.myintranet.ei.ui._framework.search.SearchRoute;
 import de.kkendzia.myintranet.ei.ui._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
@@ -14,10 +15,12 @@ import de.kkendzia.myintranet.ei.ui.views.ah.search.AhSearchPresenter.SearchItem
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static de.kkendzia.myintranet.ei.ui._framework.parameters.ParameterDefinition.stringParam;
+import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget.AH;
 import static java.util.Collections.emptyList;
 
-@MenuRoute(label = "menu.search", parent = "ah/search")
 @Route(value = "ah/search", layout = EIMainLayout.class)
+@MenuRoute(label = "menu.search", parent = "ah/search")
+@SearchRoute(target = AH)
 public class AhSearchView
         extends AbstractEIView<VerticalLayout>
         implements BeforeEnterObserver, AfterNavigationObserver
@@ -33,10 +36,12 @@ public class AhSearchView
     {
         this.presenter = presenter;
 
+        setPageTitle(getTranslation("ah.search.pageTitle"));
+
         grid.addColumn(SearchItem::ahnr).setHeader(getTranslation("label.ahnr"));
         grid.addColumn(SearchItem::matchcode).setHeader(getTranslation("label.matchcode"));
         grid.addColumn(SearchItem::enterDate).setHeader(getTranslation("label.enterDate"));
-        grid.addColumn(SearchItem::leaveDate).setHeader(getTranslation("label.leaveDate"));
+        grid.addColumn(SearchItem::leaveDate).setHeader(getTranslation("label.exitDate"));
 
         VerticalLayout root = getContent();
         root.setHeightFull();

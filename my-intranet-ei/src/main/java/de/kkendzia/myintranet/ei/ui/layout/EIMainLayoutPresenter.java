@@ -4,6 +4,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.router.QueryParameters;
+import de.kkendzia.myintranet.ei.core.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import de.kkendzia.myintranet.ei.ui.views.ah.search.AhSearchView;
 import org.springframework.stereotype.Component;
@@ -65,23 +66,31 @@ public class EIMainLayoutPresenter
 
     private int countPreview(Query<SearchPreviewItem, String> query)
     {
-        return 5;
-    }
-
-    public SearchPreviewItem createSearchPreviewItem(String text)
-    {
-        return new SearchPreviewItem(text, OTHER, DEFAULT,-1,text);
+        return 8;
     }
 
     //region TYPES
     public enum SearchTarget
     {
         // TODO
-        OTHER,
-        AH,
-        VL,
-        AKTION;
+        OTHER(TranslationKeys.OTHER),
+        AH(TranslationKeys.AHS),
+        VL(TranslationKeys.VLS),
+        AKTION(TranslationKeys.AKTIONEN);
+
+        private String key;
+
+        SearchTarget(String key)
+        {
+            this.key = key;
+        }
+
+        public String getKey()
+        {
+            return key;
+        }
     }
+
     public enum SearchItemType
     {
         DEFAULT,
@@ -96,7 +105,12 @@ public class EIMainLayoutPresenter
             long id,
             String name)
     {
-        // just a record
+        public static SearchPreviewItem custom(
+                String searchText,
+                SearchTarget target)
+        {
+            return new SearchPreviewItem(searchText, target, DEFAULT, -1, searchText);
+        }
     }
     //endregion
 }

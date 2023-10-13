@@ -3,6 +3,7 @@ package de.kkendzia.myintranet.ei.ui.components.menu.provider;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.function.SerializableSupplier;
+import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouteData;
 import de.kkendzia.myintranet.ei.ui.components.menu.DrawerMenu;
@@ -139,7 +140,8 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
     private boolean isMenuRoute(RouteData route)
     {
         Class<? extends Component> target = route.getNavigationTarget();
-        return target.isAnnotationPresent(MenuRoute.class);
+        return target.isAnnotationPresent(Route.class) &&
+                target.isAnnotationPresent(MenuRoute.class);
     }
 
     private MenuRouteData convertSingleRoute(RouteData route)

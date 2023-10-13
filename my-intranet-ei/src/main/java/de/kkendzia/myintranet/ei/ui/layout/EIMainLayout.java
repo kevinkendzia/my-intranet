@@ -40,17 +40,6 @@ public class EIMainLayout
 
         setPrimarySection(Section.DRAWER);
         addToDrawer(menu);
-        addToNavbar(
-                new EIAppBar(
-                        presenter.createSearchPreviewDataProvider(),
-                        e -> presenter.search(e.getValue()),
-                        item -> true, //item.type() == DEFAULT,
-                        item -> switch (item.type())
-                        {
-                            case DEFAULT -> item.name() + " - " + item.searchText();
-                            case HEADER -> getTranslation("search.group.header." + item.target() + " - " + item.searchText());
-                            case FOOTER -> getTranslation("search.group.footer." + item.target() + " - " + item.searchText());
-                        },
-                        text -> presenter.createSearchPreviewItem(text)));
+        addToNavbar(new EIAppBar(presenter));
     }
 }

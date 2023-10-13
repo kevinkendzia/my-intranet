@@ -1,43 +1,65 @@
 package de.kkendzia.myintranet.ei.ui.layout.appbar;
 
-import com.vaadin.flow.component.HasValue;
-import com.vaadin.flow.component.ItemLabelGenerator;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.function.SerializableFunction;
-import com.vaadin.flow.function.SerializablePredicate;
 import com.vaadin.flow.i18n.LocaleChangeEvent;
 import com.vaadin.flow.i18n.LocaleChangeObserver;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import de.kkendzia.myintranet.ei.ui._framework.EIComponent;
-import de.kkendzia.myintranet.ei.ui._framework.utils.PageTitleUtil;
+import de.kkendzia.myintranet.ei.ui._framework.utils.RoutingUtil;
 import de.kkendzia.myintranet.ei.ui.components.search.SearchField;
+import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchPreviewItem;
+import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget;
+
+import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchItemType.DEFAULT;
+import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchItemType.FOOTER;
+import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget.OTHER;
+import static java.util.Objects.requireNonNullElse;
 
 public class EIAppBar
         extends EIComponent<HorizontalLayout>
         implements AfterNavigationObserver, LocaleChangeObserver
 {
-    private SearchField<SearchPreviewItem> searchField = new SearchField<>();
+    //region CONSTANTS
+    private static final String I18N_SEARCH_IN = "mainLayout.appbar.searchField.placeholder.searchIn";
+    private static final String I18N_SEARCH = "mainLayout.appbar.searchField.placeholder.search";
+    private static final String I18N_SEARCH_ITEM_FOOTER = "mainLayout.appbar.searchField.item.footer";
+    //endregion
 
-    public EIAppBar(
-            DataProvider<SearchPreviewItem, String> searchDataProvider,
-            SearchChangeListener<SearchPreviewItem> valueChangeListener,
-            SerializablePredicate<SearchPreviewItem> searchItemEnabledPredicate,
-            ItemLabelGenerator<SearchPreviewItem> searchItemTitleGenerator,
-            SerializableFunction<String, SearchPreviewItem> itemCreator)
+    private final SearchField<SearchPreviewItem> searchField = new SearchField<>();
+
+    public EIAppBar(EIMainLayoutPresenter presenter)
     {
         DrawerToggle toggle = new DrawerToggle();
         toggle.setAriaLabel("Menu toggle");
 
-        searchField.setEnabledPredicate(searchItemEnabledPredicate);
-        searchField.setTitleGenerator(searchItemTitleGenerator);
-        searchField.setItems(searchDataProvider);
-        searchField.addValueChangeListener(valueChangeListener);
-        searchField.setItemCreator(itemCreator);
+        searchField.setEnabledPredicate(item -> item.type() == DEFAULT || item.type() == FOOTER);
+        searchField.setItemLabelGenerator(item ->
+        {
+            String target = getTranslation(item.target().getKey());
+
+            return switch (item.type())
+            {
+                case DEFAULT -> item.name();
+                case HEADER -> target;
+                case FOOTER -> getTranslation(I18N_SEARCH_ITEM_FOOTER, item.searchText(), target);
+            };
+        });
+        searchField.addValueChangeListener(e -> presenter.search(e.getValue()));
+        searchField.setItemCreator(searchText ->
+        {
+            SearchTarget target = RoutingUtil.getCurrentSearchTarget();
+            return new SearchPreviewItem(
+                    searchText,
+                    requireNonNullElse(target, OTHER),
+                    DEFAULT,
+                    -1,
+                    searchText);
+        });
+        searchField.setItems(presenter.createSearchPreviewDataProvider());
 
         HorizontalLayout root = getContent();
         root.addClassNames(Padding.Right.MEDIUM);
@@ -48,27 +70,26 @@ public class EIAppBar
     @Override
     public void afterNavigation(AfterNavigationEvent event)
     {
-        // TODO
-        String pageTitle = PageTitleUtil.getPageTitle(event.getActiveChain());
-        searchField.setPlaceholder(pageTitle != null
-                                   ? "Search in " + pageTitle
-                                   : "Search in...");
+        searchField.setPlaceholder(getPlaceholder());
     }
 
     @Override
     public void localeChange(LocaleChangeEvent event)
     {
-        // TODO
-        String pageTitle = PageTitleUtil.getPageTitle();
-        searchField.setPlaceholder(pageTitle != null
-                                   ? "Search in " + pageTitle
-                                   : "Search in...");
+        searchField.setPlaceholder(getPlaceholder());
     }
 
-    //region TYPES
-    public interface SearchChangeListener<T> extends HasValue.ValueChangeListener<HasValue.ValueChangeEvent<T>>
+    private String getPlaceholder()
     {
-        // just Type Alias
+        SearchTarget target = RoutingUtil.getCurrentSearchTarget();
+        if (target != null)
+        {
+            return getTranslation(I18N_SEARCH_IN, getTranslation(target.getKey()));
+        }
+
+        String pageTitle = RoutingUtil.getPageTitle();
+        return pageTitle != null
+               ? getTranslation(I18N_SEARCH_IN, pageTitle)
+               : getTranslation(I18N_SEARCH);
     }
-    //endregion
 }
