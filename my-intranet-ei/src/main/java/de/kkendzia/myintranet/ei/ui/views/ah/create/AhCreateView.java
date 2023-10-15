@@ -5,7 +5,7 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.ei.ui._framework.view.AbstractEIView;
+import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
 import org.springframework.beans.factory.annotation.Autowired;

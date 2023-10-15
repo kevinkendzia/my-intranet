@@ -12,7 +12,7 @@ import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.function.SerializableSupplier;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import de.kkendzia.myintranet.ei.ui._framework.EIComponent;
+import de.kkendzia.myintranet.ei.core.EIComponent;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider;
 
 import java.io.Serializable;

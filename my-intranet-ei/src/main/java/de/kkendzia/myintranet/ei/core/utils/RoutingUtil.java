@@ -1,10 +1,10 @@
-package de.kkendzia.myintranet.ei.ui._framework.utils;
+package de.kkendzia.myintranet.ei.core.utils;
 
 import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.PageTitle;
-import de.kkendzia.myintranet.ei.ui._framework.search.SearchRoute;
+import de.kkendzia.myintranet.ei.core.search.SearchRoute;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget;
 import org.springframework.core.annotation.AnnotationUtils;
 

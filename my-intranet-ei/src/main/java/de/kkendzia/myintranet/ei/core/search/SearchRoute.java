@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui._framework.search;
+package de.kkendzia.myintranet.ei.core.search;
 
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget;
 

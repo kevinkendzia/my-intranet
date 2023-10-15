@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui._framework.utils;
+package de.kkendzia.myintranet.ei.core.utils;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.function.ValueProvider;

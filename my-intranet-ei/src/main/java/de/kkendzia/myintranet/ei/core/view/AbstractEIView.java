@@ -1,11 +1,11 @@
-package de.kkendzia.myintranet.ei.ui._framework.view;
+package de.kkendzia.myintranet.ei.core.view;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.HasDynamicTitle;
-import de.kkendzia.myintranet.ei.ui._framework.EIComponent;
-import de.kkendzia.myintranet.ei.ui._framework.parameters.ParameterDefinition;
+import de.kkendzia.myintranet.ei.core.EIComponent;
+import de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition;
 
 import java.util.*;
 

@@ -9,16 +9,15 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.ei.ui._framework.search.SearchParameters;
-import de.kkendzia.myintranet.ei.ui._framework.search.SearchRoute;
-import de.kkendzia.myintranet.ei.ui._framework.view.AbstractEIView;
+import de.kkendzia.myintranet.ei.core.search.SearchParameters;
+import de.kkendzia.myintranet.ei.core.search.SearchRoute;
+import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import de.kkendzia.myintranet.ei.ui.views.ah.search.AhSearchPresenter.SearchItem;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static de.kkendzia.myintranet.ei.ui._framework.utils.GridColumnFactory.*;
 import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget.AH;
 
 @Route(value = "ah/search", layout = EIMainLayout.class)

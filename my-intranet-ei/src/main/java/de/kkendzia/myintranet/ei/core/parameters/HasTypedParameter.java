@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui._framework.parameters;
+package de.kkendzia.myintranet.ei.core.parameters;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
