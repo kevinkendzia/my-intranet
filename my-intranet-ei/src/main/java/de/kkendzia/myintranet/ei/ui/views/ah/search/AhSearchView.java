@@ -18,6 +18,7 @@ import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import de.kkendzia.myintranet.ei.ui.views.ah.search.AhSearchPresenter.SearchItem;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.*;
 import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget.AH;
 
 @Route(value = "ah/search", layout = EIMainLayout.class)

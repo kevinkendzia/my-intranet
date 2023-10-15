@@ -7,4 +7,8 @@ public interface CRUDDAO<T, I> extends DAO<T, I>
 {
     List<T> findAll();
     Optional<T> finaOneById(I id);
+
+    void update(T entity);
+
+    void create(T entity);
 }

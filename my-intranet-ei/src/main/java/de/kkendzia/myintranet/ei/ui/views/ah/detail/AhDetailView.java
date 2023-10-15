@@ -10,6 +10,8 @@ import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.ei.core.parameters.HasTypedParameter;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
+import de.kkendzia.myintranet.ei.core.view.sidebar.SidebarConfig;
+import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
 import de.kkendzia.myintranet.ei.ui.components.async.AsyncContainer;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.content.DummyPanel;
@@ -29,6 +31,16 @@ public class AhDetailView
 
     public AhDetailView()
     {
+        setSidebarConfig(
+                new SidebarConfig.Builder()
+                        .add(new SidebarConfig.SidebarConfigEntry(getTranslation("label.save"), () -> presenter.save()))
+                        .build());
+
+        setToolbarConfig(
+                new ToolbarConfig.Builder()
+                        .add(new ToolbarConfig.ToolbarConfigEntry(getTranslation("label.save"), () -> presenter.save()))
+                        .build());
+
         VerticalLayout root = getContent();
         root.setAlignItems(STRETCH);
         root.add(hTitle);

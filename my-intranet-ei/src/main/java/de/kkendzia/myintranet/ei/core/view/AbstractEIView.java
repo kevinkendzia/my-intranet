@@ -6,16 +6,20 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.HasDynamicTitle;
 import de.kkendzia.myintranet.ei.core.EIComponent;
 import de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition;
+import de.kkendzia.myintranet.ei.core.view.sidebar.SidebarConfig;
+import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
 
 import java.util.*;
 
 import static java.util.Collections.emptyList;
 
-public abstract class AbstractEIView<C extends Component> extends EIComponent<C> implements HasDynamicTitle, BeforeEnterObserver
+public abstract class AbstractEIView<C extends Component> extends EIComponent<C> implements HasDynamicTitle, BeforeEnterObserver, EIView
 {
     private String pageTitle;
     private Set<ParameterDefinition<?>> qpDefinitions = new HashSet<>();
     private Map<ParameterDefinition<?>, List<?>> qpValueMap = new HashMap<>();
+    private ToolbarConfig toolbarConfig;
+    private SidebarConfig sidebarConfig;
 
     protected AbstractEIView()
     {
@@ -38,6 +42,27 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
     {
         //noinspection unchecked
         return (List<T>) qpValueMap.getOrDefault(definition, emptyList());
+    }
+
+    protected void setToolbarConfig(ToolbarConfig toolbarConfig)
+    {
+        this.toolbarConfig = toolbarConfig;
+    }
+
+    @Override
+    public Optional<ToolbarConfig> getOptionalToolbarConfig()
+    {
+        return Optional.ofNullable(toolbarConfig);
+    }
+
+    public Optional<SidebarConfig> getOptionalSidebarConfig()
+    {
+        return Optional.ofNullable(sidebarConfig);
+    }
+
+    protected void setSidebarConfig(SidebarConfig sidebarConfig)
+    {
+        this.sidebarConfig = sidebarConfig;
     }
 
     @Override

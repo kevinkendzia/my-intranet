@@ -16,4 +16,9 @@ public class AhDetailPresenter
     {
         return ahDAO.finaOneById(id).orElseThrow(UnknownIDException::new);
     }
+
+    public void save()
+    {
+
+    }
 }
