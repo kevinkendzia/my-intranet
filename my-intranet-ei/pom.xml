@@ -30,6 +30,10 @@
             <groupId>de.kkendzia</groupId>
             <artifactId>my-intranet-app</artifactId>
         </dependency>
+        <dependency>
+            <groupId>de.kkendzia</groupId>
+            <artifactId>my-intranet-microstream</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.vaadin</groupId>
