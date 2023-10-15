@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.core;
+package de.kkendzia.myintranet.ei.core.i18n;
 
 import com.vaadin.flow.i18n.I18NProvider;
 import org.slf4j.Logger;

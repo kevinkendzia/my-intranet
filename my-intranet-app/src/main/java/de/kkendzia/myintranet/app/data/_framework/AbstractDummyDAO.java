@@ -1,11 +1,12 @@
-package de.kkendzia.myintranet.app.data;
+package de.kkendzia.myintranet.app.data._framework;
+
+import de.kkendzia.myintranet.domain._framework.CRUDDAO;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 public abstract class AbstractDummyDAO<T>
-        implements DAO<T, Long>
+        implements CRUDDAO<T, Long>
 {
     private int count;
 
@@ -23,8 +24,8 @@ public abstract class AbstractDummyDAO<T>
     }
 
     @Override
-    public Optional<T> findOneById(Long id)
+    public T getOneById(Long id)
     {
-        return Optional.of(createEntity(Math.toIntExact(id)));
+        return createEntity(Math.toIntExact(id));
     }
 }

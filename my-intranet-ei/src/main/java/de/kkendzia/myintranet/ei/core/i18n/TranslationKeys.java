@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.core;
+package de.kkendzia.myintranet.ei.core.i18n;
 
 public final class TranslationKeys
 {

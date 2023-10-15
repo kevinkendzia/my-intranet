@@ -44,26 +44,31 @@ public class AhSearchPresenter
 
         return Stream.of(
                 new SearchItem(
+                        1,
                         11111,
                         "TEST_AH1",
                         now.minusMonths(random.nextInt(12)),
                         now.plusMonths(random.nextInt(12))),
                 new SearchItem(
+                        2,
                         22222,
                         "TEST_AH2",
                         now.minusMonths(random.nextInt(12)),
                         now.plusMonths(random.nextInt(12))),
                 new SearchItem(
+                        3,
                         33333,
                         "TEST_AH3",
                         now.minusMonths(random.nextInt(12)),
                         now.plusMonths(random.nextInt(12))),
                 new SearchItem(
+                        4,
                         44444,
                         "TEST_AH4",
                         now.minusMonths(random.nextInt(12)),
                         now.plusMonths(random.nextInt(12))),
                 new SearchItem(
+                        5,
                         55555,
                         "TEST_AH5",
                         now.minusMonths(random.nextInt(12)),
@@ -72,10 +77,11 @@ public class AhSearchPresenter
 
     //region TYPES
     public record SearchItem(
+            long id,
             int ahnr,
             String matchcode,
             LocalDate enterDate,
-            LocalDate leaveDate)
+            LocalDate exitDate)
     {
         // just a record
     }

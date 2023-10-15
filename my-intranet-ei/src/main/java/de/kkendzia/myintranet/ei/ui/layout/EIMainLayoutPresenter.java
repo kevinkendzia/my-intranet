@@ -4,7 +4,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.router.QueryParameters;
-import de.kkendzia.myintranet.ei.core.TranslationKeys;
+import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import de.kkendzia.myintranet.ei.ui.views.ah.search.AhSearchView;
 import org.springframework.stereotype.Component;
