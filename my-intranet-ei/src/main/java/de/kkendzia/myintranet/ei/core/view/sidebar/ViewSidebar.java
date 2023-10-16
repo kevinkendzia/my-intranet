@@ -14,6 +14,8 @@ public class ViewSidebar extends Composite<VerticalLayout>
         requireNonNull(config, "config can't be null!");
 
         VerticalLayout root = getContent();
+        root.addClassNames("ei-view-sidebar");
+        root.setSizeUndefined();
         root.setAlignItems(FlexComponent.Alignment.STRETCH);
 
         for (SidebarConfig.SidebarConfigEntry entry : config.entries())

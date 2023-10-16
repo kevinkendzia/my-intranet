@@ -5,10 +5,13 @@ import de.kkendzia.myintranet.domain.ah.AhDAO;
 import de.kkendzia.myintranet.domain.shared.Adress;
 import de.kkendzia.myintranet.domain.shared.AdressDAO;
 import de.kkendzia.myintranet.domain.shared.Mandant;
+import de.kkendzia.myintranet.domain.shared.MandantDAO;
 import de.kkendzia.myintranet.ei.core.annotations.Presenter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
 
 @Presenter
@@ -18,6 +21,8 @@ public class AhCreatePresenter
     private AhDAO ahDAO;
     @Autowired
     private AdressDAO adressDAO;
+    @Autowired
+    private MandantDAO mandantDAO;
 
     // TODO Transactions?
     // TODO MapStruct?
@@ -42,6 +47,11 @@ public class AhCreatePresenter
         }
     }
 
+    public List<Mandant> loadMandantItems()
+    {
+        return mandantDAO.findAll().sorted(Comparator.comparing(Mandant::getName)).toList();
+    }
+
     public record AhCreateRequest(
             AhData coreData,
             Adress adressData)
@@ -55,22 +65,25 @@ public class AhCreatePresenter
         private Ah.Ahnr ahnr;
         private String matchcode;
         private Mandant mandant;
+        private LocalDate enterDate;
 
         public AhData()
         {
-            this(new Random().nextInt(1000), new Ah.Ahnr(12345), "TEST AH", new Mandant(new Random().nextInt(1000), "TEST MANDANT"));
+            this(new Random().nextInt(1000), new Ah.Ahnr(12345), "TEST AH", new Mandant(new Random().nextInt(1000), "TEST MANDANT"), LocalDate.now());
         }
 
         public AhData(
                 long id,
                 Ah.Ahnr ahnr,
                 String matchcode,
-                Mandant mandant)
+                Mandant mandant,
+                LocalDate enterDate)
         {
             this.id=id;
             this.ahnr = ahnr;
             this.matchcode = matchcode;
             this.mandant = mandant;
+            this.enterDate=enterDate;
         }
 
         public long getId()
@@ -106,6 +119,17 @@ public class AhCreatePresenter
         public void setMandant(Mandant mandant)
         {
             this.mandant = mandant;
+        }
+
+        public LocalDate getEnterDate()
+        {
+            return enterDate;
+        }
+
+        public AhData setEnterDate(LocalDate enterDate)
+        {
+            this.enterDate = enterDate;
+            return this;
         }
     }
 }

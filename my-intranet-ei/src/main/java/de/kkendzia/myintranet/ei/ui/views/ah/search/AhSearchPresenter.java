@@ -28,7 +28,7 @@ public class AhSearchPresenter
         // TODO
         return Math.toIntExact(ahDAO
                 .findAll()
-                .filter(x -> x.getMatchcode().contains(searchtext))
+                .filter(x -> searchtext == null || x.getMatchcode().contains(searchtext))
                 .count());
     }
 
@@ -40,7 +40,7 @@ public class AhSearchPresenter
         // TODO
         return ahDAO
                 .findAll()
-                .filter(x -> x.getMatchcode().contains(searchtext))
+                .filter(x -> searchtext == null || x.getMatchcode().contains(searchtext))
                 .skip(offset)
                 .limit(limit)
                 .map(x -> new SearchItem(

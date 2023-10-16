@@ -24,7 +24,8 @@ public abstract class AbstractForm<T> extends Composite<VerticalLayout> implemen
         VerticalLayout root = getContent();
         if(label != null)
         {
-            root.add(new NativeLabel(label));
+            NativeLabel lbl = new NativeLabel(label);
+            root.add(lbl);
         }
         root.add(form);
     }
