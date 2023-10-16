@@ -7,9 +7,9 @@ import de.kkendzia.myintranet.microstream.MyIntranetRoot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static de.kkendzia.myintranet.domain.utils.Reduce.toOnlyElement;
 
@@ -20,9 +20,9 @@ public class MSAhDAO extends AbstractMicrostreamDAO<Ah, Long> implements AhDAO
     private MyIntranetRoot root;
 
     @Override
-    public List<Ah> findAll()
+    public Stream<Ah> findAll()
     {
-        return root.getAhs();
+        return root.getAhs().stream();
     }
 
     @Override

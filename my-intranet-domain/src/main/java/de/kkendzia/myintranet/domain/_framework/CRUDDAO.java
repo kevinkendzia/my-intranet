@@ -1,11 +1,11 @@
 package de.kkendzia.myintranet.domain._framework;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface CRUDDAO<T, I> extends DAO<T, I>
 {
-    List<T> findAll();
+    Stream<T> findAll();
     Optional<T> finaOneById(I id);
 
     void update(T entity);

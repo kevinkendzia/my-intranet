@@ -8,6 +8,7 @@ import de.kkendzia.myintranet.domain.shared.Mandant;
 import de.kkendzia.myintranet.ei.core.annotations.Presenter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.Random;
 
 @Presenter
@@ -22,13 +23,17 @@ public class AhCreatePresenter
     // TODO MapStruct?
     public void save(AhCreateRequest request)
     {
-        if (request.coreData() != null)
+        AhData coreData = request.coreData();
+        if (coreData != null)
         {
             ahDAO.create(new Ah(
                     0,
-                    request.coreData().getAhnr(),
-                    request.coreData().getMatchcode(),
-                    request.coreData().getMandant()));
+                    coreData.getAhnr(),
+                    coreData.getMatchcode(),
+                    coreData.getMandant(),
+                    // TODO
+                    LocalDate.now(),
+                    LocalDate.now()));
         }
         if(request.adressData() != null)
         {

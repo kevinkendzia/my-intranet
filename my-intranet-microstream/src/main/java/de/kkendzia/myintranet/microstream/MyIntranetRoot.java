@@ -7,6 +7,8 @@ import one.microstream.integrations.spring.boot.types.Storage;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.requireNonNull;
+
 @Storage
 public class MyIntranetRoot
 {
@@ -20,7 +22,7 @@ public class MyIntranetRoot
 
     public void setAhs(List<Ah> ahs)
     {
-        this.ahs = ahs;
+        this.ahs = requireNonNull(ahs, "ahs can't be null!");
     }
 
     public List<Adress> getAdresses()
@@ -30,6 +32,6 @@ public class MyIntranetRoot
 
     public void setAdresses(List<Adress> adresses)
     {
-        this.adresses = adresses;
+        this.adresses = requireNonNull(adresses, "adresses can't be null!");
     }
 }

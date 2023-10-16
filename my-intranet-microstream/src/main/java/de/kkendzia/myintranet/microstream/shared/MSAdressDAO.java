@@ -5,9 +5,9 @@ import de.kkendzia.myintranet.domain.shared.AdressDAO;
 import de.kkendzia.myintranet.microstream.AbstractMicrostreamDAO;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static de.kkendzia.myintranet.domain.utils.Reduce.toOnlyElement;
 
@@ -15,9 +15,9 @@ import static de.kkendzia.myintranet.domain.utils.Reduce.toOnlyElement;
 public class MSAdressDAO extends AbstractMicrostreamDAO<Adress, Long> implements AdressDAO
 {
     @Override
-    public List<Adress> findAll()
+    public Stream<Adress> findAll()
     {
-        return getRoot().getAdresses();
+        return getRoot().getAdresses().stream();
     }
 
     @Override

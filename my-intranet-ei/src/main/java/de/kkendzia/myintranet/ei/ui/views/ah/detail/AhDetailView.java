@@ -25,12 +25,13 @@ public class AhDetailView
         implements HasTypedParameter<Long>, AfterNavigationObserver
 {
     private final H1 hTitle = new H1("AH CREATE");
+    private final AhDetailPresenter presenter;
 
     @Autowired
-    private AhDetailPresenter presenter;
-
-    public AhDetailView()
+    public AhDetailView(final AhDetailPresenter presenter)
     {
+        this.presenter=presenter;
+
         setSidebarConfig(
                 new SidebarConfig.Builder()
                         .add(new SidebarConfig.SidebarConfigEntry(getTranslation("label.save"), () -> presenter.save()))

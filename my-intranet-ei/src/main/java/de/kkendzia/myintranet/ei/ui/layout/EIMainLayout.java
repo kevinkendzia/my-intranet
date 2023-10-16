@@ -80,7 +80,7 @@ public class EIMainLayout
             return eiView;
         }
 
-        throw new IllegalArgumentException("MainLayout content must be a EIView!");
+        throw new IllegalArgumentException("MainLayout content must be a EIView! " + content.getClass());
     }
 
     public static class ViewWrapper extends Composite<HorizontalLayout>
