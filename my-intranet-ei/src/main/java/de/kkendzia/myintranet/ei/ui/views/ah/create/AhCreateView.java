@@ -19,7 +19,7 @@ import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.ADRESS;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.COMMON;
 
 @Route(value = "ah/new", layout = EIMainLayout.class)
-@MenuRoute(label = "menu.create", parent = "ah/create")
+@MenuRoute(label = "menu.create", parent = "ah", position = 0)
 public class AhCreateView extends AbstractEIView<VerticalLayout>
 {
     private CoreDataForm frmCore = new CoreDataForm(getTranslation(COMMON));

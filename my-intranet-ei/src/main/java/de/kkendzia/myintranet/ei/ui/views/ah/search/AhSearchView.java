@@ -22,7 +22,7 @@ import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.*;
 import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget.AH;
 
 @Route(value = "ah/search", layout = EIMainLayout.class)
-@MenuRoute(label = "menu.search", parent = "ah/search")
+@MenuRoute(label = "menu.search", parent = "ah", position = 1)
 @SearchRoute(target = AH)
 public class AhSearchView
         extends AbstractEIView<VerticalLayout>

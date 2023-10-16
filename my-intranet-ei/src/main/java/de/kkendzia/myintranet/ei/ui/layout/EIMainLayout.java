@@ -10,12 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.sidebar.ViewSidebar;
 import de.kkendzia.myintranet.ei.core.view.toolbar.ViewToolbar;
-import de.kkendzia.myintranet.ei.ui.components.menu.DrawerMenu;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider;
-import de.kkendzia.myintranet.ei.ui.layout.appbar.EIAppBar;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -30,25 +25,9 @@ public class EIMainLayout
     {
         this.presenter = presenter;
 
-        DrawerMenu menu =
-                new DrawerMenu(
-                        new DrawerMenu.MenuHeader(),
-                        new DrawerMenu.MenuFooter());
-        menu.setItemProvider(
-                new AnnotationItemProvider(
-                        List.of(
-                                new DrawerMenu.DrawerMenuItem(
-                                        "nav",
-                                        "menu.target.nav"),
-                                new DrawerMenu.DrawerMenuItem(
-                                        "ah",
-                                        "menu.target.ah"),
-                                new DrawerMenu.DrawerMenuItem(
-                                        "other",
-                                        "menu.target.other"))));
-
+        addClassName("ei-main-layout");
         setPrimarySection(Section.DRAWER);
-        addToDrawer(menu);
+        addToDrawer(new EIMenu());
         addToNavbar(new EIAppBar(presenter));
     }
 
@@ -88,11 +67,15 @@ public class EIMainLayout
         public ViewWrapper(AbstractEIView<?> view)
         {
             VerticalLayout vlContent = new VerticalLayout();
+            vlContent.addClassNames("ei-main-sidebar-layout");
+            vlContent.setSizeFull();
             vlContent.setAlignItems(FlexComponent.Alignment.STRETCH);
             view.getOptionalToolbarConfig().ifPresent(tb -> vlContent.add(new ViewToolbar(tb)));
             vlContent.addAndExpand(view);
 
             HorizontalLayout root = getContent();
+            root.addClassNames("ei-main-sidebar-layout");
+            root.setSizeFull();
             root.setAlignItems(FlexComponent.Alignment.STRETCH);
             view.getOptionalSidebarConfig().ifPresent(sb -> root.add(new ViewSidebar(sb)));
             root.addAndExpand(view);

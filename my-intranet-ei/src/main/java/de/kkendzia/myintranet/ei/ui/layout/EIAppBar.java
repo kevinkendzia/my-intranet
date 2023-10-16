@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.layout.appbar;
+package de.kkendzia.myintranet.ei.ui.layout;
 
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -10,7 +10,6 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import de.kkendzia.myintranet.ei.core.EIComponent;
 import de.kkendzia.myintranet.ei.core.utils.RoutingUtil;
 import de.kkendzia.myintranet.ei.ui.components.search.SearchField;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchPreviewItem;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget;
 

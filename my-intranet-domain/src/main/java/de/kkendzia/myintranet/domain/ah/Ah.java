@@ -4,6 +4,8 @@ import de.kkendzia.myintranet.domain.shared.Mandant;
 
 import java.time.LocalDate;
 
+import static java.util.Objects.requireNonNull;
+
 public final class Ah
 {
     private  long id;
@@ -47,7 +49,7 @@ public final class Ah
 
     public void setAhnr(Ahnr ahnr)
     {
-        this.ahnr = ahnr;
+        this.ahnr = requireNonNull(ahnr, "ahnr can't be null!");
     }
 
     public String getMatchcode()
@@ -57,7 +59,7 @@ public final class Ah
 
     public void setMatchcode(String matchcode)
     {
-        this.matchcode = matchcode;
+        this.matchcode = requireNonNull(matchcode, "matchcode can't be null!");
     }
 
     public Mandant getMandant()
@@ -67,7 +69,7 @@ public final class Ah
 
     public void setMandant(Mandant mandant)
     {
-        this.mandant = mandant;
+        this.mandant = requireNonNull(mandant, "mandant can't be null!");
     }
 
     public LocalDate getEnterDate()

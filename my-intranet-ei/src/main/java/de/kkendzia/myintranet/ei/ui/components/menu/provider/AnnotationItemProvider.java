@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.*;
 
 public class AnnotationItemProvider implements DrawerMenu.ItemProvider
 {
-    private SerializableSupplier<RouteConfiguration> routConfigurationSupplier = RouteConfiguration::forSessionScope;
+    private final SerializableSupplier<RouteConfiguration> routConfigurationSupplier = RouteConfiguration::forSessionScope;
     private final List<DrawerMenuItem> preDefinedGroups;
 
     public AnnotationItemProvider(List<DrawerMenuItem> preDefinedGroups)
@@ -91,7 +91,7 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
 
     private static DrawerMenuItem createItemFromRoute(MenuRouteData data)
     {
-        // TODO: Icon!
+        // TODO: Icon! I18n!
         return new DrawerMenuItem(
                 data.key(),
                 data.label(),
