@@ -1,6 +1,7 @@
 package de.kkendzia.myintranet.ei.core.parameters;
 
 import com.vaadin.flow.function.SerializableFunction;
+import com.vaadin.flow.router.QueryParameters;
 
 import static com.vaadin.flow.function.SerializableFunction.identity;
 
@@ -15,6 +16,11 @@ public class ParameterDefinition<T>
     {
         this.name = name;
         this.parser = parser;
+    }
+
+    public QueryParameters createQueryParameters(String value)
+    {
+        return QueryParameters.of(name, value);
     }
 
     //region SETTER / GETTER

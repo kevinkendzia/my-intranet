@@ -3,14 +3,15 @@ package de.kkendzia.myintranet.ei.ui.layout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
-import com.vaadin.flow.router.QueryParameters;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import de.kkendzia.myintranet.ei.ui.views.ah.search.AhSearchView;
+import de.kkendzia.myintranet.ei.ui.views.search.SearchView;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Stream;
 
+import static de.kkendzia.myintranet.ei.core.search.SearchParameters.SEARCH_TEXT;
 import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchItemType.*;
 import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget.*;
 
@@ -30,7 +31,7 @@ public class EIMainLayoutPresenter
                     },
                     value.id());
         }
-        else
+        else if (value.target() != null && value.target() != OTHER)
         {
             UI.getCurrent().navigate(
                     switch (value.target)
@@ -38,7 +39,11 @@ public class EIMainLayoutPresenter
                         case AH -> AhSearchView.class;
                         default -> throw new IllegalStateException("Not implemented!");
                     },
-                    QueryParameters.of("searchtext", value.searchText()));
+                    SEARCH_TEXT.createQueryParameters(value.searchText()));
+        }
+        else
+        {
+            UI.getCurrent().navigate(SearchView.class, SEARCH_TEXT.createQueryParameters(value.searchText()));
         }
     }
 
