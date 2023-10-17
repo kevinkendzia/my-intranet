@@ -6,7 +6,7 @@ import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 
-public interface HasTypedParameter<T> extends HasElement, HasUrlParameter<T>
+public interface HasViewParameter<T> extends HasElement, HasUrlParameter<T>
 {
     String KEY_TYPED_PARAMETER = "__TYPED_PARAMETER__";
 
@@ -18,7 +18,7 @@ public interface HasTypedParameter<T> extends HasElement, HasUrlParameter<T>
         ComponentUtil.setData((Component) this, KEY_TYPED_PARAMETER, parameter);
     }
 
-    default T getParameter()
+    default T getViewParameter()
     {
         //noinspection unchecked
         return (T) ComponentUtil.getData((Component) this, KEY_TYPED_PARAMETER);

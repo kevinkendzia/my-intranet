@@ -1,12 +1,13 @@
 package de.kkendzia.myintranet.domain.ah;
 
+import de.kkendzia.myintranet.domain._framework.HasId;
 import de.kkendzia.myintranet.domain.shared.Mandant;
 
 import java.time.LocalDate;
 
 import static java.util.Objects.requireNonNull;
 
-public final class Ah
+public final class Ah implements HasId
 {
     private  long id;
     private  Ahnr ahnr;

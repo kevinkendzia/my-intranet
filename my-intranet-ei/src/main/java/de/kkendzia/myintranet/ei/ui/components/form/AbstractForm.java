@@ -12,6 +12,10 @@ public abstract class AbstractForm<T> extends Composite<VerticalLayout> implemen
     private Binder<T> binder = new Binder<>();
     private T bean;
 
+    protected AbstractForm()
+    {
+        this(null);
+    }
     protected AbstractForm(String label)
     {
         FormLayout form = new FormLayout();

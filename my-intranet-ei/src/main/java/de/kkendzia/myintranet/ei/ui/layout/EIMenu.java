@@ -9,6 +9,8 @@ import java.util.List;
 
 public final class EIMenu extends EIComponent<VerticalLayout>
 {
+    public static final String PARENT_OTHER = "other";
+
     public EIMenu()
     {
         DrawerMenu menu =
@@ -25,7 +27,7 @@ public final class EIMenu extends EIComponent<VerticalLayout>
                                         "ah",
                                         getTranslation("menu.target.ah")),
                                 new DrawerMenu.DrawerMenuItem(
-                                        "other",
+                                        PARENT_OTHER,
                                         getTranslation("menu.target.other")))));
         VerticalLayout root = getContent();
         root.addAndExpand(menu);

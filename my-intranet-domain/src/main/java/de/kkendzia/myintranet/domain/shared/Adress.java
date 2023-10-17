@@ -1,8 +1,10 @@
 package de.kkendzia.myintranet.domain.shared;
 
+import de.kkendzia.myintranet.domain._framework.HasId;
+
 import java.util.Random;
 
-public class Adress
+public class Adress implements HasId
 {
     private long id;
     private String line1;

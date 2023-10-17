@@ -17,6 +17,7 @@ public class MyIntranetRoot
     private List<Ah> ahs = new ArrayList<>();
     private List<Adress> adresses = new ArrayList<>();
     private List<Mandant> mandanten = new ArrayList<>();
+    private long lastId;
 
     public boolean isInit()
     {
@@ -56,5 +57,15 @@ public class MyIntranetRoot
     public void setMandanten(List<Mandant> mandanten)
     {
         this.mandanten = requireNonNull(mandanten, "mandanten can't be null!");
+    }
+
+    public long getLastId()
+    {
+        return this.lastId;
+    }
+
+    public void setLastId(long lastId)
+    {
+        this.lastId = lastId;
     }
 }

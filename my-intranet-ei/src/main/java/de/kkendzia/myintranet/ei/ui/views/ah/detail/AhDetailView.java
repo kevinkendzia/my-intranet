@@ -8,7 +8,7 @@ import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.domain.ah.Ah;
-import de.kkendzia.myintranet.ei.core.parameters.HasTypedParameter;
+import de.kkendzia.myintranet.ei.core.parameters.HasViewParameter;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.sidebar.SidebarConfig;
 import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
@@ -22,7 +22,7 @@ import static com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment.ST
 @Route(value = "ah", layout = EIMainLayout.class)
 public class AhDetailView
         extends AbstractEIView<VerticalLayout>
-        implements HasTypedParameter<Long>, AfterNavigationObserver
+        implements HasViewParameter<Long>, AfterNavigationObserver
 {
     private final H1 hTitle = new H1("AH CREATE");
     private final AhDetailPresenter presenter;
@@ -30,7 +30,7 @@ public class AhDetailView
     @Autowired
     public AhDetailView(final AhDetailPresenter presenter)
     {
-        this.presenter=presenter;
+        this.presenter = presenter;
 
         setSidebarConfig(
                 new SidebarConfig.Builder()
@@ -73,14 +73,14 @@ public class AhDetailView
     public void beforeEnter(BeforeEnterEvent event)
     {
         super.beforeEnter(event);
-        long id = getParameter();
+        long id = getViewParameter();
         Ah ah = presenter.loadAhById(id);
     }
 
     @Override
     public void afterNavigation(AfterNavigationEvent event)
     {
-        long id = getParameter();
+        long id = getViewParameter();
         hTitle.setText(hTitle.getText() + id);
     }
 }

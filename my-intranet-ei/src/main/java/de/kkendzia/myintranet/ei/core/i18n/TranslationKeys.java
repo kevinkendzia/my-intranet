@@ -42,6 +42,10 @@ public final class TranslationKeys
     public static final String REGULIERER = "label.regulierer";
     public static final String COMMON = "label.common";
     public static final String CREATE = "label.create";
+    public static final String ID = "label.id";
+    public static final String NAME = "label.name";
+    public static final String IMAGE = "label.image";
+    public static final String SAVE = "label.save";
     //endregion
 
     private TranslationKeys()
