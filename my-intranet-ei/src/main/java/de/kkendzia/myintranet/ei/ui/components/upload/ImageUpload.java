@@ -50,6 +50,7 @@ public class ImageUpload extends AbstractCompositeField<VerticalLayout, ImageUpl
 
         VerticalLayout root = getContent();
         root.setAlignItems(FlexComponent.Alignment.STRETCH);
+        root.setPadding(false);
         root.add(image);
         root.add(upload);
     }

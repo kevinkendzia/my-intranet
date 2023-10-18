@@ -7,14 +7,14 @@ import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
 
-public record ToolbarConfig(String title, List<ToolbarConfigEntry> entries)
+public record ToolbarConfig(String title, List<ToolbarAction> actions)
 {
     public ToolbarConfig(Builder builder)
     {
-        this(builder.title, unmodifiableList(builder.entries));
+        this(builder.title, unmodifiableList(builder.actions));
     }
 
-    public record ToolbarConfigEntry(String label, SerializableRunnable action)
+    public record ToolbarAction(String label, SerializableRunnable action)
     {
         // just a record
     }
@@ -22,7 +22,7 @@ public record ToolbarConfig(String title, List<ToolbarConfigEntry> entries)
     public static class Builder
     {
         private String title;
-        private List<ToolbarConfigEntry> entries = new ArrayList<>();
+        private final List<ToolbarAction> actions = new ArrayList<>();
 
         public Builder title(String title)
         {
@@ -30,14 +30,14 @@ public record ToolbarConfig(String title, List<ToolbarConfigEntry> entries)
             return this;
         }
 
-        public Builder add(ToolbarConfigEntry entry)
+        public Builder action(ToolbarAction action)
         {
-            entries.add(entry);
+            actions.add(action);
             return this;
         }
         public Builder action(String label, SerializableRunnable action)
         {
-            entries.add(new ToolbarConfigEntry(label, action));
+            actions.add(new ToolbarAction(label, action));
             return this;
         }
 

@@ -39,7 +39,7 @@ public class AhDetailView
 
         setToolbarConfig(
                 new ToolbarConfig.Builder()
-                        .add(new ToolbarConfig.ToolbarConfigEntry(getTranslation("label.save"), () -> presenter.save()))
+                        .action(new ToolbarConfig.ToolbarAction(getTranslation("label.save"), () -> presenter.save()))
                         .build());
 
         VerticalLayout root = getContent();

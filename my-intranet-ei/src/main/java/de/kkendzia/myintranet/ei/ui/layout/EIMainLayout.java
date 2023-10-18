@@ -72,6 +72,7 @@ public class EIMainLayout
             VerticalLayout vlContent = new VerticalLayout();
             vlContent.addClassNames("ei-main-toolbar-layout");
             vlContent.setSizeFull();
+            vlContent.setPadding(false);
             vlContent.setAlignItems(FlexComponent.Alignment.STRETCH);
             view.getOptionalToolbarConfig().ifPresent(tb -> vlContent.add(new ViewToolbar(tb)));
             vlContent.addAndExpand(view);
@@ -79,6 +80,7 @@ public class EIMainLayout
             HorizontalLayout root = getContent();
             root.addClassNames("ei-main-sidebar-layout");
             root.setSizeFull();
+            root.setPadding(true);
             root.setAlignItems(FlexComponent.Alignment.STRETCH);
             view.getOptionalSidebarConfig().ifPresent(sb -> root.add(new ViewSidebar(sb)));
             root.addAndExpand(vlContent);

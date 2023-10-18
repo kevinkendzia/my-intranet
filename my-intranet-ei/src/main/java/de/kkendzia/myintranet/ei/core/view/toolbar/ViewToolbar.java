@@ -4,8 +4,8 @@ import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import static java.util.Objects.requireNonNull;
 
@@ -16,19 +16,26 @@ public class ViewToolbar extends Composite<HorizontalLayout>
         requireNonNull(config, "config can't be null!");
 
         HorizontalLayout root = getContent();
-        root.addClassNames("ei-view-toolbar");
-        root.addClassNames(LumoUtility.Padding.Horizontal.MEDIUM);
+        root.addClassNames("view-toolbar");
         root.setAlignItems(FlexComponent.Alignment.STRETCH);
-        root.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
+        root.setJustifyContentMode(JustifyContentMode.BETWEEN);
 
         if(config.title() != null && !config.title().isBlank())
         {
             root.add(new H2(config.title()));
         }
 
-        for (ToolbarConfig.ToolbarConfigEntry entry : config.entries())
+        HorizontalLayout hlActions = null;
+        for (ToolbarConfig.ToolbarAction action : config.actions())
         {
-            root.add(new Button(entry.label(), e -> entry.action().run()));
+            if(hlActions == null)
+            {
+                hlActions = new HorizontalLayout();
+                hlActions.setPadding(false);
+                hlActions.setJustifyContentMode(JustifyContentMode.END);
+                root.addAndExpand(hlActions);
+            }
+            hlActions.add(new Button(action.label(), e -> action.action().run()));
         }
     }
 }

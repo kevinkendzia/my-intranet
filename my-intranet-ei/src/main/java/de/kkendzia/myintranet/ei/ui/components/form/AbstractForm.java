@@ -21,11 +21,14 @@ public abstract class AbstractForm<T> extends Composite<VerticalLayout> implemen
         FormLayout form = new FormLayout();
         form.setResponsiveSteps(
                 new FormLayout.ResponsiveStep("0", 1),
-                new FormLayout.ResponsiveStep("10em", 2));
+                new FormLayout.ResponsiveStep("20em", 2));
 
         initForm(form, binder);
 
         VerticalLayout root = getContent();
+        root.addClassName("my-intranet-form");
+        root.setPadding(false);
+
         if(label != null)
         {
             NativeLabel lbl = new NativeLabel(label);

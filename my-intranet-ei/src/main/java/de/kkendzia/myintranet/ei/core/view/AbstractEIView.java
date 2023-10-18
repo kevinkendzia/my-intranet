@@ -23,7 +23,7 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
 
     protected AbstractEIView()
     {
-
+        addClassName("ei-view");
     }
 
     protected void registerQueryParameter(ParameterDefinition<?> definition)

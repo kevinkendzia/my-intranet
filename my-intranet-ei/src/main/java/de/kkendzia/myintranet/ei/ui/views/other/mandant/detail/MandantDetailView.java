@@ -18,11 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Route(value = "mandant", layout = EIMainLayout.class)
 public class MandantDetailView extends AbstractEIView<VerticalLayout> implements HasViewParameter<Long>
 {
-    private H2 hTitle = new H2(getTranslation("mandant"));
-    private MandantForm frmMandant = new MandantForm();
-    private ImageUpload imgUpload = new ImageUpload();
+    private final H2 hTitle = new H2(getTranslation("mandant"));
+    private final MandantForm frmMandant = new MandantForm();
+    private final ImageUpload imgUpload = new ImageUpload();
 
-    private MandantDetailPresenter presenter;
+    private final MandantDetailPresenter presenter;
 
     @Autowired
     public MandantDetailView(MandantDetailPresenter presenter)
@@ -31,10 +31,12 @@ public class MandantDetailView extends AbstractEIView<VerticalLayout> implements
 
         setToolbarConfig(
                 new ToolbarConfig.Builder()
-                        .action(getTranslation(TranslationKeys.SAVE), () -> save())
-                        .build()                        );
+                        .title(getTranslation("mandant"))
+                        .action(getTranslation(TranslationKeys.SAVE), this::save)
+                        .build());
 
         VerticalLayout root = getContent();
+        root.setPadding(false);
         root.setAlignItems(FlexComponent.Alignment.STRETCH);
         root.add(hTitle);
         root.add(frmMandant);
