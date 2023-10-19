@@ -9,6 +9,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
 import static java.util.Objects.requireNonNull;
 
+// TODO: sticky? shrinking toolbar?
 public class ViewToolbar extends Composite<HorizontalLayout>
 {
     public ViewToolbar(ToolbarConfig config)

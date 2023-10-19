@@ -8,6 +8,7 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.sidebar.ViewSidebar;
 import de.kkendzia.myintranet.ei.core.view.toolbar.ViewToolbar;
@@ -67,7 +68,8 @@ public class EIMainLayout
     {
         public ViewWrapper(AbstractEIView<?> view)
         {
-            view.addClassName(LumoUtility.Overflow.AUTO);
+//            view.addClassName(LumoUtility.Overflow.AUTO);
+            view.getElement().getStyle().setHeight("20em");
 
             VerticalLayout vlContent = new VerticalLayout();
             vlContent.addClassNames("ei-main-toolbar-layout");
@@ -79,6 +81,7 @@ public class EIMainLayout
 
             HorizontalLayout root = getContent();
             root.addClassNames("ei-main-sidebar-layout");
+            root.addClassNames(Overflow.AUTO);
             root.setSizeFull();
             root.setPadding(true);
             root.setAlignItems(FlexComponent.Alignment.STRETCH);

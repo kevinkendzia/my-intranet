@@ -1,3 +1,4 @@
+@import 'variables.css';
 @import 'async-container-styles.css';
 
 vaadin-combo-box::part(toggle-button){
