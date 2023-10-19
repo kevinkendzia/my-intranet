@@ -10,7 +10,12 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
+import de.kkendzia.myintranet.ei.core.view.EIView;
+import de.kkendzia.myintranet.ei.core.view.sidebar.HasSidebarConfig;
+import de.kkendzia.myintranet.ei.core.view.sidebar.SidebarNotifier;
 import de.kkendzia.myintranet.ei.core.view.sidebar.ViewSidebar;
+import de.kkendzia.myintranet.ei.core.view.toolbar.HasToolbarConfig;
+import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarNotifier;
 import de.kkendzia.myintranet.ei.core.view.toolbar.ViewToolbar;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -66,18 +71,31 @@ public class EIMainLayout
 
     public static class ViewWrapper extends Composite<HorizontalLayout>
     {
-        public ViewWrapper(AbstractEIView<?> view)
+        public ViewWrapper(EIView view)
         {
-//            view.addClassName(LumoUtility.Overflow.AUTO);
-            view.getElement().getStyle().setHeight("20em");
+            view.addClassName(LumoUtility.Overflow.AUTO);
+//            view.getElement().getStyle().setHeight("20em");
 
             VerticalLayout vlContent = new VerticalLayout();
             vlContent.addClassNames("ei-main-toolbar-layout");
             vlContent.setSizeFull();
             vlContent.setPadding(false);
             vlContent.setAlignItems(FlexComponent.Alignment.STRETCH);
-            view.getOptionalToolbarConfig().ifPresent(tb -> vlContent.add(new ViewToolbar(tb)));
-            vlContent.addAndExpand(view);
+
+            if(view instanceof HasToolbarConfig t)
+            {
+                t.getOptionalToolbarConfig().ifPresent(tb ->
+                {
+                    ViewToolbar toolbar = new ViewToolbar(tb);
+                    vlContent.add(toolbar);
+
+                    if(view instanceof ToolbarNotifier n)
+                    {
+                        n.addToolbarChangeListener(toolbar);
+                    }
+                });
+            }
+            vlContent.addAndExpand((Component) view);
 
             HorizontalLayout root = getContent();
             root.addClassNames("ei-main-sidebar-layout");
@@ -85,7 +103,21 @@ public class EIMainLayout
             root.setSizeFull();
             root.setPadding(true);
             root.setAlignItems(FlexComponent.Alignment.STRETCH);
-            view.getOptionalSidebarConfig().ifPresent(sb -> root.add(new ViewSidebar(sb)));
+
+            if(view instanceof HasSidebarConfig s)
+            {
+                s.getOptionalSidebarConfig().ifPresent(sb ->
+                {
+                    ViewSidebar sidebar = new ViewSidebar(sb);
+                    root.add(sidebar);
+
+                    if(view instanceof SidebarNotifier n)
+                    {
+                        n.addSidebarChangeListener(sidebar);
+                    }
+                });
+            }
+
             root.addAndExpand(vlContent);
         }
     }

@@ -4,8 +4,8 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import de.kkendzia.myintranet.domain.shared.Adress;
-import de.kkendzia.myintranet.domain.shared.Country;
+import de.kkendzia.myintranet.domain.shared.adress.Adress;
+import de.kkendzia.myintranet.domain.shared.adress.Country;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;

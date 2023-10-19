@@ -131,7 +131,7 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
                 .filter(x -> Objects.equals(x.key(), key))
                 .reduce((x1, x2) ->
                         {
-                            throw new IllegalStateException("Found multiple root actions for key " + key);
+                            throw new IllegalStateException("Found multiple root actionsSupplier for key " + key);
                         })
                 .orElse(null);
     }

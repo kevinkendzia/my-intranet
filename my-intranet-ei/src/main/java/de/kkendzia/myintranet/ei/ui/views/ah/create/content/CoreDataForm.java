@@ -7,7 +7,7 @@ import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import de.kkendzia.myintranet.domain.ah.Ah;
-import de.kkendzia.myintranet.domain.shared.Mandant;
+import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
 import de.kkendzia.myintranet.ei.ui.views.ah.create.AhCreatePresenter.AhData;

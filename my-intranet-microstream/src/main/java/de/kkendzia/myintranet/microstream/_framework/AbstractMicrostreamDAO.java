@@ -51,6 +51,12 @@ public abstract class AbstractMicrostreamDAO<T extends HasId, I> implements CRUD
     }
 
     @Override
+    public long countAll()
+    {
+        return findAll().count();
+    }
+
+    @Override
     public Optional<T> finaOneById(I id)
     {
         return findAll().filter(a -> Objects.equals(a.getId(), id)).reduce(toOnlyElement());

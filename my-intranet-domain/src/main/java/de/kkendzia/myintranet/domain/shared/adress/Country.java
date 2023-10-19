@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.domain.shared;
+package de.kkendzia.myintranet.domain.shared.adress;
 
 import java.util.Random;
 

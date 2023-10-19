@@ -1,8 +1,9 @@
 package de.kkendzia.myintranet.microstream;
 
 import de.kkendzia.myintranet.domain.ah.Ah;
-import de.kkendzia.myintranet.domain.shared.Adress;
-import de.kkendzia.myintranet.domain.shared.Mandant;
+import de.kkendzia.myintranet.domain.shared.adress.Adress;
+import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
+import de.kkendzia.myintranet.domain.shared.mandant.MandantSetting;
 import one.microstream.integrations.spring.boot.types.Storage;
 
 import java.util.ArrayList;
@@ -14,10 +15,11 @@ import static java.util.Objects.requireNonNull;
 public class MyIntranetRoot
 {
     private boolean init;
+    private long lastId;
     private List<Ah> ahs = new ArrayList<>();
     private List<Adress> adresses = new ArrayList<>();
     private List<Mandant> mandanten = new ArrayList<>();
-    private long lastId;
+    private List<MandantSetting> mandantSettings = new ArrayList<>();
 
     public boolean isInit()
     {
@@ -67,5 +69,15 @@ public class MyIntranetRoot
     public void setLastId(long lastId)
     {
         this.lastId = lastId;
+    }
+
+    public List<MandantSetting> getMandantSettings()
+    {
+        return mandantSettings;
+    }
+
+    public void setMandantSettings(List<MandantSetting> mandantSettings)
+    {
+        this.mandantSettings = mandantSettings;
     }
 }

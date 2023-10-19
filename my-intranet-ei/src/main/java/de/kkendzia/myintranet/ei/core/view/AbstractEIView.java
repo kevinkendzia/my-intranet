@@ -6,20 +6,24 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.HasDynamicTitle;
 import de.kkendzia.myintranet.ei.core.EIComponent;
 import de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition;
+import de.kkendzia.myintranet.ei.core.view.sidebar.HasSidebarConfig;
 import de.kkendzia.myintranet.ei.core.view.sidebar.SidebarConfig;
+import de.kkendzia.myintranet.ei.core.view.sidebar.SidebarNotifier;
+import de.kkendzia.myintranet.ei.core.view.toolbar.HasToolbarConfig;
 import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
+import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarNotifier;
 
 import java.util.*;
 
 import static java.util.Collections.emptyList;
 
-public abstract class AbstractEIView<C extends Component> extends EIComponent<C> implements HasDynamicTitle, BeforeEnterObserver, EIView
+public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
+        implements EIView, HasDynamicTitle, BeforeEnterObserver, HasToolbarConfig, ToolbarNotifier,
+        HasSidebarConfig, SidebarNotifier
 {
     private String pageTitle;
-    private Set<ParameterDefinition<?>> qpDefinitions = new HashSet<>();
-    private Map<ParameterDefinition<?>, List<?>> qpValueMap = new HashMap<>();
-    private ToolbarConfig toolbarConfig;
-    private SidebarConfig sidebarConfig;
+    private final Set<ParameterDefinition<?>> qpDefinitions = new HashSet<>();
+    private final Map<ParameterDefinition<?>, List<?>> qpValueMap = new HashMap<>();
 
     protected AbstractEIView()
     {
@@ -46,23 +50,21 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
 
     protected void setToolbarConfig(ToolbarConfig toolbarConfig)
     {
-        this.toolbarConfig = toolbarConfig;
+        HasToolbarConfig.setToolbarConfig(this, toolbarConfig);
     }
-
-    @Override
-    public Optional<ToolbarConfig> getOptionalToolbarConfig()
+    protected void setToolbarConfig(ToolbarConfig.ToolbarConfigSupplier toolbarConfigSupplier)
     {
-        return Optional.ofNullable(toolbarConfig);
-    }
-
-    public Optional<SidebarConfig> getOptionalSidebarConfig()
-    {
-        return Optional.ofNullable(sidebarConfig);
+        HasToolbarConfig.setToolbarConfig(this, toolbarConfigSupplier);
     }
 
     protected void setSidebarConfig(SidebarConfig sidebarConfig)
     {
-        this.sidebarConfig = sidebarConfig;
+        HasSidebarConfig.setSidebarConfig(this, sidebarConfig);
+    }
+
+    protected void setSidebarConfig(SidebarConfig.SidebarConfigSupplier sidebarConfigSupplier)
+    {
+        HasSidebarConfig.setSidebarConfig(this, sidebarConfigSupplier);
     }
 
     @Override

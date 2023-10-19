@@ -1,6 +1,6 @@
 package de.kkendzia.myintranet.microstream._framework;
 
-import de.kkendzia.myintranet.domain.shared.Mandant;
+import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
 import de.kkendzia.myintranet.microstream.MyIntranetRoot;
 import one.microstream.integrations.spring.boot.types.config.StorageManagerInitializer;
 import one.microstream.storage.types.StorageManager;

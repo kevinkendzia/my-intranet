@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.domain.ah;
 
 import de.kkendzia.myintranet.domain._framework.HasId;
-import de.kkendzia.myintranet.domain.shared.Mandant;
+import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
 
 import java.time.LocalDate;
 

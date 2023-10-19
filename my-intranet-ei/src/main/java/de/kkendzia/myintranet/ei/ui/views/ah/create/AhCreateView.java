@@ -5,7 +5,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.domain.shared.Adress;
+import de.kkendzia.myintranet.domain.shared.adress.Adress;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider.MenuRoute;

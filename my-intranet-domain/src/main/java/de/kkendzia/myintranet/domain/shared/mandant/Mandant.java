@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.domain.shared;
+package de.kkendzia.myintranet.domain.shared.mandant;
 
 import de.kkendzia.myintranet.domain._framework.HasId;
 

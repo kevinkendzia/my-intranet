@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.ei.ui.views.other.mandant.search;
 
 import com.vaadin.flow.data.provider.DataProvider;
-import de.kkendzia.myintranet.domain.shared.MandantDAO;
+import de.kkendzia.myintranet.domain.shared.mandant.MandantDAO;
 import de.kkendzia.myintranet.ei.core.annotations.Presenter;
 import org.springframework.beans.factory.annotation.Autowired;
 

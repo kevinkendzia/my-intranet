@@ -2,10 +2,10 @@ package de.kkendzia.myintranet.ei.ui.views.ah.create;
 
 import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.domain.ah.AhDAO;
-import de.kkendzia.myintranet.domain.shared.Adress;
-import de.kkendzia.myintranet.domain.shared.AdressDAO;
-import de.kkendzia.myintranet.domain.shared.Mandant;
-import de.kkendzia.myintranet.domain.shared.MandantDAO;
+import de.kkendzia.myintranet.domain.shared.adress.Adress;
+import de.kkendzia.myintranet.domain.shared.adress.AdressDAO;
+import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
+import de.kkendzia.myintranet.domain.shared.mandant.MandantDAO;
 import de.kkendzia.myintranet.ei.core.annotations.Presenter;
 import org.springframework.beans.factory.annotation.Autowired;
 

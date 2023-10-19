@@ -2,12 +2,13 @@ package de.kkendzia.myintranet.ei.core.view.sidebar;
 
 import com.vaadin.flow.function.SerializableRunnable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
 
-public record SidebarConfig(List<SidebarConfigEntry> entries)
+public record SidebarConfig(List<SidebarConfigEntry> entries) implements Serializable
 {
     public SidebarConfig(Builder builder)
     {
@@ -33,5 +34,11 @@ public record SidebarConfig(List<SidebarConfigEntry> entries)
         {
             return new SidebarConfig(this);
         }
+    }
+
+    @FunctionalInterface
+    public interface SidebarConfigSupplier extends Serializable
+    {
+        SidebarConfig getSidebarConfig();
     }
 }
