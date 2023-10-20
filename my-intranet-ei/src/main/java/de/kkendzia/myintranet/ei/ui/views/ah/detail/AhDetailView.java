@@ -72,7 +72,7 @@ public class AhDetailView
     @Override
     public void beforeEnterView(BeforeEnterEvent event)
     {
-        super.beforeEnter(event);
+        
         long id = getViewParameter();
         Ah ah = presenter.loadAhById(id);
     }

@@ -45,7 +45,6 @@ public class MandantSearchView extends AbstractEIView<SearchLayout<SearchItem>>
     @Override
     public void beforeEnterView(BeforeEnterEvent event)
     {
-        super.beforeEnter(event);
         String searchtext = qpValues(SearchParameters.SEARCH_TEXT).findFirst().orElse("");
 
         SearchLayout<SearchItem> layout = getContent();

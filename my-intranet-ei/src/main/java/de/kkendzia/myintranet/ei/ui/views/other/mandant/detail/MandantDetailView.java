@@ -27,6 +27,13 @@ public class MandantDetailView extends AbstractEIView<VerticalLayout> implements
     {
         this.presenter = presenter;
 
+        setToolbarConfig(
+                () -> new ToolbarConfig.Builder()
+                        .title(getTranslation("mandant"))
+                        .action(getTranslation("TEST"), () -> Notification.show("TEST!"))
+                        .config(tabs.getSelectedPage().getToolbarConfig())
+                        .build());
+
         VerticalLayout vlContent = new VerticalLayout();
         vlContent.setPadding(false);
 
@@ -40,13 +47,6 @@ public class MandantDetailView extends AbstractEIView<VerticalLayout> implements
         tabs.add(new PagedTabs.PagedTab<>(getTranslation("main"), new MandantMainPage(presenter)));
         tabs.add(new PagedTabs.PagedTab<>(getTranslation("settings"), new MandantSettingsPage(presenter)));
 
-        setToolbarConfig(
-                () -> new ToolbarConfig.Builder()
-                        .title(getTranslation("mandant"))
-                        .action(getTranslation("TEST"), () -> Notification.show("TEST!"))
-                        .config(tabs.getSelectedPage().getToolbarConfig())
-                        .build());
-
         VerticalLayout root = getContent();
         root.setPadding(false);
         root.setAlignItems(FlexComponent.Alignment.STRETCH);
@@ -58,7 +58,6 @@ public class MandantDetailView extends AbstractEIView<VerticalLayout> implements
     @Override
     public void beforeEnterView(BeforeEnterEvent event)
     {
-        super.beforeEnter(event);
         long id = getViewParameter();
         presenter.loadMandantById(id);
         tabs.getPages().forEach(MandantDetailPage::refresh);
