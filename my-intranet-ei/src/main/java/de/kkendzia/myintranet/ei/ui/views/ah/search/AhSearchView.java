@@ -4,7 +4,6 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.ei.core.search.SearchParameters;
 import de.kkendzia.myintranet.ei.core.search.SearchRoute;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.SearchLayout;
@@ -15,6 +14,7 @@ import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import de.kkendzia.myintranet.ei.ui.views.ah.search.AhSearchPresenter.SearchItem;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static de.kkendzia.myintranet.ei.core.search.SearchParameters.SEARCH_TEXT;
 import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.*;
 import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget.AH;
 
@@ -34,7 +34,7 @@ public class AhSearchView
 
         // VIEW CONFIG
         setPageTitle(getTranslation("ah.search.pageTitle"));
-        registerQueryParameter(SearchParameters.SEARCH_TEXT);
+        registerQueryParameter(SEARCH_TEXT);
 
         // SEARCH LAYOUT
         SearchLayout<SearchItem> root = getContent();
@@ -51,7 +51,7 @@ public class AhSearchView
     @Override
     public void afterNavigation(AfterNavigationEvent event)
     {
-        String searchtext = getFirstQueryParameterValue(SearchParameters.SEARCH_TEXT);
+        String searchtext = qpValues(SEARCH_TEXT).findFirst().orElse("");
 
         SearchLayout<SearchItem> layout = getContent();
         layout.setSearchText(searchtext);

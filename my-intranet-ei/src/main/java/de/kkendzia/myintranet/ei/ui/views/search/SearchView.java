@@ -27,10 +27,10 @@ public class SearchView extends AbstractEIView<VerticalLayout>
     }
 
     @Override
-    public void beforeEnter(BeforeEnterEvent event)
+    public void beforeEnterView(BeforeEnterEvent event)
     {
         super.beforeEnter(event);
-        String searchText = getFirstQueryParameterValue(SEARCH_TEXT);
+        String searchText = qpValues(SEARCH_TEXT).findFirst().orElse("");
         spSearchText.setText(searchText);
     }
 }

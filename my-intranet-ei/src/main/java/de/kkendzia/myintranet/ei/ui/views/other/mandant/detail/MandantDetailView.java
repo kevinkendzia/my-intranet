@@ -56,7 +56,7 @@ public class MandantDetailView extends AbstractEIView<VerticalLayout> implements
 
 
     @Override
-    public void beforeEnter(BeforeEnterEvent event)
+    public void beforeEnterView(BeforeEnterEvent event)
     {
         super.beforeEnter(event);
         long id = getViewParameter();

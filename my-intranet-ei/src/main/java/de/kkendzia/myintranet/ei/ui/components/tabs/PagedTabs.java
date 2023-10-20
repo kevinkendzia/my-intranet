@@ -49,6 +49,16 @@ public class PagedTabs<C extends HasElement> extends Composite<Tabs>
         return (PagedTab<C>) getContent().getSelectedTab();
     }
 
+    public void setSelectedIndex(int index)
+    {
+        getContent().setSelectedIndex(index);
+    }
+
+    public void setSelectedTab(PagedTab<C> tab)
+    {
+        getContent().setSelectedTab(tab);
+    }
+
     public Stream<PagedTab<C>> getTabs()
     {
         //noinspection unchecked

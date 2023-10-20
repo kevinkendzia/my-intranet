@@ -4,6 +4,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.HasDynamicTitle;
+import com.vaadin.flow.router.RouteParameters;
 import de.kkendzia.myintranet.ei.core.EIComponent;
 import de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition;
 import de.kkendzia.myintranet.ei.core.view.sidebar.HasSidebarConfig;
@@ -14,6 +15,7 @@ import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
 import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarNotifier;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 import static java.util.Collections.emptyList;
 
@@ -22,8 +24,8 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
         HasSidebarConfig, SidebarNotifier
 {
     private String pageTitle;
-    private final Set<ParameterDefinition<?>> qpDefinitions = new HashSet<>();
     private final Map<ParameterDefinition<?>, List<?>> qpValueMap = new HashMap<>();
+    private final Map<ParameterDefinition<?>, Object> rpValueMap = new HashMap<>();
 
     protected AbstractEIView()
     {
@@ -32,20 +34,22 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
 
     protected void registerQueryParameter(ParameterDefinition<?> definition)
     {
-        qpDefinitions.add(definition);
+        qpValueMap.put(definition, null);
     }
-
-    protected <T> T getFirstQueryParameterValue(ParameterDefinition<T> definition)
+    protected <T> Stream<T> qpValues(ParameterDefinition<T> definition)
     {
         //noinspection unchecked
         List<T> values = (List<T>) qpValueMap.getOrDefault(definition, emptyList());
-        return values.isEmpty() ? null : values.get(0);
+        return values.stream();
     }
-
-    protected <T> List<T> getQueryParameterValues(ParameterDefinition<T> definition)
+    protected void registerRouteParameter(ParameterDefinition<?> definition)
+    {
+        rpValueMap.put(definition, null);
+    }
+    protected <T> Optional<T> rpValues(ParameterDefinition<T> definition)
     {
         //noinspection unchecked
-        return (List<T>) qpValueMap.getOrDefault(definition, emptyList());
+        return (Optional<T>) Optional.ofNullable(rpValueMap.get(definition));
     }
 
     protected void setToolbarConfig(ToolbarConfig toolbarConfig)
@@ -79,10 +83,17 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
     }
 
     @Override
-    public void beforeEnter(BeforeEnterEvent event)
+    public final void beforeEnter(BeforeEnterEvent event)
+    {
+        collectQueryParameters(event);
+        collectRouteParameters(event);
+        beforeEnterView(event);
+    }
+
+    private void collectQueryParameters(BeforeEnterEvent event)
     {
         Map<String, List<String>> queryParameters = event.getLocation().getQueryParameters().getParameters();
-        for (ParameterDefinition<?> def : qpDefinitions)
+        for (ParameterDefinition<?> def : qpValueMap.keySet())
         {
             List<String> values = queryParameters.getOrDefault(def.getName(), emptyList());
             if (!values.isEmpty())
@@ -90,5 +101,20 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
                 qpValueMap.put(def, values.stream().map(x -> def.getParser().apply(x)).toList());
             }
         }
+    }
+    private void collectRouteParameters(BeforeEnterEvent event)
+    {
+        RouteParameters routeParameters = event.getRouteParameters();
+        for (ParameterDefinition<?> def : rpValueMap.keySet())
+        {
+            routeParameters
+                    .get(def.getName())
+                    .ifPresent(v -> rpValueMap.put(def, def.getParser().apply(v)));
+        }
+    }
+
+    protected void beforeEnterView(BeforeEnterEvent event)
+    {
+        // optional
     }
 }
