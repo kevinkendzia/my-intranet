@@ -2,13 +2,16 @@ package de.kkendzia.myintranet.domain.shared.mandant;
 
 import de.kkendzia.myintranet.domain._framework.HasId;
 
+import java.util.Objects;
+import java.util.StringJoiner;
+
 public final class MandantSetting implements HasId
 {
     private  long id;
+    private long mandantId;
     private  String name;
     private  String type;
     private String value;
-    private long mandantId;
 
     public MandantSetting(
             long id,
@@ -24,6 +27,42 @@ public final class MandantSetting implements HasId
         this.mandantId=mandantId;
     }
 
+    //region OVERRIDES
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
+        MandantSetting setting = (MandantSetting) o;
+        return getId() == setting.getId() && getMandantId() == setting.getMandantId();
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(getId(), getMandantId());
+    }
+
+    @Override
+    public String toString()
+    {
+        return new StringJoiner(", ", MandantSetting.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("mandantId=" + mandantId)
+                .add("name='" + name + "'")
+                .add("type='" + type + "'")
+                .add("value='" + value + "'")
+                .toString();
+    }
+    //endregion
+
+    //region SETTER / GETTER
     @Override
     public long getId()
     {
@@ -75,4 +114,5 @@ public final class MandantSetting implements HasId
     {
         this.mandantId = mandantId;
     }
+    //endregion
 }

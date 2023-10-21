@@ -8,6 +8,7 @@ import de.kkendzia.myintranet.domain.shared.mandant.MandantSetting;
 import de.kkendzia.myintranet.domain.shared.mandant.MandantSettingDAO;
 import de.kkendzia.myintranet.ei.core.presenter.EIPresenter;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
+import de.kkendzia.myintranet.ei.core.utils.Result;
 import de.kkendzia.myintranet.ei.ui.errors.UnknownIDError.UnknownIDException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -111,6 +112,11 @@ public class MandantDetailPresenter implements EIPresenter
         }
     }
 
+    public void deleteSetting(SettingItem setting)
+    {
+        mandantSettingDAO.deleteById(setting.getId());
+    }
+
     private static SettingItem mapToPresentation(MandantSetting setting)
     {
         try
@@ -162,11 +168,23 @@ public class MandantDetailPresenter implements EIPresenter
         return new MandantSetting(setting.getId(), setting.getName(), type, value, mandantId);
     }
 
-    public void addSetting(SettingItem setting)
+    public Result<Void> addSetting(SettingItem setting)
     {
-        mandantSettingDAO.create(mapToModel(mandant.getId(), setting));
+        MandantSetting entity = mapToModel(mandant.getId(), setting);
+        if(!mandantSettingDAO.exists(entity.getMandantId(), entity.getName()))
+        {
+            mandantSettingDAO.create(entity);
+            return Result.success();
+        }
+        else {
+            return Result.failure(AddSettingFailure.ALREADY_EXISTS);
+        }
     }
 
+    public enum AddSettingFailure implements Result.Failure
+    {
+        ALREADY_EXISTS;
+    }
 
     public record SettingsFilter(
             long mandantId,

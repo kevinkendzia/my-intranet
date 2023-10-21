@@ -8,4 +8,6 @@ public interface MandantSettingDAO extends CRUDDAO<MandantSetting, Long>
 {
     long countAllBy(long mandantId);
     Stream<MandantSetting> findAllBy(long mandantId);
+
+    boolean exists(long mandantId, String name);
 }

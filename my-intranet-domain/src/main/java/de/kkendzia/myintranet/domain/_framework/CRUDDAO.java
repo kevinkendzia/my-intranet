@@ -12,4 +12,6 @@ public interface CRUDDAO<T extends HasId, I> extends DAO<T, I>
     void update(T entity);
 
     void create(T entity);
+
+    void deleteById(long id);
 }

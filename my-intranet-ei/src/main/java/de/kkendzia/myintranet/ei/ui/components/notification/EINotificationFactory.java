@@ -6,6 +6,9 @@ import com.vaadin.flow.component.notification.NotificationVariant;
 
 public final class EINotificationFactory
 {
+
+    public static final int DEFAULT_DURATION = 5000;
+
     private EINotificationFactory()
     {
         // No Instance!
@@ -16,6 +19,7 @@ public final class EINotificationFactory
         Notification n = new Notification(message);
         n.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
         n.setPosition(Position.MIDDLE);
+        n.setDuration(DEFAULT_DURATION);
         n.open();
     }
     public static void showError(String message)
@@ -23,12 +27,14 @@ public final class EINotificationFactory
         Notification n = new Notification(message);
         n.addThemeVariants(NotificationVariant.LUMO_ERROR);
         n.setPosition(Position.MIDDLE);
+        n.setDuration(DEFAULT_DURATION);
         n.open();
     }
     public static void showInfo(String message)
     {
         Notification n = new Notification(message);
         n.setPosition(Position.BOTTOM_END);
+        n.setDuration(DEFAULT_DURATION);
         n.open();
     }
 }

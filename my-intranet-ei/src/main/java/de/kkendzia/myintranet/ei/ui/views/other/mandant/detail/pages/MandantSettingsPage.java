@@ -1,7 +1,6 @@
 package de.kkendzia.myintranet.ei.ui.views.other.mandant.detail.pages;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.editor.Editor;
@@ -16,7 +15,10 @@ import com.vaadin.flow.data.provider.ConfigurableFilterDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
+import de.kkendzia.myintranet.ei.core.utils.Result;
 import de.kkendzia.myintranet.ei.core.view.page.AbstractLazyPage;
+import de.kkendzia.myintranet.ei.ui.components.fields.HasObjectValue;
+import de.kkendzia.myintranet.ei.ui.components.grid.InlineToolbar;
 import de.kkendzia.myintranet.ei.ui.views.other.mandant.components.SettingForm;
 import de.kkendzia.myintranet.ei.ui.views.other.mandant.detail.MandantDetailPresenter;
 import de.kkendzia.myintranet.ei.ui.views.other.mandant.detail.MandantDetailPresenter.SettingItem;
@@ -27,6 +29,8 @@ import java.util.List;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.*;
+import static de.kkendzia.myintranet.ei.ui.components.grid.InlineToolbar.InlineAction.editAction;
+import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showError;
 
 public class MandantSettingsPage extends AbstractLazyPage<VerticalLayout> implements MandantDetailPage
 {
@@ -69,9 +73,16 @@ public class MandantSettingsPage extends AbstractLazyPage<VerticalLayout> implem
             {
                 if (form.validate())
                 {
-                    presenter.addSetting(form.getBean());
-                    dataProvider.refreshAll();
-                    dlg.close();
+                    Result<Void> result = presenter.addSetting(form.getBean());
+                    if (result.isSuccess())
+                    {
+                        dataProvider.refreshAll();
+                        dlg.close();
+                    }
+                    else
+                    {
+                        showError(getTranslation("error.alreadyExists"));
+                    }
                 }
             }));
             footer.add(new Button(getTranslation(CANCEL), ev -> dlg.close()));
@@ -85,14 +96,21 @@ public class MandantSettingsPage extends AbstractLazyPage<VerticalLayout> implem
         addSpacerColumn(grid);
         Grid.Column<SettingItem> colEdit = addCollapsedColumn(
                 grid,
-                getTranslation("actions"),
-                new ComponentRenderer<>(itm -> new Button(getTranslation(EDIT),
-                        VaadinIcon.EDIT.create(),
-                        e -> grid.getEditor().editItem(itm))));
+                getTranslation(ACTIONS),
+                new ComponentRenderer<>(itm ->
+                        new InlineToolbar.Builder()
+                                .action(editAction(grid, itm))
+                                .action(getTranslation(DELETE), VaadinIcon.CLOSE.create(), () ->
+                                {
+                                    presenter.deleteSetting(itm);
+                                    dataProvider.refreshAll();
+                                })
+                                .build()));
 
         Binder<SettingItem> binder = new Binder<>();
         Editor<SettingItem> editor = grid.getEditor();
         editor.setBinder(binder);
+        editor.setBuffered(true);
 
         Select<Class<?>> selType = new Select<>();
         selType.setPlaceholder(getTranslation("types"));
@@ -100,50 +118,12 @@ public class MandantSettingsPage extends AbstractLazyPage<VerticalLayout> implem
         colType.setEditorComponent(selType);
         binder.forField(selType).bind(SettingItem::getType, SettingItem::setType);
 
-//        TextField txtValue = new TextField();
-//        txtValue.setPlaceholder("string value");
-//        binder.forField(txtValue)
-//                .withConverter(x -> (Object) x, y -> (String) y)
-//                .bind(SettingItem::getValue, SettingItem::setValue);
-//
-//        IntegerField intValue = new IntegerField();
-//        intValue.setPlaceholder("int value");
-//        binder.forField(intValue)
-//                .withConverter(x -> (Object) x, y -> (int) y)
-//                .bind(SettingItem::getValue, SettingItem::setValue);
-//
-//        DatePicker dpValue = new DatePicker();
-//        dpValue.setPlaceholder("date value");
-//        binder.forField(dpValue)
-//                .withConverter(x -> (Object) x, y -> (LocalDate) y)
-//                .bind(SettingItem::getValue, SettingItem::setValue);
-//
-//
-//        Span spUnknownType = new Span(getTranslation("not.editable"));
-
-        ValueEditor valueEditor = new ValueEditor();
-//        valueEditor.setPlaceholder("value");
-        binder.forField(valueEditor)
-//                .withConverter(x -> x, y -> y)
+        HasObjectValue delegate = new HasObjectValue();
+        binder
+                .forField(delegate)
                 .bind(SettingItem::getValue, SettingItem::setValue);
 
-        colValue.setEditorComponent(x ->
-        {
-            return valueEditor;
-//            if (x.getType() == String.class)
-//            {
-//                return txtValue;
-//            }
-//            else if (x.getType() == Integer.class)
-//            {
-//                return intValue;
-//            }
-//            else if (x.getType() == LocalDate.class)
-//            {
-//                return dpValue;
-//            }
-//            return spUnknownType;
-        });
+        colValue.setEditorComponent(x -> delegate.as(x.getType()));
 
         colEdit.setEditorComponent(itm ->
         {
@@ -186,30 +166,4 @@ public class MandantSettingsPage extends AbstractLazyPage<VerticalLayout> implem
         long id = presenter.getMandant().getId();
         dataProvider.setFilter(new SettingsFilter(id, ""));
     }
-
-    // 21.10.2023 KK TODO: replace with converter?
-    public static class ValueEditor extends CustomField<Object>
-    {
-        private TextField txtValue = new TextField();
-
-        public ValueEditor()
-        {
-            super(null);
-            txtValue.setPlaceholder(getTranslation(TranslationKeys.VALUE));
-            add(txtValue);
-        }
-
-        @Override
-        protected Object generateModelValue()
-        {
-            return txtValue.getValue();
-        }
-
-        @Override
-        protected void setPresentationValue(Object newPresentationValue)
-        {
-            txtValue.setValue(String.valueOf(newPresentationValue));
-        }
-    }
-
 }

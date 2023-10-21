@@ -90,6 +90,19 @@ public abstract class AbstractMicrostreamDAO<T extends HasId, I> implements CRUD
         getManager().store(rootCollection);
     }
 
+    @Override
+    public void deleteById(long id)
+    {
+        if(id <= 0)
+        {
+            throw new IllegalArgumentException("Can't delete entity with id <= 0!");
+        }
+
+        List<T> rootCollection = rootCollectionProvider.apply(getRoot());
+        rootCollection.removeIf(x -> Objects.equals(x.getId(), id));
+        getManager().store(rootCollection);
+    }
+
     //region SETTER / GETTER
     public void setEqualsPredicate(BiPredicate<T, T> equalsPredicate)
     {

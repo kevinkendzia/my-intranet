@@ -59,6 +59,8 @@ public final class TranslationKeys
     public static final String CANCEL = "label.cancel";
     public static final String EDIT = "label.edit";
     public static final String SUBMIT = "label.submit";
+    public static final String ACTIONS = "label.actions";
+    public static final String DELETE = "label.delete";
     //endregion
 
     private TranslationKeys()

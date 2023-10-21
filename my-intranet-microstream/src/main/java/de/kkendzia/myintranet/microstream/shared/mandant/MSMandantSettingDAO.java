@@ -28,4 +28,12 @@ public class MSMandantSettingDAO extends AbstractMicrostreamDAO<MandantSetting, 
     {
         return findAll().filter(x -> Objects.equals(x.getMandantId(), mandantId));
     }
+
+    @Override
+    public boolean exists(long mandantId, String name)
+    {
+        return getRoot().getMandantSettings()
+                .stream()
+                .anyMatch(x -> Objects.equals(x.getMandantId(), mandantId) && Objects.equals(x.getName(), name));
+    }
 }

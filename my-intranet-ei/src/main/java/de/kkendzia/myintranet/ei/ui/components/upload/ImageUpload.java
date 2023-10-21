@@ -22,8 +22,7 @@ public class ImageUpload extends AbstractCompositeField<VerticalLayout, ImageUpl
     {
         super(null);
 
-//        image.setHeight("15em");
-        image.setHeight("55em");
+        image.setHeight("15em");
         image.addClassName(LumoUtility.Border.ALL);
         image.addClassName(LumoUtility.BorderColor.CONTRAST_10);
         image.getStyle().set("object-fit", "contain");
