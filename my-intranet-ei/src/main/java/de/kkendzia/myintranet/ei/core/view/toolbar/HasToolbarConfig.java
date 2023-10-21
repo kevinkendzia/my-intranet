@@ -11,6 +11,15 @@ import static com.vaadin.flow.component.ComponentUtil.setData;
 
 public interface HasToolbarConfig extends HasElement
 {
+    default ToolbarConfigSupplier getToolbarConfigSupplier()
+    {
+        return getData((Component) this, ToolbarConfigSupplier.class);
+    }
+    default Optional<ToolbarConfigSupplier> getOptionalToolbarConfigSupplier()
+    {
+        return Optional.ofNullable(getToolbarConfigSupplier());
+    }
+
     default ToolbarConfig getToolbarConfig()
     {
         return getOptionalToolbarConfig().orElse(null);
@@ -18,9 +27,8 @@ public interface HasToolbarConfig extends HasElement
 
     default Optional<ToolbarConfig> getOptionalToolbarConfig()
     {
-        ToolbarConfigSupplier supplier =
-                getData((Component) this, ToolbarConfigSupplier.class);
-        return Optional.ofNullable(supplier).map(ToolbarConfigSupplier::getToolbarConfig);
+        ToolbarConfigSupplier supplier = getToolbarConfigSupplier();
+        return Optional.ofNullable(supplier).map(ToolbarConfigSupplier::get);
     }
 
     static void setToolbarConfig(Component component, ToolbarConfig toolbarConfig)

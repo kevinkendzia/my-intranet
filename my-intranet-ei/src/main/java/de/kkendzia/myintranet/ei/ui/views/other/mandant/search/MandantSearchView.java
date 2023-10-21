@@ -18,11 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.NAME;
 import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.addCollapsedColumn;
 import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.addSpacerColumn;
+import static de.kkendzia.myintranet.ei.ui.views.other.mandant.routes.MandantRoutes.NAV_ROOT;
 
-@Route(value = "mandant/search", layout = EIMainLayout.class)
+@Route(value = MandantSearchView.NAV, layout = EIMainLayout.class)
 @MenuRoute(label = "menu.mandant", parent = EIMenu.PARENT_OTHER)
 public class MandantSearchView extends AbstractEIView<SearchLayout<SearchItem>>
 {
+    public static final String NAV = NAV_ROOT + "/search";
+
     private final ConfigurableFilterDataProvider<SearchItem, Void, String> dataProvider;
     private MandantSearchPresenter presenter;
 

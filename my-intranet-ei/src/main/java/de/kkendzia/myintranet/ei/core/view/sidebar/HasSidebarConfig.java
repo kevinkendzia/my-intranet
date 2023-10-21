@@ -10,6 +10,15 @@ import static com.vaadin.flow.component.ComponentUtil.setData;
 
 public interface HasSidebarConfig extends EIView
 {
+    default SidebarConfig.SidebarConfigSupplier getSidebarConfigSupplier()
+    {
+        return getData((Component) this, SidebarConfig.SidebarConfigSupplier.class);
+    }
+    default Optional<SidebarConfig.SidebarConfigSupplier> getOptionalSidebarConfigSupplier()
+    {
+        return Optional.ofNullable(getSidebarConfigSupplier());
+    }
+
     default SidebarConfig getSidebarConfig()
     {
         return getOptionalSidebarConfig().orElse(null);
@@ -17,9 +26,8 @@ public interface HasSidebarConfig extends EIView
 
     default Optional<SidebarConfig> getOptionalSidebarConfig()
     {
-        SidebarConfig.SidebarConfigSupplier supplier =
-                getData((Component) this, SidebarConfig.SidebarConfigSupplier.class);
-        return Optional.ofNullable(supplier).map(SidebarConfig.SidebarConfigSupplier::getSidebarConfig);
+        SidebarConfig.SidebarConfigSupplier supplier = getSidebarConfigSupplier();
+        return Optional.ofNullable(supplier).map(SidebarConfig.SidebarConfigSupplier::get);
     }
 
     static void setSidebarConfig(Component component, SidebarConfig sidebarConfig)

@@ -10,8 +10,11 @@ import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
+import static de.kkendzia.myintranet.domain.utils.Reduce.toOnlyElement;
 import static java.util.Objects.requireNonNull;
 
 public class PagedTabs<C extends HasElement> extends Composite<Tabs>
@@ -20,7 +23,6 @@ public class PagedTabs<C extends HasElement> extends Composite<Tabs>
     public PagedTabs()
     {
         Tabs tabs = getContent();
-        tabs.addThemeVariants(TabsVariant.LUMO_MINIMAL);
         tabs.addThemeVariants(TabsVariant.LUMO_HIDE_SCROLL_BUTTONS);
         tabs.addSelectedChangeListener(e ->
         {
@@ -73,6 +75,15 @@ public class PagedTabs<C extends HasElement> extends Composite<Tabs>
         return getTabs().map(PagedTab::getPage).toList();
     }
 
+    public Optional<PagedTab<C>> getOptionalTab(C page)
+    {
+        requireNonNull(page, "page can't be null!");
+        return getTabs()
+                .filter(t -> Objects.equals(t.getPage(), page))
+                .reduce(toOnlyElement());
+    }
+
+    //region TYPES
     public static class PagedTab<C extends HasElement> extends Tab
     {
         private final C page;
@@ -117,4 +128,5 @@ public class PagedTabs<C extends HasElement> extends Composite<Tabs>
             return selectedTab;
         }
     }
+    //endregion
 }

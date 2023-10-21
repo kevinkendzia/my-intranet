@@ -12,17 +12,27 @@ import com.vaadin.flow.data.binder.Binder;
 
 public abstract class AbstractForm<B> extends Composite<VerticalLayout> implements ThemableLayout
 {
-    private final Binder<B> binder = new Binder<>();
+    private final Binder<B> binder;
     private B bean;
     private FormLayout form;
 
     protected AbstractForm()
     {
-        this(null);
+        this(null, new Binder<>());
     }
-
+    protected AbstractForm(Binder<B> binder)
+    {
+        this(null, binder);
+    }
     protected AbstractForm(String label)
     {
+        this(label, new Binder<>());
+    }
+
+    protected AbstractForm(String label, Binder<B> binder)
+    {
+        this.binder=binder;
+
         form = new FormLayout();
         form.setResponsiveSteps(
                 new FormLayout.ResponsiveStep("0", 1),
@@ -86,6 +96,16 @@ public abstract class AbstractForm<B> extends Composite<VerticalLayout> implemen
     public void clear()
     {
         binder.readBean(bean);
+    }
+
+    public boolean validate()
+    {
+        return binder.validate().isOk();
+    }
+
+    public boolean hasChanges()
+    {
+        return binder.hasChanges();
     }
 
     @FunctionalInterface

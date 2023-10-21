@@ -74,7 +74,6 @@ public class EIMainLayout
         public ViewWrapper(EIView view)
         {
             view.addClassName(LumoUtility.Overflow.AUTO);
-//            view.getElement().getStyle().setHeight("20em");
 
             VerticalLayout vlContent = new VerticalLayout();
             vlContent.addClassNames("ei-main-toolbar-layout");
@@ -84,7 +83,7 @@ public class EIMainLayout
 
             if(view instanceof HasToolbarConfig t)
             {
-                t.getOptionalToolbarConfig().ifPresent(tb ->
+                t.getOptionalToolbarConfigSupplier().ifPresent(tb ->
                 {
                     ViewToolbar toolbar = new ViewToolbar(tb);
                     vlContent.add(toolbar);
@@ -106,7 +105,7 @@ public class EIMainLayout
 
             if(view instanceof HasSidebarConfig s)
             {
-                s.getOptionalSidebarConfig().ifPresent(sb ->
+                s.getOptionalSidebarConfigSupplier().ifPresent(sb ->
                 {
                     ViewSidebar sidebar = new ViewSidebar(sb);
                     root.add(sidebar);

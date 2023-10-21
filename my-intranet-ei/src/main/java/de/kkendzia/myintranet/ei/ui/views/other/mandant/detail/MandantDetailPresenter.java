@@ -28,6 +28,8 @@ public class MandantDetailPresenter implements EIPresenter
     private MandantDAO mandantDAO;
     @Autowired
     private MandantSettingDAO mandantSettingDAO;
+
+    // STATE
     private Mandant mandant;
 
     public Mandant loadMandantById(long id)
@@ -59,22 +61,14 @@ public class MandantDetailPresenter implements EIPresenter
     {
         return mandantSettingDAO
                 .findAllBy(query.getFilter().orElseThrow().mandantId())
-                .filter(x -> query.getFilter().map(f -> Objects.equals(x.getName(), f.text())).orElse(true))
+                .filter(x -> query.getFilter()
+                        .map(SettingsFilter::text)
+                        .filter(s -> !s.isBlank())
+                        .map(f -> Objects.equals(x.getName(), f))
+                        .orElse(true))
                 .skip(query.getOffset())
                 .limit(query.getLimit())
                 .map(MandantDetailPresenter::mapToPresentation);
-    }
-
-    public Mandant getMandant()
-    {
-        return this.mandant;
-    }
-
-    public record SettingsFilter(
-            long mandantId,
-            String text)
-    {
-        // just a record
     }
 
     private int countSettings(Query<SettingItem, SettingsFilter> query)
@@ -82,25 +76,38 @@ public class MandantDetailPresenter implements EIPresenter
         // COUNT
         return Math.toIntExact(mandantSettingDAO
                 .findAllBy(query.getFilter().orElseThrow().mandantId())
-                .filter(x -> query.getFilter().map(f -> Objects.equals(x.getName(), f.text())).orElse(true))
+                .filter(x -> query.getFilter()
+                        .map(SettingsFilter::text)
+                        .filter(s -> !s.isBlank())
+                        .map(f -> Objects.equals(x.getName(), f))
+                        .orElse(true))
                 .count());
     }
 
+    public Mandant getMandant()
+    {
+        return this.mandant;
+    }
+
     public void saveSettings(
-            long mandantId,
             Collection<SettingItem> items)
     {
         for (SettingItem item : items)
         {
-            MandantSetting setting = mapToModel(mandantId, item);
-            if (setting.getId() <= 0)
-            {
-                mandantSettingDAO.create(setting);
-            }
-            else
-            {
-                mandantSettingDAO.update(setting);
-            }
+            saveSetting(item);
+        }
+    }
+
+    public void saveSetting(SettingItem item)
+    {
+        MandantSetting setting = mapToModel(mandant.getId(), item);
+        if (setting.getId() <= 0)
+        {
+            mandantSettingDAO.create(setting);
+        }
+        else
+        {
+            mandantSettingDAO.update(setting);
         }
     }
 
@@ -153,6 +160,19 @@ public class MandantDetailPresenter implements EIPresenter
         }
 
         return new MandantSetting(setting.getId(), setting.getName(), type, value, mandantId);
+    }
+
+    public void addSetting(SettingItem setting)
+    {
+        mandantSettingDAO.create(mapToModel(mandant.getId(), setting));
+    }
+
+
+    public record SettingsFilter(
+            long mandantId,
+            String text)
+    {
+        // just a record
     }
 
     public static class SettingItem

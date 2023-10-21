@@ -48,6 +48,17 @@ public final class TranslationKeys
     public static final String IMAGE = "label.image";
     public static final String SAVE = "label.save";
     public static final String KEY = "label.key";
+    public static final String DETAILS = "label.details";
+    public static final String SETTINGS = "label.settings";
+    public static final String ADD = "label.add";
+    public static final String TYPE = "label.type";
+    public static final String VALUE = "label.value";
+    public static final String SUCCESS = "label.success";
+    public static final String ERROR = "label.error";
+    public static final String FILTER = "label.filter";
+    public static final String CANCEL = "label.cancel";
+    public static final String EDIT = "label.edit";
+    public static final String SUBMIT = "label.submit";
     //endregion
 
     private TranslationKeys()

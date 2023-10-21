@@ -1,6 +1,7 @@
 package de.kkendzia.myintranet.ei.core.view.toolbar;
 
 import com.vaadin.flow.function.SerializableRunnable;
+import com.vaadin.flow.function.SerializableSupplier;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,11 +57,16 @@ public record ToolbarConfig(
 
         public Builder config(ToolbarConfigSupplier configSupplier)
         {
-            ToolbarConfig config = configSupplier.getToolbarConfig();
+            ToolbarConfig config = configSupplier.get();
             return config(config);
         }
         public Builder config(ToolbarConfig config)
         {
+            if(config == null)
+            {
+                return this;
+            }
+
             if(title != null && config.title() != null && !Objects.equals(title, config.title()))
             {
                 throw new IllegalStateException("Can't merge ToolbarConfigs with different titles! \"%s\" != \"%s\"".formatted(title, config.title()));
@@ -77,8 +83,7 @@ public record ToolbarConfig(
     }
 
     @FunctionalInterface
-    public interface ToolbarConfigSupplier extends Serializable
+    public interface ToolbarConfigSupplier extends SerializableSupplier<ToolbarConfig>
     {
-        ToolbarConfig getToolbarConfig();
     }
 }

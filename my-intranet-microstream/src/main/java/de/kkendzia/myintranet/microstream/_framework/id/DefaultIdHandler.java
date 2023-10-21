@@ -11,7 +11,7 @@ public class DefaultIdHandler implements IdHandler
     private MyIntranetRoot root;
 
     @Override
-    public long getNewId()
+    public synchronized long getNewId()
     {
         long lastId = root.getLastId();
         long newId = lastId + 1;
