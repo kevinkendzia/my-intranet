@@ -1,0 +1,7 @@
+vaadin-combo-box::part(toggle-button) {
+    /*color: red;*/
+}
+
+vaadin-combo-box::part(toggle-button)::before {
+    content: var(--lumo-icons-menu);
+}

@@ -92,6 +92,7 @@ public class MandantSettingsPage extends AbstractLazyPage<VerticalLayout> implem
 
         VerticalLayout root = getContent();
         root.setAlignItems(FlexComponent.Alignment.STRETCH);
+        root.setPadding(false);
         root.add(txtFilter);
         root.addAndExpand(grid);
     }

@@ -6,13 +6,12 @@ import de.kkendzia.myintranet.domain.shared.adress.Adress;
 import de.kkendzia.myintranet.domain.shared.adress.AdressDAO;
 import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
 import de.kkendzia.myintranet.domain.shared.mandant.MandantDAO;
-import de.kkendzia.myintranet.ei.core.annotations.Presenter;
+import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 @Presenter
 public class AhCreatePresenter
@@ -66,11 +65,6 @@ public class AhCreatePresenter
         private String matchcode;
         private Mandant mandant;
         private LocalDate enterDate;
-
-        public AhData()
-        {
-            this(new Random().nextInt(1000), new Ah.Ahnr(12345), "TEST AH", new Mandant(new Random().nextInt(1000), "TEST MANDANT"), LocalDate.now());
-        }
 
         public AhData(
                 long id,
@@ -126,10 +120,9 @@ public class AhCreatePresenter
             return enterDate;
         }
 
-        public AhData setEnterDate(LocalDate enterDate)
+        public void setEnterDate(LocalDate enterDate)
         {
             this.enterDate = enterDate;
-            return this;
         }
     }
 }

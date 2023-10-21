@@ -1,10 +1,27 @@
 @import 'variables.css';
 @import 'async-container-styles.css';
+@import 'layouts/section-layout.css';
+@import 'components/combobox.css';
 
-vaadin-combo-box::part(toggle-button){
-    /*color: red;*/
+
+h3.sticky-h3 {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--lumo-base-color);
+    padding-bottom: var(--lumo-space-s);
 }
 
-vaadin-combo-box::part(toggle-button)::before {
-    content: var(--lumo-icons-menu);
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
+
+.scroll-snap-align-start {
+    scroll-snap-align: start;
+}
+.scroll-snap-y {
+    scroll-snap-type: y proximity;
+}
+

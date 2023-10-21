@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.core.view;
+package de.kkendzia.myintranet.ei.core.view.layouts;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;

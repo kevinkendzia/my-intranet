@@ -36,6 +36,7 @@ public final class TranslationKeys
     //region OTHER
     public static final String OTHER = "label.other";
     public static final String MANDANT = "label.mandant";
+    public static final String MANDANTEN = "label.mandanten";
     public static final String MATCHCODE = "label.matchcode";
     public static final String ENTER_DATE = "label.enterDate";
     public static final String EXIT_DATE = "label.exitDate";
@@ -46,6 +47,7 @@ public final class TranslationKeys
     public static final String NAME = "label.name";
     public static final String IMAGE = "label.image";
     public static final String SAVE = "label.save";
+    public static final String KEY = "label.key";
     //endregion
 
     private TranslationKeys()

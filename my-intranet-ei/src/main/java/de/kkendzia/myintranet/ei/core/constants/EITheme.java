@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.constants;
+package de.kkendzia.myintranet.ei.core.constants;
 
 import static java.util.Objects.requireNonNull;
 

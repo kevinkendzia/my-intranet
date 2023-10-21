@@ -6,6 +6,7 @@ import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.List;
@@ -18,7 +19,10 @@ public class PagedTabs<C extends HasElement> extends Composite<Tabs>
     @SuppressWarnings("unchecked")
     public PagedTabs()
     {
-        getContent().addSelectedChangeListener(e ->
+        Tabs tabs = getContent();
+        tabs.addThemeVariants(TabsVariant.LUMO_MINIMAL);
+        tabs.addThemeVariants(TabsVariant.LUMO_HIDE_SCROLL_BUTTONS);
+        tabs.addSelectedChangeListener(e ->
         {
             PagedTab<C> prevTab = (PagedTab<C>) e.getPreviousTab();
             PagedTab<C> selectedTab = (PagedTab<C>) e.getSelectedTab();

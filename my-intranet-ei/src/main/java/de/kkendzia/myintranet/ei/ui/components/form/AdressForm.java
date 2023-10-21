@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.components.adress;
+package de.kkendzia.myintranet.ei.ui.components.form;
 
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;

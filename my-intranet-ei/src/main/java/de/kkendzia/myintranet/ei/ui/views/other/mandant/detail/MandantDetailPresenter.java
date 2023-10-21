@@ -6,7 +6,8 @@ import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
 import de.kkendzia.myintranet.domain.shared.mandant.MandantDAO;
 import de.kkendzia.myintranet.domain.shared.mandant.MandantSetting;
 import de.kkendzia.myintranet.domain.shared.mandant.MandantSettingDAO;
-import de.kkendzia.myintranet.ei.core.annotations.Presenter;
+import de.kkendzia.myintranet.ei.core.presenter.EIPresenter;
+import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import de.kkendzia.myintranet.ei.ui.errors.UnknownIDError.UnknownIDException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +20,7 @@ import java.util.stream.Stream;
 import static com.vaadin.flow.data.provider.DataProvider.fromFilteringCallbacks;
 
 @Presenter
-public class MandantDetailPresenter
+public class MandantDetailPresenter implements EIPresenter
 {
     private static final String DATE_FORMAT = "dd.MM.yyyy";
 

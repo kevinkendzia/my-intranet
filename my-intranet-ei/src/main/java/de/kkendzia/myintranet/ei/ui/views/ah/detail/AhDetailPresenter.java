@@ -2,7 +2,7 @@ package de.kkendzia.myintranet.ei.ui.views.ah.detail;
 
 import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.domain.ah.AhDAO;
-import de.kkendzia.myintranet.ei.core.annotations.Presenter;
+import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import de.kkendzia.myintranet.ei.ui.errors.UnknownIDError.UnknownIDException;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -24,6 +24,10 @@ public interface ToolbarNotifier
     {
         fireToolbarChange(new ToolbarChangeEvent((Component) this, fromClient, config));
     }
+    default void fireToolbarChange(boolean fromClient)
+    {
+        fireToolbarChange(fromClient, null);
+    }
     default void fireToolbarChange()
     {
         fireToolbarChange(false, null);

@@ -1,18 +1,14 @@
 package de.kkendzia.myintranet.ei.ui.views.ah.create;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.domain.shared.adress.Adress;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.AhCreatePresenter.AhCreateRequest;
 import de.kkendzia.myintranet.ei.ui.views.ah.create.content.CoreDataForm;
-import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.COMMON;
@@ -43,12 +39,12 @@ public class AhCreateView extends AbstractEIView<VerticalLayout> implements Afte
 
     private void create()
     {
-        AhCreatePresenter.AhData coreData = new AhCreatePresenter.AhData();
-        Adress adressData = new Adress();
-//        presenter.save(new AhCreatePresenter.AhCreateRequest(coreData, adressData));
-        presenter.save(new AhCreateRequest(frmCore.getChanges(), null));
+//        AhCreatePresenter.AhData coreData = new AhCreatePresenter.AhData();
+//        Adress adressData = new Adress();
+////        presenter.save(new AhCreatePresenter.AhCreateRequest(coreData, adressData));
+//        presenter.save(new AhCreateRequest(frmCore.getChanges(), null));
 
-        UI.getCurrent().navigate(AhDetailView.class, coreData.getId());
+//        UI.getCurrent().navigate(AhDetailView.class, coreData.getId());
     }
 
     @Override
@@ -56,8 +52,8 @@ public class AhCreateView extends AbstractEIView<VerticalLayout> implements Afte
     {
         frmCore.setMandantItems(presenter.loadMandantItems());
 
-        AhCreateRequest request = new AhCreateRequest(new AhCreatePresenter.AhData(), null);
-        frmCore.setBean(request.coreData());
+//        AhCreateRequest request = new AhCreateRequest(new AhCreatePresenter.AhData(), null);
+//        frmCore.setBean(request.coreData());
 //        frmAdress.setBean(request.adressData());
     }
 }

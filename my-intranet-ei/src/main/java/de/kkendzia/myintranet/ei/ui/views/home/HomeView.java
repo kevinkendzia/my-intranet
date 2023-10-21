@@ -16,7 +16,7 @@ import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
 
-import static de.kkendzia.myintranet.ei.ui.constants.EITheme.Image.IMG_HOME;
+import static de.kkendzia.myintranet.ei.core.constants.EITheme.Image.IMG_HOME;
 
 @Route(value = "home", layout = EIMainLayout.class)
 @RouteAlias(value = "", layout = EIMainLayout.class)

@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.core.annotations;
+package de.kkendzia.myintranet.ei.core.presenter;
 
 import org.springframework.stereotype.Component;
 
