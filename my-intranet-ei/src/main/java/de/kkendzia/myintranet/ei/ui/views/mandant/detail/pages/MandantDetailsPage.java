@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.views.other.mandant.detail.pages;
+package de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages;
 
 import com.vaadin.flow.data.binder.Binder;
 import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
@@ -6,8 +6,8 @@ import de.kkendzia.myintranet.ei.core.view.layouts.SectionLayout;
 import de.kkendzia.myintranet.ei.core.view.page.AbstractPage;
 import de.kkendzia.myintranet.ei.core.view.page.SaveablePage;
 import de.kkendzia.myintranet.ei.ui.components.upload.ImageUpload;
-import de.kkendzia.myintranet.ei.ui.views.other.mandant.components.MandantForm;
-import de.kkendzia.myintranet.ei.ui.views.other.mandant.detail.MandantDetailPresenter;
+import de.kkendzia.myintranet.ei.ui.views.mandant.components.MandantForm;
+import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailPresenter;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.DETAILS;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.IMAGE;

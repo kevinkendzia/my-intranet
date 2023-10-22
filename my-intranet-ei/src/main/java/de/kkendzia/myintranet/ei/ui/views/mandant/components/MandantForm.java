@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.views.other.mandant.components;
+package de.kkendzia.myintranet.ei.ui.views.mandant.components;
 
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;

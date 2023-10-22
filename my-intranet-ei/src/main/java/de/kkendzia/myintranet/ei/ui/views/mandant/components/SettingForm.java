@@ -1,16 +1,16 @@
-package de.kkendzia.myintranet.ei.ui.views.other.mandant.components;
+package de.kkendzia.myintranet.ei.ui.views.mandant.components;
 
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.TextField;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
-import de.kkendzia.myintranet.ei.ui.views.other.mandant.detail.MandantDetailPresenter.SettingItem;
+import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailPresenter;
 
 import java.util.List;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.NAME;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.TYPE;
 
-public class SettingForm extends AbstractForm<SettingItem>
+public class SettingForm extends AbstractForm<MandantDetailPresenter.SettingItem>
 {
     public SettingForm()
     {
@@ -18,7 +18,7 @@ public class SettingForm extends AbstractForm<SettingItem>
                 new TextField(getTranslation(NAME)),
                 (field, binder) -> binder.forField(field)
                         .asRequired()
-                        .bind(SettingItem::getName, SettingItem::setName));
+                        .bind(MandantDetailPresenter.SettingItem::getName, MandantDetailPresenter.SettingItem::setName));
 
         //   TODO: Implement!
         ComboBox<Class<?>> cboType = new ComboBox<>(getTranslation(TYPE));
@@ -28,7 +28,7 @@ public class SettingForm extends AbstractForm<SettingItem>
                 cboType,
                 (field, binder) -> binder.forField(field)
                         .asRequired()
-                        .bind(SettingItem::getType, SettingItem::setType));
+                        .bind(MandantDetailPresenter.SettingItem::getType, MandantDetailPresenter.SettingItem::setType));
 
 //        HasObjectValue valueEditor = new HasObjectValue();
 //        add(

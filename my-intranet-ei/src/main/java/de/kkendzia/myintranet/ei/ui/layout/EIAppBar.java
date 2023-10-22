@@ -19,6 +19,7 @@ import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchPreviewIt
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.LOGOUT;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SEARCH;
 import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchItemType.DEFAULT;
 import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchItemType.FOOTER;
 import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget.OTHER;
@@ -30,7 +31,6 @@ public class EIAppBar
 {
     //region CONSTANTS
     private static final String I18N_SEARCH_IN = "mainLayout.appbar.searchField.placeholder.searchIn";
-    private static final String I18N_SEARCH = "mainLayout.appbar.searchField.placeholder.search";
     private static final String I18N_SEARCH_ITEM_FOOTER = "mainLayout.appbar.searchField.item.footer";
     //endregion
 
@@ -103,7 +103,7 @@ public class EIAppBar
         String pageTitle = RoutingUtil.getPageTitle();
         return pageTitle != null
                ? getTranslation(I18N_SEARCH_IN, pageTitle)
-               : getTranslation(I18N_SEARCH);
+               : getTranslation(SEARCH);
     }
 
     public static class UserAvatar extends Composite<Avatar>

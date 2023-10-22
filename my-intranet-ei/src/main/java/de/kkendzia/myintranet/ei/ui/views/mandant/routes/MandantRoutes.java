@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.views.other.mandant.routes;
+package de.kkendzia.myintranet.ei.ui.views.mandant.routes;
 
 public final class MandantRoutes
 {

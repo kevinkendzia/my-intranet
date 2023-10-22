@@ -5,7 +5,9 @@ import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import de.kkendzia.myintranet.ei.core.EIComponent;
+import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.components.menu.DrawerMenu;
+import de.kkendzia.myintranet.ei.ui.components.menu.DrawerMenu.DrawerMenuItem;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider;
 
 import java.util.List;
@@ -14,8 +16,6 @@ import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.APP_TITLE;
 
 public final class EIDrawer extends EIComponent<VerticalLayout>
 {
-    public static final String PARENT_OTHER = "other";
-
     public EIDrawer()
     {
         DrawerMenu menu =
@@ -25,15 +25,18 @@ public final class EIDrawer extends EIComponent<VerticalLayout>
         menu.setItemProvider(
                 new AnnotationItemProvider(
                         List.of(
-                                new DrawerMenu.DrawerMenuItem(
-                                        "nav",
-                                        getTranslation("menu.target.nav")),
-                                new DrawerMenu.DrawerMenuItem(
-                                        "ah",
-                                        getTranslation("menu.target.ah")),
-                                new DrawerMenu.DrawerMenuItem(
-                                        PARENT_OTHER,
-                                        getTranslation("menu.target.other")))));
+                                new DrawerMenuItem(
+                                        EIMenuKeys.MANDANTEN,
+                                        getTranslation(TranslationKeys.MANDANTEN)),
+                                new DrawerMenuItem(
+                                        EIMenuKeys.START,
+                                        getTranslation(TranslationKeys.START)),
+                                new DrawerMenuItem(
+                                        EIMenuKeys.AH,
+                                        getTranslation(TranslationKeys.AHS)),
+                                new DrawerMenuItem(
+                                        EIMenuKeys.OTHER,
+                                        getTranslation(TranslationKeys.OTHER)))));
         VerticalLayout root = getContent();
         root.setPadding(false);
         root.addAndExpand(menu);
@@ -49,6 +52,19 @@ public final class EIDrawer extends EIComponent<VerticalLayout>
             Header header = getContent();
             header.setHeight("10em");
             header.add(appName);
+        }
+    }
+
+    public static final class EIMenuKeys
+    {
+        public static final String START = "start";
+        public static final String MANDANTEN = "mandant";
+        public static final String AH = "ah";
+        public static final String OTHER = "other";
+
+        private EIMenuKeys()
+        {
+            // No Instance!
         }
     }
 }

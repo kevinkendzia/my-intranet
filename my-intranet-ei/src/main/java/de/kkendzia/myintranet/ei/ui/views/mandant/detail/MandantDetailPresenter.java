@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.views.other.mandant.detail;
+package de.kkendzia.myintranet.ei.ui.views.mandant.detail;
 
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
@@ -33,10 +33,13 @@ public class MandantDetailPresenter implements EIPresenter
     // STATE
     private Mandant mandant;
 
-    public Mandant loadMandantById(long id)
+    public void loadMandantById(long id)
     {
         this.mandant = mandantDAO.findOptionalById(id).orElseThrow(UnknownIDException::new);
-        return mandant;
+    }
+    public void createMandant()
+    {
+        this.mandant=new Mandant(0, "", "");
     }
 
     public void updateMandant()

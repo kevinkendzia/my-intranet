@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.views.other.mandant.detail.pages;
+package de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -19,10 +19,10 @@ import de.kkendzia.myintranet.ei.core.utils.Result;
 import de.kkendzia.myintranet.ei.core.view.page.AbstractLazyPage;
 import de.kkendzia.myintranet.ei.ui.components.fields.HasObjectValue;
 import de.kkendzia.myintranet.ei.ui.components.grid.InlineToolbar;
-import de.kkendzia.myintranet.ei.ui.views.other.mandant.components.SettingForm;
-import de.kkendzia.myintranet.ei.ui.views.other.mandant.detail.MandantDetailPresenter;
-import de.kkendzia.myintranet.ei.ui.views.other.mandant.detail.MandantDetailPresenter.SettingItem;
-import de.kkendzia.myintranet.ei.ui.views.other.mandant.detail.MandantDetailPresenter.SettingsFilter;
+import de.kkendzia.myintranet.ei.ui.views.mandant.components.SettingForm;
+import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailPresenter;
+import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailPresenter.SettingItem;
+import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailPresenter.SettingsFilter;
 
 import java.time.LocalDate;
 import java.util.List;

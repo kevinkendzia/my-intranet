@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.views.other.mandant.search;
+package de.kkendzia.myintranet.ei.ui.views.mandant.search;
 
 import com.vaadin.flow.data.provider.DataProvider;
 import de.kkendzia.myintranet.domain.shared.mandant.MandantDAO;
