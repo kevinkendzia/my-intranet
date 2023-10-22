@@ -35,7 +35,7 @@ public class EIMainLayout
 
         addClassName("ei-main-layout");
         setPrimarySection(Section.DRAWER);
-        addToDrawer(new EIMenu());
+        addToDrawer(new EIDrawer());
         addToNavbar(new EIAppBar(presenter, authContext));
     }
 

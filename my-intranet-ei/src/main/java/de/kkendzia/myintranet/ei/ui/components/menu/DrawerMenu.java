@@ -11,7 +11,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.function.SerializableSupplier;
-import com.vaadin.flow.theme.lumo.LumoUtility;
+import com.vaadin.flow.theme.lumo.LumoUtility.FontSize;
+import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
 import de.kkendzia.myintranet.ei.core.EIComponent;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider;
 
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 import static com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment.STRETCH;
+import static java.util.Objects.requireNonNull;
 
 public class DrawerMenu
         extends Composite<VerticalLayout>
@@ -34,8 +36,8 @@ public class DrawerMenu
     private boolean rootGroupCollapsible = true;
 
     public DrawerMenu(
-            MenuHeader header,
-            MenuFooter footer)
+            Component header,
+            Component footer)
     {
         VerticalLayout root = getContent();
         root.setAlignItems(STRETCH);
@@ -124,11 +126,7 @@ public class DrawerMenu
                 route.iconSupplier() != null ? route.iconSupplier().get() : null);
     }
 
-
-    /*
-     * SETTER / GETTER
-     */
-
+    //region SETTER / GETTER
     public void setRootGroupLabels(boolean rootGroupLabels)
     {
         this.rootGroupLabels = rootGroupLabels;
@@ -141,21 +139,20 @@ public class DrawerMenu
 
     public void setItemProvider(ItemProvider itemProvider)
     {
-        this.itemProvider = itemProvider;
+        this.itemProvider = requireNonNull(itemProvider, "itemProvider can't be null!");
     }
+    //endregion
 
-    /*
-     * TYPES
-     */
-
+    //region TYPES
     public static class MenuHeader extends EIComponent<Header>
     {
-        public MenuHeader()
+        public MenuHeader(String title)
         {
-            H1 appName = new H1("My Intranet");
-            appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
+            H1 appName = new H1(title);
+            appName.addClassNames(FontSize.LARGE, Margin.NONE);
 
             Header header = getContent();
+            header.setHeight("10em");
             header.add(appName);
         }
     }
@@ -205,4 +202,5 @@ public class DrawerMenu
                     .toString();
         }
     }
+    //endregion
 }

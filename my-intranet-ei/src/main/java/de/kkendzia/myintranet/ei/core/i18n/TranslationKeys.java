@@ -62,6 +62,7 @@ public final class TranslationKeys
     public static final String ACTIONS = "label.actions";
     public static final String DELETE = "label.delete";
     public static final String LOGOUT = "label.logout";
+    public static final String APP_TITLE = "label.appTitle";
     //endregion
 
     private TranslationKeys()

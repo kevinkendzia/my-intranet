@@ -10,7 +10,7 @@ import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout;
 import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout.NavigationAction.NavigateWithId;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
-import de.kkendzia.myintranet.ei.ui.layout.EIMenu;
+import de.kkendzia.myintranet.ei.ui.layout.EIDrawer;
 import de.kkendzia.myintranet.ei.ui.views.other.mandant.detail.MandantDetailView;
 import de.kkendzia.myintranet.ei.ui.views.other.mandant.search.MandantSearchPresenter.SearchItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.addSpacerCo
 import static de.kkendzia.myintranet.ei.ui.views.other.mandant.routes.MandantRoutes.NAV_ROOT;
 
 @Route(value = MandantSearchView.NAV, layout = EIMainLayout.class)
-@MenuRoute(label = "menu.mandant", parent = EIMenu.PARENT_OTHER)
+@MenuRoute(label = "menu.mandant", parent = EIDrawer.PARENT_OTHER)
 public class MandantSearchView extends AbstractEIView<SearchLayout<SearchItem>>
 {
     public static final String NAV = NAV_ROOT + "/search";
