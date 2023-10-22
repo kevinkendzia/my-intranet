@@ -14,7 +14,7 @@ public class AhDetailPresenter
 
     public Ah loadAhById(long id)
     {
-        return ahDAO.finaOneById(id).orElseThrow(UnknownIDException::new);
+        return ahDAO.findOptionalById(id).orElseThrow(UnknownIDException::new);
     }
 
     public void save()

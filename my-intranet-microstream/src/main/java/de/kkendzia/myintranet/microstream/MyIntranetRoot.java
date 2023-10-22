@@ -4,6 +4,7 @@ import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.domain.shared.adress.Adress;
 import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
 import de.kkendzia.myintranet.domain.shared.mandant.MandantSetting;
+import de.kkendzia.myintranet.domain.user.*;
 import one.microstream.integrations.spring.boot.types.Storage;
 
 import java.util.ArrayList;
@@ -20,6 +21,11 @@ public class MyIntranetRoot
     private List<Adress> adresses = new ArrayList<>();
     private List<Mandant> mandanten = new ArrayList<>();
     private List<MandantSetting> mandantSettings = new ArrayList<>();
+    private List<EIUser> eIUsers = new ArrayList<>();
+    private List<Permission> permissions = new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();
+    private List<RolePermission> rolePermissions = new ArrayList<>();
+    private List<UserRole> userRoles = new ArrayList<>();
 
     public boolean isInit()
     {
@@ -79,5 +85,55 @@ public class MyIntranetRoot
     public void setMandantSettings(List<MandantSetting> mandantSettings)
     {
         this.mandantSettings = mandantSettings;
+    }
+
+    public List<EIUser> getEIUsers()
+    {
+        return this.eIUsers;
+    }
+
+    public void setEIUsers(List<EIUser> eIUsers)
+    {
+        this.eIUsers = eIUsers;
+    }
+
+    public List<Permission> getPermissions()
+    {
+        return this.permissions;
+    }
+
+    public void setPermissions(List<Permission> permissions)
+    {
+        this.permissions = permissions;
+    }
+
+    public List<Role> getRoles()
+    {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles)
+    {
+        this.roles = roles;
+    }
+
+    public List<RolePermission> getRolePermissions()
+    {
+        return rolePermissions;
+    }
+
+    public void setRolePermissions(List<RolePermission> rolePermissions)
+    {
+        this.rolePermissions = rolePermissions;
+    }
+
+    public List<UserRole> getUserRoles()
+    {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRole> userRoles)
+    {
+        this.userRoles = userRoles;
     }
 }

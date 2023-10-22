@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.domain.utils;
+package de.kkendzia.myintranet.domain._framework.utils;
 
 import java.util.function.BinaryOperator;
 import java.util.function.Supplier;

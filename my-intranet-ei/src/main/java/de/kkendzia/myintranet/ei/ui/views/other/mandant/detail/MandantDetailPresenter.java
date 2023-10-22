@@ -35,7 +35,7 @@ public class MandantDetailPresenter implements EIPresenter
 
     public Mandant loadMandantById(long id)
     {
-        this.mandant = mandantDAO.finaOneById(id).orElseThrow(UnknownIDException::new);
+        this.mandant = mandantDAO.findOptionalById(id).orElseThrow(UnknownIDException::new);
         return mandant;
     }
 

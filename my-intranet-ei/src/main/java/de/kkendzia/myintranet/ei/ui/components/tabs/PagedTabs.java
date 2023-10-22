@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static de.kkendzia.myintranet.domain.utils.Reduce.toOnlyElement;
+import static de.kkendzia.myintranet.domain._framework.utils.Reduce.toOnlyElement;
 import static java.util.Objects.requireNonNull;
 
 public class PagedTabs<C extends HasElement> extends Composite<Tabs>

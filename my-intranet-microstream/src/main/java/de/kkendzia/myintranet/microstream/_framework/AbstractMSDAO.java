@@ -1,6 +1,6 @@
 package de.kkendzia.myintranet.microstream._framework;
 
-import de.kkendzia.myintranet.domain._framework.CRUDDAO;
+import de.kkendzia.myintranet.domain._framework.dao.CRUDDAO;
 import de.kkendzia.myintranet.domain._framework.HasId;
 import de.kkendzia.myintranet.microstream.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.id.IdHandler;
@@ -14,10 +14,10 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static de.kkendzia.myintranet.domain.utils.Reduce.toOnlyElement;
+import static de.kkendzia.myintranet.domain._framework.utils.Reduce.toOnlyElement;
 import static java.util.Objects.requireNonNull;
 
-public abstract class AbstractMicrostreamDAO<T extends HasId, I> implements CRUDDAO<T, I>
+public abstract class AbstractMSDAO<T extends HasId, I> implements CRUDDAO<T, I>
 {
     // TODO
     @Autowired
@@ -29,7 +29,7 @@ public abstract class AbstractMicrostreamDAO<T extends HasId, I> implements CRUD
     private final Function<MyIntranetRoot, List<T>> rootCollectionProvider;
     private BiPredicate<T, T> equalsPredicate = Objects::equals;
 
-    protected AbstractMicrostreamDAO(Function<MyIntranetRoot, List<T>> rootCollectionProvider)
+    protected AbstractMSDAO(Function<MyIntranetRoot, List<T>> rootCollectionProvider)
     {
         this.rootCollectionProvider= requireNonNull(rootCollectionProvider, "rootCollectionProvider can't be null!");
     }
@@ -57,7 +57,7 @@ public abstract class AbstractMicrostreamDAO<T extends HasId, I> implements CRUD
     }
 
     @Override
-    public Optional<T> finaOneById(I id)
+    public Optional<T> findOptionalById(I id)
     {
         return findAll().filter(a -> Objects.equals(a.getId(), id)).reduce(toOnlyElement());
     }

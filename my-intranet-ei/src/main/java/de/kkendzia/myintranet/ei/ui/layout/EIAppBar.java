@@ -1,11 +1,16 @@
 package de.kkendzia.myintranet.ei.ui.layout;
 
+import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.avatar.Avatar;
+import com.vaadin.flow.component.contextmenu.ContextMenu;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.i18n.LocaleChangeEvent;
 import com.vaadin.flow.i18n.LocaleChangeObserver;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
+import com.vaadin.flow.spring.security.AuthenticationContext;
 import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import de.kkendzia.myintranet.ei.core.EIComponent;
 import de.kkendzia.myintranet.ei.core.utils.RoutingUtil;
@@ -13,6 +18,7 @@ import de.kkendzia.myintranet.ei.ui.components.search.SearchField;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchPreviewItem;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget;
 
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.LOGOUT;
 import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchItemType.DEFAULT;
 import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchItemType.FOOTER;
 import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget.OTHER;
@@ -30,11 +36,24 @@ public class EIAppBar
 
     private final SearchField<SearchPreviewItem> searchField = new SearchField<>();
 
-    public EIAppBar(EIMainLayoutPresenter presenter)
+    public EIAppBar(EIMainLayoutPresenter presenter, AuthenticationContext authContext)
     {
         DrawerToggle toggle = new DrawerToggle();
         toggle.setAriaLabel("Menu toggle");
 
+        initSearchField(presenter);
+
+        HorizontalLayout root = getContent();
+        root.addClassNames("ei-appbar");
+        root.addClassNames(Padding.Right.MEDIUM);
+        root.setAlignItems(Alignment.CENTER);
+        root.add(toggle);
+        root.addAndExpand(searchField);
+        root.add(new UserAvatar(authContext));
+    }
+
+    private void initSearchField(EIMainLayoutPresenter presenter)
+    {
         searchField.setEnabledPredicate(item -> item.type() == DEFAULT || item.type() == FOOTER);
         searchField.setItemLabelGenerator(item ->
         {
@@ -59,26 +78,21 @@ public class EIAppBar
                     searchText);
         });
         searchField.setItems(presenter.createSearchPreviewDataProvider());
-
-        HorizontalLayout root = getContent();
-        root.addClassNames(Padding.Right.MEDIUM);
-        root.add(toggle);
-        root.addAndExpand(searchField);
     }
 
     @Override
     public void afterNavigation(AfterNavigationEvent event)
     {
-        searchField.setPlaceholder(getPlaceholder());
+        searchField.setPlaceholder(getSearchPlaceholder());
     }
 
     @Override
     public void localeChange(LocaleChangeEvent event)
     {
-        searchField.setPlaceholder(getPlaceholder());
+        searchField.setPlaceholder(getSearchPlaceholder());
     }
 
-    private String getPlaceholder()
+    private String getSearchPlaceholder()
     {
         SearchTarget target = RoutingUtil.getCurrentSearchTarget();
         if (target != null)
@@ -90,5 +104,19 @@ public class EIAppBar
         return pageTitle != null
                ? getTranslation(I18N_SEARCH_IN, pageTitle)
                : getTranslation(I18N_SEARCH);
+    }
+
+    public static class UserAvatar extends Composite<Avatar>
+    {
+        private final transient AuthenticationContext authContext;
+
+        public UserAvatar(AuthenticationContext authContext)
+        {
+            this.authContext = authContext;
+
+            ContextMenu ctx = new ContextMenu(getContent());
+            ctx.setOpenOnClick(true);
+            ctx.addItem(getTranslation(LOGOUT), e -> authContext.logout());
+        }
     }
 }

@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.2</version>
+        <version>3.1.5</version>
     </parent>
 
     <!-- Project from https://start.vaadin.com/project/db752c5d-62f2-4d3b-996b-6f97114c0b1b -->

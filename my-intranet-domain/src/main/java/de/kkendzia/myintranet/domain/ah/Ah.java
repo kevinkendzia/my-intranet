@@ -1,18 +1,18 @@
 package de.kkendzia.myintranet.domain.ah;
 
-import de.kkendzia.myintranet.domain._framework.HasId;
+import de.kkendzia.myintranet.domain._framework.AbstractEntity;
+import de.kkendzia.myintranet.domain._framework.ValueObject;
 import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
 
 import java.time.LocalDate;
 
 import static java.util.Objects.requireNonNull;
 
-public final class Ah implements HasId
+public final class Ah extends AbstractEntity
 {
-    private  long id;
-    private  Ahnr ahnr;
-    private  String matchcode;
-    private  Mandant mandant;
+    private Ahnr ahnr;
+    private String matchcode;
+    private Mandant mandant;
     private LocalDate enterDate;
     private LocalDate exitDate;
 
@@ -24,7 +24,7 @@ public final class Ah implements HasId
             LocalDate enterDate,
             LocalDate exitDate)
     {
-        this.id = id;
+        super(id);
         this.ahnr = ahnr;
         this.matchcode = matchcode;
         this.mandant = mandant;
@@ -33,16 +33,6 @@ public final class Ah implements HasId
     }
 
     //region SETTER / GETTER
-    public long getId()
-    {
-        return id;
-    }
-
-    public void setId(long id)
-    {
-        this.id = id;
-    }
-
     public Ahnr getAhnr()
     {
         return ahnr;
@@ -94,12 +84,10 @@ public final class Ah implements HasId
     }
     //endregion
 
-    /*
-     * TYPES
-     */
-
-    public record Ahnr(int value)
+    //region VALUE TYPES
+    public record Ahnr(int value) implements ValueObject
     {
         // record
     }
+    //endregion
 }
