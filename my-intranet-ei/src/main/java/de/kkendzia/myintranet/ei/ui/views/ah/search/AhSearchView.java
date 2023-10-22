@@ -9,18 +9,20 @@ import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout;
 import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout.NavigationAction.NavigateWithId;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider.MenuRoute;
+import de.kkendzia.myintranet.ei.ui.layout.EIDrawer.EIMenuKeys;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
+import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import de.kkendzia.myintranet.ei.ui.views.ah.search.AhSearchPresenter.SearchItem;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SEARCH;
 import static de.kkendzia.myintranet.ei.core.search.SearchParameters.SEARCH_TEXT;
 import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.*;
-import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget.AH;
 
 @Route(value = "ah/search", layout = EIMainLayout.class)
-@MenuRoute(label = "menu.search", parent = "ah", position = 1)
-@SearchRoute(target = AH)
+@MenuRoute(label = SEARCH, parent = EIMenuKeys.AH, position = 1)
+@SearchRoute(target = SearchTarget.AH)
 public class AhSearchView
         extends AbstractEIView<SearchLayout<SearchItem>>
         implements AfterNavigationObserver

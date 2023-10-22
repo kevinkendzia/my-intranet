@@ -29,7 +29,7 @@ import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificatio
 import static de.kkendzia.myintranet.ei.ui.layout.EIDrawer.EIMenuKeys.MANDANTEN;
 
 @Route(value = MandantDetailView.NAV, layout = EIMainLayout.class)
-@MenuRoute(label = CREATE, parent = MANDANTEN)
+@MenuRoute(label = CREATE, parent = MANDANTEN, position = 0)
 @PermitAll
 public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPage>> implements HasViewParameter<Long>
 {

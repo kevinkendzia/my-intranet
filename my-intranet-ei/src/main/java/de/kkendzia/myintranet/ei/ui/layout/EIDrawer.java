@@ -26,11 +26,11 @@ public final class EIDrawer extends EIComponent<VerticalLayout>
                 new AnnotationItemProvider(
                         List.of(
                                 new DrawerMenuItem(
-                                        EIMenuKeys.MANDANTEN,
-                                        getTranslation(TranslationKeys.MANDANTEN)),
-                                new DrawerMenuItem(
                                         EIMenuKeys.START,
                                         getTranslation(TranslationKeys.START)),
+                                new DrawerMenuItem(
+                                        EIMenuKeys.MANDANTEN,
+                                        getTranslation(TranslationKeys.MANDANTEN)),
                                 new DrawerMenuItem(
                                         EIMenuKeys.AH,
                                         getTranslation(TranslationKeys.AHS)),

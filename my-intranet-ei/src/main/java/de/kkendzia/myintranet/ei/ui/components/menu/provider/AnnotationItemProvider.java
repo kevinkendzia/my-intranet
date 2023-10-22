@@ -78,6 +78,7 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
             }
         }
 
+        rootItems.removeIf(x -> x.children().isEmpty());
         rootItems.sort(comparing(DrawerMenuItem::position));
 
         return rootItems;

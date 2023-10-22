@@ -21,7 +21,7 @@ import static de.kkendzia.myintranet.ei.ui.layout.EIDrawer.EIMenuKeys.MANDANTEN;
 import static de.kkendzia.myintranet.ei.ui.views.mandant.routes.MandantRoutes.NAV_ROOT;
 
 @Route(value = MandantSearchView.NAV, layout = EIMainLayout.class)
-@MenuRoute(label = SEARCH, parent = MANDANTEN)
+@MenuRoute(label = SEARCH, parent = MANDANTEN, position = 1)
 public final class MandantSearchView extends AbstractEIView<SearchLayout<MandantSearchPresenter.SearchItem>>
 {
     public static final String NAV = NAV_ROOT + "/search";
