@@ -40,7 +40,7 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
     {
         RouteConfiguration config = routConfigurationSupplier.get();
         List<RouteData> routes = config.getAvailableRoutes();
-        Map<String, List<MenuRouteData>> routeMap = group(routes);
+        Map<String, List<MenuRouteData>> routeMap = groupByParent(routes);
 
         List<DrawerMenuItem> rootItems = new ArrayList<>(preDefinedGroups);
 
@@ -84,6 +84,55 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
         return rootItems;
     }
 
+//    @Override
+//    public List<DrawerMenuItem> getItems()
+//    {
+//        RouteConfiguration config = routConfigurationSupplier.get();
+//        List<RouteData> routes = config.getAvailableRoutes();
+//        Map<String, List<MenuRouteData>> routeMap = group(routes);
+//
+//        List<DrawerMenuItem> rootItems = new ArrayList<>(preDefinedGroups);
+//
+//        for (Map.Entry<String, List<MenuRouteData>> entry : routeMap.entrySet())
+//        {
+//            for (MenuRouteData data : entry.getValue())
+//            {
+//                String parent = entry.getKey();
+//
+//                if (parent.isEmpty())
+//                {
+//                    rootItems.add(createItemFromRoute(data));
+//                }
+//                else
+//                {
+//                    String[] segments = parent.split("/");
+//
+//                    DrawerMenuItem lastItem = null;
+//
+//                    for (String segment : segments)
+//                    {
+//                        List<DrawerMenuItem> curLayer = lastItem == null ? rootItems : lastItem.children();
+//                        DrawerMenuItem curItem = findItemByKey(segment, curLayer);
+//                        if (curItem == null)
+//                        {
+//                            curItem = createItemFromSegment(segment);
+//                            curLayer.add(curItem);
+//                        }
+//                        lastItem = curItem;
+//                    }
+//
+//                    requireNonNull(lastItem, "lastItem can't be null!");
+//                    lastItem.children().add(createItemFromRoute(data));
+//                }
+//            }
+//        }
+//
+//        rootItems.removeIf(x -> x.children().isEmpty());
+//        rootItems.sort(comparing(DrawerMenuItem::position));
+//
+//        return rootItems;
+//    }
+
     private static DrawerMenuItem createItemFromSegment(String segment)
     {
         // TODO: Icon!
@@ -102,7 +151,7 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
                 new ArrayList<>());
     }
 
-    private Map<String, List<MenuRouteData>> group(List<RouteData> routes)
+    private Map<String, List<MenuRouteData>> groupByParent(List<RouteData> routes)
     {
         return routes
                 .stream()
@@ -113,10 +162,10 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
                                 MenuRouteData::parent,
                                 collectingAndThen(
                                         toList(),
-                                        AnnotationItemProvider::sort)));
+                                        AnnotationItemProvider::sortByPosition)));
     }
 
-    private static List<MenuRouteData> sort(List<MenuRouteData> lst)
+    private static List<MenuRouteData> sortByPosition(List<MenuRouteData> lst)
     {
         lst.sort(
                 comparing(MenuRouteData::position)
@@ -131,9 +180,9 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
                 .stream()
                 .filter(x -> Objects.equals(x.key(), key))
                 .reduce((x1, x2) ->
-                        {
-                            throw new IllegalStateException("Found multiple root actionsSupplier for key " + key);
-                        })
+                {
+                    throw new IllegalStateException("Found multiple root actionsSupplier for key " + key);
+                })
                 .orElse(null);
     }
 

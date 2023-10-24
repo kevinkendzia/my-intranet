@@ -179,6 +179,10 @@ public class DrawerMenu
         {
             this(key, label, null, null, Integer.MAX_VALUE, new ArrayList<>());
         }
+        public DrawerMenuItem(String key, String label, DrawerMenuItem... children)
+        {
+            this(key, label, null, null, Integer.MAX_VALUE, List.of(children));
+        }
 
         public static DrawerMenuItem group(String key,
                                            String label,

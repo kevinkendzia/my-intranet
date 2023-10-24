@@ -1,5 +1,6 @@
 package de.kkendzia.myintranet.microstream.user;
 
+import de.kkendzia.myintranet.domain._framework.dao.Paging;
 import de.kkendzia.myintranet.domain.user.Permission;
 import de.kkendzia.myintranet.domain.user.PermissionDAO;
 import de.kkendzia.myintranet.microstream.MyIntranetRoot;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static de.kkendzia.myintranet.domain._framework.utils.Reduce.toOnlyElement;
 
@@ -26,5 +28,20 @@ public class MSPermissionDAO extends AbstractMSDAO<Permission, Long> implements 
                 .stream()
                 .filter(p -> Objects.equals(p.getName(), name))
                 .reduce(toOnlyElement());
+    }
+
+    @Override
+    public long countAllByNameLike(String searchText)
+    {
+        return findAll().filter(p -> p.getName().toLowerCase().contains(searchText.toLowerCase())).count();
+    }
+
+    @Override
+    public Stream<Permission> findAllByNameLike(String searchText, Paging paging)
+    {
+        return findAll()
+                .filter(p -> p.getName().toLowerCase().contains(searchText.toLowerCase()))
+                .skip(paging.offset())
+                .limit(paging.limit());
     }
 }

@@ -65,6 +65,10 @@ public final class TranslationKeys
     public static final String APP_TITLE = "label.appTitle";
     public static final String START = "label.start";
     public static final String SEARCH = "label.search";
+    public static final String USERS = "label.users";
+    public static final String ROLES = "label.roles";
+    public static final String PERMISSIONS = "label.permissions";
+    public static final String ADMIN = "label.admin";
     //endregion
 
     private TranslationKeys()

@@ -35,6 +35,18 @@ public final class EIDrawer extends EIComponent<VerticalLayout>
                                         EIMenuKeys.AH,
                                         getTranslation(TranslationKeys.AHS)),
                                 new DrawerMenuItem(
+                                        EIMenuKeys.ADMIN,
+                                        getTranslation(TranslationKeys.ADMIN),
+                                        new DrawerMenuItem(
+                                                EIMenuKeys.USER,
+                                                getTranslation(TranslationKeys.USERS)),
+                                        new DrawerMenuItem(
+                                                EIMenuKeys.ROLE,
+                                                getTranslation(TranslationKeys.ROLES)),
+                                        new DrawerMenuItem(
+                                                EIMenuKeys.PERMISSION,
+                                                getTranslation(TranslationKeys.PERMISSIONS))),
+                                new DrawerMenuItem(
                                         EIMenuKeys.OTHER,
                                         getTranslation(TranslationKeys.OTHER)))));
         VerticalLayout root = getContent();
@@ -61,6 +73,10 @@ public final class EIDrawer extends EIComponent<VerticalLayout>
         public static final String MANDANTEN = "mandant";
         public static final String AH = "ah";
         public static final String OTHER = "other";
+        public static final String ADMIN = "admin";
+        public static final String USER = "user";
+        public static final String ROLE = "role";
+        public static final String PERMISSION = "permission";
 
         private EIMenuKeys()
         {

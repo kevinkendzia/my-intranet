@@ -4,6 +4,8 @@ import de.kkendzia.myintranet.domain._framework.AbstractEntity;
 
 public class Permission extends AbstractEntity
 {
+    public static final String ROOT = "root";
+
     private String name;
     private boolean write;
 
