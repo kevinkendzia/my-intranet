@@ -16,7 +16,7 @@ public class ListItemProvider implements DrawerMenu.ItemProvider
     }
 
     @Override
-    public List<DrawerMenu.TreeItem> getItems()
+    public List<DrawerMenu.TreeItem> collectItems()
     {
         return items;
     }

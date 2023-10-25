@@ -28,6 +28,6 @@ public record MenuDefinition(
 
     public TreeItem createItem()
     {
-        return new TreeItem(key(), label(), iconSupplier(), navigationTarget(), position());
+        return new TreeItem(key(), label(), false, iconSupplier(), navigationTarget(), position());
     }
 }

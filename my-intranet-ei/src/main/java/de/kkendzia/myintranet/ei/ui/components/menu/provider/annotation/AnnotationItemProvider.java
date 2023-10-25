@@ -30,7 +30,7 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
     private String fallbackKey;
 
     @Override
-    public List<TreeItem> getItems()
+    public List<TreeItem> collectItems()
     {
         Map<String, TreeItem> keyItemMap = new HashMap<>();
         List<TreeItem> rootItems = new ArrayList<>();
@@ -97,17 +97,15 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
         RouteConfiguration config = routConfigurationSupplier.get();
         AnnotationAnalyzer analyzer = new AnnotationAnalyzer();
         Map<AnnotationData, TreeItem> result = new HashMap<>();
-        for (RouteData r : config                .getAvailableRoutes())
+        for (RouteData r : config.getAvailableRoutes())
         {
-            if (routeFilter == null || routeFilter.test(r))
+            if (analyzer.isMenuRoute(r) && (routeFilter == null || routeFilter.test(r)))
             {
-                if (analyzer.isMenuRoute(r))
-                {
-                    AnnotationData analyze = analyzer.analyze(r);
-                    TreeItem item = analyze.createItem();
-                    result.put(analyze, item);
-                    itemConsumer.accept(item);
-                }
+                AnnotationData analyze = analyzer.analyze(r);
+                TreeItem item = analyze.createItem();
+                result.put(analyze, item);
+                itemConsumer.accept(item);
+
             }
         }
         return result;
@@ -117,7 +115,9 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
             List<MenuDefinition> menuDefinitions,
             SerializableConsumer<TreeItem> itemConsumer)
     {
-        return menuDefinitions.stream().map(def ->
+        return menuDefinitions
+                .stream()
+                .map(def ->
                 {
                     TreeItem item = def.createItem();
                     itemConsumer.accept(item);
@@ -129,7 +129,7 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
 
     private static void extendItemMap(Map<String, TreeItem> itemMap, TreeItem item)
     {
-        if(item.key().isEmpty())
+        if (item.key().isEmpty())
         {
             return;
         }
@@ -218,6 +218,7 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
                 return new TreeItem(
                         key(),
                         label(),
+                        true,
                         iconSupplier(),
                         routeData().getNavigationTarget(),
                         position());

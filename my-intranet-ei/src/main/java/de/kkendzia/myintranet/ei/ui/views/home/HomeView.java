@@ -20,13 +20,12 @@ import jakarta.annotation.security.PermitAll;
 
 import static de.kkendzia.myintranet.ei.core.constants.EITheme.Image.IMG_HOME;
 
-@Route(value = HomeView.NAV, layout = EIMainLayout.class)
-@RouteAlias(value = "", layout = EIMainLayout.class)
+@Route(value = "", layout = EIMainLayout.class)
+@RouteAlias(value = HomeView.NAV, layout = EIMainLayout.class)
 @MenuRoute(label = HomeView.MENU_NAME, parent = EIDrawer.EIMenuKeys.START, position = 0)
 @PermitAll
 public class HomeView extends AbstractEIView<VerticalLayout> implements LocaleChangeObserver
 {
-
     public static final String NAV = "home";
     public static final String MENU_NAME = "menu.home";
 
