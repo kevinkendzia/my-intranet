@@ -14,6 +14,9 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+/**
+ * see https://www.baeldung.com/role-and-privilege-for-spring-security-registration
+ */
 @EnableWebSecurity
 @Configuration
 public class EISecurityConfiguration

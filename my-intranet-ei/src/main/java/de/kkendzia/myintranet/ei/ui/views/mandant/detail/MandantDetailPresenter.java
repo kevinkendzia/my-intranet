@@ -133,7 +133,7 @@ public class MandantDetailPresenter implements EIPresenter
             }
             else if (type == Integer.class)
             {
-                value = Integer.parseInt(setting.getValue());
+                value = setting.getValue() != null && !setting.getValue().isBlank() ? Integer.parseInt(setting.getValue()) : -1;
             }
             else if (type == LocalDate.class)
             {

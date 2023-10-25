@@ -6,15 +6,17 @@ import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider.MenuRoute;
+import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.ah.create.content.CoreDataForm;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.COMMON;
 
 @Route(value = "ah/new", layout = EIMainLayout.class)
 @MenuRoute(label = "menu.create", parent = "ah", position = 0)
+@PermitAll
 public class AhCreateView extends AbstractEIView<VerticalLayout> implements AfterNavigationObserver
 {
     private CoreDataForm frmCore = new CoreDataForm(getTranslation(COMMON));

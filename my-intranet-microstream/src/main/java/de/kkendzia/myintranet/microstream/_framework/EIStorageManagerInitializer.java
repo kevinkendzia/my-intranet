@@ -25,8 +25,18 @@ public class EIStorageManagerInitializer implements StorageManagerInitializer
             Permission pRoot = new Permission();
             pRoot.setId(1);
             pRoot.setName("root");
-            pRoot.setWrite(true);
             root.getPermissions().add(pRoot);
+
+            Permission pAhRead = new Permission();
+            pAhRead.setId(2);
+            pAhRead.setName("read_ah");
+            root.getPermissions().add(pAhRead);
+
+            Permission pAhWrite = new Permission();
+            pAhWrite.setId(3);
+            pAhWrite.setName("write_ah");
+            root.getPermissions().add(pAhWrite);
+
             sm.store(root.getPermissions());
 
             Role rRoot = new Role();

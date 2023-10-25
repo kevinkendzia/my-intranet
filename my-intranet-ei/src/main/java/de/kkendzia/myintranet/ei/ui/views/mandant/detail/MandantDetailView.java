@@ -11,7 +11,7 @@ import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.layouts.TabsLayout;
 import de.kkendzia.myintranet.ei.core.view.page.SaveablePage;
 import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider.MenuRoute;
+import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages.MandantDetailPage;

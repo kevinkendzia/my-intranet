@@ -11,7 +11,7 @@ import de.kkendzia.myintranet.ei.core.search.SearchParameters;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout;
 import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout.NavigationAction.NavigateWithId;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider.MenuRoute;
+import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layout.EIDrawer;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
@@ -24,7 +24,7 @@ import static java.util.Objects.requireNonNull;
 
 @Route(value = AdminPermissionSearchView.NAV, layout = EIMainLayout.class)
 @MenuRoute(label = TranslationKeys.SEARCH, parent = EIDrawer.EIMenuKeys.PERMISSION)
-@RolesAllowed(Permission.ROOT)
+@RolesAllowed("ROLE_" + Permission.ROOT)
 public class AdminPermissionSearchView extends AbstractEIView<SearchLayout<SimpleSearchItem>>
 {
     public static final String NAV = "admin/permission";

@@ -40,7 +40,7 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
     {
         //noinspection unchecked
         List<T> values = (List<T>) qpValueMap.getOrDefault(definition, emptyList());
-        return values.stream();
+        return Optional.ofNullable(values).stream().flatMap(Collection::stream);
     }
     protected void registerRouteParameter(ParameterDefinition<?> definition)
     {

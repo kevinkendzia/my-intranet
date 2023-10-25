@@ -7,7 +7,6 @@ public class Permission extends AbstractEntity
     public static final String ROOT = "root";
 
     private String name;
-    private boolean write;
 
     public Permission()
     {
@@ -26,15 +25,5 @@ public class Permission extends AbstractEntity
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    public boolean isWrite()
-    {
-        return write;
-    }
-
-    public void setWrite(boolean write)
-    {
-        this.write = write;
     }
 }

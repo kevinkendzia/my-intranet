@@ -3,24 +3,17 @@ package de.kkendzia.myintranet.ei.ui.components.menu;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.function.SerializableSupplier;
-import com.vaadin.flow.theme.lumo.LumoUtility.FontSize;
-import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
-import de.kkendzia.myintranet.ei.core.EIComponent;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.AnnotationItemProvider;
+import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.AnnotationItemProvider;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.StringJoiner;
 
 import static com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment.STRETCH;
 import static java.util.Objects.requireNonNull;
@@ -35,25 +28,12 @@ public class DrawerMenu
     private boolean rootGroupLabels = true;
     private boolean rootGroupCollapsible = true;
 
-    public DrawerMenu(
-            Component header,
-            Component footer)
+    public DrawerMenu()
     {
         VerticalLayout root = getContent();
         root.setAlignItems(STRETCH);
         root.setHeightFull();
-
-        if (header != null)
-        {
-            root.add(header);
-        }
-
         root.add(scroller);
-
-        if (footer != null)
-        {
-            root.add(footer);
-        }
     }
 
     @Override
@@ -71,11 +51,11 @@ public class DrawerMenu
         vlNav.setSpacing(true);
         vlNav.setAlignItems(STRETCH);
 
-        List<DrawerMenuItem> rootItems = itemProvider.getItems();
+        List<TreeItem> rootItems = itemProvider.getItems();
 
         if (this.rootGroupLabels)
         {
-            for (DrawerMenuItem x : rootItems)
+            for (TreeItem x : rootItems)
             {
                 Component nav = createSingleNavigation(x.label(), rootGroupCollapsible, x.children());
                 vlNav.add(nav);
@@ -91,11 +71,11 @@ public class DrawerMenu
         return vlNav;
     }
 
-    private Component createSingleNavigation(String label, boolean collapsible, Collection<DrawerMenuItem> routes)
+    private Component createSingleNavigation(String label, boolean collapsible, Collection<TreeItem> routes)
     {
         SideNav nav = new SideNav(label);
         nav.setCollapsible(collapsible);
-        for (DrawerMenuItem route : routes)
+        for (TreeItem route : routes)
         {
             SideNavItem itm = createNavItemsRecursive(route);
             nav.addItem(itm);
@@ -104,11 +84,11 @@ public class DrawerMenu
         return nav;
     }
 
-    private SideNavItem createNavItemsRecursive(DrawerMenuItem route)
+    private SideNavItem createNavItemsRecursive(TreeItem route)
     {
         SideNavItem itm = createSubNavItem(route);
 
-        for (DrawerMenuItem r : route.children())
+        for (TreeItem r : route.children())
         {
             SideNavItem sub = createNavItemsRecursive(r);
             itm.addItem(sub);
@@ -117,7 +97,7 @@ public class DrawerMenu
         return itm;
     }
 
-    private SideNavItem createSubNavItem(DrawerMenuItem route)
+    private SideNavItem createSubNavItem(TreeItem route)
     {
 
         return new SideNavItem(
@@ -144,66 +124,27 @@ public class DrawerMenu
     //endregion
 
     //region TYPES
-    public static class MenuHeader extends EIComponent<Header>
-    {
-        public MenuHeader(String title)
-        {
-            H1 appName = new H1(title);
-            appName.addClassNames(FontSize.LARGE, Margin.NONE);
-
-            Header header = getContent();
-            header.setHeight("10em");
-            header.add(appName);
-        }
-    }
-
-    public static class MenuFooter extends EIComponent<Footer>
-    {
-
-    }
-
     public interface ItemProvider extends Serializable
     {
-        List<DrawerMenuItem> getItems();
+        List<TreeItem> getItems();
     }
 
-    public record DrawerMenuItem(
+    public record TreeItem(
             String key,
             String label,
             SerializableSupplier<Component> iconSupplier,
             Class<? extends Component> navigationTarget,
             int position,
-            List<DrawerMenuItem> children)
+            List<TreeItem> children)
     {
-        public DrawerMenuItem(String key, String label)
+        public TreeItem(
+                String key,
+                String label,
+                SerializableSupplier<Component> iconSupplier,
+                Class<? extends Component> navigationTarget,
+                int position)
         {
-            this(key, label, null, null, Integer.MAX_VALUE, new ArrayList<>());
-        }
-        public DrawerMenuItem(String key, String label, DrawerMenuItem... children)
-        {
-            this(key, label, null, null, Integer.MAX_VALUE, List.of(children));
-        }
-
-        public static DrawerMenuItem group(String key,
-                                           String label,
-                                           SerializableSupplier<Component> iconSupplier,
-                                           int position)
-        {
-            return new DrawerMenuItem(
-                    key,
-                    label,
-                    iconSupplier,
-                    null,
-                    position,
-                    new ArrayList<>());
-        }
-
-        @Override
-        public String toString()
-        {
-            return new StringJoiner(", ", DrawerMenuItem.class.getSimpleName() + "[", "]")
-                    .add("key='" + key + "'")
-                    .toString();
+            this(key, label, iconSupplier, navigationTarget, position, new ArrayList<>());
         }
     }
     //endregion

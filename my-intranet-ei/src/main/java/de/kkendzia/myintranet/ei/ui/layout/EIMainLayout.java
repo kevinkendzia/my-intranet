@@ -7,6 +7,7 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
@@ -29,13 +30,13 @@ public class EIMainLayout
     private EIMainLayoutPresenter presenter;
 
     @Autowired
-    public EIMainLayout(EIMainLayoutPresenter presenter, AuthenticationContext authContext)
+    public EIMainLayout(AccessAnnotationChecker checker, EIMainLayoutPresenter presenter, AuthenticationContext authContext)
     {
         this.presenter = presenter;
 
         addClassName("ei-main-layout");
         setPrimarySection(Section.DRAWER);
-        addToDrawer(new EIDrawer());
+        addToDrawer(new EIDrawer(checker));
         addToNavbar(new EIAppBar(presenter, authContext));
     }
 
