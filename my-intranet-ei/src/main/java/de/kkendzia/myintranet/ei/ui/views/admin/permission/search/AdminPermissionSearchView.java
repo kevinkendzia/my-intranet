@@ -24,7 +24,7 @@ import static java.util.Objects.requireNonNull;
 
 @Route(value = AdminPermissionSearchView.NAV, layout = EIMainLayout.class)
 @MenuRoute(label = TranslationKeys.SEARCH, parent = EIDrawer.EIMenuKeys.PERMISSION)
-@RolesAllowed("ROLE_" + Permission.ROOT)
+@RolesAllowed(Permission.ROOT)
 public class AdminPermissionSearchView extends AbstractEIView<SearchLayout<SimpleSearchItem>>
 {
     public static final String NAV = "admin/permission";
