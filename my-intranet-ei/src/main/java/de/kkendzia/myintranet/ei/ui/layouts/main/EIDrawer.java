@@ -8,7 +8,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import com.vaadin.flow.theme.lumo.LumoUtility.FontSize;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
-import de.kkendzia.myintranet.ei.core.EIComponent;
+import de.kkendzia.myintranet.ei.core.components.EIComponent;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.components.menu.DrawerMenu;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.MenuDefinition;

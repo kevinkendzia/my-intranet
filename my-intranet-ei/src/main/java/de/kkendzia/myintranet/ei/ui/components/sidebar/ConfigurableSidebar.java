@@ -1,55 +1,172 @@
 package de.kkendzia.myintranet.ei.ui.components.sidebar;
 
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Header;
+import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.shared.HasThemeVariant;
+import com.vaadin.flow.component.shared.ThemeVariant;
 import com.vaadin.flow.function.SerializableSupplier;
+import com.vaadin.flow.theme.lumo.LumoUtility.AlignItems;
+import com.vaadin.flow.theme.lumo.LumoUtility.Display;
+import com.vaadin.flow.theme.lumo.LumoUtility.FlexDirection;
+import de.kkendzia.myintranet.ei.core.components.ComponentFactory;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration.SidebarAction;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration.SidebarHeader;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration.SidebarText;
 
 import static java.util.Objects.requireNonNull;
 
-public class ConfigurableSidebar extends Composite<VerticalLayout>
-        implements ConfigurableSidebarNotifier.SidebarChangeListener
+public class ConfigurableSidebar extends Composite<VerticalLayout> implements HasThemeVariant<ConfigurableSidebar.ConfigurableSidebarVariant>
 {
-    private SerializableSupplier<SidebarConfig> configSupplier;
+    private SerializableSupplier<SidebarConfiguration> configSupplier;
+    private ComponentFactory<SidebarAction> actionFactory = new DefaultActionFactory();
+    private ComponentFactory<SidebarText> textFactory = new DefaultTextFactory();
+    private ComponentFactory<SidebarHeader> headerFactory = new DefaultHeaderFactory(actionFactory);
 
-    public ConfigurableSidebar(SerializableSupplier<SidebarConfig> configSupplier)
+    public ConfigurableSidebar(SerializableSupplier<SidebarConfiguration> configSupplier)
     {
         this.configSupplier = requireNonNull(configSupplier, "configSupplier can't be null!");
 
         VerticalLayout root = getContent();
-        root.addClassNames("ei-view-sidebar");
+        root.addClassNames("configurable-sidebar");
         root.setSizeUndefined();
-        root.setAlignItems(FlexComponent.Alignment.STRETCH);
+        root.setAlignItems(Alignment.STRETCH);
 
         rebuild();
     }
 
-    public ConfigurableSidebar(SidebarConfig config)
+    public ConfigurableSidebar(SidebarConfiguration config)
     {
         this(() -> requireNonNull(config, "config can't be null!"));
     }
 
-    private void rebuild()
+    public void rebuild()
     {
-        SidebarConfig config = this.configSupplier.get();
+        SidebarConfiguration config = this.configSupplier.get();
+
         VerticalLayout root = getContent();
         root.removeAll();
-        for (SidebarConfig.SidebarConfigEntry entry : config.entries())
+
+        if(config.header() != null)
         {
-            root.add(new Button(entry.label(), e -> entry.action().run()));
+            root.add(headerFactory.create(config.header()));
+        }
+
+        for (SidebarConfiguration.SidebarContent entry : config.content())
+        {
+            if(entry instanceof SidebarAction action)
+            {
+                root.add(actionFactory.create(action));
+            }
+            else if(entry instanceof SidebarText text)
+            {
+                root.add(textFactory.create(text));
+            }
         }
     }
 
-    private void setConfigSupplier(SerializableSupplier<SidebarConfig> configSupplier)
+    public void setConfigSupplier(SerializableSupplier<SidebarConfiguration> configSupplier)
     {
         this.configSupplier = configSupplier;
     }
 
-    @Override
-    public void onSidebarChange(ConfigurableSidebarNotifier.SidebarChangeEvent event)
+    //region SETTER
+    public void setHeaderFactory(ComponentFactory<SidebarHeader> headerFactory)
     {
-        event.getOptionalConfig().ifPresent(c -> setConfigSupplier(() -> c));
-        rebuild();
+        this.headerFactory = requireNonNull(headerFactory, "headerFactory can't be null!");
     }
+    public void setActionFactory(ComponentFactory<SidebarAction> actionFactory)
+    {
+        this.actionFactory = requireNonNull(actionFactory, "actionFactory can't be null!");
+    }
+    public void setTextFactory(ComponentFactory<SidebarText> textFactory)
+    {
+        this.textFactory = requireNonNull(textFactory, "textFactory can't be null!");
+    }
+    //endregion
+
+    //region TYPES
+    public static class DefaultHeaderFactory implements ComponentFactory<SidebarHeader>
+    {
+        private ComponentFactory<SidebarAction> actionFactory;
+
+        public DefaultHeaderFactory(ComponentFactory<SidebarAction> actionFactory)
+        {
+            this.actionFactory = requireNonNull(actionFactory, "actionFactory can't be null!");
+        }
+
+        @Override
+        public Component create(SidebarHeader header)
+        {
+            Header headerComponent = new Header();
+            headerComponent.addClassName(Display.FLEX);
+            headerComponent.addClassName(FlexDirection.COLUMN);
+            headerComponent.addClassName(AlignItems.STRETCH);
+
+            if(header.title() != null && !header.title().isEmpty())
+            {
+                headerComponent.add(new H2(header.title()));
+            }
+
+            if(header.description() != null && !header.description().isEmpty())
+            {
+                headerComponent.add(new Paragraph(header.description()));
+            }
+
+            if(header.actions() != null && !header.actions().isEmpty())
+            {
+                for (SidebarAction action : header.actions())
+                {
+                    headerComponent.add(actionFactory.create(action));
+                }
+            }
+            return headerComponent;
+        }
+
+        public void setActionFactory(ComponentFactory<SidebarAction> actionFactory)
+        {
+            this.actionFactory = requireNonNull(actionFactory, "actionFactory can't be null!");
+        }
+    }
+
+    public static class DefaultActionFactory implements ComponentFactory<SidebarAction>
+    {
+        @Override
+        public Component create(SidebarAction action)
+        {
+            return new Button(action.label(), e -> action.action().run());
+        }
+    }
+    public static class DefaultTextFactory implements ComponentFactory<SidebarText>
+    {
+        @Override
+        public Component create(SidebarText text)
+        {
+            return new Paragraph(text.text());
+        }
+    }
+    public enum ConfigurableSidebarVariant implements ThemeVariant
+    {
+        BOX("box"),
+        CONTRAST("contrast");
+
+        private final String variantName;
+
+        ConfigurableSidebarVariant(String variantName)
+        {
+            this.variantName=variantName;
+        }
+
+        @Override
+        public String getVariantName()
+        {
+            return variantName;
+        }
+    }
+    //endregion
 }

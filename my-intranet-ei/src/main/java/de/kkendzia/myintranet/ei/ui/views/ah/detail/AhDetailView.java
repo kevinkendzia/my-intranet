@@ -10,14 +10,17 @@ import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.ei.core.parameters.HasViewParameter;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfig;
-import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.components.async.AsyncContainer;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration.SidebarAction;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration.ToolbarAction;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.content.DummyPanel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment.STRETCH;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SAVE;
 
 @Route(value = "ah", layout = EIMainLayout.class)
 public class AhDetailView
@@ -32,14 +35,14 @@ public class AhDetailView
     {
         this.presenter = presenter;
 
-        setSidebarConfig(
-                new SidebarConfig.Builder()
-                        .add(new SidebarConfig.SidebarConfigEntry(getTranslation("label.save"), () -> presenter.save()))
+        setLeftSidebarConfig(
+                new SidebarConfiguration.Builder()
+                        .action(new SidebarAction(getTranslation(SAVE), presenter::save))
                         .build());
 
         setToolbarConfig(
                 new ToolbarConfiguration.Builder()
-                        .action(new ToolbarConfiguration.ToolbarAction(getTranslation("label.save"), () -> presenter.save()))
+                        .action(new ToolbarAction(getTranslation(SAVE), presenter::save))
                         .build());
 
         VerticalLayout root = getContent();

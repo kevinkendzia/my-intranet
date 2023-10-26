@@ -12,7 +12,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import static java.util.Objects.requireNonNull;
 
 // TODO: sticky? shrinking toolbar?
-public class ConfigurableToolbar extends Composite<HorizontalLayout> implements ConfigurableToolbarNotifier.ToolbarChangeListener
+public class ConfigurableToolbar extends Composite<HorizontalLayout>
 {
     private SerializableSupplier<ToolbarConfiguration> configSupplier;
 
@@ -21,7 +21,7 @@ public class ConfigurableToolbar extends Composite<HorizontalLayout> implements 
         this.configSupplier = requireNonNull(configSupplier, "configSupplier can't be null!");
 
         HorizontalLayout root = getContent();
-        root.addClassNames("view-toolbar");
+        root.addClassNames("configurable-toolbar");
         root.addClassNames(Padding.Horizontal.MEDIUM);
         root.setAlignItems(Alignment.STRETCH);
         root.setJustifyContentMode(JustifyContentMode.BETWEEN);
@@ -35,7 +35,7 @@ public class ConfigurableToolbar extends Composite<HorizontalLayout> implements 
     }
 
 
-    private void rebuild()
+    public void rebuild()
     {
         ToolbarConfiguration config = this.configSupplier.get();
 
@@ -61,14 +61,7 @@ public class ConfigurableToolbar extends Composite<HorizontalLayout> implements 
         }
     }
 
-    @Override
-    public void onToolbarChange(ConfigurableToolbarNotifier.ToolbarChangeEvent event)
-    {
-        event.getOptionalConfig().ifPresent(c -> setConfigSupplier(() -> c));
-        rebuild();
-    }
-
-    private void setConfigSupplier(SerializableSupplier<ToolbarConfiguration> configSupplier)
+    public void setConfigSupplier(SerializableSupplier<ToolbarConfiguration> configSupplier)
     {
         this.configSupplier = configSupplier;
     }

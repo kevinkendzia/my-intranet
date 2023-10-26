@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.components.toolbar;
+package de.kkendzia.myintranet.ei.core.view.mixins;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
@@ -6,9 +6,7 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.shared.Registration;
 
-import java.util.Optional;
-
-public interface ConfigurableToolbarNotifier
+public interface ToolbarNotifier
 {
     @SuppressWarnings("UnusedReturnValue")
     default Registration addToolbarChangeListener(ComponentEventListener<ToolbarChangeEvent> listener)
@@ -21,39 +19,22 @@ public interface ConfigurableToolbarNotifier
         ComponentUtil.fireEvent((Component) this, event);
     }
 
-    default void fireToolbarChange(boolean fromClient, ToolbarConfiguration config)
-    {
-        fireToolbarChange(new ToolbarChangeEvent((Component) this, fromClient, config));
-    }
     default void fireToolbarChange(boolean fromClient)
     {
-        fireToolbarChange(fromClient, null);
+        fireToolbarChange(new ToolbarChangeEvent((Component) this, fromClient));
     }
     default void fireToolbarChange()
     {
-        fireToolbarChange(false, null);
+        fireToolbarChange(false);
     }
 
     class ToolbarChangeEvent extends ComponentEvent<Component>
     {
-        private final ToolbarConfiguration config;
-
         public ToolbarChangeEvent(
                 Component source,
-                boolean fromClient,
-                ToolbarConfiguration config)
+                boolean fromClient)
         {
             super(source, fromClient);
-            this.config = config;
-        }
-
-        public ToolbarConfiguration getConfig()
-        {
-            return config;
-        }
-        public Optional<ToolbarConfiguration> getOptionalConfig()
-        {
-            return Optional.ofNullable(config);
         }
     }
 

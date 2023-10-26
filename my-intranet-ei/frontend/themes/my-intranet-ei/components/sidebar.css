@@ -1,0 +1,12 @@
+.configurable-sidebar[theme~="box"] {
+    background: var(--lumo-contrast-5pct);
+    border-radius: var(--lumo-border-radius-l);
+    /*margin: var(--lumo-space-m);*/
+    border: 1px solid var(--lumo-contrast-10pct);
+}
+.configurable-sidebar[theme~="contrast"] {
+    background: var(--lumo-contrast-5pct);
+    /*border-radius: var(--lumo-border-radius-l);*/
+    /*margin: var(--lumo-space-m);*/
+    border-right: 1px solid var(--lumo-contrast-10pct);
+}

@@ -1,15 +1,15 @@
 package de.kkendzia.myintranet.ei.core.view;
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.router.*;
-import de.kkendzia.myintranet.ei.core.EIComponent;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.HasDynamicTitle;
+import com.vaadin.flow.router.RouteParameters;
+import de.kkendzia.myintranet.ei.core.components.EIComponent;
 import de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition;
-import de.kkendzia.myintranet.ei.core.view.mixins.HasSidebarConfig;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfig;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.ConfigurableSidebarNotifier;
-import de.kkendzia.myintranet.ei.core.view.mixins.HasToolbarConfig;
+import de.kkendzia.myintranet.ei.core.view.mixins.*;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
-import de.kkendzia.myintranet.ei.ui.components.toolbar.ConfigurableToolbarNotifier;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -17,8 +17,15 @@ import java.util.stream.Stream;
 import static java.util.Collections.emptyList;
 
 public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
-        implements EIView, HasDynamicTitle, BeforeEnterObserver, HasToolbarConfig, ConfigurableToolbarNotifier,
-        HasSidebarConfig, ConfigurableSidebarNotifier
+        implements EIView,
+        HasDynamicTitle,
+        BeforeEnterObserver,
+        HasToolbarConfig,
+        ToolbarNotifier,
+        HasLeftSidebar,
+        LeftSidebarNotifier,
+        HasRightSidebar,
+        RightSidebarNotifier
 {
     private String pageTitle;
     private final Map<ParameterDefinition<?>, List<?>> qpValueMap = new HashMap<>();
@@ -62,14 +69,23 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
         HasToolbarConfig.setToolbarConfig(this, toolbarConfigSupplier);
     }
 
-    protected void setSidebarConfig(SidebarConfig sidebarConfig)
+    protected void setLeftSidebarConfig(SidebarConfiguration sidebarConfig)
     {
-        HasSidebarConfig.setSidebarConfig(this, sidebarConfig);
+        HasLeftSidebar.setLeftSidebarConfig(this, sidebarConfig);
     }
 
-    protected void setSidebarConfig(SidebarConfig.SidebarConfigSupplier sidebarConfigSupplier)
+    protected void setLeftSidebarConfig(LeftSidebarConfigSupplier sidebarConfigSupplier)
     {
-        HasSidebarConfig.setSidebarConfig(this, sidebarConfigSupplier);
+        HasLeftSidebar.setLeftSidebarConfig(this, sidebarConfigSupplier);
+    }
+    protected void setRightSidebarConfig(SidebarConfiguration sidebarConfig)
+    {
+        HasRightSidebar.setRightSidebarConfig(this, sidebarConfig);
+    }
+
+    protected void setRightSidebarConfig(RightSidebarConfigSupplier sidebarConfigSupplier)
+    {
+        HasRightSidebar.setRightSidebarConfig(this, sidebarConfigSupplier);
     }
 
     @Override

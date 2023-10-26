@@ -7,7 +7,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
-import de.kkendzia.myintranet.ei.core.EIComponent;
+import de.kkendzia.myintranet.ei.core.components.EIComponent;
 
 public class CoreDataForm extends EIComponent<VerticalLayout>
 {

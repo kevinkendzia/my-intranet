@@ -2,7 +2,8 @@
 @import 'async-container-styles.css';
 @import 'layouts/section-layout.css';
 @import 'components/combobox.css';
-
+@import 'components/sidebar.css';
+@import 'components/toolbar.css';
 
 h3.sticky-h3 {
     position: sticky;
