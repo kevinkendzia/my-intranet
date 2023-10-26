@@ -34,7 +34,7 @@ public class AhCreateView extends AbstractEIView<VerticalLayout> implements Afte
                         .build());
 
         VerticalLayout root = getContent();
-        root.setPadding(false);
+        root.setPadding(true);
         root.add(frmCore);
 //        root.add(frmAdress);
     }

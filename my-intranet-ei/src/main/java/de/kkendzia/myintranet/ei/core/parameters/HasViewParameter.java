@@ -5,7 +5,8 @@ import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.RouteConfiguration;
+
+import static de.kkendzia.myintranet.ei.core.utils.HistoryUtil.updateUrl;
 
 public interface HasViewParameter<T> extends HasElement, HasUrlParameter<T>
 {
@@ -27,18 +28,6 @@ public interface HasViewParameter<T> extends HasElement, HasUrlParameter<T>
 
     default void setViewParameter(T value)
     {
-        setViewParameter(this, value);
-    }
-
-    static <T, C extends Component & HasUrlParameter<T>> void setViewParameter(HasViewParameter<T> source, T value)
-    {
-        //noinspection unchecked
-        String deepLinkingUrl = RouteConfiguration.forSessionScope().getUrl((Class<C>)source.getClass(), value);
-        ((Component)source)
-                .getUI()
-                .orElseThrow(() -> new IllegalArgumentException("UI is NOT accessible!"))
-                .getPage()
-                .getHistory()
-                .replaceState(null, deepLinkingUrl);
+        updateUrl(this, value);
     }
 }

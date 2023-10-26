@@ -45,5 +45,10 @@ public class ParameterDefinition<T>
     {
         return new ParameterDefinition<>(name, identity());
     }
+
+    public static ParameterDefinition<Boolean> booleanParam(String name)
+    {
+        return new ParameterDefinition<>(name, s -> s == null || s.isEmpty() || Boolean.parseBoolean(s));
+    }
     //endregion
 }
