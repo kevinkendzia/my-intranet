@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.layout;
+package de.kkendzia.myintranet.ei.ui.layouts.main;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -15,14 +15,14 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import de.kkendzia.myintranet.ei.core.EIComponent;
 import de.kkendzia.myintranet.ei.core.utils.RoutingUtil;
 import de.kkendzia.myintranet.ei.ui.components.search.SearchField;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchPreviewItem;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchPreviewItem;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.LOGOUT;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SEARCH;
-import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchItemType.DEFAULT;
-import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchItemType.FOOTER;
-import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget.OTHER;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.DEFAULT;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.FOOTER;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.OTHER;
 import static java.util.Objects.requireNonNullElse;
 
 public class EIAppBar

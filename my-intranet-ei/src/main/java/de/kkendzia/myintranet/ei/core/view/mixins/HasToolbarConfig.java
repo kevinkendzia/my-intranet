@@ -1,8 +1,9 @@
-package de.kkendzia.myintranet.ei.core.view.toolbar;
+package de.kkendzia.myintranet.ei.core.view.mixins;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasElement;
-import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig.ToolbarConfigSupplier;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration.ToolbarConfigSupplier;
 
 import java.util.Optional;
 
@@ -20,20 +21,20 @@ public interface HasToolbarConfig extends HasElement
         return Optional.ofNullable(getToolbarConfigSupplier());
     }
 
-    default ToolbarConfig getToolbarConfig()
+    default ToolbarConfiguration getToolbarConfig()
     {
         return getOptionalToolbarConfig().orElse(null);
     }
 
-    default Optional<ToolbarConfig> getOptionalToolbarConfig()
+    default Optional<ToolbarConfiguration> getOptionalToolbarConfig()
     {
         ToolbarConfigSupplier supplier = getToolbarConfigSupplier();
         return Optional.ofNullable(supplier).map(ToolbarConfigSupplier::get);
     }
 
-    static void setToolbarConfig(Component component, ToolbarConfig toolbarConfig)
+    static void setToolbarConfig(Component component, ToolbarConfiguration toolbarConfiguration)
     {
-        setToolbarConfig(component, () -> toolbarConfig);
+        setToolbarConfig(component, () -> toolbarConfiguration);
     }
 
     static void setToolbarConfig(Component component, ToolbarConfigSupplier toolbarConfigSupplier)

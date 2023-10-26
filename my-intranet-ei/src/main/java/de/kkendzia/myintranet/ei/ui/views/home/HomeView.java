@@ -14,8 +14,8 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
-import de.kkendzia.myintranet.ei.ui.layout.EIDrawer;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import jakarta.annotation.security.PermitAll;
 
 import static de.kkendzia.myintranet.ei.core.constants.EITheme.Image.IMG_HOME;

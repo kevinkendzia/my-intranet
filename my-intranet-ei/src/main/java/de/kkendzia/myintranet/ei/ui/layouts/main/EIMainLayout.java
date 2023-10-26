@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.layout;
+package de.kkendzia.myintranet.ei.ui.layouts.main;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
@@ -13,12 +13,12 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.EIView;
-import de.kkendzia.myintranet.ei.core.view.sidebar.HasSidebarConfig;
-import de.kkendzia.myintranet.ei.core.view.sidebar.SidebarNotifier;
-import de.kkendzia.myintranet.ei.core.view.sidebar.ViewSidebar;
-import de.kkendzia.myintranet.ei.core.view.toolbar.HasToolbarConfig;
-import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarNotifier;
-import de.kkendzia.myintranet.ei.core.view.toolbar.ViewToolbar;
+import de.kkendzia.myintranet.ei.core.view.mixins.HasSidebarConfig;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.ConfigurableSidebarNotifier;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.ConfigurableSidebar;
+import de.kkendzia.myintranet.ei.core.view.mixins.HasToolbarConfig;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ConfigurableToolbarNotifier;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ConfigurableToolbar;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -87,10 +87,10 @@ public class EIMainLayout
             {
                 t.getOptionalToolbarConfigSupplier().ifPresent(tb ->
                 {
-                    ViewToolbar toolbar = new ViewToolbar(tb);
+                    ConfigurableToolbar toolbar = new ConfigurableToolbar(tb);
                     vlContent.add(toolbar);
 
-                    if(view instanceof ToolbarNotifier n)
+                    if(view instanceof ConfigurableToolbarNotifier n)
                     {
                         n.addToolbarChangeListener(toolbar);
                     }
@@ -109,10 +109,10 @@ public class EIMainLayout
             {
                 s.getOptionalSidebarConfigSupplier().ifPresent(sb ->
                 {
-                    ViewSidebar sidebar = new ViewSidebar(sb);
+                    ConfigurableSidebar sidebar = new ConfigurableSidebar(sb);
                     root.add(sidebar);
 
-                    if(view instanceof SidebarNotifier n)
+                    if(view instanceof ConfigurableSidebarNotifier n)
                     {
                         n.addSidebarChangeListener(sidebar);
                     }

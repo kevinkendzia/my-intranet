@@ -4,12 +4,12 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.router.*;
 import de.kkendzia.myintranet.ei.core.EIComponent;
 import de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition;
-import de.kkendzia.myintranet.ei.core.view.sidebar.HasSidebarConfig;
-import de.kkendzia.myintranet.ei.core.view.sidebar.SidebarConfig;
-import de.kkendzia.myintranet.ei.core.view.sidebar.SidebarNotifier;
-import de.kkendzia.myintranet.ei.core.view.toolbar.HasToolbarConfig;
-import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
-import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarNotifier;
+import de.kkendzia.myintranet.ei.core.view.mixins.HasSidebarConfig;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfig;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.ConfigurableSidebarNotifier;
+import de.kkendzia.myintranet.ei.core.view.mixins.HasToolbarConfig;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ConfigurableToolbarNotifier;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -17,8 +17,8 @@ import java.util.stream.Stream;
 import static java.util.Collections.emptyList;
 
 public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
-        implements EIView, HasDynamicTitle, BeforeEnterObserver, HasToolbarConfig, ToolbarNotifier,
-        HasSidebarConfig, SidebarNotifier
+        implements EIView, HasDynamicTitle, BeforeEnterObserver, HasToolbarConfig, ConfigurableToolbarNotifier,
+        HasSidebarConfig, ConfigurableSidebarNotifier
 {
     private String pageTitle;
     private final Map<ParameterDefinition<?>, List<?>> qpValueMap = new HashMap<>();
@@ -52,12 +52,12 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
         return (Optional<T>) Optional.ofNullable(rpValueMap.get(definition));
     }
 
-    protected void setToolbarConfig(ToolbarConfig toolbarConfig)
+    protected void setToolbarConfig(ToolbarConfiguration toolbarConfiguration)
     {
-        HasToolbarConfig.setToolbarConfig(this, toolbarConfig);
+        HasToolbarConfig.setToolbarConfig(this, toolbarConfiguration);
     }
 
-    protected void setToolbarConfig(ToolbarConfig.ToolbarConfigSupplier toolbarConfigSupplier)
+    protected void setToolbarConfig(ToolbarConfiguration.ToolbarConfigSupplier toolbarConfigSupplier)
     {
         HasToolbarConfig.setToolbarConfig(this, toolbarConfigSupplier);
     }

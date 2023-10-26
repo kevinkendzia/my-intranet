@@ -5,9 +5,9 @@ import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.ah.create.content.CoreDataForm;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class AhCreateView extends AbstractEIView<VerticalLayout> implements Afte
     public AhCreateView()
     {
         setToolbarConfig(
-                new ToolbarConfig.Builder()
+                new ToolbarConfiguration.Builder()
                         .title(getTranslation("ah.create"))
                         .action("create", this::create)
                         .build());

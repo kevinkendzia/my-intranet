@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.core.search;
+package de.kkendzia.myintranet.ei.core.view.search;
 
 import de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition;
 

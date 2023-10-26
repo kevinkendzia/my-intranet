@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.core.view.sidebar;
+package de.kkendzia.myintranet.ei.ui.components.sidebar;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
@@ -8,13 +8,14 @@ import com.vaadin.flow.function.SerializableSupplier;
 
 import static java.util.Objects.requireNonNull;
 
-public class ViewSidebar extends Composite<VerticalLayout> implements SidebarNotifier.SidebarChangeListener
+public class ConfigurableSidebar extends Composite<VerticalLayout>
+        implements ConfigurableSidebarNotifier.SidebarChangeListener
 {
     private SerializableSupplier<SidebarConfig> configSupplier;
 
-    public ViewSidebar(SerializableSupplier<SidebarConfig> configSupplier)
+    public ConfigurableSidebar(SerializableSupplier<SidebarConfig> configSupplier)
     {
-        this.configSupplier=requireNonNull(configSupplier, "configSupplier can't be null!");
+        this.configSupplier = requireNonNull(configSupplier, "configSupplier can't be null!");
 
         VerticalLayout root = getContent();
         root.addClassNames("ei-view-sidebar");
@@ -24,7 +25,7 @@ public class ViewSidebar extends Composite<VerticalLayout> implements SidebarNot
         rebuild();
     }
 
-    public ViewSidebar(SidebarConfig config)
+    public ConfigurableSidebar(SidebarConfig config)
     {
         this(() -> requireNonNull(config, "config can't be null!"));
     }
@@ -46,7 +47,7 @@ public class ViewSidebar extends Composite<VerticalLayout> implements SidebarNot
     }
 
     @Override
-    public void onSidebarChange(SidebarNotifier.SidebarChangeEvent event)
+    public void onSidebarChange(ConfigurableSidebarNotifier.SidebarChangeEvent event)
     {
         event.getOptionalConfig().ifPresent(c -> setConfigSupplier(() -> c));
         rebuild();

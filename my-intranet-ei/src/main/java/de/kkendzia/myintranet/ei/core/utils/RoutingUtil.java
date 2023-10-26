@@ -4,8 +4,8 @@ import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.PageTitle;
-import de.kkendzia.myintranet.ei.core.search.SearchRoute;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget;
+import de.kkendzia.myintranet.ei.core.view.search.SearchRoute;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import java.util.List;

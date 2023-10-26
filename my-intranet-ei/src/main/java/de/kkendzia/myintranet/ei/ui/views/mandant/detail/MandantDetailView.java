@@ -7,12 +7,12 @@ import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.parameters.HasViewParameter;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.core.view.layouts.TabsLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.TabsLayout;
 import de.kkendzia.myintranet.ei.core.view.page.SaveablePage;
-import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages.MandantDetailPage;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages.MandantDetailsPage;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages.MandantSettingsPage;
@@ -26,7 +26,7 @@ import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.Notification.Error.Message;
 import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showError;
 import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showSuccess;
-import static de.kkendzia.myintranet.ei.ui.layout.EIDrawer.EIMenuKeys.MANDANTEN;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer.EIMenuKeys.MANDANTEN;
 
 @Route(value = MandantDetailView.NAV, layout = EIMainLayout.class)
 @MenuRoute(label = CREATE, parent = MANDANTEN, position = 0)
@@ -46,9 +46,9 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
                 () ->
                 {
                     String title = getTranslation(TranslationKeys.MANDANT) + " " + presenter.getMandant().getName();
-                    ToolbarConfig tabConfig = getContent().getTabs().getSelectedPage().getToolbarConfig();
+                    ToolbarConfiguration tabConfig = getContent().getTabs().getSelectedPage().getToolbarConfig();
 
-                    return new ToolbarConfig.Builder()
+                    return new ToolbarConfiguration.Builder()
                             .title(title)
                             .action(getTranslation(SAVE), () -> saveTabs(presenter))
                             .config(tabConfig)

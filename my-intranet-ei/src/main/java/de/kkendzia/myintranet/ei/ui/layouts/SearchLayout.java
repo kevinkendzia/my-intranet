@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.core.view.layouts;
+package de.kkendzia.myintranet.ei.ui.layouts;
 
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.grid.Grid;

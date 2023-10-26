@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.core.view.toolbar;
+package de.kkendzia.myintranet.ei.ui.components.toolbar;
 
 import com.vaadin.flow.function.SerializableRunnable;
 import com.vaadin.flow.function.SerializableSupplier;
@@ -11,22 +11,22 @@ import java.util.Objects;
 import static java.util.Collections.emptyList;
 import static java.util.Objects.requireNonNull;
 
-public record ToolbarConfig(
+public record ToolbarConfiguration(
         String title,
         List<ToolbarAction> actions) implements Serializable
 {
-    public ToolbarConfig
+    public ToolbarConfiguration
     {
         requireNonNull(title, "title can't be null!");
         requireNonNull(actions, "actions can't be null!");
     }
 
-    public ToolbarConfig(String title)
+    public ToolbarConfiguration(String title)
     {
         this(title, emptyList());
     }
 
-    public ToolbarConfig(Builder builder)
+    public ToolbarConfiguration(Builder builder)
     {
         this(builder.title, builder.actions);
     }
@@ -71,10 +71,10 @@ public record ToolbarConfig(
 
         public Builder config(ToolbarConfigSupplier configSupplier)
         {
-            ToolbarConfig config = configSupplier.get();
+            ToolbarConfiguration config = configSupplier.get();
             return config(config);
         }
-        public Builder config(ToolbarConfig config)
+        public Builder config(ToolbarConfiguration config)
         {
             if(config == null)
             {
@@ -90,14 +90,14 @@ public record ToolbarConfig(
             return this;
         }
 
-        public ToolbarConfig build()
+        public ToolbarConfiguration build()
         {
-            return new ToolbarConfig(this);
+            return new ToolbarConfiguration(this);
         }
     }
 
     @FunctionalInterface
-    public interface ToolbarConfigSupplier extends SerializableSupplier<ToolbarConfig>
+    public interface ToolbarConfigSupplier extends SerializableSupplier<ToolbarConfiguration>
     {
     }
 }

@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.layout;
+package de.kkendzia.myintranet.ei.ui.layouts.main;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.data.provider.DataProvider;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.stream.Stream;
 
-import static de.kkendzia.myintranet.ei.core.search.SearchParameters.SEARCH_TEXT;
-import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchItemType.*;
-import static de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget.*;
+import static de.kkendzia.myintranet.ei.core.view.search.SearchParameters.SEARCH_TEXT;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.*;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.*;
 
 @Component
 public class EIMainLayoutPresenter

@@ -2,22 +2,22 @@ package de.kkendzia.myintranet.ei.core.view.page;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
-import de.kkendzia.myintranet.ei.core.view.sidebar.HasSidebarConfig;
-import de.kkendzia.myintranet.ei.core.view.sidebar.SidebarConfig;
-import de.kkendzia.myintranet.ei.core.view.sidebar.SidebarNotifier;
-import de.kkendzia.myintranet.ei.core.view.toolbar.HasToolbarConfig;
-import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
-import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarNotifier;
+import de.kkendzia.myintranet.ei.core.view.mixins.HasSidebarConfig;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfig;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.ConfigurableSidebarNotifier;
+import de.kkendzia.myintranet.ei.core.view.mixins.HasToolbarConfig;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ConfigurableToolbarNotifier;
 
 public abstract class AbstractPage<C extends Component> extends Composite<C>
-        implements HasToolbarConfig, ToolbarNotifier, HasSidebarConfig, SidebarNotifier, EIPage
+        implements HasToolbarConfig, ConfigurableToolbarNotifier, HasSidebarConfig, ConfigurableSidebarNotifier, EIPage
 {
-    protected void setToolbarConfig(ToolbarConfig toolbarConfig)
+    protected void setToolbarConfig(ToolbarConfiguration toolbarConfiguration)
     {
-        HasToolbarConfig.setToolbarConfig(this, toolbarConfig);
+        HasToolbarConfig.setToolbarConfig(this, toolbarConfiguration);
     }
 
-    protected void setToolbarConfig(ToolbarConfig.ToolbarConfigSupplier toolbarConfigSupplier)
+    protected void setToolbarConfig(ToolbarConfiguration.ToolbarConfigSupplier toolbarConfigSupplier)
     {
         HasToolbarConfig.setToolbarConfig(this, toolbarConfigSupplier);
     }

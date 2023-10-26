@@ -5,13 +5,13 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.app.service.mandant.MandantSearchService.MandantSearchFilters;
 import de.kkendzia.myintranet.app.service.mandant.MandantSearchService.MandantSearchItem;
-import de.kkendzia.myintranet.ei.core.search.SearchParameters;
+import de.kkendzia.myintranet.ei.core.view.search.SearchParameters;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout;
-import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout.NavigationAction.NavigateWithId;
-import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
+import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout.NavigationAction.NavigateWithId;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.NAME;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SEARCH;
 import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.addCollapsedColumn;
 import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.addSpacerColumn;
-import static de.kkendzia.myintranet.ei.ui.layout.EIDrawer.EIMenuKeys.MANDANTEN;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer.EIMenuKeys.MANDANTEN;
 import static de.kkendzia.myintranet.ei.ui.views.mandant.routes.MandantRoutes.NAV_ROOT;
 import static java.util.Objects.requireNonNull;
 
@@ -38,7 +38,7 @@ public final class MandantSearchView extends AbstractEIView<SearchLayout<Mandant
     {
         this.presenter = requireNonNull(presenter, "presenter can't be null!");
 
-        setToolbarConfig(new ToolbarConfig(getTranslation(SEARCH)));
+        setToolbarConfig(new ToolbarConfiguration(getTranslation(SEARCH)));
 
         SearchLayout<MandantSearchItem> root = getContent();
         root.setNavigationAction(new NavigateWithId<>(MandantDetailView.class, MandantSearchItem::id));

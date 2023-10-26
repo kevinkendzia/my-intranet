@@ -10,10 +10,10 @@ import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.ei.core.parameters.HasViewParameter;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.core.view.sidebar.SidebarConfig;
-import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfig;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.components.async.AsyncContainer;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.content.DummyPanel;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,8 +38,8 @@ public class AhDetailView
                         .build());
 
         setToolbarConfig(
-                new ToolbarConfig.Builder()
-                        .action(new ToolbarConfig.ToolbarAction(getTranslation("label.save"), () -> presenter.save()))
+                new ToolbarConfiguration.Builder()
+                        .action(new ToolbarConfiguration.ToolbarAction(getTranslation("label.save"), () -> presenter.save()))
                         .build());
 
         VerticalLayout root = getContent();

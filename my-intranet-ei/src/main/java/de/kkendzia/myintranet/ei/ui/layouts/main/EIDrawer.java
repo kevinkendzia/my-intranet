@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.layout;
+package de.kkendzia.myintranet.ei.ui.layouts.main;
 
 import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;

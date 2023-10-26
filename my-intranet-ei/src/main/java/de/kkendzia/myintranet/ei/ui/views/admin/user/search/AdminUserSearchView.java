@@ -7,19 +7,19 @@ import de.kkendzia.myintranet.app.service.user.EIUserSearchService.EIUserSearchF
 import de.kkendzia.myintranet.app.service.user.EIUserSearchService.EIUserSearchItem;
 import de.kkendzia.myintranet.domain.user.Permission;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
-import de.kkendzia.myintranet.ei.core.search.SearchParameters;
+import de.kkendzia.myintranet.ei.core.view.search.SearchParameters;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout;
-import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout.NavigationAction.NavigateWithId;
+import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout.NavigationAction.NavigateWithId;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
 import jakarta.annotation.security.RolesAllowed;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.NAME;
 import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.addCollapsedColumn;
 import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.addSpacerColumn;
-import static de.kkendzia.myintranet.ei.ui.layout.EIDrawer.EIMenuKeys.USER;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer.EIMenuKeys.USER;
 import static java.util.Objects.requireNonNull;
 
 @Route(value = AdminUserSearchView.NAV, layout = EIMainLayout.class)

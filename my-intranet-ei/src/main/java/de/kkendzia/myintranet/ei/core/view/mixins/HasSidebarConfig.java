@@ -1,7 +1,8 @@
-package de.kkendzia.myintranet.ei.core.view.sidebar;
+package de.kkendzia.myintranet.ei.core.view.mixins;
 
 import com.vaadin.flow.component.Component;
 import de.kkendzia.myintranet.ei.core.view.EIView;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfig;
 
 import java.util.Optional;
 

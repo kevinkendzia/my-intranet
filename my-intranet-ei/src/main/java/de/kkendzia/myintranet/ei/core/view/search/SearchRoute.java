@@ -1,6 +1,6 @@
-package de.kkendzia.myintranet.ei.core.search;
+package de.kkendzia.myintranet.ei.core.view.search;
 
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

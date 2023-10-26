@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.core.view.sidebar;
+package de.kkendzia.myintranet.ei.ui.components.sidebar;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
@@ -8,8 +8,9 @@ import com.vaadin.flow.shared.Registration;
 
 import java.util.Optional;
 
-public interface SidebarNotifier
+public interface ConfigurableSidebarNotifier
 {
+    @SuppressWarnings("UnusedReturnValue")
     default Registration addSidebarChangeListener(ComponentEventListener<SidebarChangeEvent> listener)
     {
         return ComponentUtil.addListener((Component) this, SidebarChangeEvent.class, listener);

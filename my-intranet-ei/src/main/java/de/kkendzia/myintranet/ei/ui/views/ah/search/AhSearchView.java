@@ -4,22 +4,22 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.ei.core.search.SearchRoute;
+import de.kkendzia.myintranet.ei.core.view.search.SearchRoute;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout;
-import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout.NavigationAction.NavigateWithId;
-import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
+import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout.NavigationAction.NavigateWithId;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
-import de.kkendzia.myintranet.ei.ui.layout.EIDrawer.EIMenuKeys;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayoutPresenter.SearchTarget;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer.EIMenuKeys;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import de.kkendzia.myintranet.ei.ui.views.ah.search.AhSearchPresenter.SearchItem;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SEARCH;
-import static de.kkendzia.myintranet.ei.core.search.SearchParameters.SEARCH_TEXT;
+import static de.kkendzia.myintranet.ei.core.view.search.SearchParameters.SEARCH_TEXT;
 import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.*;
 
 @Route(value = "ah/search", layout = EIMainLayout.class)
@@ -39,7 +39,7 @@ public class AhSearchView
 
         // VIEW CONFIG
         setPageTitle(getTranslation("ah.search.pageTitle"));
-        setToolbarConfig(new ToolbarConfig(getTranslation(SEARCH)));
+        setToolbarConfig(new ToolbarConfiguration(getTranslation(SEARCH)));
         registerQueryParameter(SEARCH_TEXT);
 
         // SEARCH LAYOUT

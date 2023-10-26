@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.core.search;
+package de.kkendzia.myintranet.ei.core.view.search;
 
 import com.vaadin.flow.data.provider.ConfigurableFilterDataProvider;
 import com.vaadin.flow.data.provider.DataProvider;

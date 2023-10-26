@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.core.view.toolbar;
+package de.kkendzia.myintranet.ei.ui.components.toolbar;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
@@ -12,11 +12,11 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import static java.util.Objects.requireNonNull;
 
 // TODO: sticky? shrinking toolbar?
-public class ViewToolbar extends Composite<HorizontalLayout> implements ToolbarNotifier.ToolbarChangeListener
+public class ConfigurableToolbar extends Composite<HorizontalLayout> implements ConfigurableToolbarNotifier.ToolbarChangeListener
 {
-    private SerializableSupplier<ToolbarConfig> configSupplier;
+    private SerializableSupplier<ToolbarConfiguration> configSupplier;
 
-    public ViewToolbar(SerializableSupplier<ToolbarConfig> configSupplier)
+    public ConfigurableToolbar(SerializableSupplier<ToolbarConfiguration> configSupplier)
     {
         this.configSupplier = requireNonNull(configSupplier, "configSupplier can't be null!");
 
@@ -29,7 +29,7 @@ public class ViewToolbar extends Composite<HorizontalLayout> implements ToolbarN
         rebuild();
     }
 
-    public ViewToolbar(ToolbarConfig config)
+    public ConfigurableToolbar(ToolbarConfiguration config)
     {
         this(() -> requireNonNull(config, "config can't be null!"));
     }
@@ -37,7 +37,7 @@ public class ViewToolbar extends Composite<HorizontalLayout> implements ToolbarN
 
     private void rebuild()
     {
-        ToolbarConfig config = this.configSupplier.get();
+        ToolbarConfiguration config = this.configSupplier.get();
 
         HorizontalLayout root = getContent();
         root.removeAll();
@@ -48,7 +48,7 @@ public class ViewToolbar extends Composite<HorizontalLayout> implements ToolbarN
         }
 
         HorizontalLayout hlActions = null;
-        for (ToolbarConfig.ToolbarAction action : config.actions())
+        for (ToolbarConfiguration.ToolbarAction action : config.actions())
         {
             if (hlActions == null)
             {
@@ -62,13 +62,13 @@ public class ViewToolbar extends Composite<HorizontalLayout> implements ToolbarN
     }
 
     @Override
-    public void onToolbarChange(ToolbarNotifier.ToolbarChangeEvent event)
+    public void onToolbarChange(ConfigurableToolbarNotifier.ToolbarChangeEvent event)
     {
         event.getOptionalConfig().ifPresent(c -> setConfigSupplier(() -> c));
         rebuild();
     }
 
-    private void setConfigSupplier(SerializableSupplier<ToolbarConfig> configSupplier)
+    private void setConfigSupplier(SerializableSupplier<ToolbarConfiguration> configSupplier)
     {
         this.configSupplier = configSupplier;
     }

@@ -7,13 +7,13 @@ import de.kkendzia.myintranet.app.service._framework.SimpleSearchFilters;
 import de.kkendzia.myintranet.app.service._framework.SimpleSearchItem;
 import de.kkendzia.myintranet.domain.user.Permission;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
-import de.kkendzia.myintranet.ei.core.search.SearchParameters;
+import de.kkendzia.myintranet.ei.core.view.search.SearchParameters;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout;
-import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout.NavigationAction.NavigateWithId;
+import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout.NavigationAction.NavigateWithId;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
-import de.kkendzia.myintranet.ei.ui.layout.EIDrawer;
-import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
 import jakarta.annotation.security.RolesAllowed;
 
