@@ -19,7 +19,6 @@ import static java.util.Objects.requireNonNull;
 
 public abstract class AbstractMSDAO<T extends HasId, I> implements CRUDDAO<T, I>
 {
-    // TODO
     @Autowired
     private MyIntranetRoot root;
     @Autowired
@@ -63,7 +62,7 @@ public abstract class AbstractMSDAO<T extends HasId, I> implements CRUDDAO<T, I>
     }
 
     @Override
-    public void update(T entity)
+    public T update(T entity)
     {
         if(entity.getId() <= 0)
         {
@@ -72,10 +71,12 @@ public abstract class AbstractMSDAO<T extends HasId, I> implements CRUDDAO<T, I>
         List<T> rootCollection = rootCollectionProvider.apply(getRoot());
         rootCollection.replaceAll(x -> equalsPredicate.test(x, entity) ? entity : x);
         getManager().store(rootCollection);
+
+        return entity;
     }
 
     @Override
-    public void create(T entity)
+    public T create(T entity)
     {
         if(entity.getId() > 0)
         {
@@ -88,6 +89,7 @@ public abstract class AbstractMSDAO<T extends HasId, I> implements CRUDDAO<T, I>
         List<T> rootCollection = rootCollectionProvider.apply(getRoot());
         rootCollection.add(entity);
         getManager().store(rootCollection);
+        return entity;
     }
 
     @Override

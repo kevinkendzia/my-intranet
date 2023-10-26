@@ -54,7 +54,6 @@ public final class TranslationKeys
     public static final String TYPE = "label.type";
     public static final String VALUE = "label.value";
     public static final String SUCCESS = "label.success";
-    public static final String ERROR = "label.error";
     public static final String FILTER = "label.filter";
     public static final String CANCEL = "label.cancel";
     public static final String EDIT = "label.edit";
@@ -74,5 +73,18 @@ public final class TranslationKeys
     private TranslationKeys()
     {
         // No Instance!
+    }
+
+    public static class Notification
+    {
+        public static class Error
+        {
+            public static final String ERROR = "label.error";
+            public static class Message
+            {
+                public static final String NO_CHANGES = "error.msg.noChanges";
+                public static final String VALIDATION_ERROR = "error.msg.validationError";
+            }
+        }
     }
 }

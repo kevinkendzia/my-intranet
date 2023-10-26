@@ -1,6 +1,5 @@
 package de.kkendzia.myintranet.ei.ui.views.mandant.detail;
 
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.OptionalParameter;
@@ -24,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.Notification.Error.Message;
 import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showError;
 import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showSuccess;
 import static de.kkendzia.myintranet.ei.ui.layout.EIDrawer.EIMenuKeys.MANDANTEN;
@@ -50,9 +50,7 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
 
                     return new ToolbarConfig.Builder()
                             .title(title)
-                            .action(
-                                    getTranslation(SAVE),
-                                    () -> saveTabs(presenter))
+                            .action(getTranslation(SAVE), () -> saveTabs(presenter))
                             .config(tabConfig)
                             .build();
                 });
@@ -69,30 +67,42 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
         List<MandantDetailPage> pages = tabs.getPages();
 
         boolean error = false;
+        boolean empty = true;
+
         for (MandantDetailPage page : pages)
         {
-            if (page instanceof SaveablePage saveablePage)
+            if (page instanceof SaveablePage saveablePage
+                    && (presenter.getMandant().isNew() || saveablePage.hasChanges()))
             {
-                if (saveablePage.hasChanges() && !saveablePage.validate())
+                if (!saveablePage.validate())
                 {
                     // 21.10.2023 KK TODO: Optimize! (Reset?)
-                    tabs
-                            .getOptionalTab(page)
-                            .ifPresent(p -> p.add(VaadinIcon.EXCLAMATION.create()));
+//                        tabs
+//                                .getOptionalTab(page)
+//                                .ifPresent(p -> p.add(VaadinIcon.EXCLAMATION.create()));
 
                     error = true;
                     break;
                 }
+                saveablePage.onSave();
+                empty = false;
             }
         }
-        if (!error)
+
+        if (error)
         {
-            presenter.updateMandant();
-            showSuccess(getTranslation(SUCCESS));
+            showError(getTranslation(Message.VALIDATION_ERROR));
+        }
+        else if (empty)
+        {
+            showError(getTranslation(Message.NO_CHANGES));
         }
         else
         {
-            showError(getTranslation(ERROR));
+            presenter.updateMandant();
+            getContent().refreshPages();
+            setViewParameter(presenter.getMandant().getId());
+            showSuccess(getTranslation(SUCCESS));
         }
     }
 
@@ -108,7 +118,7 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
         Long id = getViewParameter();
         if (id != null)
         {
-            if(id == 0)
+            if (id == 0)
             {
                 presenter.createMandant();
             }

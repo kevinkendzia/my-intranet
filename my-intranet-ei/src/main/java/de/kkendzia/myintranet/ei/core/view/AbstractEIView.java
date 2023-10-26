@@ -1,10 +1,7 @@
 package de.kkendzia.myintranet.ei.core.view;
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
-import com.vaadin.flow.router.HasDynamicTitle;
-import com.vaadin.flow.router.RouteParameters;
+import com.vaadin.flow.router.*;
 import de.kkendzia.myintranet.ei.core.EIComponent;
 import de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition;
 import de.kkendzia.myintranet.ei.core.view.sidebar.HasSidebarConfig;
@@ -36,16 +33,19 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
     {
         qpValueMap.put(definition, null);
     }
+
     protected <T> Stream<T> qpValues(ParameterDefinition<T> definition)
     {
         //noinspection unchecked
         List<T> values = (List<T>) qpValueMap.getOrDefault(definition, emptyList());
         return Optional.ofNullable(values).stream().flatMap(Collection::stream);
     }
+
     protected void registerRouteParameter(ParameterDefinition<?> definition)
     {
         rpValueMap.put(definition, null);
     }
+
     protected <T> Optional<T> rpValues(ParameterDefinition<T> definition)
     {
         //noinspection unchecked
@@ -56,6 +56,7 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
     {
         HasToolbarConfig.setToolbarConfig(this, toolbarConfig);
     }
+
     protected void setToolbarConfig(ToolbarConfig.ToolbarConfigSupplier toolbarConfigSupplier)
     {
         HasToolbarConfig.setToolbarConfig(this, toolbarConfigSupplier);
@@ -102,6 +103,7 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
             }
         }
     }
+
     private void collectRouteParameters(BeforeEnterEvent event)
     {
         RouteParameters routeParameters = event.getRouteParameters();
@@ -117,4 +119,13 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
     {
         // optional
     }
+
+//    protected void updateURL()
+//    {
+//        String deepLinkingUrl = RouteConfiguration.forSessionScope().getUrl(getClass());
+//        getUI().orElseThrow(() -> new IllegalArgumentException("UI is NOT accessible!"))
+//                .getPage()
+//                .getHistory()
+//                .replaceState(null, deepLinkingUrl);
+//    }
 }

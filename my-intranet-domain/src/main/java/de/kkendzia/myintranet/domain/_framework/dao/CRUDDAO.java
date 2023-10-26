@@ -15,9 +15,9 @@ public interface CRUDDAO<T extends HasId, I> extends DAO<T, I>
         return findOptionalById(id).orElse(null);
     }
 
-    void update(T entity);
+    T update(T entity);
 
-    void create(T entity);
+    T create(T entity);
 
     void deleteById(long id);
 }

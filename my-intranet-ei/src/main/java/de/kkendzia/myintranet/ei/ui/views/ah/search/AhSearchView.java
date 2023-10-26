@@ -8,6 +8,7 @@ import de.kkendzia.myintranet.ei.core.search.SearchRoute;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout;
 import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout.NavigationAction.NavigateWithId;
+import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layout.EIDrawer.EIMenuKeys;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
@@ -38,6 +39,7 @@ public class AhSearchView
 
         // VIEW CONFIG
         setPageTitle(getTranslation("ah.search.pageTitle"));
+        setToolbarConfig(new ToolbarConfig(getTranslation(SEARCH)));
         registerQueryParameter(SEARCH_TEXT);
 
         // SEARCH LAYOUT

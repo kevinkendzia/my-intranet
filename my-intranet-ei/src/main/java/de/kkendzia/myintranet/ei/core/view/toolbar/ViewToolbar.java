@@ -3,10 +3,11 @@ package de.kkendzia.myintranet.ei.core.view.toolbar;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.function.SerializableSupplier;
+import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 
 import static java.util.Objects.requireNonNull;
 
@@ -21,7 +22,8 @@ public class ViewToolbar extends Composite<HorizontalLayout> implements ToolbarN
 
         HorizontalLayout root = getContent();
         root.addClassNames("view-toolbar");
-        root.setAlignItems(FlexComponent.Alignment.STRETCH);
+        root.addClassNames(Padding.Horizontal.MEDIUM);
+        root.setAlignItems(Alignment.STRETCH);
         root.setJustifyContentMode(JustifyContentMode.BETWEEN);
 
         rebuild();

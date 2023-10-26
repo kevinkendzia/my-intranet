@@ -2,14 +2,15 @@ package de.kkendzia.myintranet.ei.ui.views.ah.search;
 
 import com.vaadin.flow.data.provider.DataProvider;
 import de.kkendzia.myintranet.domain.ah.AhDAO;
+import de.kkendzia.myintranet.ei.core.presenter.EIPresenter;
+import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-@Component
-public class AhSearchPresenter
+@Presenter
+public class AhSearchPresenter implements EIPresenter
 {
     @Autowired
     private AhDAO ahDAO;

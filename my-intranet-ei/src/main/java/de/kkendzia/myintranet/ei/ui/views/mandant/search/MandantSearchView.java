@@ -9,9 +9,11 @@ import de.kkendzia.myintranet.ei.core.search.SearchParameters;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout;
 import de.kkendzia.myintranet.ei.core.view.layouts.SearchLayout.NavigationAction.NavigateWithId;
+import de.kkendzia.myintranet.ei.core.view.toolbar.ToolbarConfig;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layout.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.NAME;
@@ -24,6 +26,7 @@ import static java.util.Objects.requireNonNull;
 
 @Route(value = MandantSearchView.NAV, layout = EIMainLayout.class)
 @MenuRoute(label = SEARCH, parent = MANDANTEN, position = 1)
+@PermitAll
 public final class MandantSearchView extends AbstractEIView<SearchLayout<MandantSearchItem>>
 {
     public static final String NAV = NAV_ROOT + "/search";
@@ -35,6 +38,8 @@ public final class MandantSearchView extends AbstractEIView<SearchLayout<Mandant
     {
         this.presenter = requireNonNull(presenter, "presenter can't be null!");
 
+        setToolbarConfig(new ToolbarConfig(getTranslation(SEARCH)));
+
         SearchLayout<MandantSearchItem> root = getContent();
         root.setNavigationAction(new NavigateWithId<>(MandantDetailView.class, MandantSearchItem::id));
 
@@ -42,7 +47,7 @@ public final class MandantSearchView extends AbstractEIView<SearchLayout<Mandant
         addCollapsedColumn(grid, getTranslation(NAME), MandantSearchItem::name);
         addSpacerColumn(grid);
 
-        grid.setItems(presenter.getSearchDataProvider());
+        root.setItems(presenter.getSearchDataProvider());
     }
 
     @Override

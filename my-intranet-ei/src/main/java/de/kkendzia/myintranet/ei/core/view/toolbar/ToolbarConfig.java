@@ -8,10 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static java.util.Collections.emptyList;
+import static java.util.Objects.requireNonNull;
+
 public record ToolbarConfig(
         String title,
         List<ToolbarAction> actions) implements Serializable
 {
+    public ToolbarConfig
+    {
+        requireNonNull(title, "title can't be null!");
+        requireNonNull(actions, "actions can't be null!");
+    }
+
+    public ToolbarConfig(String title)
+    {
+        this(title, emptyList());
+    }
+
     public ToolbarConfig(Builder builder)
     {
         this(builder.title, builder.actions);

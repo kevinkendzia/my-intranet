@@ -1,10 +1,10 @@
 package de.kkendzia.myintranet.domain.shared.mandant;
 
+import de.kkendzia.myintranet.domain._framework.AbstractEntity;
 import de.kkendzia.myintranet.domain._framework.HasId;
 
-public final class Mandant implements HasId
+public final class Mandant extends AbstractEntity implements HasId
 {
-    private  long id;
     private  String key;
     private  String name;
     private byte[] image;
@@ -14,19 +14,9 @@ public final class Mandant implements HasId
             String key,
             String name)
     {
-        this.id = id;
+        super(id);
         this.key=key;
         this.name = name;
-    }
-
-    public long getId()
-    {
-        return id;
-    }
-
-    public void setId(long id)
-    {
-        this.id = id;
     }
 
     public String getKey()

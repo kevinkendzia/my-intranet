@@ -5,4 +5,6 @@ public interface SaveablePage extends EIPage
     boolean validate();
 
     boolean hasChanges();
+
+    void onSave();
 }

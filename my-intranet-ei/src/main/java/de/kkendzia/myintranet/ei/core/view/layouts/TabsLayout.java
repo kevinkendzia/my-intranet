@@ -27,7 +27,8 @@ public class TabsLayout<T extends EIPage> extends Composite<VerticalLayout>
         });
 
         VerticalLayout root = getContent();
-        root.setPadding(false);
+        root.addClassName("tabs-layout");
+        root.setPadding(true);
         root.setAlignItems(FlexComponent.Alignment.STRETCH);
         root.add(tabs);
         root.addAndExpand(vlContent);

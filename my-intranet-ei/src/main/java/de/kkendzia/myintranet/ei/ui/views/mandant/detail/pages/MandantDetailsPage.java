@@ -15,7 +15,7 @@ import static java.util.Objects.requireNonNull;
 
 public class MandantDetailsPage extends AbstractPage<SectionLayout> implements MandantDetailPage, SaveablePage
 {
-    private Binder<Mandant> binder = new Binder<>();
+    private final Binder<Mandant> binder = new Binder<>();
     private final MandantForm frmMandant = new MandantForm(binder);
     private final ImageUpload imgUpload = new ImageUpload();
 
@@ -43,6 +43,12 @@ public class MandantDetailsPage extends AbstractPage<SectionLayout> implements M
     public boolean validate()
     {
         return frmMandant.validate();
+    }
+
+    @Override
+    public void onSave()
+    {
+        frmMandant.getBean();
     }
 
     public void refresh()

@@ -37,20 +37,21 @@ public class MandantDetailPresenter implements EIPresenter
     {
         this.mandant = mandantDAO.findOptionalById(id).orElseThrow(UnknownIDException::new);
     }
+
     public void createMandant()
     {
-        this.mandant=new Mandant(0, "", "");
+        this.mandant = new Mandant(0, "", "");
     }
 
     public void updateMandant()
     {
         if (mandant.getId() <= 0)
         {
-            mandantDAO.create(mandant);
+            this.mandant = mandantDAO.create(mandant);
         }
         else
         {
-            mandantDAO.update(mandant);
+            this.mandant = mandantDAO.update(mandant);
         }
     }
 
@@ -133,7 +134,9 @@ public class MandantDetailPresenter implements EIPresenter
             }
             else if (type == Integer.class)
             {
-                value = setting.getValue() != null && !setting.getValue().isBlank() ? Integer.parseInt(setting.getValue()) : -1;
+                value = setting.getValue() != null && !setting.getValue().isBlank()
+                        ? Integer.parseInt(setting.getValue())
+                        : -1;
             }
             else if (type == LocalDate.class)
             {
@@ -174,12 +177,13 @@ public class MandantDetailPresenter implements EIPresenter
     public Result<Void> addSetting(SettingItem setting)
     {
         MandantSetting entity = mapToModel(mandant.getId(), setting);
-        if(!mandantSettingDAO.exists(entity.getMandantId(), entity.getName()))
+        if (!mandantSettingDAO.exists(entity.getMandantId(), entity.getName()))
         {
             mandantSettingDAO.create(entity);
             return Result.success();
         }
-        else {
+        else
+        {
             return Result.failure(AddSettingFailure.ALREADY_EXISTS);
         }
     }
