@@ -3,16 +3,15 @@ package de.kkendzia.myintranet.ei.ui.components.toolbar;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.shared.HasThemeVariant;
 import com.vaadin.flow.function.SerializableSupplier;
-import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
+import de.kkendzia.myintranet.ei.ui.components.text.Badge;
 
 import static java.util.Objects.requireNonNull;
 
 // TODO: sticky? shrinking toolbar?
-public class ConfigurableToolbar extends Composite<HorizontalLayout>
+public class ConfigurableToolbar extends Composite<Toolbar> implements HasThemeVariant<Toolbar.ToolbarVariant>
 {
     private SerializableSupplier<ToolbarConfiguration> configSupplier;
 
@@ -20,11 +19,8 @@ public class ConfigurableToolbar extends Composite<HorizontalLayout>
     {
         this.configSupplier = requireNonNull(configSupplier, "configSupplier can't be null!");
 
-        HorizontalLayout root = getContent();
+        Toolbar root = getContent();
         root.addClassNames("configurable-toolbar");
-        root.addClassNames(Padding.Horizontal.MEDIUM);
-        root.setAlignItems(Alignment.STRETCH);
-        root.setJustifyContentMode(JustifyContentMode.BETWEEN);
 
         rebuild();
     }
@@ -39,25 +35,31 @@ public class ConfigurableToolbar extends Composite<HorizontalLayout>
     {
         ToolbarConfiguration config = this.configSupplier.get();
 
-        HorizontalLayout root = getContent();
+        Toolbar root = getContent();
         root.removeAll();
 
+        if (config.preTitle() != null && !config.preTitle().isBlank())
+        {
+            root.addTitle(new H3(config.preTitle()));
+        }
         if (config.title() != null && !config.title().isBlank())
         {
-            root.add(new H2(config.title()));
+            root.addTitle(new H2(config.title()));
+        }
+        if (config.subTitle() != null && !config.subTitle().isBlank())
+        {
+            root.addTitle(new H3(config.subTitle()));
         }
 
-        HorizontalLayout hlActions = null;
+        for (ToolbarConfiguration.ToolbarBadge badge : config.badges())
+        {
+            // TODO action?
+            root.addBadge(new Badge(badge.label()));
+        }
+
         for (ToolbarConfiguration.ToolbarAction action : config.actions())
         {
-            if (hlActions == null)
-            {
-                hlActions = new HorizontalLayout();
-                hlActions.setPadding(false);
-                hlActions.setJustifyContentMode(JustifyContentMode.END);
-                root.addAndExpand(hlActions);
-            }
-            hlActions.add(new Button(action.label(), e -> action.action().run()));
+            root.addAction(new Button(action.label(), e -> action.action().run()));
         }
     }
 

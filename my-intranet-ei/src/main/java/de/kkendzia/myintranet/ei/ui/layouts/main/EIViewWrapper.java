@@ -9,12 +9,16 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
 import de.kkendzia.myintranet.ei.core.view.EIView;
 import de.kkendzia.myintranet.ei.core.view.mixins.*;
 import de.kkendzia.myintranet.ei.ui.components.sidebar.ConfigurableSidebar;
+import de.kkendzia.myintranet.ei.ui.components.sidebar.Sidebar;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ConfigurableToolbar;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.Toolbar;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.Toolbar.ToolbarVariant;
 
 import static de.kkendzia.myintranet.ei.core.constants.EIStyles.MEDIA.HIDE_S;
 import static de.kkendzia.myintranet.ei.core.constants.EIStyles.MEDIA.HIDE_XS;
 import static de.kkendzia.myintranet.ei.ui.components.sidebar.Sidebar.SidebarVariant.BOX;
 import static de.kkendzia.myintranet.ei.ui.components.sidebar.Sidebar.SidebarVariant.CONTRAST;
+import static de.kkendzia.myintranet.ei.ui.components.toolbar.Toolbar.ToolbarVariant.CONTRAST;
 
 public class EIViewWrapper extends Composite<HorizontalLayout>
 {
@@ -63,6 +67,7 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
             t.getOptionalToolbarConfigSupplier().ifPresent(tb ->
             {
                 ConfigurableToolbar toolbar = new ConfigurableToolbar(tb);
+//                toolbar.addThemeVariants(ToolbarVariant.BORDER_BOTTOM);
                 vlToolbar.add(toolbar);
 
                 if (view instanceof ToolbarNotifier n)
@@ -86,7 +91,7 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
             {
                 ConfigurableSidebar sidebar = new ConfigurableSidebar(sb);
                 sidebar.getStyle().set("flex", "1 1 20%");
-                sidebar.addThemeVariants(CONTRAST);
+                sidebar.addThemeVariants(Sidebar.SidebarVariant.CONTRAST);
                 hlLeftSidebar.add(sidebar);
 
                 if (view instanceof LeftSidebarNotifier n)
