@@ -11,14 +11,10 @@ import de.kkendzia.myintranet.ei.core.view.mixins.*;
 import de.kkendzia.myintranet.ei.ui.components.sidebar.ConfigurableSidebar;
 import de.kkendzia.myintranet.ei.ui.components.sidebar.Sidebar;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ConfigurableToolbar;
-import de.kkendzia.myintranet.ei.ui.components.toolbar.Toolbar;
-import de.kkendzia.myintranet.ei.ui.components.toolbar.Toolbar.ToolbarVariant;
 
 import static de.kkendzia.myintranet.ei.core.constants.EIStyles.MEDIA.HIDE_S;
 import static de.kkendzia.myintranet.ei.core.constants.EIStyles.MEDIA.HIDE_XS;
 import static de.kkendzia.myintranet.ei.ui.components.sidebar.Sidebar.SidebarVariant.BOX;
-import static de.kkendzia.myintranet.ei.ui.components.sidebar.Sidebar.SidebarVariant.CONTRAST;
-import static de.kkendzia.myintranet.ei.ui.components.toolbar.Toolbar.ToolbarVariant.CONTRAST;
 
 public class EIViewWrapper extends Composite<HorizontalLayout>
 {
