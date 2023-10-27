@@ -7,7 +7,7 @@
 html {
     --scrollbar-size: var(--lumo-space-l);
     --scrollbar-padding-size: calc(calc(var(--scrollbar-size) - 5px) / 2);
-    --scrollbar-border-radius: 7px;
+    --scrollbar-border-radius: 10px;
 }
 
 ::-webkit-scrollbar {
