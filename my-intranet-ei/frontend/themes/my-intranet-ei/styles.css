@@ -4,6 +4,7 @@
 @import 'components/combobox.css';
 @import 'components/sidebar.css';
 @import 'components/toolbar.css';
+@import 'layouts/media.css';
 
 h3.sticky-h3 {
     position: sticky;

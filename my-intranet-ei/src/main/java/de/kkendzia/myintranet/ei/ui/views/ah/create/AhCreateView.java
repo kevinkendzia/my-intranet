@@ -39,15 +39,15 @@ public class AhCreateView extends AbstractEIView<VerticalLayout> implements Afte
                         .action("create", this::create)
                         .build());
 
-        setLeftSidebarConfig(
-                new SidebarConfiguration.Builder()
-                        .header(
-                                new SidebarHeader(
-                                        "Das ist ein Test!",
-                                        "Das ist ein Test!",
-                                        List.of(new SidebarAction("Test", () -> System.out.println("TEST")))))
-                        .action(new SidebarAction("Test2", () -> System.out.println("TEST2")))
-                        .build());
+//        setLeftSidebarConfig(
+//                new SidebarConfiguration.Builder()
+//                        .header(
+//                                new SidebarHeader(
+//                                        "Das ist ein Test!",
+//                                        "Das ist ein Test!",
+//                                        List.of(new SidebarAction("Test", () -> System.out.println("TEST")))))
+//                        .action(new SidebarAction("Test2", () -> System.out.println("TEST2")))
+//                        .build());
 
         setRightSidebarConfig(
                 new SidebarConfiguration.Builder()

@@ -11,8 +11,10 @@ import de.kkendzia.myintranet.ei.core.view.mixins.*;
 import de.kkendzia.myintranet.ei.ui.components.sidebar.ConfigurableSidebar;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ConfigurableToolbar;
 
-import static de.kkendzia.myintranet.ei.ui.components.sidebar.ConfigurableSidebar.ConfigurableSidebarVariant.BOX;
-import static de.kkendzia.myintranet.ei.ui.components.sidebar.ConfigurableSidebar.ConfigurableSidebarVariant.CONTRAST;
+import static de.kkendzia.myintranet.ei.core.constants.EIStyles.MEDIA.HIDE_S;
+import static de.kkendzia.myintranet.ei.core.constants.EIStyles.MEDIA.HIDE_XS;
+import static de.kkendzia.myintranet.ei.ui.components.sidebar.Sidebar.SidebarVariant.BOX;
+import static de.kkendzia.myintranet.ei.ui.components.sidebar.Sidebar.SidebarVariant.CONTRAST;
 
 public class EIViewWrapper extends Composite<HorizontalLayout>
 {
@@ -38,6 +40,9 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
                         ConfigurableSidebar sidebar = new ConfigurableSidebar(sb);
                         sidebar.getStyle().set("flex", "1 1 30%");
                         sidebar.addThemeVariants(BOX);
+                        sidebar.addClassName(HIDE_XS);
+                        sidebar.addClassName(HIDE_S);
+
                         hlRightSidebar.add(sidebar);
 
                         if (view instanceof RightSidebarNotifier n)
@@ -50,7 +55,7 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
         VerticalLayout vlToolbar = new VerticalLayout();
         vlToolbar.addClassNames("toolbar-layout");
         vlToolbar.setSizeFull();
-        vlToolbar.setPadding(true);
+        vlToolbar.setPadding(false);
         vlToolbar.setAlignItems(Alignment.STRETCH);
 
         if (view instanceof HasToolbarConfig t)

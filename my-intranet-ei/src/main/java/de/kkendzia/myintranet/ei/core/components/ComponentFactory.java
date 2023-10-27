@@ -2,7 +2,9 @@ package de.kkendzia.myintranet.ei.core.components;
 
 import com.vaadin.flow.component.Component;
 
-public interface ComponentFactory<T>
+import java.io.Serializable;
+
+public interface ComponentFactory<T> extends Serializable
 {
     Component create(T source);
 }

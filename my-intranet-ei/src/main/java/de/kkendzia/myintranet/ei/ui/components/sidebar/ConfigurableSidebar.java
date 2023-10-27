@@ -6,10 +6,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.html.Paragraph;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.shared.HasThemeVariant;
-import com.vaadin.flow.component.shared.ThemeVariant;
 import com.vaadin.flow.function.SerializableSupplier;
 import com.vaadin.flow.theme.lumo.LumoUtility.AlignItems;
 import com.vaadin.flow.theme.lumo.LumoUtility.Display;
@@ -21,7 +18,7 @@ import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration.Side
 
 import static java.util.Objects.requireNonNull;
 
-public class ConfigurableSidebar extends Composite<VerticalLayout> implements HasThemeVariant<ConfigurableSidebar.ConfigurableSidebarVariant>
+public class ConfigurableSidebar extends Composite<Sidebar> implements HasThemeVariant<Sidebar.SidebarVariant>
 {
     private SerializableSupplier<SidebarConfiguration> configSupplier;
     private ComponentFactory<SidebarAction> actionFactory = new DefaultActionFactory();
@@ -32,10 +29,8 @@ public class ConfigurableSidebar extends Composite<VerticalLayout> implements Ha
     {
         this.configSupplier = requireNonNull(configSupplier, "configSupplier can't be null!");
 
-        VerticalLayout root = getContent();
+        Sidebar root = getContent();
         root.addClassNames("configurable-sidebar");
-        root.setSizeUndefined();
-        root.setAlignItems(Alignment.STRETCH);
 
         rebuild();
     }
@@ -49,7 +44,7 @@ public class ConfigurableSidebar extends Composite<VerticalLayout> implements Ha
     {
         SidebarConfiguration config = this.configSupplier.get();
 
-        VerticalLayout root = getContent();
+        Sidebar root = getContent();
         root.removeAll();
 
         if(config.header() != null)
@@ -148,24 +143,6 @@ public class ConfigurableSidebar extends Composite<VerticalLayout> implements Ha
         public Component create(SidebarText text)
         {
             return new Paragraph(text.text());
-        }
-    }
-    public enum ConfigurableSidebarVariant implements ThemeVariant
-    {
-        BOX("box"),
-        CONTRAST("contrast");
-
-        private final String variantName;
-
-        ConfigurableSidebarVariant(String variantName)
-        {
-            this.variantName=variantName;
-        }
-
-        @Override
-        public String getVariantName()
-        {
-            return variantName;
         }
     }
     //endregion
