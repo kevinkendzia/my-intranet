@@ -4,6 +4,8 @@ public final class EIStyles
 {
     public static final String SCROLL_SNAP_Y = "scroll-snap-y";
     public static final String SCROLL_SNAP_ALIGN_START = "scroll-snap-align-start";
+    public static final String STICKY_TOP = "sticky-top";
+    public static final String STICKY_BOTTOM = "sticky-bottom";
 
 
     private EIStyles()

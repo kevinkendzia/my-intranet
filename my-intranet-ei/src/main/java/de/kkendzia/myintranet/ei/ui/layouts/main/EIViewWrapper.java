@@ -26,7 +26,7 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
         hlRightSidebar.addClassNames("right-sidebar-layout");
         hlRightSidebar.addClassNames(Overflow.AUTO);
         hlRightSidebar.setSizeFull();
-        hlRightSidebar.setPadding(false);
+        hlRightSidebar.setPadding(true);
         hlRightSidebar.setAlignItems(Alignment.STRETCH);
 
         view.getStyle().set("flex", "3 3 70%");
@@ -55,7 +55,7 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
         VerticalLayout vlToolbar = new VerticalLayout();
         vlToolbar.addClassNames("toolbar-layout");
         vlToolbar.setSizeFull();
-        vlToolbar.setPadding(false);
+        vlToolbar.setPadding(true);
         vlToolbar.setAlignItems(Alignment.STRETCH);
 
         if (view instanceof HasToolbarConfig t)

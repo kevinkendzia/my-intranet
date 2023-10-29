@@ -2,6 +2,7 @@ package de.kkendzia.myintranet.ei.ui.layouts;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.HasOrderedComponents;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Section;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
@@ -14,7 +15,7 @@ import de.kkendzia.myintranet.ei.core.constants.EIStyles;
 import static de.kkendzia.myintranet.ei.core.constants.EIStyles.SCROLL_SNAP_Y;
 import static java.util.Objects.requireNonNull;
 
-public class SectionLayout extends Composite<VerticalLayout>
+public class SectionLayout extends Composite<VerticalLayout> implements HasOrderedComponents
 {
     public SectionLayout()
     {
@@ -22,15 +23,15 @@ public class SectionLayout extends Composite<VerticalLayout>
         root.addClassName("section-layout");
         root.addClassName(SCROLL_SNAP_Y);
         root.addClassName(Overflow.AUTO);
-        root.setPadding(false);
-        root.setSpacing(false);
+        root.setPadding(false); // no padding because of sticky header!
+        root.setSpacing(true);
         root.setAlignItems(Alignment.STRETCH);
 
         // 21.10.2023 KK TODO: Improve?!
         root.getStyle().set("scroll-padding", "calc(27.5px + calc(2 * var(--lumo-space-m)))");
     }
 
-    public void add(String title, Component content)
+    public void addSection(String title, Component content)
     {
         requireNonNull(content, "content can't be null!");
 
@@ -42,7 +43,7 @@ public class SectionLayout extends Composite<VerticalLayout>
         {
             H3 h3 = new H3(title);
             h3.addClassName("section-layout-title");
-            h3.addClassName("sticky-top");
+            h3.addClassName(EIStyles.STICKY_TOP);
             h3.addClassName(Background.BASE);
             h3.addClassName(Padding.Vertical.MEDIUM);
 
@@ -50,5 +51,11 @@ public class SectionLayout extends Composite<VerticalLayout>
         }
 
         getContent().add(section);
+    }
+
+    public void addFooter(Component component)
+    {
+        component.addClassName(EIStyles.STICKY_BOTTOM);
+        getContent().add(component);
     }
 }

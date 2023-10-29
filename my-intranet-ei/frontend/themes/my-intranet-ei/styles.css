@@ -5,6 +5,7 @@
 @import 'components/sidebar.css';
 @import 'components/toolbar.css';
 @import 'layouts/media.css';
+@import 'components/scrollbar.css';
 
 h3.sticky-h3 {
     position: sticky;
@@ -17,6 +18,12 @@ h3.sticky-h3 {
 .sticky-top {
     position: sticky;
     top: 0;
+    z-index: 1;
+}
+
+.sticky-bottom {
+    position: sticky;
+    bottom: 0;
     z-index: 1;
 }
 

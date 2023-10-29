@@ -1,6 +1,6 @@
 .sidebar[theme~="box"] {
     border-radius: var(--lumo-border-radius-l);
-    margin: var(--lumo-space-m);
+    /*margin: var(--lumo-space-m);*/
     border: 1px solid var(--lumo-contrast-10pct);
 }
 
