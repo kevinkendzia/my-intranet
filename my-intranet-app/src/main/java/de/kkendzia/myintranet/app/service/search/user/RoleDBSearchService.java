@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.app.service.user;
+package de.kkendzia.myintranet.app.service.search.user;
 
 import de.kkendzia.myintranet.app.service._framework.SimpleSearchFilters;
 import de.kkendzia.myintranet.app.service._framework.SimpleSearchItem;

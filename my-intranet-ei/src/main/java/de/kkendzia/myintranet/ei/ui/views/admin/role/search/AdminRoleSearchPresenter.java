@@ -2,7 +2,7 @@ package de.kkendzia.myintranet.ei.ui.views.admin.role.search;
 
 import de.kkendzia.myintranet.app.service._framework.SimpleSearchFilters;
 import de.kkendzia.myintranet.app.service._framework.SimpleSearchItem;
-import de.kkendzia.myintranet.app.service.user.RoleSearchService;
+import de.kkendzia.myintranet.app.service.search.user.RoleSearchService;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import de.kkendzia.myintranet.ei.core.view.search.DefaultSearchPresenter;
 

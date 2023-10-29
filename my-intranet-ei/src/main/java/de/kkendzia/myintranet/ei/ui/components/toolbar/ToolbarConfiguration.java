@@ -31,7 +31,7 @@ public record ToolbarConfiguration(
 
     public ToolbarConfiguration(Builder builder)
     {
-        this(builder.preTitle,builder.title,builder.subTitle, builder.badges, builder.actions);
+        this(builder.preTitle, builder.title, builder.subTitle, builder.badges, builder.actions);
     }
 
     public record ToolbarAction(
@@ -50,9 +50,9 @@ public record ToolbarConfiguration(
 
     public static class Builder
     {
-        private String preTitle;
-        private String title;
-        private String subTitle;
+        private String preTitle = "";
+        private String title = "";
+        private String subTitle = "";
         private List<ToolbarBadge> badges = new ArrayList<>();
         private List<ToolbarAction> actions = new ArrayList<>();
 

@@ -7,11 +7,16 @@ import de.kkendzia.myintranet.domain.shared.adress.AdressDAO;
 import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
 import de.kkendzia.myintranet.domain.shared.mandant.MandantDAO;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
+import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhAdressDataForm;
+import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhCoreDataForm.AhCoreData;
+import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhMemberDataForm;
+import de.kkendzia.myintranet.ei.ui.views.ah.create.model.AhCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 @Presenter
 public class AhCreatePresenter
@@ -25,104 +30,49 @@ public class AhCreatePresenter
 
     // TODO Transactions?
     // TODO MapStruct?
-    public void save(AhCreateRequest request)
+    public long create(AhCreateRequest request)
     {
-        AhData coreData = request.coreData();
-        if (coreData != null)
+        requireNonNull(request, "request can't be null!");
+        AhCoreData coreData = requireNonNull(request.coreData(), "request.coreData() can't be null!");
+        AhAdressDataForm.AhAdressData adressData = requireNonNull(
+                request.adressData(),
+                "request.adressData() can't be null!");
+        AhMemberDataForm.AhMemberData memberData = requireNonNull(
+                request.memberData(),
+                "request.memberData() can't be null!");
+
+        // TODO Adresssuche?
+        Adress adress = new Adress(
+                0,
+                adressData.getLine1(),
+                adressData.getLine2(),
+                adressData.getStreet(),
+                adressData.getZip(),
+                adressData.getCity(),
+                adressData.getCountry());
+
+        if (!adressDAO.exists(adress))
         {
-            ahDAO.create(new Ah(
-                    0,
-                    coreData.getAhnr(),
-                    coreData.getMatchcode(),
-                    coreData.getMandant(),
-                    // TODO
-                    LocalDate.now(),
-                    LocalDate.now()));
+            adress = adressDAO.create(adress);
         }
-        if(request.adressData() != null)
-        {
-            // TODO Adresssuche?
-            adressDAO.create(request.adressData());
-        }
+
+        Ah ah = ahDAO.create(new Ah(
+                0,
+                coreData.getAhnr(),
+                coreData.getMatchcode(),
+                coreData.getMandant(),
+                coreData.getEnterDate(),
+                null,
+                adress,
+                memberData.getRegulator(),
+                memberData.getAssociation(),
+                memberData.getMembershipForm()));
+
+        return ah.getId();
     }
 
     public List<Mandant> loadMandantItems()
     {
         return mandantDAO.findAll().sorted(Comparator.comparing(Mandant::getName)).toList();
-    }
-
-    public record AhCreateRequest(
-            AhData coreData,
-            Adress adressData)
-    {
-        // just a record
-    }
-
-    public static class AhData
-    {
-        private final long id;
-        private Ah.Ahnr ahnr;
-        private String matchcode;
-        private Mandant mandant;
-        private LocalDate enterDate;
-
-        public AhData(
-                long id,
-                Ah.Ahnr ahnr,
-                String matchcode,
-                Mandant mandant,
-                LocalDate enterDate)
-        {
-            this.id=id;
-            this.ahnr = ahnr;
-            this.matchcode = matchcode;
-            this.mandant = mandant;
-            this.enterDate=enterDate;
-        }
-
-        public long getId()
-        {
-            return id;
-        }
-
-        public Ah.Ahnr getAhnr()
-        {
-            return ahnr;
-        }
-
-        public void setAhnr(Ah.Ahnr ahnr)
-        {
-            this.ahnr = ahnr;
-        }
-
-        public String getMatchcode()
-        {
-            return matchcode;
-        }
-
-        public void setMatchcode(String matchcode)
-        {
-            this.matchcode = matchcode;
-        }
-
-        public Mandant getMandant()
-        {
-            return mandant;
-        }
-
-        public void setMandant(Mandant mandant)
-        {
-            this.mandant = mandant;
-        }
-
-        public LocalDate getEnterDate()
-        {
-            return enterDate;
-        }
-
-        public void setEnterDate(LocalDate enterDate)
-        {
-            this.enterDate = enterDate;
-        }
     }
 }

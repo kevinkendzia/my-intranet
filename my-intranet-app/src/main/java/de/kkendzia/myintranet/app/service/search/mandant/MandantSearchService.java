@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.app.service.mandant;
+package de.kkendzia.myintranet.app.service.search.mandant;
 
 import de.kkendzia.myintranet.app.service._framework.SearchService;
 

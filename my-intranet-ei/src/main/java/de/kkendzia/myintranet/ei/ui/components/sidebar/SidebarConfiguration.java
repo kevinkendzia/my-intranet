@@ -30,7 +30,10 @@ public record SidebarConfiguration(SidebarHeader header, List<SidebarContent> co
 
     public record SidebarHeader(String title, String description, List<SidebarAction> actions)
     {
-        // just a record
+        public SidebarHeader(String title, String description)
+        {
+            this(title, description, null);
+        }
     }
 
     public static class Builder

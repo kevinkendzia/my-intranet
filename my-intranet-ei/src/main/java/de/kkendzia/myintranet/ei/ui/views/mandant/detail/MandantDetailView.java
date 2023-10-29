@@ -7,11 +7,11 @@ import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.parameters.HasViewParameter;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.ui.layouts.TabsLayout;
 import de.kkendzia.myintranet.ei.core.view.page.SaveablePage;
-import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
+import de.kkendzia.myintranet.ei.ui.layouts.TabsLayout;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages.MandantDetailPage;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages.MandantDetailsPage;
@@ -74,7 +74,7 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
             if (page instanceof SaveablePage saveablePage
                     && (presenter.getMandant().isNew() || saveablePage.hasChanges()))
             {
-                if (!saveablePage.validate())
+                if (!saveablePage.validate().isOk())
                 {
                     // 21.10.2023 KK TODO: Optimize! (Reset?)
 //                        tabs

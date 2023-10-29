@@ -47,6 +47,14 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
         List<T> values = (List<T>) qpValueMap.getOrDefault(definition, emptyList());
         return Optional.ofNullable(values).stream().flatMap(Collection::stream);
     }
+    protected <T> Optional<T> qpValue(ParameterDefinition<T> definition)
+    {
+        return qpValues(definition).findFirst();
+    }
+    protected <T> T qpValue(ParameterDefinition<T> definition, T defaultValue)
+    {
+        return qpValue(definition).orElse(defaultValue);
+    }
 
     protected void registerRouteParameter(ParameterDefinition<?> definition)
     {

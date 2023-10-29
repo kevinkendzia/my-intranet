@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.app.service.ah;
+package de.kkendzia.myintranet.app.service.search.ah;
 
 import de.kkendzia.myintranet.domain.ah.Ah;
 import org.springframework.stereotype.Component;

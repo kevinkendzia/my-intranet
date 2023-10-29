@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.ei.core.security;
 
 import com.vaadin.flow.spring.security.VaadinWebSecurity;
-import de.kkendzia.myintranet.app.service.user.EIAuthService;
+import de.kkendzia.myintranet.app.service.search.user.EIAuthService;
 import de.kkendzia.myintranet.domain.user.*;
 import de.kkendzia.myintranet.ei.ui.views.login.LoginView;
 import org.springframework.context.annotation.Bean;

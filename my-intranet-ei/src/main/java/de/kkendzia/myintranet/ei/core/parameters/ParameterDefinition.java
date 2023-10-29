@@ -3,6 +3,9 @@ package de.kkendzia.myintranet.ei.core.parameters;
 import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.router.QueryParameters;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static com.vaadin.flow.function.SerializableFunction.identity;
 
 public class ParameterDefinition<T>
@@ -41,6 +44,11 @@ public class ParameterDefinition<T>
         return new ParameterDefinition<>(name, Long::parseLong);
     }
 
+    public static ParameterDefinition<Integer> intParam(String name)
+    {
+        return new ParameterDefinition<>(name, Integer::parseInt);
+    }
+
     public static ParameterDefinition<String> stringParam(String name)
     {
         return new ParameterDefinition<>(name, identity());
@@ -50,5 +58,9 @@ public class ParameterDefinition<T>
     {
         return new ParameterDefinition<>(name, s -> s == null || s.isEmpty() || Boolean.parseBoolean(s));
     }
-    //endregion
+    public static ParameterDefinition<LocalDate> localDateParam(String name, String pattern)
+    {
+        return new ParameterDefinition<>(name, x -> LocalDate.parse(x, DateTimeFormatter.ofPattern(pattern)));
+    }
+//endregion
 }

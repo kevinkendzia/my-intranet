@@ -1,11 +1,12 @@
 package de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages;
 
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.BinderValidationStatus;
 import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
-import de.kkendzia.myintranet.ei.ui.layouts.SectionLayout;
 import de.kkendzia.myintranet.ei.core.view.page.AbstractPage;
 import de.kkendzia.myintranet.ei.core.view.page.SaveablePage;
 import de.kkendzia.myintranet.ei.ui.components.upload.ImageUpload;
+import de.kkendzia.myintranet.ei.ui.layouts.SectionLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.components.MandantForm;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailPresenter;
 
@@ -26,8 +27,8 @@ public class MandantDetailsPage extends AbstractPage<SectionLayout> implements M
         this.presenter = requireNonNull(presenter, "presenter can't be null!");
 
         SectionLayout root = getContent();
-        root.add(getTranslation(DETAILS), frmMandant);
-        root.add(getTranslation(IMAGE), imgUpload);
+        root.addSection(getTranslation(DETAILS), frmMandant);
+        root.addSection(getTranslation(IMAGE), imgUpload);
 
         binder
                 .forField(imgUpload)
@@ -40,7 +41,7 @@ public class MandantDetailsPage extends AbstractPage<SectionLayout> implements M
         return frmMandant.hasChanges();
     }
 
-    public boolean validate()
+    public BinderValidationStatus<Mandant> validate()
     {
         return frmMandant.validate();
     }

@@ -3,27 +3,35 @@ package de.kkendzia.myintranet.ei.ui.components.form;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.component.HasValue.ValueChangeEvent;
+import com.vaadin.flow.component.HasValue.ValueChangeListener;
 import com.vaadin.flow.component.HasValueAndElement;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.orderedlayout.ThemableLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.BinderValidationStatus;
+import com.vaadin.flow.shared.Registration;
+
+import static java.util.Objects.requireNonNull;
 
 public abstract class AbstractForm<B> extends Composite<VerticalLayout> implements ThemableLayout
 {
     private final Binder<B> binder;
-    private B bean;
-    private FormLayout form;
+    private transient B bean;
+    private final FormLayout form;
 
     protected AbstractForm()
     {
         this(null, new Binder<>());
     }
+
     protected AbstractForm(Binder<B> binder)
     {
         this(null, binder);
     }
+
     protected AbstractForm(String label)
     {
         this(label, new Binder<>());
@@ -31,7 +39,7 @@ public abstract class AbstractForm<B> extends Composite<VerticalLayout> implemen
 
     protected AbstractForm(String label, Binder<B> binder)
     {
-        this.binder=binder;
+        this.binder = binder;
 
         form = new FormLayout();
         form.setResponsiveSteps(
@@ -65,6 +73,7 @@ public abstract class AbstractForm<B> extends Composite<VerticalLayout> implemen
         form.add((Component) field, colSpan);
         return bindFunction.bind(field, binder);
     }
+
     protected <C extends HasValueAndElement<?, T>, T, T2> Binder.Binding<B, T2> add(
             C field,
             BindFunction<B, T, T2> bindFunction)
@@ -74,14 +83,20 @@ public abstract class AbstractForm<B> extends Composite<VerticalLayout> implemen
 
     public void setBean(B bean)
     {
-        this.bean = bean;
+        this.bean = requireNonNull(bean, "bean can't be null!");
         binder.readBean(bean);
     }
 
     public B getBean()
     {
-        binder.writeBeanIfValid(bean);
+        writeBean();
         return bean;
+    }
+
+    public void writeBean()
+    {
+        requireNonNull(bean, "bean can't be null!");
+        binder.writeBeanIfValid(bean);
     }
 
     public B getChanges()
@@ -98,14 +113,19 @@ public abstract class AbstractForm<B> extends Composite<VerticalLayout> implemen
         binder.readBean(bean);
     }
 
-    public boolean validate()
+    public BinderValidationStatus<B> validate()
     {
-        return binder.validate().isOk();
+        return binder.validate();
     }
 
     public boolean hasChanges()
     {
         return binder.hasChanges();
+    }
+
+    public Registration addValueChangeListener(ValueChangeListener<? super ValueChangeEvent<?>> listener)
+    {
+        return binder.addValueChangeListener(listener);
     }
 
     @FunctionalInterface

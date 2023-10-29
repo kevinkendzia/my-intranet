@@ -17,12 +17,14 @@ import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration.ToolbarAction;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.content.DummyPanel;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment.STRETCH;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SAVE;
 
 @Route(value = "ah", layout = EIMainLayout.class)
+@PermitAll
 public class AhDetailView
         extends AbstractEIView<VerticalLayout>
         implements HasViewParameter<Long>, AfterNavigationObserver
@@ -75,7 +77,7 @@ public class AhDetailView
     @Override
     public void beforeEnterView(BeforeEnterEvent event)
     {
-        
+
         long id = getViewParameter();
         Ah ah = presenter.loadAhById(id);
     }

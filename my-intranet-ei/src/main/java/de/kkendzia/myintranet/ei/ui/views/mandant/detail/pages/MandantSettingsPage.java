@@ -34,7 +34,7 @@ import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificatio
 
 public class MandantSettingsPage extends AbstractLazyPage<VerticalLayout> implements MandantDetailPage
 {
-    private Grid<SettingItem> grid = new Grid<>();
+    private final Grid<SettingItem> grid = new Grid<>();
 
     private final MandantDetailPresenter presenter;
     private final ConfigurableFilterDataProvider<SettingItem, Void, SettingsFilter> dataProvider;
@@ -71,7 +71,7 @@ public class MandantSettingsPage extends AbstractLazyPage<VerticalLayout> implem
             Dialog.DialogFooter footer = dlg.getFooter();
             footer.add(new Button(getTranslation(CREATE), ev ->
             {
-                if (form.validate())
+                if (form.validate().isOk())
                 {
                     Result<Void> result = presenter.addSetting(form.getBean());
                     if (result.isSuccess())

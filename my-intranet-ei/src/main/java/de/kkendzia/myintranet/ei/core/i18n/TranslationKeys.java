@@ -68,6 +68,7 @@ public final class TranslationKeys
     public static final String ROLES = "label.roles";
     public static final String PERMISSIONS = "label.permissions";
     public static final String ADMIN = "label.admin";
+    public static final String MITGLIEDSDATEN = "label.mitgliedsdaten";
     //endregion
 
     private TranslationKeys()
@@ -80,11 +81,22 @@ public final class TranslationKeys
         public static class Error
         {
             public static final String ERROR = "label.error";
+
             public static class Message
             {
                 public static final String NO_CHANGES = "error.msg.noChanges";
                 public static final String VALIDATION_ERROR = "error.msg.validationError";
             }
+        }
+    }
+
+    public static final class Validation
+    {
+        public static final String REQUIRED = "validation.required";
+
+        private Validation()
+        {
+            // No Instance!
         }
     }
 }

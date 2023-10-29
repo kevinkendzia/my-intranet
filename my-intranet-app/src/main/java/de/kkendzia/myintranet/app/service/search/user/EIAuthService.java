@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.app.service.user;
+package de.kkendzia.myintranet.app.service.search.user;
 
 import de.kkendzia.myintranet.domain.user.*;
 import org.springframework.security.core.GrantedAuthority;
