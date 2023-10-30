@@ -12,8 +12,9 @@ import de.kkendzia.myintranet.ei.ui.components.sidebar.ConfigurableSidebar;
 import de.kkendzia.myintranet.ei.ui.components.sidebar.Sidebar;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ConfigurableToolbar;
 
-import static de.kkendzia.myintranet.ei.core.constants.EIStyles.MEDIA.HIDE_S;
-import static de.kkendzia.myintranet.ei.core.constants.EIStyles.MEDIA.HIDE_XS;
+import java.util.Optional;
+
+import static de.kkendzia.myintranet.ei.core.constants.EIStyles.MEDIA.*;
 import static de.kkendzia.myintranet.ei.ui.components.sidebar.Sidebar.SidebarVariant.BOX;
 
 public class EIViewWrapper extends Composite<HorizontalLayout>
@@ -32,25 +33,8 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
         view.getStyle().set("flex", "3 3 70%");
         hlRightSidebar.addAndExpand((Component) view);
 
-        if (view instanceof HasRightSidebar s)
-        {
-            s.getOptionalRightSidebarConfigSupplier()
-                    .ifPresent(sb ->
-                    {
-                        ConfigurableSidebar sidebar = new ConfigurableSidebar(sb);
-                        sidebar.getStyle().set("flex", "1 1 30%");
-                        sidebar.addThemeVariants(BOX);
-                        sidebar.addClassName(HIDE_XS);
-                        sidebar.addClassName(HIDE_S);
-
-                        hlRightSidebar.add(sidebar);
-
-                        if (view instanceof RightSidebarNotifier n)
-                        {
-                            n.addRightSidebarChangeListener(e -> sidebar.rebuild());
-                        }
-                    });
-        }
+        createRightSidebar(view)
+                .ifPresent(hlRightSidebar::add);
 
         VerticalLayout vlToolbar = new VerticalLayout();
         vlToolbar.addClassNames("toolbar-layout");
@@ -58,20 +42,9 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
         vlToolbar.setPadding(true);
         vlToolbar.setAlignItems(Alignment.STRETCH);
 
-        if (view instanceof HasToolbarConfig t)
-        {
-            t.getOptionalToolbarConfigSupplier().ifPresent(tb ->
-            {
-                ConfigurableToolbar toolbar = new ConfigurableToolbar(tb);
-//                toolbar.addThemeVariants(ToolbarVariant.BORDER_BOTTOM);
-                vlToolbar.add(toolbar);
+        createToolbar(view)
+                .ifPresent(vlToolbar::add);
 
-                if (view instanceof ToolbarNotifier n)
-                {
-                    n.addToolbarChangeListener(e -> toolbar.rebuild());
-                }
-            });
-        }
         vlToolbar.addAndExpand(hlRightSidebar);
 
         HorizontalLayout hlLeftSidebar = getContent();
@@ -81,23 +54,87 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
         hlLeftSidebar.setPadding(false);
         hlLeftSidebar.setAlignItems(Alignment.STRETCH);
 
-        if (view instanceof HasLeftSidebar s)
-        {
-            s.getOptionalLeftSidebarConfigSupplier().ifPresent(sb ->
-            {
-                ConfigurableSidebar sidebar = new ConfigurableSidebar(sb);
-                sidebar.getStyle().set("flex", "1 1 20%");
-                sidebar.addThemeVariants(Sidebar.SidebarVariant.CONTRAST);
-                hlLeftSidebar.add(sidebar);
+        createLeftSidebar(view)
+                .ifPresent(hlLeftSidebar::add);
 
-                if (view instanceof LeftSidebarNotifier n)
-                {
-                    n.addLeftSidebarChangeListener(e -> sidebar.rebuild());
-                }
-            });
-        }
 
         vlToolbar.getStyle().set("flex", "3 3 80%");
         hlLeftSidebar.addAndExpand(vlToolbar);
+    }
+
+    private static Optional<ConfigurableSidebar> createRightSidebar(final EIView view)
+    {
+        if (view instanceof HasRightSidebar viewWithRightSidebar)
+        {
+            return
+                    viewWithRightSidebar
+                            .getOptionalRightSidebarConfigSupplier()
+                            .map(sb ->
+                            {
+                                ConfigurableSidebar sidebar = new ConfigurableSidebar(sb);
+                                sidebar.getStyle().set("flex", "1 1 30%");
+                                sidebar.addThemeVariants(BOX);
+                                sidebar.addClassName(HIDE_XS);
+                                sidebar.addClassName(HIDE_S);
+
+                                if (view instanceof HasLeftSidebar)
+                                {
+                                    sidebar.addClassName(HIDE_M);
+                                    sidebar.addClassName(HIDE_L);
+                                }
+
+                                if (view instanceof RightSidebarNotifier n)
+                                {
+                                    n.addRightSidebarChangeListener(e -> sidebar.rebuild());
+                                }
+
+                                return sidebar;
+                            });
+        }
+        return Optional.empty();
+    }
+
+    private static Optional<ConfigurableToolbar> createToolbar(EIView view)
+    {
+        if (view instanceof HasToolbarConfig viewWithToolbar)
+        {
+            return
+                    viewWithToolbar.getOptionalToolbarConfigSupplier().map(tb ->
+                    {
+                        ConfigurableToolbar toolbar = new ConfigurableToolbar(tb);
+
+                        if (view instanceof ToolbarNotifier notifier)
+                        {
+                            notifier.addToolbarChangeListener(e -> toolbar.rebuild());
+                        }
+
+                        return toolbar;
+                    });
+        }
+        return Optional.empty();
+    }
+
+    private static Optional<ConfigurableSidebar> createLeftSidebar(final EIView view)
+    {
+        if (view instanceof HasLeftSidebar viewWithLeftSidebar)
+        {
+            return
+                    viewWithLeftSidebar
+                            .getOptionalLeftSidebarConfigSupplier()
+                            .map(sb ->
+                            {
+                                ConfigurableSidebar sidebar = new ConfigurableSidebar(sb);
+                                sidebar.getStyle().set("flex", "1 1 20%");
+                                sidebar.addThemeVariants(Sidebar.SidebarVariant.CONTRAST);
+
+                                if (view instanceof LeftSidebarNotifier notifier)
+                                {
+                                    notifier.addLeftSidebarChangeListener(e -> sidebar.rebuild());
+                                }
+
+                                return sidebar;
+                            });
+        }
+        return Optional.empty();
     }
 }

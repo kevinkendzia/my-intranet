@@ -6,6 +6,7 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.shared.HasThemeVariant;
 import com.vaadin.flow.component.shared.ThemeVariant;
+import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
 
 import static java.util.Objects.requireNonNull;
 
@@ -20,6 +21,7 @@ public class Sidebar extends Composite<VerticalLayout>
         root.addClassNames("sidebar");
         root.setSizeUndefined();
         root.setAlignItems(Alignment.STRETCH);
+        root.addClassName(Overflow.AUTO);
         setSide(Side.LEFT);
     }
 

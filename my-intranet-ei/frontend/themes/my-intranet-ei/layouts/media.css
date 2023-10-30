@@ -1,36 +1,41 @@
 /*https://www.w3schools.com/css/css_rwd_mediaqueries.asp*/
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+/* Extra small devices (phones, etc.) */
+@media only screen and (max-width: 575px) {
     .hide-xs {
-        display: none;
+        /*display: none;*/
+        background-color: red;
     }
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (max-width: 768px) {
+/* Small devices (portrait tablets and large phones) */
+@media only screen and (min-width: 576px) and (max-width: 768px) {
     .hide-s {
         display: none;
+        /*background-color: orange;*/
     }
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 992px) {
+/* Medium devices (landscape tablets) */
+@media only screen and (min-width: 769px) and (max-width: 1023px) {
     .hide-m {
         display: none;
+        /*background-color: yellow;*/
     }
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (max-width: 1200px) {
+/* Large devices (laptops/desktops) */
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
     .hide-l {
         display: none;
+        /*background-color: green;*/
     }
 }
 
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
+/* Extra large devices (large laptops and desktops) */
+@media only screen and (min-width: 1280px) {
     .hide-xl {
         display: none;
+        /*background-color: blue;*/
     }
 }
