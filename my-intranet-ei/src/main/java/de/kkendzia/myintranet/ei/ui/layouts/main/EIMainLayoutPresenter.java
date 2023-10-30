@@ -4,10 +4,11 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
+import de.kkendzia.myintranet.ei.core.presenter.EIPresenter;
+import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import de.kkendzia.myintranet.ei.ui.views.ah.search.AhSearchView;
 import de.kkendzia.myintranet.ei.ui.views.search.SearchView;
-import org.springframework.stereotype.Component;
 
 import java.util.stream.Stream;
 
@@ -15,8 +16,8 @@ import static de.kkendzia.myintranet.ei.core.view.search.SearchParameters.SEARCH
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.*;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.*;
 
-@Component
-public class EIMainLayoutPresenter
+@Presenter
+public class EIMainLayoutPresenter implements EIPresenter
 {
     public void search(SearchPreviewItem value)
     {
@@ -83,7 +84,7 @@ public class EIMainLayoutPresenter
         VL(TranslationKeys.VLS),
         AKTION(TranslationKeys.AKTIONEN);
 
-        private String key;
+        private final String key;
 
         SearchTarget(String key)
         {
@@ -100,7 +101,7 @@ public class EIMainLayoutPresenter
     {
         DEFAULT,
         HEADER,
-        FOOTER;
+        FOOTER
     }
 
     public record SearchPreviewItem(

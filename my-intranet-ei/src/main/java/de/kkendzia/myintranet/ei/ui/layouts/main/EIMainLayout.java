@@ -1,12 +1,12 @@
 package de.kkendzia.myintranet.ei.ui.layouts.main;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -14,16 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class EIMainLayout
         extends AppLayout
 {
-    private EIMainLayoutPresenter presenter;
-
-    @Autowired
-    public EIMainLayout(AccessAnnotationChecker checker, EIMainLayoutPresenter presenter, AuthenticationContext authContext)
+    public EIMainLayout(
+            EIMainLayoutPresenter presenter,
+            AuthenticationContext authContext,
+            AccessAnnotationChecker accessChecker)
     {
-        this.presenter = presenter;
+        requireNonNull(presenter, "presenter can't be null!");
+        requireNonNull(authContext, "authContext can't be null!");
+        requireNonNull(accessChecker, "accessChecker can't be null!");
 
         addClassName("ei-main-layout");
         setPrimarySection(Section.DRAWER);
-        addToDrawer(new EIDrawer(checker));
+        addToDrawer(new EIDrawer(accessChecker));
         addToNavbar(new EIAppBar(presenter, authContext));
     }
 
@@ -33,19 +35,6 @@ public class EIMainLayout
         AbstractEIView<?> eiView = requireEIView(content);
         setContent(new EIViewWrapper(eiView));
         afterNavigation();
-    }
-
-    private static Component requireComponent(HasElement content)
-    {
-        if (content != null)
-        {
-            return content
-                    .getElement()
-                    .getComponent()
-                    .orElseThrow(() -> new IllegalArgumentException(
-                            "MainLayout content must be a Component"));
-        }
-        return null;
     }
 
     private static AbstractEIView<?> requireEIView(HasElement content)
