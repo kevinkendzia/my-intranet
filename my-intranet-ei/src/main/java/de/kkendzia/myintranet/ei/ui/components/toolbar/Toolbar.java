@@ -9,7 +9,6 @@ import com.vaadin.flow.component.orderedlayout.ThemableLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.shared.HasThemeVariant;
 import com.vaadin.flow.component.shared.ThemeVariant;
-import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 
 import static java.util.Objects.requireNonNull;
 
@@ -37,10 +36,9 @@ public class Toolbar extends Composite<HorizontalLayout>
 
         HorizontalLayout root = getContent();
         root.addClassNames("toolbar");
-        root.addClassNames(Padding.Horizontal.MEDIUM);
         root.setAlignItems(Alignment.STRETCH);
         root.setJustifyContentMode(JustifyContentMode.BETWEEN);
-        root.setPadding(true);
+        root.setPadding(false);
 
         root.add(vlLeft);
         root.addAndExpand(hlActions);
@@ -55,6 +53,7 @@ public class Toolbar extends Composite<HorizontalLayout>
     {
         hlBadges.add(badgeComponent);
     }
+
     public void addAction(Component actionComponent)
     {
         hlActions.add(actionComponent);

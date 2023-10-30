@@ -27,7 +27,8 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
         hlRightSidebar.addClassNames("right-sidebar-layout");
         hlRightSidebar.addClassNames(Overflow.AUTO);
         hlRightSidebar.setSizeFull();
-        hlRightSidebar.setPadding(true);
+        hlRightSidebar.setPadding(false);
+        hlRightSidebar.setSpacing(true);
         hlRightSidebar.setAlignItems(Alignment.STRETCH);
 
         view.getStyle().set("flex", "3 3 70%");
@@ -52,6 +53,7 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
         hlLeftSidebar.addClassNames(Overflow.AUTO);
         hlLeftSidebar.setSizeFull();
         hlLeftSidebar.setPadding(false);
+        hlLeftSidebar.setSpacing(false);
         hlLeftSidebar.setAlignItems(Alignment.STRETCH);
 
         createLeftSidebar(view)
