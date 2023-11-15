@@ -8,8 +8,8 @@ import com.vaadin.flow.router.RouteParameters;
 import de.kkendzia.myintranet.ei.core.components.EIComponent;
 import de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition;
 import de.kkendzia.myintranet.ei.core.view.mixins.*;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
+import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -47,10 +47,12 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
         List<T> values = (List<T>) qpValueMap.getOrDefault(definition, emptyList());
         return Optional.ofNullable(values).stream().flatMap(Collection::stream);
     }
+
     protected <T> Optional<T> qpValue(ParameterDefinition<T> definition)
     {
         return qpValues(definition).findFirst();
     }
+
     protected <T> T qpValue(ParameterDefinition<T> definition, T defaultValue)
     {
         return qpValue(definition).orElse(defaultValue);
@@ -86,6 +88,7 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
     {
         HasLeftSidebar.setLeftSidebarConfig(this, sidebarConfigSupplier);
     }
+
     protected void setRightSidebarConfig(SidebarConfiguration sidebarConfig)
     {
         HasRightSidebar.setRightSidebarConfig(this, sidebarConfig);

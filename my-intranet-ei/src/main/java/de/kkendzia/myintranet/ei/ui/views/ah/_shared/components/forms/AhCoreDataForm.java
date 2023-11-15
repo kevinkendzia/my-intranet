@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.views.ah.create.content;
+package de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms;
 
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
@@ -10,9 +10,8 @@ import de.kkendzia.myintranet.domain.ah.Ah.Ahnr;
 import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhCoreDataForm.AhCoreData;
+import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhCoreData;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -71,65 +70,5 @@ public class AhCoreDataForm extends AbstractForm<AhCoreData>
     public Optional<Mandant> findMandantItemById(long id)
     {
         return getMandantItems().stream().filter(m -> Objects.equals(m.getId(), id)).findFirst();
-    }
-
-    public static class AhCoreData
-    {
-        private Ahnr ahnr;
-        private String matchcode;
-        private Mandant mandant;
-        private LocalDate enterDate;
-
-        public AhCoreData(
-                Ahnr ahnr,
-                String matchcode,
-                Mandant mandant,
-                LocalDate enterDate)
-        {
-            this.ahnr = ahnr;
-            this.matchcode = matchcode;
-            this.mandant = mandant;
-            this.enterDate = enterDate;
-        }
-
-        public Ahnr getAhnr()
-        {
-            return ahnr;
-        }
-
-        public void setAhnr(Ahnr ahnr)
-        {
-            this.ahnr = ahnr;
-        }
-
-        public String getMatchcode()
-        {
-            return matchcode;
-        }
-
-        public void setMatchcode(String matchcode)
-        {
-            this.matchcode = matchcode;
-        }
-
-        public Mandant getMandant()
-        {
-            return mandant;
-        }
-
-        public void setMandant(Mandant mandant)
-        {
-            this.mandant = mandant;
-        }
-
-        public LocalDate getEnterDate()
-        {
-            return enterDate;
-        }
-
-        public void setEnterDate(LocalDate enterDate)
-        {
-            this.enterDate = enterDate;
-        }
     }
 }

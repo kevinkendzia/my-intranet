@@ -3,11 +3,11 @@ package de.kkendzia.myintranet.ei.core.view.page;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
 import de.kkendzia.myintranet.ei.core.view.mixins.HasLeftSidebar;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration;
-import de.kkendzia.myintranet.ei.core.view.mixins.LeftSidebarNotifier;
 import de.kkendzia.myintranet.ei.core.view.mixins.HasToolbarConfig;
-import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
+import de.kkendzia.myintranet.ei.core.view.mixins.LeftSidebarNotifier;
 import de.kkendzia.myintranet.ei.core.view.mixins.ToolbarNotifier;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
+import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration;
 
 public abstract class AbstractPage<C extends Component> extends Composite<C>
         implements HasToolbarConfig, ToolbarNotifier, HasLeftSidebar, LeftSidebarNotifier, EIPage

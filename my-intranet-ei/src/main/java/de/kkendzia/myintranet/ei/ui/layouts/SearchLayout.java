@@ -40,6 +40,7 @@ public class SearchLayout<T> extends Composite<VerticalLayout>
 
         VerticalLayout root = getContent();
         root.addClassName("search-layout");
+        root.setPadding(false);
         root.setAlignItems(STRETCH);
         root.setHeightFull();
         root.add(spSearchText);

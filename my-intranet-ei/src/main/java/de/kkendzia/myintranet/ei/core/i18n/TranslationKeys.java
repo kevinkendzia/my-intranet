@@ -68,7 +68,7 @@ public final class TranslationKeys
     public static final String ROLES = "label.roles";
     public static final String PERMISSIONS = "label.permissions";
     public static final String ADMIN = "label.admin";
-    public static final String MITGLIEDSDATEN = "label.mitgliedsdaten";
+    public static final String MEMBERSHIP = "label.mitgliedsdaten";
     //endregion
 
     private TranslationKeys()
@@ -95,6 +95,17 @@ public final class TranslationKeys
         public static final String REQUIRED = "validation.required";
 
         private Validation()
+        {
+            // No Instance!
+        }
+    }
+
+    public static class Examples
+    {
+        public static final String LOREM_S = "lorem.small";
+        public static final String LOREM_L = "lorem.large";
+
+        private Examples()
         {
             // No Instance!
         }

@@ -1,41 +1,41 @@
-package de.kkendzia.myintranet.ei.ui.components.sidebar;
+package de.kkendzia.myintranet.ei.ui.layouts.main.sidebar;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.html.Paragraph;
-import com.vaadin.flow.component.shared.HasThemeVariant;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.function.SerializableSupplier;
-import com.vaadin.flow.theme.lumo.LumoUtility.AlignItems;
-import com.vaadin.flow.theme.lumo.LumoUtility.Display;
-import com.vaadin.flow.theme.lumo.LumoUtility.FlexDirection;
+import de.kkendzia.components.expandablesidebar.ExpandableSidebar;
+import de.kkendzia.components.expandablesidebar.ExpandableSidebarHeader;
+import de.kkendzia.components.expandablesidebar.ExpandableSidebarToggle;
 import de.kkendzia.myintranet.ei.core.components.ComponentFactory;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration.SidebarAction;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration.SidebarHeader;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration.SidebarText;
+import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.SidebarAction;
+import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.SidebarHeader;
+import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.SidebarText;
 
 import static java.util.Objects.requireNonNull;
 
-public class ConfigurableSidebar extends Composite<Sidebar> implements HasThemeVariant<Sidebar.SidebarVariant>
+public class SidebarConfigurator extends Composite<ExpandableSidebar>
 {
     private SerializableSupplier<SidebarConfiguration> configSupplier;
     private ComponentFactory<SidebarAction> actionFactory = new DefaultActionFactory();
     private ComponentFactory<SidebarText> textFactory = new DefaultTextFactory();
     private ComponentFactory<SidebarHeader> headerFactory = new DefaultHeaderFactory(actionFactory);
 
-    public ConfigurableSidebar(SerializableSupplier<SidebarConfiguration> configSupplier)
+    public SidebarConfigurator(SerializableSupplier<SidebarConfiguration> configSupplier)
     {
         this.configSupplier = requireNonNull(configSupplier, "configSupplier can't be null!");
 
-        Sidebar root = getContent();
+        ExpandableSidebar root = getContent();
         root.addClassNames("configurable-sidebar");
+        root.setWidth("4em");
+        root.setWidthExpanded("17em");
 
         rebuild();
     }
 
-    public ConfigurableSidebar(SidebarConfiguration config)
+    public SidebarConfigurator(SidebarConfiguration config)
     {
         this(() -> requireNonNull(config, "config can't be null!"));
     }
@@ -44,41 +44,42 @@ public class ConfigurableSidebar extends Composite<Sidebar> implements HasThemeV
     {
         SidebarConfiguration config = this.configSupplier.get();
 
-        Sidebar root = getContent();
-        root.removeAll();
+        ExpandableSidebar root = getContent();
 
-        if(config.header() != null)
+        if (config.header() != null)
         {
             root.add(headerFactory.create(config.header()));
         }
 
         for (SidebarConfiguration.SidebarContent entry : config.content())
         {
-            if(entry instanceof SidebarAction action)
+            if (entry instanceof SidebarAction action)
             {
                 root.add(actionFactory.create(action));
             }
-            else if(entry instanceof SidebarText text)
+            else if (entry instanceof SidebarText text)
             {
                 root.add(textFactory.create(text));
             }
         }
     }
 
+    //region SETTER
     public void setConfigSupplier(SerializableSupplier<SidebarConfiguration> configSupplier)
     {
         this.configSupplier = configSupplier;
     }
 
-    //region SETTER
     public void setHeaderFactory(ComponentFactory<SidebarHeader> headerFactory)
     {
         this.headerFactory = requireNonNull(headerFactory, "headerFactory can't be null!");
     }
+
     public void setActionFactory(ComponentFactory<SidebarAction> actionFactory)
     {
         this.actionFactory = requireNonNull(actionFactory, "actionFactory can't be null!");
     }
+
     public void setTextFactory(ComponentFactory<SidebarText> textFactory)
     {
         this.textFactory = requireNonNull(textFactory, "textFactory can't be null!");
@@ -98,22 +99,32 @@ public class ConfigurableSidebar extends Composite<Sidebar> implements HasThemeV
         @Override
         public Component create(SidebarHeader header)
         {
-            Header headerComponent = new Header();
-            headerComponent.addClassName(Display.FLEX);
-            headerComponent.addClassName(FlexDirection.COLUMN);
-            headerComponent.addClassName(AlignItems.STRETCH);
+            ExpandableSidebarHeader headerComponent = new ExpandableSidebarHeader("", "");
+            headerComponent.setSuffixComponent(
+                    new ExpandableSidebarToggle(
+                            VaadinIcon.CHEVRON_RIGHT.create(),
+                            VaadinIcon.CHEVRON_LEFT.create()));
 
-            if(header.title() != null && !header.title().isEmpty())
+//            headerComponent.addClassName(Display.FLEX);
+//            headerComponent.addClassName(FlexDirection.COLUMN);
+//            headerComponent.addClassName(AlignItems.STRETCH);
+
+            if (header.title() != null && !header.title().isEmpty())
             {
-                headerComponent.add(new H2(header.title()));
+                headerComponent.setHeaderText(header.title());
             }
 
-            if(header.description() != null && !header.description().isEmpty())
+//            if (header.description() != null && !header.description().isEmpty())
+//            {
+//                headerComponent.setSubHeaderText(header.description());
+//            }
+
+            if (header.description() != null && !header.description().isEmpty())
             {
                 headerComponent.add(new Paragraph(header.description()));
             }
 
-            if(header.actions() != null && !header.actions().isEmpty())
+            if (header.actions() != null && !header.actions().isEmpty())
             {
                 for (SidebarAction action : header.actions())
                 {
@@ -137,6 +148,7 @@ public class ConfigurableSidebar extends Composite<Sidebar> implements HasThemeV
             return new Button(action.label(), e -> action.action().run());
         }
     }
+
     public static class DefaultTextFactory implements ComponentFactory<SidebarText>
     {
         @Override

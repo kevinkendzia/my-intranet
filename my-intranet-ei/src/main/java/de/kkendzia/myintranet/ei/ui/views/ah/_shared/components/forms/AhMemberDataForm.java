@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.views.ah.create.content;
+package de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms;
 
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.data.provider.DataProvider;
@@ -7,6 +7,7 @@ import de.kkendzia.myintranet.domain.shared.mitgliedsform.MembershipForm;
 import de.kkendzia.myintranet.domain.shared.regulierer.Regulator;
 import de.kkendzia.myintranet.domain.shared.verband.Association;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
+import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhMemberData;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.Optional;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static de.kkendzia.myintranet.ei.core.utils.DataProviderUtil.emptyDataProvider;
 
-public class AhMemberDataForm extends AbstractForm<AhMemberDataForm.AhMemberData>
+public class AhMemberDataForm extends AbstractForm<AhMemberData>
 {
     private final ComboBox<Regulator> cboRegulator = new ComboBox<>(getTranslation(REGULIERER));
     private final ComboBox<Association> cboAssociation = new ComboBox<>(getTranslation(VERBAND));
@@ -87,47 +88,4 @@ public class AhMemberDataForm extends AbstractForm<AhMemberDataForm.AhMemberData
         return getMembershipFormItems().stream().filter(x -> Objects.equals(x.getId(), id)).findFirst();
     }
 
-    public static class AhMemberData
-    {
-        private Regulator regulator;
-        private Association association;
-        private MembershipForm membershipForm;
-
-        public AhMemberData(Regulator regulator, Association association, MembershipForm membershipForm)
-        {
-            this.regulator = regulator;
-            this.association = association;
-            this.membershipForm = membershipForm;
-        }
-
-        public Regulator getRegulator()
-        {
-            return regulator;
-        }
-
-        public void setRegulator(Regulator regulator)
-        {
-            this.regulator = regulator;
-        }
-
-        public Association getAssociation()
-        {
-            return association;
-        }
-
-        public void setAssociation(Association association)
-        {
-            this.association = association;
-        }
-
-        public MembershipForm getMembershipForm()
-        {
-            return membershipForm;
-        }
-
-        public void setMembershipForm(MembershipForm membershipForm)
-        {
-            this.membershipForm = membershipForm;
-        }
-    }
 }

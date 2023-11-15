@@ -6,16 +6,16 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
+import de.kkendzia.components.expandablesidebar.ExpandableSidebar.Side;
 import de.kkendzia.myintranet.ei.core.view.EIView;
 import de.kkendzia.myintranet.ei.core.view.mixins.*;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.ConfigurableSidebar;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.Sidebar;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ConfigurableToolbar;
+import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfigurator;
 
 import java.util.Optional;
 
+import static de.kkendzia.components.expandablesidebar.ExpandableSidebarVariant.*;
 import static de.kkendzia.myintranet.ei.core.constants.EIStyles.MEDIA.*;
-import static de.kkendzia.myintranet.ei.ui.components.sidebar.Sidebar.SidebarVariant.BOX;
 
 public class EIViewWrapper extends Composite<HorizontalLayout>
 {
@@ -30,10 +30,7 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
         hlRightSidebar.setPadding(false);
         hlRightSidebar.setSpacing(true);
         hlRightSidebar.setAlignItems(Alignment.STRETCH);
-
-        view.getStyle().set("flex", "3 3 70%");
         hlRightSidebar.addAndExpand((Component) view);
-
         createRightSidebar(view)
                 .ifPresent(hlRightSidebar::add);
 
@@ -58,13 +55,10 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
 
         createLeftSidebar(view)
                 .ifPresent(hlLeftSidebar::add);
-
-
-        vlToolbar.getStyle().set("flex", "3 3 80%");
         hlLeftSidebar.addAndExpand(vlToolbar);
     }
 
-    private static Optional<ConfigurableSidebar> createRightSidebar(final EIView view)
+    private static Optional<SidebarConfigurator> createRightSidebar(final EIView view)
     {
         if (view instanceof HasRightSidebar viewWithRightSidebar)
         {
@@ -73,9 +67,11 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
                             .getOptionalRightSidebarConfigSupplier()
                             .map(sb ->
                             {
-                                ConfigurableSidebar sidebar = new ConfigurableSidebar(sb);
-                                sidebar.getStyle().set("flex", "1 1 30%");
-                                sidebar.addThemeVariants(BOX);
+                                SidebarConfigurator sidebar = new SidebarConfigurator(sb);
+                                sidebar.getContent().setSide(Side.RIGHT);
+                                sidebar.getContent().addThemeVariants(BORDERED, RIGHT, ROUND);
+                                sidebar.getContent().setExpanded(true);
+
                                 sidebar.addClassName(HIDE_XS);
                                 sidebar.addClassName(HIDE_S);
 
@@ -116,7 +112,7 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
         return Optional.empty();
     }
 
-    private static Optional<ConfigurableSidebar> createLeftSidebar(final EIView view)
+    private static Optional<SidebarConfigurator> createLeftSidebar(final EIView view)
     {
         if (view instanceof HasLeftSidebar viewWithLeftSidebar)
         {
@@ -125,9 +121,10 @@ public class EIViewWrapper extends Composite<HorizontalLayout>
                             .getOptionalLeftSidebarConfigSupplier()
                             .map(sb ->
                             {
-                                ConfigurableSidebar sidebar = new ConfigurableSidebar(sb);
-                                sidebar.getStyle().set("flex", "1 1 20%");
-                                sidebar.addThemeVariants(Sidebar.SidebarVariant.CONTRAST);
+                                SidebarConfigurator sidebar = new SidebarConfigurator(sb);
+                                sidebar.getContent().setSide(Side.LEFT);
+                                sidebar.getContent().addThemeVariants(BORDERED, LEFT, ROUND);
+                                sidebar.getContent().setExpanded(false);
 
                                 if (view instanceof LeftSidebarNotifier notifier)
                                 {

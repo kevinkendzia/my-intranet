@@ -1,32 +1,32 @@
 package de.kkendzia.myintranet.ei.ui.views.ah.detail;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.domain.ah.Ah;
+import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.parameters.HasViewParameter;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.ui.components.async.AsyncContainer;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration.SidebarAction;
+import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration.ToolbarAction;
+import de.kkendzia.myintranet.ei.ui.layouts.TabsLayout;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
-import de.kkendzia.myintranet.ei.ui.views.ah.detail.content.DummyPanel;
+import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration;
+import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.SidebarAction;
+import de.kkendzia.myintranet.ei.ui.views.ah.detail.pages.AhCoreDataPage;
+import de.kkendzia.myintranet.ei.ui.views.ah.detail.pages.AhDetailPage;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment.STRETCH;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.COMMON;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SAVE;
 
 @Route(value = "ah", layout = EIMainLayout.class)
 @PermitAll
 public class AhDetailView
-        extends AbstractEIView<VerticalLayout>
+        extends AbstractEIView<TabsLayout<AhDetailPage>>
         implements HasViewParameter<Long>, AfterNavigationObserver
 {
     private final H1 hTitle = new H1("AH CREATE");
@@ -37,9 +37,20 @@ public class AhDetailView
     {
         this.presenter = presenter;
 
+        final var header = new SidebarConfiguration.SidebarHeader(
+                getTranslation(TranslationKeys.CREATE),
+                getTranslation(TranslationKeys.Examples.LOREM_S));
+
         setLeftSidebarConfig(
                 new SidebarConfiguration.Builder()
+                        .header(header)
                         .action(new SidebarAction(getTranslation(SAVE), presenter::save))
+                        .build());
+
+        setRightSidebarConfig(
+                new SidebarConfiguration.Builder()
+                        .header(header)
+                        .text(TranslationKeys.Examples.LOREM_L)
                         .build());
 
         setToolbarConfig(
@@ -47,39 +58,15 @@ public class AhDetailView
                         .action(new ToolbarAction(getTranslation(SAVE), presenter::save))
                         .build());
 
-        VerticalLayout root = getContent();
-        root.setAlignItems(STRETCH);
-        root.add(hTitle);
-//        root.add(new CoreDataPanel());
-        root.add(new AsyncContainer<>(new DummyPanel(), (x, y) -> testWait(x, y)));
-        root.add(new AsyncContainer<>(new DummyPanel(), (x, y) -> testWait(x, y)));
-        root.add(new AsyncContainer<>(new DummyPanel(), (x, y) -> testWait(x, y)));
-        root.add(new AsyncContainer<>(new DummyPanel(), (x, y) -> testWait(x, y)));
-        root.add(new AsyncContainer<>(new DummyPanel(), (x, y) -> testWait(x, y)));
-        root.add(new AsyncContainer<>(new DummyPanel(), (x, y) -> testWait(x, y)));
-    }
-
-    private static void testWait(
-            DummyPanel panel,
-            UI ui)
-    {
-        try
-        {
-            Thread.sleep(5000);
-            ui.access(panel::setLoaded);
-        }
-        catch (InterruptedException e)
-        {
-            throw new RuntimeException(e);
-        }
+        TabsLayout<AhDetailPage> root = getContent();
+        root.add(new PagedTabs.PagedTab<>(getTranslation(COMMON), new AhCoreDataPage(presenter)));
     }
 
     @Override
     public void beforeEnterView(BeforeEnterEvent event)
     {
-
         long id = getViewParameter();
-        Ah ah = presenter.loadAhById(id);
+        presenter.loadAhById(id);
     }
 
     @Override

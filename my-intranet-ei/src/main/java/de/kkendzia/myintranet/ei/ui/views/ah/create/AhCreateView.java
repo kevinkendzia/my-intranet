@@ -14,19 +14,19 @@ import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.components.form.FormBinder;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration.SidebarAction;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration.SidebarHeader;
-import de.kkendzia.myintranet.ei.ui.components.sidebar.SidebarConfiguration.SidebarText;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.layouts.SectionLayout;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhAdressDataForm;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhAdressDataForm.AhAdressData;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhCoreDataForm;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhCoreDataForm.AhCoreData;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhMemberDataForm;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhMemberDataForm.AhMemberData;
+import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration;
+import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.SidebarAction;
+import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.SidebarHeader;
+import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.SidebarText;
+import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhAdressDataForm;
+import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhCoreDataForm;
+import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhMemberDataForm;
+import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhAdressData;
+import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhCoreData;
+import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhMemberData;
 import de.kkendzia.myintranet.ei.ui.views.ah.create.model.AhCreateRequest;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import jakarta.annotation.security.PermitAll;
@@ -104,7 +104,7 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
         SectionLayout root = getContent();
         root.addSection(getTranslation(COMMON), frmCore);
         root.addSection(getTranslation(ADRESS), frmAdress);
-        root.addSection(getTranslation(MITGLIEDSDATEN), frmMember);
+        root.addSection(getTranslation(MEMBERSHIP), frmMember);
         root.add(footer);
 
         formBinder.bind(frmCore, AhCreateRequest::coreData);
@@ -138,7 +138,8 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
                         new Ahnr(qpValue(PARAM_AHNR, 1)),
                         qpValue(PARAM_MATCHCODE, "new"),
                         qpValue(PARAM_MANDANT_ID).flatMap(frmCore::findMandantItemById).orElse(null),
-                        qpValue(PARAM_ENTER_DATE, LocalDate.now())),
+                        qpValue(PARAM_ENTER_DATE, LocalDate.now()),
+                        null),
                 new AhAdressData(
                         qpValue(PARAM_LINE1, ""),
                         qpValue(PARAM_LINE2, ""),

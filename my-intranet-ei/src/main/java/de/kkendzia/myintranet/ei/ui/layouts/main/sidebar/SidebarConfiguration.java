@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.components.sidebar;
+package de.kkendzia.myintranet.ei.ui.layouts.main.sidebar;
 
 import com.vaadin.flow.function.SerializableRunnable;
 
@@ -8,7 +8,9 @@ import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
 
-public record SidebarConfiguration(SidebarHeader header, List<SidebarContent> content) implements Serializable
+public record SidebarConfiguration(
+        SidebarHeader header,
+        List<SidebarContent> content) implements Serializable
 {
     public SidebarConfiguration(Builder builder)
     {
@@ -19,16 +21,23 @@ public record SidebarConfiguration(SidebarHeader header, List<SidebarContent> co
     {
 
     }
-    public record SidebarAction(String label, SerializableRunnable action) implements SidebarContent
+
+    public record SidebarAction(
+            String label,
+            SerializableRunnable action) implements SidebarContent
     {
         // just a record
     }
+
     public record SidebarText(String text) implements SidebarContent
     {
         // just a record
     }
 
-    public record SidebarHeader(String title, String description, List<SidebarAction> actions)
+    public record SidebarHeader(
+            String title,
+            String description,
+            List<SidebarAction> actions)
     {
         public SidebarHeader(String title, String description)
         {
@@ -57,6 +66,11 @@ public record SidebarConfiguration(SidebarHeader header, List<SidebarContent> co
         {
             actions.add(entry);
             return this;
+        }
+
+        public Builder text(String text)
+        {
+            return text(new SidebarText(text));
         }
 
         public SidebarConfiguration build()

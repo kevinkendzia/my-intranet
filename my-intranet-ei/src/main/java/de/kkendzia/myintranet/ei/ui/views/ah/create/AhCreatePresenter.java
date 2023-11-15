@@ -7,9 +7,9 @@ import de.kkendzia.myintranet.domain.shared.adress.AdressDAO;
 import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
 import de.kkendzia.myintranet.domain.shared.mandant.MandantDAO;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhAdressDataForm;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhCoreDataForm.AhCoreData;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.content.AhMemberDataForm;
+import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhAdressData;
+import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhCoreData;
+import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhMemberData;
 import de.kkendzia.myintranet.ei.ui.views.ah.create.model.AhCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,10 +34,10 @@ public class AhCreatePresenter
     {
         requireNonNull(request, "request can't be null!");
         AhCoreData coreData = requireNonNull(request.coreData(), "request.coreData() can't be null!");
-        AhAdressDataForm.AhAdressData adressData = requireNonNull(
+        AhAdressData adressData = requireNonNull(
                 request.adressData(),
                 "request.adressData() can't be null!");
-        AhMemberDataForm.AhMemberData memberData = requireNonNull(
+        AhMemberData memberData = requireNonNull(
                 request.memberData(),
                 "request.memberData() can't be null!");
 
