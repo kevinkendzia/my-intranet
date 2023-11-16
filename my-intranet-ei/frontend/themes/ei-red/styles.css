@@ -1,3 +1,7 @@
 html {
     --lumo-primary-color: #ff0000;
 }
+
+.background-image-home {
+    background-image: url("./img/home.svg");
+}

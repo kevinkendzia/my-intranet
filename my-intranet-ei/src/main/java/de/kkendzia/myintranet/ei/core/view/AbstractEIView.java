@@ -123,10 +123,10 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
         Map<String, List<String>> queryParameters = event.getLocation().getQueryParameters().getParameters();
         for (ParameterDefinition<?> def : qpValueMap.keySet())
         {
-            List<String> values = queryParameters.getOrDefault(def.getName(), emptyList());
+            List<String> values = queryParameters.getOrDefault(def.name(), emptyList());
             if (!values.isEmpty())
             {
-                qpValueMap.put(def, values.stream().map(x -> def.getParser().apply(x)).toList());
+                qpValueMap.put(def, values.stream().map(x -> def.parser().apply(x)).toList());
             }
         }
     }
@@ -137,8 +137,8 @@ public abstract class AbstractEIView<C extends Component> extends EIComponent<C>
         for (ParameterDefinition<?> def : rpValueMap.keySet())
         {
             routeParameters
-                    .get(def.getName())
-                    .ifPresent(v -> rpValueMap.put(def, def.getParser().apply(v)));
+                    .get(def.name())
+                    .ifPresent(v -> rpValueMap.put(def, def.parser().apply(v)));
         }
     }
 

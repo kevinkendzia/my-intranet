@@ -2,7 +2,6 @@
 @import 'async-container-styles.css';
 @import 'layouts/section-layout.css';
 @import 'components/combobox.css';
-/*@import 'components/sidebar.css';*/
 @import 'components/toolbar.css';
 @import 'layouts/media.css';
 @import 'components/scrollbar.css';
@@ -30,7 +29,13 @@ h3.sticky-h3 {
 .scroll-snap-align-start {
     scroll-snap-align: start;
 }
+
 .scroll-snap-y {
     scroll-snap-type: y proximity;
 }
 
+.background-image-home {
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: top;
+}

@@ -13,8 +13,9 @@ public final class GridColumnFactory
 
     public static <T> Grid.Column<T> addCollapsedColumn(Grid<T> grid, String header, ValueProvider<T, ?> valueProvider)
     {
-        return grid.addColumn(valueProvider).setHeader(header).setAutoWidth(true);
+        return grid.addColumn(valueProvider).setHeader(header).setAutoWidth(true).setFlexGrow(0);
     }
+
     public static <T> Grid.Column<T> addCollapsedColumn(Grid<T> grid, String header, Renderer<T> renderer)
     {
         return grid.addColumn(renderer).setHeader(header).setAutoWidth(true);
