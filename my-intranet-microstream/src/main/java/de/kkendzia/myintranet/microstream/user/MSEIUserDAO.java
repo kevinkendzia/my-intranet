@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static de.kkendzia.myintranet.domain._framework.utils.Reduce.toOnlyElement;
+import static de.kkendzia.myintranet.domain._utils.Reduce.toOnlyElement;
 
 @Component
 public class MSEIUserDAO extends AbstractMSDAO<EIUser, Long> implements EIUserDAO

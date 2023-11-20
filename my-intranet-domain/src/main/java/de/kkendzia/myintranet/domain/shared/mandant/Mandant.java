@@ -1,21 +1,23 @@
 package de.kkendzia.myintranet.domain.shared.mandant;
 
-import de.kkendzia.myintranet.domain._framework.AbstractEntity;
-import de.kkendzia.myintranet.domain._framework.HasId;
+import de.kkendzia.myintranet.domain._core.AbstractAggregateRoot;
+import de.kkendzia.myintranet.domain._core.AbstractID;
 
-public final class Mandant extends AbstractEntity implements HasId
+import java.util.UUID;
+
+public final class Mandant extends AbstractAggregateRoot<Mandant, Mandant.MandantID>
 {
-    private  String key;
-    private  String name;
+    private String key;
+    private String name;
     private byte[] image;
 
     public Mandant(
-            long id,
+            MandantID id,
             String key,
             String name)
     {
         super(id);
-        this.key=key;
+        this.key = key;
         this.name = name;
     }
 
@@ -48,4 +50,19 @@ public final class Mandant extends AbstractEntity implements HasId
     {
         this.image = image;
     }
+
+    //region TYPES
+    public static class MandantID extends AbstractID
+    {
+        public MandantID(final UUID value)
+        {
+            super(value);
+        }
+
+        public MandantID()
+        {
+            super();
+        }
+    }
+    //endregion
 }

@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.microstream._framework;
 
 import de.kkendzia.myintranet.domain._framework.dao.CRUDDAO;
-import de.kkendzia.myintranet.domain._framework.HasId;
+import de.kkendzia.myintranet.domain._core.HasId;
 import de.kkendzia.myintranet.microstream.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.id.IdHandler;
 import one.microstream.storage.types.StorageManager;
@@ -14,7 +14,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static de.kkendzia.myintranet.domain._framework.utils.Reduce.toOnlyElement;
+import static de.kkendzia.myintranet.domain._utils.Reduce.toOnlyElement;
 import static java.util.Objects.requireNonNull;
 
 public abstract class AbstractMSDAO<T extends HasId, I> implements CRUDDAO<T, I>
@@ -30,7 +30,7 @@ public abstract class AbstractMSDAO<T extends HasId, I> implements CRUDDAO<T, I>
 
     protected AbstractMSDAO(Function<MyIntranetRoot, List<T>> rootCollectionProvider)
     {
-        this.rootCollectionProvider= requireNonNull(rootCollectionProvider, "rootCollectionProvider can't be null!");
+        this.rootCollectionProvider = requireNonNull(rootCollectionProvider, "rootCollectionProvider can't be null!");
     }
 
     protected MyIntranetRoot getRoot()
@@ -64,7 +64,7 @@ public abstract class AbstractMSDAO<T extends HasId, I> implements CRUDDAO<T, I>
     @Override
     public T update(T entity)
     {
-        if(entity.getId() <= 0)
+        if (entity.getId() <= 0)
         {
             throw new IllegalArgumentException("Can't update entity with id <= 0!");
         }
@@ -78,7 +78,7 @@ public abstract class AbstractMSDAO<T extends HasId, I> implements CRUDDAO<T, I>
     @Override
     public T create(T entity)
     {
-        if(entity.getId() > 0)
+        if (entity.getId() > 0)
         {
             throw new IllegalArgumentException("Can't create new entity with id != 0!");
         }
@@ -95,7 +95,7 @@ public abstract class AbstractMSDAO<T extends HasId, I> implements CRUDDAO<T, I>
     @Override
     public void deleteById(long id)
     {
-        if(id <= 0)
+        if (id <= 0)
         {
             throw new IllegalArgumentException("Can't delete entity with id <= 0!");
         }

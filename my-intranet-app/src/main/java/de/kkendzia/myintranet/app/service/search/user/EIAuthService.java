@@ -1,6 +1,8 @@
 package de.kkendzia.myintranet.app.service.search.user;
 
-import de.kkendzia.myintranet.domain.user.*;
+import de.kkendzia.myintranet.domain.user.EIUser;
+import de.kkendzia.myintranet.domain.user.EIUserDAO;
+import de.kkendzia.myintranet.domain.user.auth.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -39,6 +41,7 @@ public class EIAuthService implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
+        // 19.11.2023 KK TODO: Only load needed data! (username + password)
         EIUser u = eiUserDAO
                 .findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Couldn't find user for username \"" + username + "\""));

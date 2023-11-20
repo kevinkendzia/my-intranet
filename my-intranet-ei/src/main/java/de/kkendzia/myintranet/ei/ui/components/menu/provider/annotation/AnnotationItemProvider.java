@@ -80,18 +80,6 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
         return filtered;
     }
 
-    private Map<String, TreeItem> mapAnnotationData(List<AnnotationData> annotationData)
-    {
-        Map<String, TreeItem> items = new HashMap<>();
-        for (AnnotationData annotation : annotationData)
-        {
-            TreeItem item = annotation.createItem();
-            items.put(item.key(), item);
-        }
-
-        return items;
-    }
-
     private Map<AnnotationData, TreeItem> collectAnnotationData(SerializableConsumer<TreeItem> itemConsumer)
     {
         RouteConfiguration config = routConfigurationSupplier.get();
@@ -186,6 +174,12 @@ public class AnnotationItemProvider implements DrawerMenu.ItemProvider
                     annotation.position(),
                     annotation.parent(),
                     iconSupplier);
+        }
+
+        public String extractLabel(Class<? extends Component> target)
+        {
+            MenuRoute annotation = getMenuRoute(target);
+            return annotation.label();
         }
 
         private static MenuRoute getMenuRoute(Class<? extends Component> target)

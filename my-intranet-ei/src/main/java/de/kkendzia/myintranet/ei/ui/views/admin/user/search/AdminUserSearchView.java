@@ -5,7 +5,7 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.app.service.search.user.EIUserSearchService.EIUserSearchFilters;
 import de.kkendzia.myintranet.app.service.search.user.EIUserSearchService.EIUserSearchItem;
-import de.kkendzia.myintranet.domain.user.Permission;
+import de.kkendzia.myintranet.domain.user.auth.Permission;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.view.search.SearchParameters;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
@@ -29,6 +29,7 @@ public class AdminUserSearchView extends AbstractEIView<SearchLayout<EIUserSearc
 {
     public static final String NAV = "admin/user";
     private final AdminUserSearchPresenter presenter;
+
     public AdminUserSearchView(AdminUserSearchPresenter presenter)
     {
         this.presenter = requireNonNull(presenter, "presenter can't be null!");

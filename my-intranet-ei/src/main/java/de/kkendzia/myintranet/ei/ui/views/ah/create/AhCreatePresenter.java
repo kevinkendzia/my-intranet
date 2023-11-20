@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.ei.ui.views.ah.create;
 
 import de.kkendzia.myintranet.domain.ah.Ah;
-import de.kkendzia.myintranet.domain.ah.AhDAO;
+import de.kkendzia.myintranet.domain.ah.AhRepository;
 import de.kkendzia.myintranet.domain.shared.adress.Adress;
 import de.kkendzia.myintranet.domain.shared.adress.AdressDAO;
 import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
@@ -22,7 +22,7 @@ import static java.util.Objects.requireNonNull;
 public class AhCreatePresenter
 {
     @Autowired
-    private AhDAO ahDAO;
+    private AhRepository ahDAO;
     @Autowired
     private AdressDAO adressDAO;
     @Autowired

@@ -112,6 +112,7 @@ public class HomeView extends AbstractEIView<VerticalLayout> implements LocaleCh
         row1.setLabel(getTranslation("previous"));
         row2.setLabel(getTranslation("favorites"));
         gridLabel.getElement().setText(getTranslation("news"));
+
     }
 
     //region TYPES

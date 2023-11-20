@@ -3,7 +3,7 @@ package de.kkendzia.myintranet.ei.ui.layouts.main;
 import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
-import com.vaadin.flow.spring.security.AuthenticationContext;
+import de.kkendzia.myintranet.ei.core.session.EISession;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 
 import static java.util.Objects.requireNonNull;
@@ -16,17 +16,17 @@ public class EIMainLayout
 {
     public EIMainLayout(
             EIMainLayoutPresenter presenter,
-            AuthenticationContext authContext,
+            EISession session,
             AccessAnnotationChecker accessChecker)
     {
         requireNonNull(presenter, "presenter can't be null!");
-        requireNonNull(authContext, "authContext can't be null!");
+        requireNonNull(session, "session can't be null!");
         requireNonNull(accessChecker, "accessChecker can't be null!");
 
         addClassName("ei-main-layout");
         setPrimarySection(Section.DRAWER);
         addToDrawer(new EIDrawer(accessChecker));
-        addToNavbar(new EIAppBar(presenter, authContext));
+        addToNavbar(new EIAppBar(presenter, session));
     }
 
     @Override

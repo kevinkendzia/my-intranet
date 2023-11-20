@@ -1,8 +1,8 @@
 package de.kkendzia.myintranet.microstream.user;
 
 import de.kkendzia.myintranet.domain._framework.dao.Paging;
-import de.kkendzia.myintranet.domain.user.Role;
-import de.kkendzia.myintranet.domain.user.RoleDAO;
+import de.kkendzia.myintranet.domain.user.auth.Role;
+import de.kkendzia.myintranet.domain.user.auth.RoleDAO;
 import de.kkendzia.myintranet.microstream.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSDAO;
 import org.springframework.stereotype.Component;

@@ -3,9 +3,9 @@ package de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
-import de.kkendzia.myintranet.domain.shared.mitgliedsform.MembershipForm;
-import de.kkendzia.myintranet.domain.shared.regulierer.Regulator;
-import de.kkendzia.myintranet.domain.shared.verband.Association;
+import de.kkendzia.myintranet.domain.ah.mitgliedsform.MitgliedsForm;
+import de.kkendzia.myintranet.domain.ah.regulierer.Regulierer;
+import de.kkendzia.myintranet.domain.ah.verband.Verband;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhMemberData;
 
@@ -19,13 +19,13 @@ import static de.kkendzia.myintranet.ei.core.utils.DataProviderUtil.emptyDataPro
 
 public class AhMemberDataForm extends AbstractForm<AhMemberData>
 {
-    private final ComboBox<Regulator> cboRegulator = new ComboBox<>(getTranslation(REGULIERER));
-    private final ComboBox<Association> cboAssociation = new ComboBox<>(getTranslation(VERBAND));
-    private final ComboBox<MembershipForm> cboMembershipForm = new ComboBox<>(getTranslation(MITGLIEDSFORM));
+    private final ComboBox<Regulierer> cboRegulator = new ComboBox<>(getTranslation(REGULIERER));
+    private final ComboBox<Verband> cboAssociation = new ComboBox<>(getTranslation(VERBAND));
+    private final ComboBox<MitgliedsForm> cboMembershipForm = new ComboBox<>(getTranslation(MITGLIEDSFORM));
 
-    private DataProvider<Regulator, String> dpRegulator = emptyDataProvider();
-    private DataProvider<Association, String> dpAssociation = emptyDataProvider();
-    private DataProvider<MembershipForm, String> dpMembershipForm = emptyDataProvider();
+    private DataProvider<Regulierer, String> dpRegulator = emptyDataProvider();
+    private DataProvider<Verband, String> dpAssociation = emptyDataProvider();
+    private DataProvider<MitgliedsForm, String> dpMembershipForm = emptyDataProvider();
 
     public AhMemberDataForm()
     {
@@ -43,47 +43,47 @@ public class AhMemberDataForm extends AbstractForm<AhMemberData>
                         .bind(AhMemberData::getMembershipForm, AhMemberData::setMembershipForm));
     }
 
-    public void setRegulatorItems(Collection<Regulator> items)
+    public void setRegulatorItems(Collection<Regulierer> items)
     {
-        this.dpRegulator = DataProvider.ofCollection(items).filteringBySubstring(Regulator::getName);
+        this.dpRegulator = DataProvider.ofCollection(items).filteringBySubstring(Regulierer::getName);
     }
 
-    private List<Regulator> getRegulatorItems()
+    private List<Regulierer> getRegulatorItems()
     {
         return dpRegulator.fetch(new Query<>()).toList();
     }
 
-    public void setAssociationItems(Collection<Association> items)
+    public void setAssociationItems(Collection<Verband> items)
     {
-        this.dpAssociation = DataProvider.ofCollection(items).filteringBySubstring(Association::getName);
+        this.dpAssociation = DataProvider.ofCollection(items).filteringBySubstring(Verband::getName);
     }
 
-    private List<Association> getAssociationItems()
+    private List<Verband> getAssociationItems()
     {
         return dpAssociation.fetch(new Query<>()).toList();
     }
 
-    public void setMembershipFormItems(Collection<MembershipForm> items)
+    public void setMembershipFormItems(Collection<MitgliedsForm> items)
     {
-        this.dpMembershipForm = DataProvider.ofCollection(items).filteringBySubstring(MembershipForm::getName);
+        this.dpMembershipForm = DataProvider.ofCollection(items).filteringBySubstring(MitgliedsForm::getName);
     }
 
-    private List<MembershipForm> getMembershipFormItems()
+    private List<MitgliedsForm> getMembershipFormItems()
     {
         return dpMembershipForm.fetch(new Query<>()).toList();
     }
 
-    public Optional<Regulator> findRegulatorItemById(long id)
+    public Optional<Regulierer> findRegulatorItemById(long id)
     {
         return getRegulatorItems().stream().filter(x -> Objects.equals(x.getId(), id)).findFirst();
     }
 
-    public Optional<Association> findAssociationItemById(long id)
+    public Optional<Verband> findAssociationItemById(long id)
     {
         return getAssociationItems().stream().filter(x -> Objects.equals(x.getId(), id)).findFirst();
     }
 
-    public Optional<MembershipForm> findMembershipFormItemById(long id)
+    public Optional<MitgliedsForm> findMembershipFormItemById(long id)
     {
         return getMembershipFormItems().stream().filter(x -> Objects.equals(x.getId(), id)).findFirst();
     }

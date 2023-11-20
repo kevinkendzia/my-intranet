@@ -2,7 +2,7 @@ package de.kkendzia.myintranet.app.service.search.user;
 
 import de.kkendzia.myintranet.app.service._framework.SimpleSearchFilters;
 import de.kkendzia.myintranet.app.service._framework.SimpleSearchItem;
-import de.kkendzia.myintranet.domain.user.PermissionDAO;
+import de.kkendzia.myintranet.domain.user.auth.PermissionDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Stream;

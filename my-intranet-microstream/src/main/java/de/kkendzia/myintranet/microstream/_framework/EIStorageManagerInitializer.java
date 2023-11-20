@@ -1,6 +1,10 @@
 package de.kkendzia.myintranet.microstream._framework;
 
 import de.kkendzia.myintranet.domain.user.*;
+import de.kkendzia.myintranet.domain.user.auth.Permission;
+import de.kkendzia.myintranet.domain.user.auth.Role;
+import de.kkendzia.myintranet.domain.user.auth.RolePermission;
+import de.kkendzia.myintranet.domain.user.auth.UserRole;
 import de.kkendzia.myintranet.microstream.MyIntranetRoot;
 import one.microstream.integrations.spring.boot.types.config.StorageManagerInitializer;
 import one.microstream.storage.types.StorageManager;
@@ -13,7 +17,7 @@ public class EIStorageManagerInitializer implements StorageManagerInitializer
     public void initialize(StorageManager sm)
     {
         MyIntranetRoot root = (MyIntranetRoot) sm.root();
-        if(!root.isInit())
+        if (!root.isInit())
         {
             EIUser u = new EIUser();
             u.setId(1);

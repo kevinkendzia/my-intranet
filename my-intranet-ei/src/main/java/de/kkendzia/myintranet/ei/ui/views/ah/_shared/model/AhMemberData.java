@@ -1,48 +1,48 @@
 package de.kkendzia.myintranet.ei.ui.views.ah._shared.model;
 
-import de.kkendzia.myintranet.domain.shared.mitgliedsform.MembershipForm;
-import de.kkendzia.myintranet.domain.shared.regulierer.Regulator;
-import de.kkendzia.myintranet.domain.shared.verband.Association;
+import de.kkendzia.myintranet.domain.ah.mitgliedsform.MitgliedsForm;
+import de.kkendzia.myintranet.domain.ah.regulierer.Regulierer;
+import de.kkendzia.myintranet.domain.ah.verband.Verband;
 
 public class AhMemberData
 {
-    private Regulator regulator;
-    private Association association;
-    private MembershipForm membershipForm;
+    private Regulierer regulator;
+    private Verband association;
+    private MitgliedsForm membershipForm;
 
-    public AhMemberData(Regulator regulator, Association association, MembershipForm membershipForm)
+    public AhMemberData(Regulierer regulator, Verband association, MitgliedsForm membershipForm)
     {
         this.regulator = regulator;
         this.association = association;
         this.membershipForm = membershipForm;
     }
 
-    public Regulator getRegulator()
+    public Regulierer getRegulator()
     {
         return regulator;
     }
 
-    public void setRegulator(Regulator regulator)
+    public void setRegulator(Regulierer regulator)
     {
         this.regulator = regulator;
     }
 
-    public Association getAssociation()
+    public Verband getAssociation()
     {
         return association;
     }
 
-    public void setAssociation(Association association)
+    public void setAssociation(Verband association)
     {
         this.association = association;
     }
 
-    public MembershipForm getMembershipForm()
+    public MitgliedsForm getMembershipForm()
     {
         return membershipForm;
     }
 
-    public void setMembershipForm(MembershipForm membershipForm)
+    public void setMembershipForm(MitgliedsForm membershipForm)
     {
         this.membershipForm = membershipForm;
     }

@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.ei.ui.views.ah.search;
 
 import com.vaadin.flow.data.provider.DataProvider;
-import de.kkendzia.myintranet.domain.ah.AhDAO;
+import de.kkendzia.myintranet.domain.ah.AhRepository;
 import de.kkendzia.myintranet.ei.core.presenter.EIPresenter;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 public class AhSearchPresenter implements EIPresenter
 {
     @Autowired
-    private AhDAO ahDAO;
+    private AhRepository ahDAO;
 
     public DataProvider<SearchItem, Void> createSearchDataProvider(String searchtext)
     {

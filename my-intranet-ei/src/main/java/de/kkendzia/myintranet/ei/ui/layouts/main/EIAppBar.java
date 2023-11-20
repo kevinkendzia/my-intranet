@@ -1,19 +1,25 @@
 package de.kkendzia.myintranet.ei.ui.layouts.main;
 
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.contextmenu.ContextMenu;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.i18n.LocaleChangeEvent;
 import com.vaadin.flow.i18n.LocaleChangeObserver;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
-import com.vaadin.flow.spring.security.AuthenticationContext;
+import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
+import de.kkendzia.myintranet.domain.user.EIUserAction;
 import de.kkendzia.myintranet.ei.core.components.EIComponent;
+import de.kkendzia.myintranet.ei.core.session.EISession;
 import de.kkendzia.myintranet.ei.core.utils.RoutingUtil;
+import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.AnnotationItemProvider;
 import de.kkendzia.myintranet.ei.ui.components.search.SearchField;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchPreviewItem;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget;
@@ -36,7 +42,7 @@ public class EIAppBar
 
     private final SearchField<SearchPreviewItem> searchField = new SearchField<>();
 
-    public EIAppBar(EIMainLayoutPresenter presenter, AuthenticationContext authContext)
+    public EIAppBar(EIMainLayoutPresenter presenter, EISession session)
     {
         DrawerToggle toggle = new DrawerToggle();
         toggle.setAriaLabel("Menu toggle");
@@ -49,7 +55,7 @@ public class EIAppBar
         root.setAlignItems(Alignment.CENTER);
         root.add(toggle);
         root.addAndExpand(searchField);
-        root.add(new UserAvatar(authContext));
+        root.add(new UserAvatar(session));
     }
 
     private void initSearchField(EIMainLayoutPresenter presenter)
@@ -108,15 +114,44 @@ public class EIAppBar
 
     public static class UserAvatar extends Composite<Avatar>
     {
-        private final transient AuthenticationContext authContext;
-
-        public UserAvatar(AuthenticationContext authContext)
+        public UserAvatar(EISession session)
         {
-            this.authContext = authContext;
-
             ContextMenu ctx = new ContextMenu(getContent());
             ctx.setOpenOnClick(true);
-            ctx.addItem(getTranslation(LOGOUT), e -> authContext.logout());
+
+            final var vlInfo = new VerticalLayout();
+            vlInfo.add(new Span(session.getUserName()));
+            vlInfo.add(new Span(String.valueOf(session)));
+            ctx.add(vlInfo);
+
+            if (!session.getPreviousActions().isEmpty())
+            {
+                final var itmPrevious = ctx.addItem(getTranslation("previous"));
+                final var subMenuPrevious = itmPrevious.getSubMenu();
+                session.getPreviousActions().forEach(a -> subMenuPrevious.addItem(a.getTitle()));
+            }
+
+            final var itmFavorites = ctx.addItem(getTranslation("favorites"));
+            final var subMenuFavorites = itmFavorites.getSubMenu();
+            final var favoriteActions = session.getFavoriteActions();
+
+            subMenuFavorites.addItem(getTranslation("add"), event ->
+            {
+                final var analyzer = new AnnotationItemProvider.AnnotationAnalyzer();
+                final var currentView = UI.getCurrent().getCurrentView();
+                final var url = RouteConfiguration.forSessionScope().getUrl(currentView.getClass());
+                final var title = analyzer.extractLabel(currentView.getClass());
+                session.addFavoriteAction(new EIUserAction(title, url));
+
+                subMenuFavorites.addItem(title, e -> UI.getCurrent().navigate(url));
+                // 19.11.2023 KK TODO: recreate after add!
+            });
+
+            favoriteActions.forEach(a -> subMenuFavorites.addItem(
+                    a.getTitle(),
+                    e -> UI.getCurrent().navigate(a.getRoute())));
+
+            ctx.addItem(getTranslation(LOGOUT), e -> session.logout());
         }
     }
 }

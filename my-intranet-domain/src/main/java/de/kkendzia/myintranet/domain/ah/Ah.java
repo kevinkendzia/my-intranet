@@ -1,87 +1,80 @@
 package de.kkendzia.myintranet.domain.ah;
 
-import de.kkendzia.myintranet.domain._framework.AbstractEntity;
-import de.kkendzia.myintranet.domain._framework.ValueObject;
+import de.kkendzia.myintranet.domain._core.AbstractAggregateRoot;
+import de.kkendzia.myintranet.domain._core.AbstractID;
+import de.kkendzia.myintranet.domain._core.SingleAssociation;
+import de.kkendzia.myintranet.domain._core.ValueObject;
+import de.kkendzia.myintranet.domain.ah.mitgliedsform.MitgliedsForm;
+import de.kkendzia.myintranet.domain.ah.mitgliedsform.MitgliedsForm.MitgliedsFormID;
+import de.kkendzia.myintranet.domain.ah.regulierer.Regulierer;
+import de.kkendzia.myintranet.domain.ah.regulierer.Regulierer.ReguliererID;
+import de.kkendzia.myintranet.domain.ah.verband.Verband;
+import de.kkendzia.myintranet.domain.ah.verband.Verband.VerbandID;
 import de.kkendzia.myintranet.domain.shared.adress.Adress;
 import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
-import de.kkendzia.myintranet.domain.shared.mitgliedsform.MembershipForm;
-import de.kkendzia.myintranet.domain.shared.regulierer.Regulator;
-import de.kkendzia.myintranet.domain.shared.verband.Association;
+import de.kkendzia.myintranet.domain.shared.mandant.Mandant.MandantID;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
-import static java.util.Objects.requireNonNull;
-
-public final class Ah extends AbstractEntity
+public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
 {
     private Ahnr ahnr;
     private String matchcode;
-    private Mandant mandant;
     private LocalDate enterDate;
     private LocalDate exitDate;
     private Adress adress;
-    private Regulator regulator;
-    private Association association;
-    private MembershipForm membershipForm;
+
+    // ASSOCIATIONS
+
+    private SingleAssociation<Mandant, MandantID> mandant;
+    private SingleAssociation<Regulierer, ReguliererID> regulator;
+    private SingleAssociation<Verband, VerbandID> verband;
+    private SingleAssociation<MitgliedsForm, MitgliedsFormID> membershipForm;
 
     public Ah(
-            long id,
             final Ahnr ahnr,
             final String matchcode,
-            final Mandant mandant,
             final LocalDate enterDate,
-            final LocalDate exitDate,
-            final Adress adress,
-            final Regulator regulator,
-            final Association association,
-            final MembershipForm membershipForm)
+            final MandantID mandant,
+            final ReguliererID regulator,
+            final VerbandID verband,
+            final MitgliedsFormID membershipForm)
     {
-        super(id);
         this.ahnr = ahnr;
         this.matchcode = matchcode;
-        this.mandant = mandant;
         this.enterDate = enterDate;
-        this.exitDate = exitDate;
-        this.adress = adress;
-        this.regulator = regulator;
-        this.association = association;
-        this.membershipForm = membershipForm;
+        this.mandant = new SingleAssociation<>(mandant);
+        this.regulator = new SingleAssociation<>(regulator);
+        this.verband = new SingleAssociation<>(verband);
+        this.membershipForm = new SingleAssociation<>(membershipForm);
     }
 
     //region SETTER / GETTER
+
     public Ahnr getAhnr()
     {
-        return this.ahnr;
+        return ahnr;
     }
 
     public void setAhnr(final Ahnr ahnr)
     {
-        this.ahnr = requireNonNull(ahnr, "ahnr can't be null!");
+        this.ahnr = ahnr;
     }
 
     public String getMatchcode()
     {
-        return this.matchcode;
+        return matchcode;
     }
 
     public void setMatchcode(final String matchcode)
     {
-        this.matchcode = requireNonNull(matchcode, "matchcode can't be null!");
-    }
-
-    public Mandant getMandant()
-    {
-        return this.mandant;
-    }
-
-    public void setMandant(final Mandant mandant)
-    {
-        this.mandant = requireNonNull(mandant, "mandant can't be null!");
+        this.matchcode = matchcode;
     }
 
     public LocalDate getEnterDate()
     {
-        return this.enterDate;
+        return enterDate;
     }
 
     public void setEnterDate(final LocalDate enterDate)
@@ -91,7 +84,7 @@ public final class Ah extends AbstractEntity
 
     public LocalDate getExitDate()
     {
-        return this.exitDate;
+        return exitDate;
     }
 
     public void setExitDate(final LocalDate exitDate)
@@ -109,38 +102,63 @@ public final class Ah extends AbstractEntity
         this.adress = adress;
     }
 
-    public Regulator getRegulator()
+    public SingleAssociation<Mandant, MandantID> getMandant()
     {
-        return this.regulator;
+        return mandant;
     }
 
-    public void setRegulator(final Regulator regulator)
+    public void setMandant(final SingleAssociation<Mandant, MandantID> mandant)
+    {
+        this.mandant = mandant;
+    }
+
+    public SingleAssociation<Regulierer, ReguliererID> getRegulator()
+    {
+        return regulator;
+    }
+
+    public void setRegulator(final SingleAssociation<Regulierer, ReguliererID> regulator)
     {
         this.regulator = regulator;
     }
 
-    public Association getAssociation()
+    public SingleAssociation<Verband, VerbandID> getVerband()
     {
-        return this.association;
+        return verband;
     }
 
-    public void setAssociation(final Association association)
+    public void setVerband(final SingleAssociation<Verband, VerbandID> verband)
     {
-        this.association = association;
+        this.verband = verband;
     }
 
-    public MembershipForm getMembershipForm()
+    public SingleAssociation<MitgliedsForm, MitgliedsFormID> getMembershipForm()
     {
-        return this.membershipForm;
+        return membershipForm;
     }
 
-    public void setMembershipForm(final MembershipForm membershipForm)
+    public void setMembershipForm(final SingleAssociation<MitgliedsForm, MitgliedsFormID> membershipForm)
     {
         this.membershipForm = membershipForm;
     }
+
+
     //endregion
 
     //region VALUE TYPES
+    public static class AhID extends AbstractID
+    {
+        public AhID(final UUID value)
+        {
+            super(value);
+        }
+
+        public AhID()
+        {
+            this(UUID.randomUUID());
+        }
+    }
+
     public record Ahnr(int value) implements ValueObject
     {
         // record

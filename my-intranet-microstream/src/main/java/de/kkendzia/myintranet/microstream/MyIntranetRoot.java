@@ -5,6 +5,10 @@ import de.kkendzia.myintranet.domain.shared.adress.Adress;
 import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
 import de.kkendzia.myintranet.domain.shared.mandant.MandantSetting;
 import de.kkendzia.myintranet.domain.user.*;
+import de.kkendzia.myintranet.domain.user.auth.Permission;
+import de.kkendzia.myintranet.domain.user.auth.Role;
+import de.kkendzia.myintranet.domain.user.auth.RolePermission;
+import de.kkendzia.myintranet.domain.user.auth.UserRole;
 import one.microstream.integrations.spring.boot.types.Storage;
 
 import java.util.ArrayList;

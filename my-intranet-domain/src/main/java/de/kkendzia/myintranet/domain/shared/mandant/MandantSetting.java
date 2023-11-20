@@ -1,16 +1,16 @@
 package de.kkendzia.myintranet.domain.shared.mandant;
 
-import de.kkendzia.myintranet.domain._framework.HasId;
+import de.kkendzia.myintranet.domain._core.HasId;
 
 import java.util.Objects;
 import java.util.StringJoiner;
 
 public final class MandantSetting implements HasId
 {
-    private  long id;
+    private long id;
     private long mandantId;
-    private  String name;
-    private  String type;
+    private String name;
+    private String type;
     private String value;
 
     public MandantSetting(
@@ -24,7 +24,7 @@ public final class MandantSetting implements HasId
         this.name = name;
         this.type = type;
         this.value = value;
-        this.mandantId=mandantId;
+        this.mandantId = mandantId;
     }
 
     //region OVERRIDES

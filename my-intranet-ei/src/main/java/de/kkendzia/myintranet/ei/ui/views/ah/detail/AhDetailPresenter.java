@@ -1,6 +1,6 @@
 package de.kkendzia.myintranet.ei.ui.views.ah.detail;
 
-import de.kkendzia.myintranet.domain.ah.AhDAO;
+import de.kkendzia.myintranet.domain.ah.AhRepository;
 import de.kkendzia.myintranet.ei.core.presenter.AbstractStatefullPresenter;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import de.kkendzia.myintranet.ei.ui.errors.UnknownIDError.UnknownIDException;
@@ -14,9 +14,9 @@ import static java.util.Objects.requireNonNull;
 @Presenter
 public class AhDetailPresenter extends AbstractStatefullPresenter<AhDetailModel>
 {
-    private final AhDAO ahDAO;
+    private final AhRepository ahDAO;
 
-    public AhDetailPresenter(final AhDAO ahDAO)
+    public AhDetailPresenter(final AhRepository ahDAO)
     {
         this.ahDAO = requireNonNull(ahDAO, "ahDAO can't be null!");
     }
@@ -41,7 +41,7 @@ public class AhDetailPresenter extends AbstractStatefullPresenter<AhDetailModel>
                                 ah.getAdress().getCountry()),
                         new AhMemberData(
                                 ah.getRegulator(),
-                                ah.getAssociation(),
+                                ah.getVerband(),
                                 ah.getMembershipForm())));
     }
 

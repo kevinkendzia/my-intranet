@@ -1,13 +1,19 @@
 package de.kkendzia.myintranet.domain.user;
 
-import de.kkendzia.myintranet.domain._framework.AbstractEntity;
+import de.kkendzia.myintranet.domain._core.AbstractEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EIUser extends AbstractEntity
 {
-    private String userName;
+    private String userName = "";
     private String firstName = "";
     private String lastName = "";
-    private String password;
+    private String password = "";
+    private List<EIUserAction> favoriteActions = new ArrayList<>();
+    private List<EIUserAction> previousActions = new ArrayList<>();
+
 
     public EIUser()
     {
@@ -57,5 +63,25 @@ public class EIUser extends AbstractEntity
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public List<EIUserAction> getFavoriteActions()
+    {
+        return favoriteActions;
+    }
+
+    public void setFavoriteActions(final List<EIUserAction> favoriteActions)
+    {
+        this.favoriteActions = favoriteActions;
+    }
+
+    public List<EIUserAction> getPreviousActions()
+    {
+        return previousActions;
+    }
+
+    public void setPreviousActions(final List<EIUserAction> previousActions)
+    {
+        this.previousActions = previousActions;
     }
 }
