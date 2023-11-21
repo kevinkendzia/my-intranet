@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.ei.core.view.page;
 
 import com.vaadin.flow.data.binder.BinderValidationStatus;
-import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
+import de.kkendzia.myintranet.domain.mandant.Mandant;
 
 public interface SaveablePage extends EIPage
 {

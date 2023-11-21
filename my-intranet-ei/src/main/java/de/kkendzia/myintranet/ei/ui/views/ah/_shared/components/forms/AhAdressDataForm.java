@@ -2,7 +2,7 @@ package de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms;
 
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.TextField;
-import de.kkendzia.myintranet.domain.shared.adress.Country;
+import de.kkendzia.myintranet.domain.country.Country;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhAdressData;
 

@@ -2,20 +2,21 @@ package de.kkendzia.myintranet.domain.ah;
 
 import de.kkendzia.myintranet.domain._core.AbstractAggregateRoot;
 import de.kkendzia.myintranet.domain._core.AbstractID;
-import de.kkendzia.myintranet.domain._core.SingleAssociation;
+import de.kkendzia.myintranet.domain._core.association.SingleAssociation;
 import de.kkendzia.myintranet.domain._core.ValueObject;
-import de.kkendzia.myintranet.domain.ah.mitgliedsform.MitgliedsForm;
-import de.kkendzia.myintranet.domain.ah.mitgliedsform.MitgliedsForm.MitgliedsFormID;
-import de.kkendzia.myintranet.domain.ah.regulierer.Regulierer;
-import de.kkendzia.myintranet.domain.ah.regulierer.Regulierer.ReguliererID;
-import de.kkendzia.myintranet.domain.ah.verband.Verband;
-import de.kkendzia.myintranet.domain.ah.verband.Verband.VerbandID;
-import de.kkendzia.myintranet.domain.shared.adress.Adress;
-import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
-import de.kkendzia.myintranet.domain.shared.mandant.Mandant.MandantID;
+import de.kkendzia.myintranet.domain.mitgliedsform.MitgliedsForm;
+import de.kkendzia.myintranet.domain.mitgliedsform.MitgliedsForm.MitgliedsFormID;
+import de.kkendzia.myintranet.domain.regulierer.Regulierer;
+import de.kkendzia.myintranet.domain.regulierer.Regulierer.ReguliererID;
+import de.kkendzia.myintranet.domain.verband.Verband;
+import de.kkendzia.myintranet.domain.verband.Verband.VerbandID;
+import de.kkendzia.myintranet.domain.mandant.Mandant;
+import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 
 import java.time.LocalDate;
 import java.util.UUID;
+
+import static java.util.Objects.requireNonNull;
 
 public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
 {
@@ -23,14 +24,14 @@ public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
     private String matchcode;
     private LocalDate enterDate;
     private LocalDate exitDate;
-    private Adress adress;
+    private AhAdress adress;
 
     // ASSOCIATIONS
 
-    private SingleAssociation<Mandant, MandantID> mandant;
-    private SingleAssociation<Regulierer, ReguliererID> regulator;
-    private SingleAssociation<Verband, VerbandID> verband;
-    private SingleAssociation<MitgliedsForm, MitgliedsFormID> membershipForm;
+    private SingleAssociation.SingleAssociationImpl<Mandant, MandantID> mandant;
+    private SingleAssociation.SingleAssociationImpl<Regulierer, ReguliererID> regulator;
+    private SingleAssociation.SingleAssociationImpl<Verband, VerbandID> verband;
+    private SingleAssociation.SingleAssociationImpl<MitgliedsForm, MitgliedsFormID> membershipForm;
 
     public Ah(
             final Ahnr ahnr,
@@ -41,25 +42,25 @@ public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
             final VerbandID verband,
             final MitgliedsFormID membershipForm)
     {
-        this.ahnr = ahnr;
-        this.matchcode = matchcode;
+        this.ahnr = requireNonNull(ahnr, "ahnr can't be null!");
+        this.matchcode = requireNonNull(matchcode, "matchcode can't be null!");
+
         this.enterDate = enterDate;
-        this.mandant = new SingleAssociation<>(mandant);
-        this.regulator = new SingleAssociation<>(regulator);
-        this.verband = new SingleAssociation<>(verband);
-        this.membershipForm = new SingleAssociation<>(membershipForm);
+        this.mandant = SingleAssociation.SingleAssociationImpl.fromID(mandant);
+        this.regulator = SingleAssociation.SingleAssociationImpl.fromID(regulator);
+        this.verband = SingleAssociation.SingleAssociationImpl.fromID(verband);
+        this.membershipForm = SingleAssociation.SingleAssociationImpl.fromID(membershipForm);
     }
 
-    //region SETTER / GETTER
+    public void exitNow()
+    {
+        this.exitDate = LocalDate.now();
+    }
 
+    //region GETTER
     public Ahnr getAhnr()
     {
         return ahnr;
-    }
-
-    public void setAhnr(final Ahnr ahnr)
-    {
-        this.ahnr = ahnr;
     }
 
     public String getMatchcode()
@@ -67,19 +68,9 @@ public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
         return matchcode;
     }
 
-    public void setMatchcode(final String matchcode)
-    {
-        this.matchcode = matchcode;
-    }
-
     public LocalDate getEnterDate()
     {
         return enterDate;
-    }
-
-    public void setEnterDate(final LocalDate enterDate)
-    {
-        this.enterDate = enterDate;
     }
 
     public LocalDate getExitDate()
@@ -87,62 +78,30 @@ public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
         return exitDate;
     }
 
-    public void setExitDate(final LocalDate exitDate)
-    {
-        this.exitDate = exitDate;
-    }
-
-    public Adress getAdress()
+    public AhAdress getAdress()
     {
         return adress;
     }
 
-    public void setAdress(final Adress adress)
-    {
-        this.adress = adress;
-    }
-
-    public SingleAssociation<Mandant, MandantID> getMandant()
+    public SingleAssociation.SingleAssociationImpl<Mandant, MandantID> getMandant()
     {
         return mandant;
     }
 
-    public void setMandant(final SingleAssociation<Mandant, MandantID> mandant)
-    {
-        this.mandant = mandant;
-    }
-
-    public SingleAssociation<Regulierer, ReguliererID> getRegulator()
+    public SingleAssociation.SingleAssociationImpl<Regulierer, ReguliererID> getRegulator()
     {
         return regulator;
     }
 
-    public void setRegulator(final SingleAssociation<Regulierer, ReguliererID> regulator)
-    {
-        this.regulator = regulator;
-    }
-
-    public SingleAssociation<Verband, VerbandID> getVerband()
+    public SingleAssociation.SingleAssociationImpl<Verband, VerbandID> getVerband()
     {
         return verband;
     }
 
-    public void setVerband(final SingleAssociation<Verband, VerbandID> verband)
-    {
-        this.verband = verband;
-    }
-
-    public SingleAssociation<MitgliedsForm, MitgliedsFormID> getMembershipForm()
+    public SingleAssociation.SingleAssociationImpl<MitgliedsForm, MitgliedsFormID> getMembershipForm()
     {
         return membershipForm;
     }
-
-    public void setMembershipForm(final SingleAssociation<MitgliedsForm, MitgliedsFormID> membershipForm)
-    {
-        this.membershipForm = membershipForm;
-    }
-
-
     //endregion
 
     //region VALUE TYPES

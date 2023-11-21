@@ -1,10 +1,12 @@
 package de.kkendzia.myintranet.ei.ui.layouts.main;
 
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.contextmenu.ContextMenu;
+import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -15,7 +17,7 @@ import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
-import de.kkendzia.myintranet.domain.user.EIUserAction;
+import de.kkendzia.myintranet.app.user.shared.ActionItem;
 import de.kkendzia.myintranet.ei.core.components.EIComponent;
 import de.kkendzia.myintranet.ei.core.session.EISession;
 import de.kkendzia.myintranet.ei.core.utils.RoutingUtil;
@@ -29,6 +31,7 @@ import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SEARCH;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.DEFAULT;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.FOOTER;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.OTHER;
+import static java.util.Objects.requireNonNull;
 import static java.util.Objects.requireNonNullElse;
 
 public class EIAppBar
@@ -116,19 +119,22 @@ public class EIAppBar
     {
         public UserAvatar(EISession session)
         {
-            ContextMenu ctx = new ContextMenu(getContent());
-            ctx.setOpenOnClick(true);
+            final Avatar parent = getContent();
+            createContextMenu(session, parent);
+        }
 
-            final var vlInfo = new VerticalLayout();
-            vlInfo.add(new Span(session.getUserName()));
-            vlInfo.add(new Span(String.valueOf(session)));
-            ctx.add(vlInfo);
+        private void createContextMenu(final EISession session, final Avatar parent)
+        {
+            ContextMenu ctx = new ContextMenu(parent);
+            ctx.setOpenOnClick(true);
+            ctx.add(createSessionInfo(session));
 
             if (!session.getPreviousActions().isEmpty())
             {
+                ctx.add(new Hr());
                 final var itmPrevious = ctx.addItem(getTranslation("previous"));
                 final var subMenuPrevious = itmPrevious.getSubMenu();
-                session.getPreviousActions().forEach(a -> subMenuPrevious.addItem(a.getTitle()));
+                session.getPreviousActions().forEach(a -> subMenuPrevious.addItem(a.title()));
             }
 
             final var itmFavorites = ctx.addItem(getTranslation("favorites"));
@@ -141,17 +147,29 @@ public class EIAppBar
                 final var currentView = UI.getCurrent().getCurrentView();
                 final var url = RouteConfiguration.forSessionScope().getUrl(currentView.getClass());
                 final var title = analyzer.extractLabel(currentView.getClass());
-                session.addFavoriteAction(new EIUserAction(title, url));
+                session.addFavoriteAction(new ActionItem(title, url));
 
                 subMenuFavorites.addItem(title, e -> UI.getCurrent().navigate(url));
                 // 19.11.2023 KK TODO: recreate after add!
             });
 
-            favoriteActions.forEach(a -> subMenuFavorites.addItem(
-                    a.getTitle(),
-                    e -> UI.getCurrent().navigate(a.getRoute())));
+            if (!favoriteActions.isEmpty())
+            {
+                subMenuFavorites.add(new Hr());
+                favoriteActions.forEach(a -> subMenuFavorites.addItem(
+                        a.title(),
+                        e -> UI.getCurrent().navigate(a.route())));
+            }
 
             ctx.addItem(getTranslation(LOGOUT), e -> session.logout());
+        }
+
+        private static VerticalLayout createSessionInfo(final EISession session)
+        {
+            final var vlInfo = new VerticalLayout();
+            vlInfo.add(new Span(session.getUserName()));
+            vlInfo.add(new Span(String.valueOf(session)));
+            return vlInfo;
         }
     }
 }

@@ -1,8 +1,8 @@
 package de.kkendzia.myintranet.domain.user;
 
-import de.kkendzia.myintranet.domain._core.AbstractEntity;
+import de.kkendzia.myintranet.domain._core.ValueObject;
 
-public class EIUserAction extends AbstractEntity
+public class EIUserAction implements ValueObject
 {
     private String title;
     private String route;
@@ -11,17 +11,6 @@ public class EIUserAction extends AbstractEntity
     {
         this.title = title;
         this.route = route;
-    }
-
-    public EIUserAction(final long id, final String title, final String route)
-    {
-        super(id);
-        this.title = title;
-        this.route = route;
-    }
-
-    public EIUserAction()
-    {
     }
 
     public String getTitle()

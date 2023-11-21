@@ -1,10 +1,9 @@
 package de.kkendzia.myintranet.microstream._framework;
 
 import de.kkendzia.myintranet.domain.user.*;
-import de.kkendzia.myintranet.domain.user.auth.Permission;
-import de.kkendzia.myintranet.domain.user.auth.Role;
-import de.kkendzia.myintranet.domain.user.auth.RolePermission;
-import de.kkendzia.myintranet.domain.user.auth.UserRole;
+import de.kkendzia.myintranet.domain.permission.Permission;
+import de.kkendzia.myintranet.domain.role.Role;
+import de.kkendzia.myintranet.domain.role.RolePermission;
 import de.kkendzia.myintranet.microstream.MyIntranetRoot;
 import one.microstream.integrations.spring.boot.types.config.StorageManagerInitializer;
 import one.microstream.storage.types.StorageManager;

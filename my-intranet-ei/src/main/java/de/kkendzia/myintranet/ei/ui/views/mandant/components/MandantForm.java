@@ -2,7 +2,7 @@ package de.kkendzia.myintranet.ei.ui.views.mandant.components;
 
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
+import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;

@@ -2,7 +2,7 @@ package de.kkendzia.myintranet.microstream.user;
 
 import de.kkendzia.myintranet.domain._framework.dao.Paging;
 import de.kkendzia.myintranet.domain.user.EIUser;
-import de.kkendzia.myintranet.domain.user.EIUserDAO;
+import de.kkendzia.myintranet.domain.user.EIUserRepository;
 import de.kkendzia.myintranet.microstream.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSDAO;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 import static de.kkendzia.myintranet.domain._utils.Reduce.toOnlyElement;
 
 @Component
-public class MSEIUserDAO extends AbstractMSDAO<EIUser, Long> implements EIUserDAO
+public class MSEIUserDAO extends AbstractMSDAO<EIUser, Long> implements EIUserRepository
 {
     public MSEIUserDAO()
     {

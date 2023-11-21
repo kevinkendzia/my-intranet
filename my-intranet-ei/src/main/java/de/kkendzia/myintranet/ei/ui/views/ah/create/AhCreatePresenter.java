@@ -4,8 +4,8 @@ import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.domain.ah.AhRepository;
 import de.kkendzia.myintranet.domain.shared.adress.Adress;
 import de.kkendzia.myintranet.domain.shared.adress.AdressDAO;
-import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
-import de.kkendzia.myintranet.domain.shared.mandant.MandantDAO;
+import de.kkendzia.myintranet.domain.mandant.Mandant;
+import de.kkendzia.myintranet.domain.mandant.MandantRepository;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhAdressData;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhCoreData;
@@ -26,7 +26,7 @@ public class AhCreatePresenter
     @Autowired
     private AdressDAO adressDAO;
     @Autowired
-    private MandantDAO mandantDAO;
+    private MandantRepository mandantDAO;
 
     // TODO Transactions?
     // TODO MapStruct?

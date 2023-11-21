@@ -3,9 +3,9 @@ package de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
-import de.kkendzia.myintranet.domain.ah.mitgliedsform.MitgliedsForm;
-import de.kkendzia.myintranet.domain.ah.regulierer.Regulierer;
-import de.kkendzia.myintranet.domain.ah.verband.Verband;
+import de.kkendzia.myintranet.domain.mitgliedsform.MitgliedsForm;
+import de.kkendzia.myintranet.domain.regulierer.Regulierer;
+import de.kkendzia.myintranet.domain.verband.Verband;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhMemberData;
 

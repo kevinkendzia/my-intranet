@@ -1,19 +1,20 @@
 package de.kkendzia.myintranet.domain._core.repository;
 
 import de.kkendzia.myintranet.domain._core.AggregateRoot;
-import de.kkendzia.myintranet.domain._core.Association;
+import de.kkendzia.myintranet.domain._core.association.MultiAssociation;
+import de.kkendzia.myintranet.domain._core.association.SingleAssociation;
 import de.kkendzia.myintranet.domain._core.ID;
 
 import java.util.Optional;
 
 public interface AssociationResolver<A extends AggregateRoot<A, I>, I extends ID> extends AggregateLookup<A, I>
 {
-    default Optional<A> resolve(Association<A, I> association)
+    default Optional<A> resolve(SingleAssociation<A, I> association)
     {
         return findByID(association.getId());
     }
 
-    default A resolveRequired(Association<A, I> association)
+    default A resolveRequired(SingleAssociation<A, I> association)
     {
         return resolve(association).orElseThrow(
                 () -> new IllegalArgumentException(

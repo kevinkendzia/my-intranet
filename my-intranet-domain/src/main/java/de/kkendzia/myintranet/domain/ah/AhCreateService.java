@@ -1,10 +1,10 @@
 package de.kkendzia.myintranet.domain.ah;
 
 import de.kkendzia.myintranet.domain._core.service.DomainService;
-import de.kkendzia.myintranet.domain.ah.mitgliedsform.MitgliedsForm.MitgliedsFormID;
-import de.kkendzia.myintranet.domain.ah.regulierer.Regulierer.ReguliererID;
-import de.kkendzia.myintranet.domain.ah.verband.Verband.VerbandID;
-import de.kkendzia.myintranet.domain.shared.mandant.Mandant.MandantID;
+import de.kkendzia.myintranet.domain.mitgliedsform.MitgliedsForm.MitgliedsFormID;
+import de.kkendzia.myintranet.domain.regulierer.Regulierer.ReguliererID;
+import de.kkendzia.myintranet.domain.verband.Verband.VerbandID;
+import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 
 import java.time.LocalDate;
 

@@ -2,7 +2,7 @@ package de.kkendzia.myintranet.ei.core.view.search;
 
 import com.vaadin.flow.data.provider.ConfigurableFilterDataProvider;
 import com.vaadin.flow.data.provider.DataProvider;
-import de.kkendzia.myintranet.app.service._framework.SearchService;
+import de.kkendzia.myintranet.app._framework.SearchService;
 import de.kkendzia.myintranet.ei.core.presenter.EISearchPresenter;
 
 import static java.util.Objects.requireNonNull;

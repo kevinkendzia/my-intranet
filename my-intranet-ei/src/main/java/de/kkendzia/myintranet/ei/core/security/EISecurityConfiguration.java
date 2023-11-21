@@ -1,12 +1,10 @@
 package de.kkendzia.myintranet.ei.core.security;
 
 import com.vaadin.flow.spring.security.VaadinWebSecurity;
-import de.kkendzia.myintranet.app.service.search.user.EIAuthService;
+import de.kkendzia.myintranet.app.search.user.EIAuthService;
 import de.kkendzia.myintranet.domain.user.*;
-import de.kkendzia.myintranet.domain.user.auth.PermissionDAO;
-import de.kkendzia.myintranet.domain.user.auth.RoleDAO;
-import de.kkendzia.myintranet.domain.user.auth.RolePermissionDAO;
-import de.kkendzia.myintranet.domain.user.auth.UserRoleDAO;
+import de.kkendzia.myintranet.domain.permission.PermissionRepository;
+import de.kkendzia.myintranet.domain.role.RoleRepository;
 import de.kkendzia.myintranet.ei.ui.views.login.LoginView;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -63,11 +61,11 @@ public class EISecurityConfiguration
 
     @Bean
     public UserDetailsService userDetailsService(
-            EIUserDAO eiUserDAO,
+            EIUserRepository eiUserDAO,
             UserRoleDAO userRoleDAO,
-            RoleDAO roleDAO,
+            RoleRepository roleDAO,
             RolePermissionDAO rolePermissionDAO,
-            PermissionDAO permissionDAO)
+            PermissionRepository permissionDAO)
     {
         return new EIAuthService(eiUserDAO, userRoleDAO, roleDAO, rolePermissionDAO, permissionDAO);
     }

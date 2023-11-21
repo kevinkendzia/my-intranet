@@ -1,8 +1,8 @@
 package de.kkendzia.myintranet.microstream.user;
 
 import de.kkendzia.myintranet.domain._framework.dao.Paging;
-import de.kkendzia.myintranet.domain.user.auth.Permission;
-import de.kkendzia.myintranet.domain.user.auth.PermissionDAO;
+import de.kkendzia.myintranet.domain.permission.Permission;
+import de.kkendzia.myintranet.domain.permission.PermissionRepository;
 import de.kkendzia.myintranet.microstream.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSDAO;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 import static de.kkendzia.myintranet.domain._utils.Reduce.toOnlyElement;
 
 @Component
-public class MSPermissionDAO extends AbstractMSDAO<Permission, Long> implements PermissionDAO
+public class MSPermissionDAO extends AbstractMSDAO<Permission, Long> implements PermissionRepository
 {
     public MSPermissionDAO()
     {

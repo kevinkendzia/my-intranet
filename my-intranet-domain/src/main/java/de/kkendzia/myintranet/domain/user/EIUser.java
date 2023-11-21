@@ -1,38 +1,57 @@
 package de.kkendzia.myintranet.domain.user;
 
-import de.kkendzia.myintranet.domain._core.AbstractEntity;
+import de.kkendzia.myintranet.domain._core.AbstractAggregateRoot;
+import de.kkendzia.myintranet.domain._core.AbstractID;
+import de.kkendzia.myintranet.domain._core.association.MultiAssociation;
+import de.kkendzia.myintranet.domain.role.Role;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
-public class EIUser extends AbstractEntity
+import static java.util.Collections.*;
+import static java.util.Objects.requireNonNull;
+
+public class EIUser extends AbstractAggregateRoot<EIUser, EIUser.EIUserID>
 {
     private String userName = "";
     private String firstName = "";
     private String lastName = "";
     private String password = "";
-    private List<EIUserAction> favoriteActions = new ArrayList<>();
-    private List<EIUserAction> previousActions = new ArrayList<>();
+    private final List<EIUserAction> favoriteActions = new ArrayList<>();
+    private final List<EIUserAction> recentActions = new ArrayList<>();
 
+    // ASSOCIATIONS
+    private MultiAssociation<Role, Role.RoleID> roles = new MultiAssociation.MultiAssociationImpl<>(emptyList());
 
-    public EIUser()
+    public EIUser(final String userName, final String firstName, final String lastName, final String password)
     {
-        super();
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
     }
 
-    public EIUser(long id)
+    public void addFavoriteAction(EIUserAction action)
     {
-        super(id);
+        requireNonNull(action, "action can't be null!");
+        favoriteActions.add(action);
     }
 
+    public void addRecentAction(EIUserAction action)
+    {
+        requireNonNull(action, "action can't be null!");
+        recentActions.add(action);
+    }
+
+    // TODO: changePassword(), rename(), etc.
+
+
+    //region GETTER
     public String getUserName()
     {
         return userName;
-    }
-
-    public void setUserName(String userName)
-    {
-        this.userName = userName;
     }
 
     public String getFirstName()
@@ -40,19 +59,9 @@ public class EIUser extends AbstractEntity
         return firstName;
     }
 
-    public void setFirstName(String firstName)
-    {
-        this.firstName = firstName;
-    }
-
     public String getLastName()
     {
         return lastName;
-    }
-
-    public void setLastName(String lastName)
-    {
-        this.lastName = lastName;
     }
 
     public String getPassword()
@@ -60,28 +69,33 @@ public class EIUser extends AbstractEntity
         return password;
     }
 
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
-
     public List<EIUserAction> getFavoriteActions()
     {
-        return favoriteActions;
+        return unmodifiableList(favoriteActions);
     }
 
-    public void setFavoriteActions(final List<EIUserAction> favoriteActions)
+    public List<EIUserAction> getRecentActions()
     {
-        this.favoriteActions = favoriteActions;
+        return unmodifiableList(recentActions);
     }
 
-    public List<EIUserAction> getPreviousActions()
+    public MultiAssociation<Role, Role.RoleID> getRoles()
     {
-        return previousActions;
+        return roles;
     }
+    //endregion
 
-    public void setPreviousActions(final List<EIUserAction> previousActions)
+    //region TYPES
+    public static class EIUserID extends AbstractID
     {
-        this.previousActions = previousActions;
+        public EIUserID(final UUID value)
+        {
+            super(value);
+        }
+
+        public EIUserID()
+        {
+        }
     }
+    //endregion
 }

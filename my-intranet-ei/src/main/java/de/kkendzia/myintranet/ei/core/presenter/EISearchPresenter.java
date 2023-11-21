@@ -2,7 +2,7 @@ package de.kkendzia.myintranet.ei.core.presenter;
 
 import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.data.provider.SortDirection;
-import de.kkendzia.myintranet.app.service._framework.SearchService;
+import de.kkendzia.myintranet.app._framework.SearchService;
 import de.kkendzia.myintranet.domain._framework.dao.Paging;
 
 public interface EISearchPresenter<T, F extends SearchService.SearchFilters> extends EIPresenter

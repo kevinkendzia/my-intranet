@@ -1,6 +1,6 @@
 package de.kkendzia.myintranet.ei.ui.views.ah._shared.model;
 
-import de.kkendzia.myintranet.domain.shared.adress.Country;
+import de.kkendzia.myintranet.domain.country.Country;
 
 public class AhAdressData
 {

@@ -3,6 +3,8 @@
     <JavaCodeStyleSettings>
       <option name="GENERATE_FINAL_LOCALS" value="true" />
       <option name="GENERATE_FINAL_PARAMETERS" value="true" />
+      <option name="ANNOTATION_PARAMETER_WRAP" value="5" />
+      <option name="NEW_LINE_AFTER_LPAREN_IN_ANNOTATION" value="true" />
       <option name="RECORD_COMPONENTS_WRAP" value="2" />
       <option name="NEW_LINE_AFTER_LPAREN_IN_RECORD_HEADER" value="true" />
     </JavaCodeStyleSettings>

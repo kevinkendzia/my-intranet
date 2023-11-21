@@ -1,8 +1,8 @@
 package de.kkendzia.myintranet.microstream.user;
 
 import de.kkendzia.myintranet.domain._framework.dao.Paging;
-import de.kkendzia.myintranet.domain.user.auth.Role;
-import de.kkendzia.myintranet.domain.user.auth.RoleDAO;
+import de.kkendzia.myintranet.domain.role.Role;
+import de.kkendzia.myintranet.domain.role.RoleRepository;
 import de.kkendzia.myintranet.microstream.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSDAO;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.stream.Stream;
 
 @Component
-public class MSRoleDAO extends AbstractMSDAO<Role, Long> implements RoleDAO
+public class MSRoleDAO extends AbstractMSDAO<Role, Long> implements RoleRepository
 {
     public MSRoleDAO()
     {

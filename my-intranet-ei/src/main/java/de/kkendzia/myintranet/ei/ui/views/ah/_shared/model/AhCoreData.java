@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.ei.ui.views.ah._shared.model;
 
 import de.kkendzia.myintranet.domain.ah.Ah;
-import de.kkendzia.myintranet.domain.shared.mandant.Mandant;
+import de.kkendzia.myintranet.domain.mandant.Mandant;
 
 import java.time.LocalDate;
 

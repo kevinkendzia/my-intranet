@@ -1,8 +1,8 @@
 package de.kkendzia.myintranet.ei.ui.views.ah._shared.model;
 
-import de.kkendzia.myintranet.domain.ah.mitgliedsform.MitgliedsForm;
-import de.kkendzia.myintranet.domain.ah.regulierer.Regulierer;
-import de.kkendzia.myintranet.domain.ah.verband.Verband;
+import de.kkendzia.myintranet.domain.mitgliedsform.MitgliedsForm;
+import de.kkendzia.myintranet.domain.regulierer.Regulierer;
+import de.kkendzia.myintranet.domain.verband.Verband;
 
 public class AhMemberData
 {
