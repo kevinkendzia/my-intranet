@@ -2,16 +2,16 @@ package de.kkendzia.myintranet.domain.ah;
 
 import de.kkendzia.myintranet.domain._core.AbstractAggregateRoot;
 import de.kkendzia.myintranet.domain._core.AbstractID;
-import de.kkendzia.myintranet.domain._core.association.SingleAssociation;
 import de.kkendzia.myintranet.domain._core.ValueObject;
+import de.kkendzia.myintranet.domain._core.association.SingleAssociation;
+import de.kkendzia.myintranet.domain.mandant.Mandant;
+import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 import de.kkendzia.myintranet.domain.mitgliedsform.MitgliedsForm;
 import de.kkendzia.myintranet.domain.mitgliedsform.MitgliedsForm.MitgliedsFormID;
 import de.kkendzia.myintranet.domain.regulierer.Regulierer;
 import de.kkendzia.myintranet.domain.regulierer.Regulierer.ReguliererID;
 import de.kkendzia.myintranet.domain.verband.Verband;
 import de.kkendzia.myintranet.domain.verband.Verband.VerbandID;
-import de.kkendzia.myintranet.domain.mandant.Mandant;
-import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -20,18 +20,18 @@ import static java.util.Objects.requireNonNull;
 
 public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
 {
-    private Ahnr ahnr;
-    private String matchcode;
-    private LocalDate enterDate;
+    private final Ahnr ahnr;
+    private final String matchcode;
+    private final LocalDate enterDate;
     private LocalDate exitDate;
     private AhAdress adress;
 
     // ASSOCIATIONS
 
-    private SingleAssociation.SingleAssociationImpl<Mandant, MandantID> mandant;
-    private SingleAssociation.SingleAssociationImpl<Regulierer, ReguliererID> regulator;
-    private SingleAssociation.SingleAssociationImpl<Verband, VerbandID> verband;
-    private SingleAssociation.SingleAssociationImpl<MitgliedsForm, MitgliedsFormID> membershipForm;
+    private final SingleAssociation<Mandant, MandantID> mandant;
+    private final SingleAssociation<Regulierer, ReguliererID> regulator;
+    private final SingleAssociation<Verband, VerbandID> verband;
+    private final SingleAssociation<MitgliedsForm, MitgliedsFormID> membershipForm;
 
     public Ah(
             final Ahnr ahnr,
@@ -46,10 +46,10 @@ public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
         this.matchcode = requireNonNull(matchcode, "matchcode can't be null!");
 
         this.enterDate = enterDate;
-        this.mandant = SingleAssociation.SingleAssociationImpl.fromID(mandant);
-        this.regulator = SingleAssociation.SingleAssociationImpl.fromID(regulator);
-        this.verband = SingleAssociation.SingleAssociationImpl.fromID(verband);
-        this.membershipForm = SingleAssociation.SingleAssociationImpl.fromID(membershipForm);
+        this.mandant = SingleAssociation.fromID(mandant);
+        this.regulator = SingleAssociation.fromID(regulator);
+        this.verband = SingleAssociation.fromID(verband);
+        this.membershipForm = SingleAssociation.fromID(membershipForm);
     }
 
     public void exitNow()
@@ -83,22 +83,22 @@ public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
         return adress;
     }
 
-    public SingleAssociation.SingleAssociationImpl<Mandant, MandantID> getMandant()
+    public SingleAssociation<Mandant, MandantID> getMandant()
     {
         return mandant;
     }
 
-    public SingleAssociation.SingleAssociationImpl<Regulierer, ReguliererID> getRegulator()
+    public SingleAssociation<Regulierer, ReguliererID> getRegulator()
     {
         return regulator;
     }
 
-    public SingleAssociation.SingleAssociationImpl<Verband, VerbandID> getVerband()
+    public SingleAssociation<Verband, VerbandID> getVerband()
     {
         return verband;
     }
 
-    public SingleAssociation.SingleAssociationImpl<MitgliedsForm, MitgliedsFormID> getMembershipForm()
+    public SingleAssociation<MitgliedsForm, MitgliedsFormID> getMembershipForm()
     {
         return membershipForm;
     }

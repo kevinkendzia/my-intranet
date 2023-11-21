@@ -1,5 +1,6 @@
 package de.kkendzia.myintranet.app.search.user;
 
+import de.kkendzia.myintranet.app._framework.cqrs.QueryMediator;
 import de.kkendzia.myintranet.domain.permission.Permission;
 import de.kkendzia.myintranet.domain.permission.PermissionRepository;
 import de.kkendzia.myintranet.domain.role.Role;
@@ -22,22 +23,23 @@ import static java.util.stream.Collectors.toSet;
 public class EIAuthService implements UserDetailsService
 {
     private final EIUserRepository eiUserDAO;
-    private final UserRoleDAO userRoleDAO;
+    //    private final UserRoleDAO userRoleDAO;
     private final RoleRepository roleDAO;
-    private final RolePermissionDAO rolePermissionDAO;
+    //    private final RolePermissionDAO rolePermissionDAO;
     private final PermissionRepository permissionDAO;
+    private QueryMediator queryMediator;
 
     public EIAuthService(
             EIUserRepository eiUserDAO,
-            UserRoleDAO userRoleDAO,
+//            UserRoleDAO userRoleDAO,
             RoleRepository roleDAO,
-            RolePermissionDAO rolePermissionDAO,
+//            RolePermissionDAO rolePermissionDAO,
             PermissionRepository permissionDAO)
     {
         this.eiUserDAO = requireNonNull(eiUserDAO, "eiUserDAO can't be null!");
-        this.userRoleDAO = requireNonNull(userRoleDAO, "userRoleDAO can't be null!");
+//        this.userRoleDAO = requireNonNull(userRoleDAO, "userRoleDAO can't be null!");
         this.roleDAO = requireNonNull(roleDAO, "roleDAO can't be null!");
-        this.rolePermissionDAO = requireNonNull(rolePermissionDAO, "rolePermissionDAO can't be null!");
+//        this.rolePermissionDAO = requireNonNull(rolePermissionDAO, "rolePermissionDAO can't be null!");
         this.permissionDAO = requireNonNull(permissionDAO, "permissionDAO can't be null!");
     }
 
@@ -47,7 +49,7 @@ public class EIAuthService implements UserDetailsService
         // 19.11.2023 KK TODO: Only load needed data! (username + password)
         EIUser u = eiUserDAO
                 .findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Couldn't find user for username \"" + username + "\""));
+                .orElseThrow(() -> new UsernameNotFoundException("Couldn't find user for username \"" + username + "\"!"));
 
         Set<GrantedAuthority> authorities =
                 userRoleDAO

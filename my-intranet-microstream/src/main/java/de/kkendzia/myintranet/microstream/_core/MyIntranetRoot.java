@@ -1,13 +1,13 @@
-package de.kkendzia.myintranet.microstream;
+package de.kkendzia.myintranet.microstream._core;
 
 import de.kkendzia.myintranet.domain.ah.Ah;
-import de.kkendzia.myintranet.domain.shared.adress.Adress;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.domain.mandant.MandantSetting;
-import de.kkendzia.myintranet.domain.user.*;
 import de.kkendzia.myintranet.domain.permission.Permission;
 import de.kkendzia.myintranet.domain.role.Role;
 import de.kkendzia.myintranet.domain.role.RolePermission;
+import de.kkendzia.myintranet.domain.shared.adress.Adress;
+import de.kkendzia.myintranet.domain.user.EIUser;
 import one.microstream.integrations.spring.boot.types.Storage;
 
 import java.util.ArrayList;

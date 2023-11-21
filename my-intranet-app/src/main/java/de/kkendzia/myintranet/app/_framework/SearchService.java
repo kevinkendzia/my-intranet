@@ -1,7 +1,5 @@
 package de.kkendzia.myintranet.app._framework;
 
-import de.kkendzia.myintranet.domain._framework.dao.Paging;
-
 import java.util.stream.Stream;
 
 public interface SearchService<T, F extends SearchService.SearchFilters>
@@ -10,7 +8,9 @@ public interface SearchService<T, F extends SearchService.SearchFilters>
 
     Stream<T> fetch(SearchQuery<F> query);
 
-    record SearchQuery<T extends SearchFilters>(T filters, Paging paging)
+    record SearchQuery<T extends SearchFilters>(
+            T filters,
+            Paging paging)
     {
     }
 
