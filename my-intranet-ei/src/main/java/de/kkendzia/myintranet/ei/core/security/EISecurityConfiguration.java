@@ -1,7 +1,8 @@
 package de.kkendzia.myintranet.ei.core.security;
 
 import com.vaadin.flow.spring.security.VaadinWebSecurity;
-import de.kkendzia.myintranet.app.search.user.EIAuthService;
+import de.kkendzia.myintranet.app._framework.cqrs.QueryMediator;
+import de.kkendzia.myintranet.app.auth.queries.EIAuthService;
 import de.kkendzia.myintranet.domain.user.*;
 import de.kkendzia.myintranet.domain.permission.PermissionRepository;
 import de.kkendzia.myintranet.domain.role.RoleRepository;
@@ -60,14 +61,9 @@ public class EISecurityConfiguration
     }
 
     @Bean
-    public UserDetailsService userDetailsService(
-            EIUserRepository eiUserDAO,
-            UserRoleDAO userRoleDAO,
-            RoleRepository roleDAO,
-            RolePermissionDAO rolePermissionDAO,
-            PermissionRepository permissionDAO)
+    public UserDetailsService userDetailsService(final QueryMediator mediator)
     {
-        return new EIAuthService(eiUserDAO, userRoleDAO, roleDAO, rolePermissionDAO, permissionDAO);
+        return new EIAuthService(mediator);
     }
 
     @Bean

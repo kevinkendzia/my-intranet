@@ -20,6 +20,11 @@ public record MultiAssociation<A extends AggregateRoot<A, I>, I extends ID>(Set<
         this.ids = requireNonNull(ids, "ids can't be null!");
     }
 
+    public void add(final A aggregate)
+    {
+        ids.add(aggregate.getId());
+    }
+
     //region STATIC
     public static <A extends AggregateRoot<A, I>, I extends ID> MultiAssociation<A, I> fromIDs(Set<I> ids)
     {

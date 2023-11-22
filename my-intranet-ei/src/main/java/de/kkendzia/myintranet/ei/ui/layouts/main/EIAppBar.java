@@ -1,6 +1,5 @@
 package de.kkendzia.myintranet.ei.ui.layouts.main;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -17,7 +16,7 @@ import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
-import de.kkendzia.myintranet.app.user.shared.ActionItem;
+import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
 import de.kkendzia.myintranet.ei.core.components.EIComponent;
 import de.kkendzia.myintranet.ei.core.session.EISession;
 import de.kkendzia.myintranet.ei.core.utils.RoutingUtil;

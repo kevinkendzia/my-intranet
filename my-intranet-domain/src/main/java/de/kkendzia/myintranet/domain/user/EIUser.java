@@ -24,8 +24,9 @@ public class EIUser extends AbstractAggregateRoot<EIUser, EIUser.EIUserID>
     // ASSOCIATIONS
     private final MultiAssociation<Role, Role.RoleID> roles = new MultiAssociation<>();
 
-    public EIUser(final String userName, final String firstName, final String lastName, final String password)
+    public EIUser(EIUserID id, final String userName, final String firstName, final String lastName, final String password)
     {
+        super(id);
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,35 +53,18 @@ public class EIUser extends AbstractAggregateRoot<EIUser, EIUser.EIUserID>
     {
         return userName;
     }
-
-    public String getFirstName()
-    {
-        return firstName;
-    }
-
-    public String getLastName()
-    {
-        return lastName;
-    }
-
     public String getPassword()
     {
         return password;
     }
-
-    public List<EIUserAction> getFavoriteActions()
-    {
-        return unmodifiableList(favoriteActions);
-    }
-
-    public List<EIUserAction> getRecentActions()
-    {
-        return unmodifiableList(recentActions);
-    }
-
     public MultiAssociation<Role, Role.RoleID> getRoles()
     {
         return roles;
+    }
+    public void assignRole(final Role role)
+    {
+        // TODO: validation
+        roles.add(role);
     }
     //endregion
 

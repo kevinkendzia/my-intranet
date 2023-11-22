@@ -3,7 +3,9 @@ package de.kkendzia.myintranet.domain.role;
 import de.kkendzia.myintranet.domain._core.AbstractAggregateRoot;
 import de.kkendzia.myintranet.domain._core.AbstractID;
 import de.kkendzia.myintranet.domain.permission.Permission;
+import de.kkendzia.myintranet.domain.permission.Permission.PermissionID;
 
+import javax.management.remote.TargetedNotification;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +26,7 @@ public class Role extends AbstractAggregateRoot<Role, Role.RoleID>
         this.name = name;
     }
 
-    public void addPermission(Permission.PermissionID permissionId)
+    public void assignPermission(PermissionID permissionId)
     {
         // TODO: validate existing?
         permissions.add(new RolePermission(permissionId));

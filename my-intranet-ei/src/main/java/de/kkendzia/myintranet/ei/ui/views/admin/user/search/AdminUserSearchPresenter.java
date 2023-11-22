@@ -1,8 +1,5 @@
 package de.kkendzia.myintranet.ei.ui.views.admin.user.search;
 
-import de.kkendzia.myintranet.app.search.user.EIUserSearchService;
-import de.kkendzia.myintranet.app.search.user.EIUserSearchService.EIUserSearchFilters;
-import de.kkendzia.myintranet.app.search.user.EIUserSearchService.EIUserSearchItem;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import de.kkendzia.myintranet.ei.core.view.search.DefaultSearchPresenter;
 

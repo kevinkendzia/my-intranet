@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class RolePermission extends AbstractEntity<Role, RolePermission.RolePermissionID>
 {
-    private Permission.PermissionID permissionId;
+    private final Permission.PermissionID permissionId;
 
     public RolePermission(final Permission.PermissionID permissionId)
     {
@@ -21,6 +21,11 @@ public class RolePermission extends AbstractEntity<Role, RolePermission.RolePerm
         this.permissionId = permissionId;
     }
 
+    public Permission.PermissionID getPermissionId()
+    {
+        return permissionId;
+    }
+
     //region TYPES
     public static class RolePermissionID extends AbstractID
     {
@@ -31,6 +36,7 @@ public class RolePermission extends AbstractEntity<Role, RolePermission.RolePerm
 
         public RolePermissionID()
         {
+            super();
         }
     }
     //endregion

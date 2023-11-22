@@ -19,7 +19,7 @@ public class LoginView extends AbstractEIView<VerticalLayout>
 {
     public static final String NAV = "login";
     private static final ParameterDefinition<Boolean> PARAM_ERROR = booleanParam("error");
-    private static final ParameterDefinition<String> PARAM_USERNAME = stringParam("username");
+    private static final ParameterDefinition<String> PARAM_USERNAME = stringParam("userName");
 
     private final LoginForm login = new LoginForm();
 

@@ -7,12 +7,12 @@ import de.kkendzia.myintranet.domain.ah.Ah;
 
 public interface Repository<A extends AggregateRoot<A, I>, I extends ID>
         extends
-        AggregateList<Ah>,
-        AggregateLookup<Ah, Ah.AhID>,
-        AssociationResolver<Ah, Ah.AhID>,
-        AggregateCreate<Ah, Ah.AhID>,
-        AggregateUpdate<Ah, Ah.AhID>,
-        AggregateDelete<Ah, Ah.AhID>
+        AggregateList<A>,
+        AggregateLookup<A, I>,
+        AssociationResolver<A, I>,
+        AggregateCreate<A, I>,
+        AggregateUpdate<A, I>,
+        AggregateDelete<A, I>
 {
     //region STATIC
     static <A extends AggregateRoot<A, I>, I extends ID> void requireID(final A entity)

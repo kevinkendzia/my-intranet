@@ -3,8 +3,6 @@ package de.kkendzia.myintranet.ei.ui.views.admin.user.search;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.app.search.user.EIUserSearchService.EIUserSearchFilters;
-import de.kkendzia.myintranet.app.search.user.EIUserSearchService.EIUserSearchItem;
 import de.kkendzia.myintranet.domain.permission.Permission;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.view.search.SearchParameters;

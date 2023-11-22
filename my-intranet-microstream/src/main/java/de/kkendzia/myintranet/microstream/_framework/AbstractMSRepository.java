@@ -6,22 +6,12 @@ import de.kkendzia.myintranet.domain._core.repository.*;
 import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
 import one.microstream.storage.types.StorageManager;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static de.kkendzia.myintranet.domain._core.repository.Repository.requireID;
 
-public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I extends ID>
-        implements
-        AggregateList<A>,
-        AggregateLookup<A, I>,
-        AssociationResolver<A, I>,
-        AggregateUpdate<A, I>,
-        AggregateCreate<A, I>,
-        AggregateDelete<A, I>
+public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I extends ID> implements Repository<A, I>
 {
     private final MyIntranetRoot root;
     private final StorageManager storageManager;
@@ -44,7 +34,7 @@ public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I exte
         return root;
     }
 
-    protected abstract List<A> getRootCollection();
+    protected abstract Map<I, A> getRootCollection();
 
     @Override
     public long countAll()
@@ -55,13 +45,13 @@ public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I exte
     @Override
     public List<A> listAll()
     {
-        return getRootCollection();
+        return new ArrayList<>(getRootCollection().values());
     }
 
     @Override
     public Stream<A> list(final int offset, final int limit)
     {
-        return getRootCollection().stream().skip(offset).limit(limit);
+        return listAll().stream().skip(offset).limit(limit);
     }
 
     @Override
@@ -80,7 +70,7 @@ public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I exte
     public A update(A entity)
     {
         requireID(entity);
-        List<A> rootCollection = getRootCollection();
+        List<A> rootCollection = listAll();
         rootCollection.replaceAll(x -> Objects.equals(x, entity) ? entity : x);
         getStorageManager().store(rootCollection);
 
@@ -92,7 +82,7 @@ public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I exte
     public A add(A aggregate)
     {
         requireID(aggregate);
-        List<A> rootCollection = getRootCollection();
+        List<A> rootCollection = listAll();
         rootCollection.add(aggregate);
         getStorageManager().store(rootCollection);
         return aggregate;
@@ -102,7 +92,7 @@ public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I exte
     public void remove(final A aggregate)
     {
         requireID(aggregate);
-        List<A> rootCollection = getRootCollection();
+        List<A> rootCollection = listAll();
         rootCollection.removeIf(x -> Objects.equals(x, aggregate));
         getStorageManager().store(rootCollection);
     }
@@ -111,7 +101,7 @@ public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I exte
     public void removeByID(I id)
     {
         requireID(id);
-        List<A> rootCollection = getRootCollection();
+        List<A> rootCollection = listAll();
         rootCollection.removeIf(x -> Objects.equals(x.getId(), id));
         getStorageManager().store(rootCollection);
     }
