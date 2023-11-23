@@ -13,6 +13,11 @@ public abstract class AbstractID implements ID
         this.value = requireNonNull(value, "value can't be null!");
     }
 
+    protected AbstractID(final String value)
+    {
+        this(UUID.fromString(requireNonNull(value, "value can't be null!")));
+    }
+
     protected AbstractID()
     {
         this(UUID.randomUUID());

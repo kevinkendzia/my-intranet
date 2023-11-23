@@ -1,6 +1,6 @@
 package de.kkendzia.myintranet.microstream._framework;
 
-import de.kkendzia.myintranet.app._framework.cqrs.CommandMediator;
+import de.kkendzia.myintranet.app._framework.cqrs.command.CommandMediator;
 import de.kkendzia.myintranet.app.auth.commands.*;
 import de.kkendzia.myintranet.domain.permission.Permission.PermissionID;
 import de.kkendzia.myintranet.domain.role.Role.RoleID;

@@ -7,6 +7,8 @@ import java.util.UUID;
 
 public final class Mandant extends AbstractAggregateRoot<Mandant, Mandant.MandantID>
 {
+    public static final String PROPERTY_NAME = "name";
+
     private String key;
     private String name;
     private byte[] image;
@@ -61,6 +63,11 @@ public final class Mandant extends AbstractAggregateRoot<Mandant, Mandant.Mandan
     public static class MandantID extends AbstractID
     {
         public MandantID(final UUID value)
+        {
+            super(value);
+        }
+
+        public MandantID(final String value)
         {
             super(value);
         }

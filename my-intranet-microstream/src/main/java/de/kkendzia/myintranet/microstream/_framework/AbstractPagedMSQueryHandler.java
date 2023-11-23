@@ -1,6 +1,8 @@
 package de.kkendzia.myintranet.microstream._framework;
 
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler;
+import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Direction;
+import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Order;
+import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Paging;
 import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
 import one.microstream.storage.types.StorageManager;
 
@@ -28,7 +30,7 @@ public class AbstractPagedMSQueryHandler<T> extends AbstractMSQueryHandler
         comparatorMap.put(key, comparator);
     }
 
-    protected Comparator<T> mapSortOrders(Collection<QueryHandler.Order> orders)
+    protected Comparator<T> mapSortOrders(Collection<Order> orders)
     {
         if (orders == null)
         {
@@ -39,7 +41,7 @@ public class AbstractPagedMSQueryHandler<T> extends AbstractMSQueryHandler
                 .stream().map(x ->
                 {
                     final Comparator<T> c = comparatorMap.get(x.property());
-                    if (x.direction() == QueryHandler.Direction.DESC)
+                    if (x.direction() == Direction.DESC)
                     {
                         return c.reversed();
                     }
@@ -49,7 +51,7 @@ public class AbstractPagedMSQueryHandler<T> extends AbstractMSQueryHandler
                 .orElse(null);
     }
 
-    protected Stream<T> applyPaging(Stream<T> stream, QueryHandler.Paging paging)
+    protected Stream<T> applyPaging(Stream<T> stream, Paging paging)
     {
         if (paging != null)
         {

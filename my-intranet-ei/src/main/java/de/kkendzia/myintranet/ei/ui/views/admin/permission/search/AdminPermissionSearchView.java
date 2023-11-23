@@ -3,17 +3,15 @@ package de.kkendzia.myintranet.ei.ui.views.admin.permission.search;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.app._shared.SimpleSearchFilters;
-import de.kkendzia.myintranet.app._shared.SimpleSearchItem;
 import de.kkendzia.myintranet.app.search.queries.SearchPermissions;
 import de.kkendzia.myintranet.app.search.queries.SearchPermissions.ResultItem;
 import de.kkendzia.myintranet.domain.permission.Permission;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
-import de.kkendzia.myintranet.ei.core.view.search.SearchParameters;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
+import de.kkendzia.myintranet.ei.core.view.search.SearchParameters;
+import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout;
 import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout.NavigationAction.NavigateWithId;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
@@ -37,7 +35,7 @@ public class AdminPermissionSearchView extends AbstractEIView<SearchLayout<Resul
         this.presenter = requireNonNull(presenter, "presenter can't be null!");
 
         SearchLayout<ResultItem> root = getContent();
-        root.setNavigationAction(new NavigateWithId<>(MandantDetailView.class, ResultItem::id));
+        root.setNavigationAction(new NavigateWithId<>(MandantDetailView.class, ResultItem::idString));
 
         Grid<ResultItem> grid = root.getGrid();
         addCollapsedColumn(grid, getTranslation(NAME), ResultItem::name);

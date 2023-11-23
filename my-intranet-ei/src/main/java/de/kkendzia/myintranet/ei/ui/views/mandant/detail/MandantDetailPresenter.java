@@ -2,18 +2,15 @@ package de.kkendzia.myintranet.ei.ui.views.mandant.detail;
 
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
-import de.kkendzia.myintranet.app._framework.cqrs.CommandMediator;
-import de.kkendzia.myintranet.app._framework.cqrs.QueryMediator;
+import de.kkendzia.myintranet.app._framework.cqrs.command.CommandMediator;
+import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
 import de.kkendzia.myintranet.app.mandant.queries.FindMandantByID;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
-import de.kkendzia.myintranet.domain.mandant.MandantRepository;
 import de.kkendzia.myintranet.domain.mandant.MandantSetting;
 import de.kkendzia.myintranet.ei.core.presenter.EIPresenter;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import de.kkendzia.myintranet.ei.core.utils.Result;
-import de.kkendzia.myintranet.ei.ui.errors.UnknownIDError.UnknownIDException;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,8 +25,8 @@ public class MandantDetailPresenter implements EIPresenter
 {
     private static final String DATE_FORMAT = "dd.MM.yyyy";
 
-    private QueryMediator quMediator;
-    private CommandMediator cmdMediator;
+    private final QueryMediator quMediator;
+    private final CommandMediator cmdMediator;
 
     // STATE
     private Mandant mandant;
@@ -200,11 +197,11 @@ public class MandantDetailPresenter implements EIPresenter
 
     public enum AddSettingFailure implements Result.Failure
     {
-        ALREADY_EXISTS;
+        ALREADY_EXISTS
     }
 
     public record SettingsFilter(
-            long mandantId,
+            MandantID mandantId,
             String text)
     {
         // just a record

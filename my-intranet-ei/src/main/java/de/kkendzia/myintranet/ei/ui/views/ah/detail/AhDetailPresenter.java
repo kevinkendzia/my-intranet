@@ -1,12 +1,13 @@
 package de.kkendzia.myintranet.ei.ui.views.ah.detail;
 
-import de.kkendzia.myintranet.domain.ah.AhRepository;
-import de.kkendzia.myintranet.ei.core.presenter.AbstractStatefullPresenter;
-import de.kkendzia.myintranet.ei.core.presenter.Presenter;
-import de.kkendzia.myintranet.ei.ui.errors.UnknownIDError.UnknownIDException;
+import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
 import de.kkendzia.myintranet.app.ah.commands.AhAdressData;
 import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
 import de.kkendzia.myintranet.app.ah.commands.AhMemberData;
+import de.kkendzia.myintranet.app.ah.queries.FindAhByID;
+import de.kkendzia.myintranet.domain.ah.Ah.AhID;
+import de.kkendzia.myintranet.ei.core.presenter.AbstractStatefullPresenter;
+import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.model.AhDetailModel;
 
 import static java.util.Objects.requireNonNull;
@@ -14,35 +15,35 @@ import static java.util.Objects.requireNonNull;
 @Presenter
 public class AhDetailPresenter extends AbstractStatefullPresenter<AhDetailModel>
 {
-    private final AhRepository ahDAO;
+    private final QueryMediator quMediator;
 
-    public AhDetailPresenter(final AhRepository ahDAO)
+    public AhDetailPresenter(final QueryMediator quMediator)
     {
-        this.ahDAO = requireNonNull(ahDAO, "ahDAO can't be null!");
+        this.quMediator = requireNonNull(quMediator, "quMediator can't be null!");
     }
 
-    public void loadAhById(long id)
+    public void loadAhById(AhID id)
     {
-        final var ah = ahDAO.findOptionalById(id).orElseThrow(UnknownIDException::new);
+        final var ah = quMediator.fetchOne(new FindAhByID(id)).getData();
         setState(
                 new AhDetailModel(
                         new AhCoreData(
-                                ah.getAhnr(),
-                                ah.getMatchcode(),
-                                ah.getMandant(),
-                                ah.getEnterDate(),
-                                ah.getExitDate()),
+                                ah.ahnr(),
+                                ah.matchcode(),
+                                ah.mandant(),
+                                ah.enterDate(),
+                                ah.exitDate()),
                         new AhAdressData(
-                                ah.getAdress().getLine1(),
-                                ah.getAdress().getLine2(),
-                                ah.getAdress().getStreet(),
-                                ah.getAdress().getZip(),
-                                ah.getAdress().getCity(),
-                                ah.getAdress().getCountry()),
+                                ah.adress().line1(),
+                                ah.adress().line2(),
+                                ah.adress().street(),
+                                ah.adress().zip(),
+                                ah.adress().city(),
+                                ah.adress().country()),
                         new AhMemberData(
-                                ah.getRegulator(),
-                                ah.getVerband(),
-                                ah.getMembershipForm())));
+                                ah.regulierer(),
+                                ah.verband(),
+                                ah.mitgliedsForm())));
     }
 
     public void save()

@@ -14,6 +14,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.provider.ConfigurableFilterDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.utils.Result;
 import de.kkendzia.myintranet.ei.core.view.page.AbstractLazyPage;
@@ -145,8 +146,11 @@ public class MandantSettingsPage extends AbstractLazyPage<VerticalLayout> implem
         grid.setDataProvider(this.dataProvider);
         grid.addItemDoubleClickListener(e -> grid.getEditor().editItem(e.getItem()));
 
-        txtFilter.addValueChangeListener(e -> this.dataProvider.setFilter(new SettingsFilter(presenter.getMandant()
-                .getId(), e.getValue())));
+        txtFilter.addValueChangeListener(e ->
+        {
+            final var mandantId = presenter.getMandant().getId();
+            this.dataProvider.setFilter(new SettingsFilter(mandantId, e.getValue()));
+        });
 
         HorizontalLayout hlTop = new HorizontalLayout();
         hlTop.setPadding(false);
@@ -163,7 +167,7 @@ public class MandantSettingsPage extends AbstractLazyPage<VerticalLayout> implem
     @Override
     protected void onLoad()
     {
-        long id = presenter.getMandant().getId();
+        MandantID id = presenter.getMandant().getId();
         dataProvider.setFilter(new SettingsFilter(id, ""));
     }
 }

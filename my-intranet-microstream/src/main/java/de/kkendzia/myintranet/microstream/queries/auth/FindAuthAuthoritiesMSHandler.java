@@ -1,5 +1,7 @@
 package de.kkendzia.myintranet.microstream.queries.auth;
 
+import de.kkendzia.myintranet.app._framework.result.ListResult;
+import de.kkendzia.myintranet.app._framework.result.SingleResult;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthAuthorities;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthAuthorities.Failure;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthAuthorities.FindAuthAuthoritiesHandler;
@@ -9,11 +11,10 @@ import de.kkendzia.myintranet.domain.role.RolePermission;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import de.kkendzia.myintranet.microstream._framework.AbstractPagedMSQueryHandler;
 import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static de.kkendzia.myintranet.app._utils.Reduce.toOnlyElement;
@@ -32,30 +33,30 @@ public class FindAuthAuthoritiesMSHandler
     }
 
     @Override
-    public SingleQueryResult<AuthAuthority, Failure> fetchOne(final FindAuthAuthorities query)
+    public SingleResult<AuthAuthority, Failure> fetchOne(final FindAuthAuthorities query)
     {
         final EIUser user = fetchUser(query);
 
         if (user == null)
         {
-            return SingleQueryResult.failure(Failure.NO_USER);
+            return SingleResult.failure(Failure.NO_USER);
         }
 
         // TODO: failure instead of exception?!
-        return SingleQueryResult.success(
+        return SingleResult.success(
                 fetchAuthorities(user)
                         .reduce(toOnlyElement(() -> new IllegalStateException("Found more than 1 Authority!")))
                         .orElseThrow(() -> new IllegalStateException("Found no Authority!")));
     }
 
     @Override
-    public ListQueryResult<AuthAuthority, Failure> fetchAll(final FindAuthAuthorities query)
+    public ListResult<AuthAuthority, Failure> fetchAll(final FindAuthAuthorities query)
     {
         final EIUser user = fetchUser(query);
 
         if (user == null)
         {
-            return ListQueryResult.failure(Failure.NO_USER);
+            return ListResult.failure(Failure.NO_USER);
         }
 
         final List<AuthAuthority> authorities =
@@ -74,7 +75,7 @@ public class FindAuthAuthoritiesMSHandler
                         .map(AuthAuthority::new)
                         .toList();
 
-        return ListQueryResult.success(authorities);
+        return ListResult.success(authorities);
     }
 
 

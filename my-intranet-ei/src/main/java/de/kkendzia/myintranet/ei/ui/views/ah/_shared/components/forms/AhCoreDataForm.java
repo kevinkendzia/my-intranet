@@ -6,11 +6,12 @@ import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
+import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
+import de.kkendzia.myintranet.app.mandant.queries.ListMandanten.MandantItem;
 import de.kkendzia.myintranet.domain.ah.Ah.Ahnr;
-import de.kkendzia.myintranet.domain.mandant.Mandant;
+import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
-import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
 
 import java.util.Collection;
 import java.util.List;
@@ -23,21 +24,24 @@ import static de.kkendzia.myintranet.ei.core.utils.DataProviderUtil.emptyDataPro
 
 public class AhCoreDataForm extends AbstractForm<AhCoreData>
 {
-    private final RadioButtonGroup<Mandant> rbgMandant = new RadioButtonGroup<>(getTranslation(MANDANT));
+    private final RadioButtonGroup<MandantItem> rbgMandant = new RadioButtonGroup<>(getTranslation(MANDANT));
     private final IntegerField txtAhnr = new IntegerField(getTranslation(AHNR));
     private final TextField txtMatchcode = new TextField(getTranslation(MATCHCODE));
     private final DatePicker dpEnter = new DatePicker(getTranslation(TranslationKeys.ENTER_DATE));
 
-    private DataProvider<Mandant, Void> dpMandant = emptyDataProvider();
+    private DataProvider<MandantItem, Void> dpMandant = emptyDataProvider();
 
     public AhCoreDataForm()
     {
-        rbgMandant.setItemLabelGenerator(Mandant::getName);
+        rbgMandant.setItemLabelGenerator(MandantItem::name);
 
         add(
                 rbgMandant, 2,
                 (field, binder) -> binder.forField(field)
                         .asRequired(getTranslation(REQUIRED))
+                        .withConverter(
+                                mandantItem -> mandantItem,
+                                mandantItem -> mandantItem)
                         .bind(AhCoreData::getMandant, AhCoreData::setMandant));
         add(
                 txtAhnr,
@@ -56,19 +60,19 @@ public class AhCoreDataForm extends AbstractForm<AhCoreData>
                         .bind(AhCoreData::getEnterDate, AhCoreData::setEnterDate));
     }
 
-    public void setMandantItems(Collection<Mandant> mandantItems)
+    public void setMandantItems(Collection<MandantItem> mandantItems)
     {
         this.dpMandant = DataProvider.ofCollection(mandantItems).withConfigurableFilter();
         rbgMandant.setItems(dpMandant);
     }
 
-    private List<Mandant> getMandantItems()
+    private List<MandantItem> getMandantItems()
     {
         return dpMandant.fetch(new Query<>()).toList();
     }
 
-    public Optional<Mandant> findMandantItemById(long id)
+    public Optional<MandantItem> findMandantItemById(MandantID id)
     {
-        return getMandantItems().stream().filter(m -> Objects.equals(m.getId(), id)).findFirst();
+        return getMandantItems().stream().filter(m -> Objects.equals(m.id(), id)).findFirst();
     }
 }

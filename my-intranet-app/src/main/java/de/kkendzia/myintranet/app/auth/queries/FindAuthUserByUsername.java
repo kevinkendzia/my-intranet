@@ -1,9 +1,7 @@
 package de.kkendzia.myintranet.app.auth.queries;
 
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler;
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.PagedQuery;
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.PagedQueryHandler;
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.Query;
+import de.kkendzia.myintranet.app._framework.cqrs.query.paged.PagedQuery;
+import de.kkendzia.myintranet.app._framework.cqrs.query.paged.PagedQueryHandler;
 import de.kkendzia.myintranet.app.auth.shared.AuthUser;
 
 public record FindAuthUserByUsername(String username) implements PagedQuery<AuthUser, FindAuthUserByUsername.Failure>

@@ -30,7 +30,6 @@ import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SEARCH;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.DEFAULT;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.FOOTER;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.OTHER;
-import static java.util.Objects.requireNonNull;
 import static java.util.Objects.requireNonNullElse;
 
 public class EIAppBar
@@ -82,7 +81,7 @@ public class EIAppBar
                     searchText,
                     requireNonNullElse(target, OTHER),
                     DEFAULT,
-                    -1,
+                    null,
                     searchText);
         });
         searchField.setItems(presenter.createSearchPreviewDataProvider());

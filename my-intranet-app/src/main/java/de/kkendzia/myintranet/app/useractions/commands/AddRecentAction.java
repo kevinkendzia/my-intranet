@@ -1,7 +1,8 @@
 package de.kkendzia.myintranet.app.useractions.commands;
 
-import de.kkendzia.myintranet.app._framework.cqrs.CommandHandler;
-import de.kkendzia.myintranet.app._framework.cqrs.CommandHandler.Command;
+import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler;
+import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler.Command;
+import de.kkendzia.myintranet.app._framework.result.VoidResult;
 import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
 import de.kkendzia.myintranet.domain._core.repository.Repository;
 import de.kkendzia.myintranet.domain.user.EIUser;
@@ -9,10 +10,11 @@ import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
 import de.kkendzia.myintranet.domain.user.EIUserAction;
 import org.springframework.stereotype.Component;
 
-import static de.kkendzia.myintranet.app._framework.cqrs.CommandHandler.CommandResult.success;
 import static java.util.Objects.requireNonNull;
 
-public record AddRecentAction(EIUserID userId, ActionItem item) implements Command<AddRecentAction.Failure>
+public record AddRecentAction(
+        EIUserID userId,
+        ActionItem item) implements Command<AddRecentAction.Failure>
 {
     interface AddRecentActionHandler extends CommandHandler<AddRecentAction, Failure>
     {
@@ -26,7 +28,7 @@ public record AddRecentAction(EIUserID userId, ActionItem item) implements Comma
     @Component
     public static class AddRecentActionHandlerImpl implements AddRecentActionHandler
     {
-        private Repository<EIUser, EIUserID> repository;
+        private final Repository<EIUser, EIUserID> repository;
 
         public AddRecentActionHandlerImpl(final Repository<EIUser, EIUserID> repository)
         {
@@ -34,12 +36,12 @@ public record AddRecentAction(EIUserID userId, ActionItem item) implements Comma
         }
 
         @Override
-        public CommandResult<Failure> executeResult(final AddRecentAction command)
+        public VoidResult<Failure> run(final AddRecentAction command)
         {
             final EIUser user = repository.getByID(command.userId());
             user.addRecentAction(new EIUserAction(command.item().title(), command.item().route()));
             repository.update(user);
-            return success();
+            return VoidResult.success();
         }
     }
 

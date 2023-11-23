@@ -1,9 +1,8 @@
 package de.kkendzia.myintranet.app.auth.queries;
 
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler;
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.ListQueryResult;
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.SingleQueryResult;
-import de.kkendzia.myintranet.app._framework.cqrs.QueryMediator;
+import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
+import de.kkendzia.myintranet.app._framework.result.ListResult;
+import de.kkendzia.myintranet.app._framework.result.SingleResult;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthAuthorities.Failure;
 import de.kkendzia.myintranet.app.auth.shared.AuthAuthority;
 import de.kkendzia.myintranet.app.auth.shared.AuthUser;
@@ -14,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.Collections;
 import java.util.Set;
 
 import static java.util.Collections.emptySet;
@@ -34,7 +32,7 @@ public class EIAuthService implements UserDetailsService
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
         // 19.11.2023 KK Only load needed data! (userName + password)
-        final SingleQueryResult<AuthUser, FindAuthUserByUsername.Failure> userResult =
+        final SingleResult<AuthUser, FindAuthUserByUsername.Failure> userResult =
                 queryMediator.fetchOne(new FindAuthUserByUsername(username));
 
         if (userResult.isSuccess())
@@ -44,7 +42,8 @@ public class EIAuthService implements UserDetailsService
                             .asOptional()
                             .orElseThrow(() -> new UsernameNotFoundException("Couldn't find user for userName \"" + username + "\"!"));
 
-            final ListQueryResult<AuthAuthority, Failure> authorityResult = queryMediator.fetchAll(new FindAuthAuthorities(user.id()));
+            final ListResult<AuthAuthority, Failure> authorityResult = queryMediator.fetchAll(new FindAuthAuthorities(
+                    user.id()));
             if (authorityResult.isSuccess())
             {
                 Set<GrantedAuthority> authorities = mapAuthorities(authorityResult);
@@ -59,7 +58,7 @@ public class EIAuthService implements UserDetailsService
         }
     }
 
-    private static Set<GrantedAuthority> mapAuthorities(final ListQueryResult<AuthAuthority, Failure> result)
+    private static Set<GrantedAuthority> mapAuthorities(final ListResult<AuthAuthority, Failure> result)
     {
         return
                 result

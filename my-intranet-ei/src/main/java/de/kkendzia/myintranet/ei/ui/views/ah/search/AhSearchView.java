@@ -45,7 +45,7 @@ public class AhSearchView
 
         // SEARCH LAYOUT
         SearchLayout<ResultItem> root = getContent();
-        root.setNavigationAction(new NavigateWithId<>(AhDetailView.class, ResultItem::id));
+        root.setNavigationAction(new NavigateWithId<>(AhDetailView.class, ResultItem::idString));
 
         Grid<ResultItem> grid = root.getGrid();
         addCollapsedColumn(grid, getTranslation("label.ahnr"), ResultItem::ahnr);

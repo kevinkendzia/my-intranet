@@ -5,6 +5,7 @@ import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
+import de.kkendzia.myintranet.domain.ah.Ah.AhID;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.parameters.HasViewParameter;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
@@ -20,6 +21,8 @@ import de.kkendzia.myintranet.ei.ui.views.ah.detail.pages.AhDetailPage;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.UUID;
+
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.COMMON;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SAVE;
 
@@ -27,7 +30,7 @@ import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SAVE;
 @PermitAll
 public class AhDetailView
         extends AbstractEIView<TabsLayout<AhDetailPage>>
-        implements HasViewParameter<Long>, AfterNavigationObserver
+        implements HasViewParameter<String>, AfterNavigationObserver
 {
     private final H1 hTitle = new H1("AH CREATE");
     private final AhDetailPresenter presenter;
@@ -65,14 +68,14 @@ public class AhDetailView
     @Override
     public void beforeEnterView(BeforeEnterEvent event)
     {
-        long id = getViewParameter();
-        presenter.loadAhById(id);
+        String id = getViewParameter();
+        presenter.loadAhById(new AhID(UUID.fromString(id)));
     }
 
     @Override
     public void afterNavigation(AfterNavigationEvent event)
     {
-        long id = getViewParameter();
+        String id = getViewParameter();
         hTitle.setText(hTitle.getText() + id);
     }
 }

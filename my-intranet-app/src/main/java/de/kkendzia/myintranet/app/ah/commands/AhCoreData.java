@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.app.ah.commands;
 
+import de.kkendzia.myintranet.app.mandant.queries.ListMandanten.MandantItem;
 import de.kkendzia.myintranet.domain.ah.Ah;
-import de.kkendzia.myintranet.domain.mandant.Mandant;
 
 import java.time.LocalDate;
 
@@ -9,14 +9,14 @@ public class AhCoreData
 {
     private Ah.Ahnr ahnr;
     private String matchcode;
-    private Mandant mandant;
+    private MandantItem mandant;
     private LocalDate enterDate;
     private LocalDate exitDate;
 
     public AhCoreData(
             Ah.Ahnr ahnr,
             String matchcode,
-            Mandant mandant,
+            MandantItem mandant,
             LocalDate enterDate,
             LocalDate exitDate)
     {
@@ -47,12 +47,12 @@ public class AhCoreData
         this.matchcode = matchcode;
     }
 
-    public Mandant getMandant()
+    public MandantItem getMandant()
     {
         return mandant;
     }
 
-    public void setMandant(Mandant mandant)
+    public void setMandant(MandantItem mandant)
     {
         this.mandant = mandant;
     }

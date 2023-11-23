@@ -13,8 +13,10 @@ import de.kkendzia.myintranet.ei.ui.views.search.SearchView;
 import java.util.stream.Stream;
 
 import static de.kkendzia.myintranet.ei.core.view.search.SearchParameters.SEARCH_TEXT;
-import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.*;
-import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.*;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.DEFAULT;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.HEADER;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.AH;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.OTHER;
 
 @Presenter
 public class EIMainLayoutPresenter implements EIPresenter
@@ -22,7 +24,7 @@ public class EIMainLayoutPresenter implements EIPresenter
     public void search(SearchPreviewItem value)
     {
         // TODO
-        if (value.id() > 0)
+        if (value.id() != null)
         {
             UI.getCurrent().navigate(
                     switch (value.target)
@@ -58,14 +60,16 @@ public class EIMainLayoutPresenter implements EIPresenter
         String searchText = query.getFilter().orElse("");
 
         return Stream.of(
-                        new SearchPreviewItem(searchText, AH, HEADER, -1, ""),
-                        new SearchPreviewItem(searchText, AH, DEFAULT, 1, "HOMA"),
-                        new SearchPreviewItem(searchText, AH, DEFAULT, 2, "SEIP"),
-                        new SearchPreviewItem(searchText, AH, FOOTER, -1, ""),
-                        new SearchPreviewItem(searchText, VL, HEADER, -1, ""),
-                        new SearchPreviewItem(searchText, VL, DEFAULT, 1, "ACTONA"),
-                        new SearchPreviewItem(searchText, AKTION, HEADER, -1, ""),
-                        new SearchPreviewItem(searchText, AKTION, DEFAULT, 1, "Sommermöbel 2023"))
+                        new SearchPreviewItem(searchText, AH, HEADER, null, "")
+//                        ,
+//                        new SearchPreviewItem(searchText, AH, DEFAULT, 1, "HOMA"),
+//                        new SearchPreviewItem(searchText, AH, DEFAULT, 2, "SEIP"),
+//                        new SearchPreviewItem(searchText, AH, FOOTER, -1, ""),
+//                        new SearchPreviewItem(searchText, VL, HEADER, -1, ""),
+//                        new SearchPreviewItem(searchText, VL, DEFAULT, 1, "ACTONA"),
+//                        new SearchPreviewItem(searchText, AKTION, HEADER, -1, ""),
+//                        new SearchPreviewItem(searchText, AKTION, DEFAULT, 1, "Sommermöbel 2023")
+                )
                 .skip(query.getOffset())
                 .limit(query.getLimit());
     }
@@ -108,14 +112,14 @@ public class EIMainLayoutPresenter implements EIPresenter
             String searchText,
             SearchTarget target,
             SearchItemType type,
-            long id,
+            String id,
             String name)
     {
         public static SearchPreviewItem custom(
                 String searchText,
                 SearchTarget target)
         {
-            return new SearchPreviewItem(searchText, target, DEFAULT, -1, searchText);
+            return new SearchPreviewItem(searchText, target, DEFAULT, null, searchText);
         }
     }
     //endregion

@@ -7,7 +7,11 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
+import de.kkendzia.myintranet.app.ah.commands.AhAdressData;
+import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
+import de.kkendzia.myintranet.app.ah.commands.AhMemberData;
 import de.kkendzia.myintranet.domain.ah.Ah.Ahnr;
+import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
@@ -24,9 +28,6 @@ import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.Si
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhAdressDataForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhCoreDataForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhMemberDataForm;
-import de.kkendzia.myintranet.app.ah.commands.AhAdressData;
-import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
-import de.kkendzia.myintranet.app.ah.commands.AhMemberData;
 import de.kkendzia.myintranet.ei.ui.views.ah.create.model.AhCreateRequest;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import jakarta.annotation.security.PermitAll;
@@ -47,7 +48,7 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
     //region PARAMETERS
     private static final ParameterDefinition<Integer> PARAM_AHNR = intParam("ahnr");
     private static final ParameterDefinition<String> PARAM_MATCHCODE = stringParam("matchcode");
-    private static final ParameterDefinition<Long> PARAM_MANDANT_ID = longParam("mandant");
+    private static final ParameterDefinition<String> PARAM_MANDANT_ID = stringParam("mandant");
     private static final ParameterDefinition<LocalDate> PARAM_ENTER_DATE = localDateParam("enter", "dd-MM-yyyy");
     private static final ParameterDefinition<String> PARAM_LINE1 = stringParam("line1");
     private static final ParameterDefinition<String> PARAM_LINE2 = stringParam("line2");
@@ -56,7 +57,7 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
     private static final ParameterDefinition<String> PARAM_CITY = stringParam("city");
     private static final ParameterDefinition<Long> PARAM_COUNTRY_ID = longParam("country");
     // Regulierer
-    private static final ParameterDefinition<Long> PARAM_REGULATOR_ID = longParam("regulator");
+    private static final ParameterDefinition<Long> PARAM_REGULATOR_ID = longParam("regulierer");
     // Verband
     private static final ParameterDefinition<Long> PARAM_ASSOCIATION_ID = longParam("association");
     // Mitgliedsform
@@ -118,9 +119,9 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
     {
         if (formBinder.writeBeanIfValid())
         {
-            long id = presenter.create(request);
+            final var id = presenter.create(request);
             EINotificationFactory.showSuccess(TranslationKeys.SUCCESS);
-            UI.getCurrent().navigate(AhDetailView.class, id);
+            UI.getCurrent().navigate(AhDetailView.class, id.toString());
         }
         else
         {
@@ -137,7 +138,9 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
                 new AhCoreData(
                         new Ahnr(qpValue(PARAM_AHNR, 1)),
                         qpValue(PARAM_MATCHCODE, "new"),
-                        qpValue(PARAM_MANDANT_ID).flatMap(frmCore::findMandantItemById).orElse(null),
+                        qpValue(PARAM_MANDANT_ID).map(MandantID::new)
+                                .flatMap(frmCore::findMandantItemById)
+                                .orElse(null),
                         qpValue(PARAM_ENTER_DATE, LocalDate.now()),
                         null),
                 new AhAdressData(

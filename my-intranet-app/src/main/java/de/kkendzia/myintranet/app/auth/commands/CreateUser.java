@@ -1,13 +1,13 @@
 package de.kkendzia.myintranet.app.auth.commands;
 
-import de.kkendzia.myintranet.app._framework.cqrs.CommandHandler;
-import de.kkendzia.myintranet.app._framework.cqrs.CommandHandler.Command;
+import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler;
+import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler.Command;
+import de.kkendzia.myintranet.app._framework.result.VoidResult;
 import de.kkendzia.myintranet.domain._core.repository.Repository;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
 import org.springframework.stereotype.Component;
 
-import static de.kkendzia.myintranet.app._framework.cqrs.CommandHandler.CommandResult.success;
 import static java.util.Objects.requireNonNull;
 
 public record CreateUser(
@@ -42,7 +42,7 @@ public record CreateUser(
         }
 
         @Override
-        public CommandResult<Failure> executeResult(final CreateUser command)
+        public VoidResult<Failure> run(final CreateUser command)
         {
             final EIUser user = new EIUser(
                     command.userId() != null ? command.userId() : new EIUserID(),
@@ -53,7 +53,7 @@ public record CreateUser(
 
             repository.add(user);
 
-            return success();
+            return VoidResult.success();
         }
     }
 

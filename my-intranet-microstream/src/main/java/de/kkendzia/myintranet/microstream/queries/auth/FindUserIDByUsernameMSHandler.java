@@ -1,5 +1,6 @@
 package de.kkendzia.myintranet.microstream.queries.auth;
 
+import de.kkendzia.myintranet.app._framework.result.ListResult;
 import de.kkendzia.myintranet.app.useractions.queries.FindUserIDByUsername;
 import de.kkendzia.myintranet.app.useractions.queries.FindUserIDByUsername.Failure;
 import de.kkendzia.myintranet.domain.user.EIUser;
@@ -23,7 +24,7 @@ public class FindUserIDByUsernameMSHandler
     }
 
     @Override
-    public ListQueryResult<EIUserID, Failure> fetchAll(final FindUserIDByUsername query)
+    public ListResult<EIUserID, Failure> fetchAll(final FindUserIDByUsername query)
     {
         // TODO: optimize failures
         final EIUser u =
@@ -35,6 +36,6 @@ public class FindUserIDByUsernameMSHandler
                         .findFirst()
                         .orElseThrow();
 
-        return ListQueryResult.success(List.of(u.getId()));
+        return ListResult.success(List.of(u.getId()));
     }
 }

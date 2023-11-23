@@ -1,11 +1,8 @@
 package de.kkendzia.myintranet.ei.core.security;
 
 import com.vaadin.flow.spring.security.VaadinWebSecurity;
-import de.kkendzia.myintranet.app._framework.cqrs.QueryMediator;
+import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
 import de.kkendzia.myintranet.app.auth.queries.EIAuthService;
-import de.kkendzia.myintranet.domain.user.*;
-import de.kkendzia.myintranet.domain.permission.PermissionRepository;
-import de.kkendzia.myintranet.domain.role.RoleRepository;
 import de.kkendzia.myintranet.ei.ui.views.login.LoginView;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

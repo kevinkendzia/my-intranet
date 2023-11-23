@@ -2,8 +2,8 @@ package de.kkendzia.myintranet.ei.core.session;
 
 import com.vaadin.flow.spring.annotation.VaadinSessionScope;
 import com.vaadin.flow.spring.security.AuthenticationContext;
-import de.kkendzia.myintranet.app._framework.cqrs.CommandMediator;
-import de.kkendzia.myintranet.app._framework.cqrs.QueryMediator;
+import de.kkendzia.myintranet.app._framework.cqrs.command.CommandMediator;
+import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
 import de.kkendzia.myintranet.app.useractions.commands.AddFavoriteAction;
 import de.kkendzia.myintranet.app.useractions.commands.AddRecentAction;
 import de.kkendzia.myintranet.app.useractions.queries.FindFavoriteActions;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 import java.util.List;
 
-import static de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.Paging.firstPage;
+import static de.kkendzia.myintranet.app._framework.cqrs.query.paged.Paging.firstPage;
 import static java.util.Collections.unmodifiableList;
 
 @Component
@@ -61,7 +61,7 @@ public class EISession implements Serializable
     public List<ActionItem> getFavoriteActions()
     {
         return unmodifiableList(queryMediator.fetchAll(new FindFavoriteActions(getCurrentUserID()), firstPage(5))
-                .asList());
+                .toList());
     }
 
     public void addFavoriteAction(ActionItem action)
@@ -72,7 +72,7 @@ public class EISession implements Serializable
     public List<ActionItem> getPreviousActions()
     {
         return unmodifiableList(queryMediator.fetchAll(new FindRecentActions(getCurrentUserID()), firstPage(5))
-                .asList());
+                .toList());
     }
 
     public void addPreviousAction(ActionItem action)

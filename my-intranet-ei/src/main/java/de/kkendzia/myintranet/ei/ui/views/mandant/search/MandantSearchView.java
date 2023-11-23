@@ -3,14 +3,14 @@ package de.kkendzia.myintranet.ei.ui.views.mandant.search;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.app.search.mandant.MandantSearchService.MandantSearchFilters;
-import de.kkendzia.myintranet.app.search.mandant.MandantSearchService.MandantSearchItem;
-import de.kkendzia.myintranet.ei.core.view.search.SearchParameters;
+import de.kkendzia.myintranet.app.search.queries.SearchMandanten;
+import de.kkendzia.myintranet.app.search.queries.SearchMandanten.ResultItem;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
+import de.kkendzia.myintranet.ei.core.view.search.SearchParameters;
+import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
+import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout;
 import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout.NavigationAction.NavigateWithId;
-import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
 import jakarta.annotation.security.PermitAll;
@@ -27,7 +27,7 @@ import static java.util.Objects.requireNonNull;
 @Route(value = MandantSearchView.NAV, layout = EIMainLayout.class)
 @MenuRoute(label = SEARCH, parent = MANDANTEN, position = 1)
 @PermitAll
-public final class MandantSearchView extends AbstractEIView<SearchLayout<MandantSearchItem>>
+public final class MandantSearchView extends AbstractEIView<SearchLayout<ResultItem>>
 {
     public static final String NAV = NAV_ROOT + "/search";
 
@@ -40,11 +40,11 @@ public final class MandantSearchView extends AbstractEIView<SearchLayout<Mandant
 
         setToolbarConfig(new ToolbarConfiguration(getTranslation(SEARCH)));
 
-        SearchLayout<MandantSearchItem> root = getContent();
-        root.setNavigationAction(new NavigateWithId<>(MandantDetailView.class, MandantSearchItem::id));
+        SearchLayout<ResultItem> root = getContent();
+        root.setNavigationAction(new NavigateWithId<>(MandantDetailView.class, ResultItem::idString));
 
-        Grid<MandantSearchItem> grid = root.getGrid();
-        addCollapsedColumn(grid, getTranslation(NAME), MandantSearchItem::name);
+        Grid<ResultItem> grid = root.getGrid();
+        addCollapsedColumn(grid, getTranslation(NAME), ResultItem::name);
         addSpacerColumn(grid);
 
         root.setItems(presenter.getSearchDataProvider());
@@ -55,8 +55,8 @@ public final class MandantSearchView extends AbstractEIView<SearchLayout<Mandant
     {
         String searchtext = qpValues(SearchParameters.SEARCH_TEXT).findFirst().orElse("");
 
-        SearchLayout<MandantSearchItem> layout = getContent();
+        SearchLayout<ResultItem> layout = getContent();
         layout.setSearchText(searchtext);
-        presenter.search(new MandantSearchFilters(searchtext));
+        presenter.search(new SearchMandanten(searchtext));
     }
 }

@@ -1,6 +1,6 @@
 package de.kkendzia.myintranet.app.mandant.queries;
 
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler;
+import de.kkendzia.myintranet.app._framework.cqrs.query.QueryHandler;
 import de.kkendzia.myintranet.app._shared.FindByIDFailure;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 

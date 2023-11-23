@@ -1,9 +1,10 @@
 package de.kkendzia.myintranet.app.search.queries;
 
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler;
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.Query;
+import de.kkendzia.myintranet.app._framework.cqrs.query.QueryHandler;
+import de.kkendzia.myintranet.app._framework.cqrs.query.paged.PagedQuery;
+import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
 
-public record SearchEIUsers(String searchtext) implements Query<SearchEIUsers.ResultItem, SearchEIUsers.Failure>
+public record SearchEIUsers(String searchtext) implements PagedQuery<SearchEIUsers.ResultItem, SearchEIUsers.Failure>
 {
     interface SearchEIUserHandler extends QueryHandler<SearchEIUsers, SearchEIUsers.ResultItem, SearchEIUsers.Failure>
     {
@@ -15,10 +16,13 @@ public record SearchEIUsers(String searchtext) implements Query<SearchEIUsers.Re
     }
 
     public record ResultItem(
-            long id,
+            EIUserID id,
             String name)
     {
-        // just a record
+        public String idString()
+        {
+            return id().toString();
+        }
     }
 
     public enum Failure

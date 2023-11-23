@@ -1,11 +1,14 @@
 package de.kkendzia.myintranet.app.search.queries;
 
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler;
-import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.Query;
+import de.kkendzia.myintranet.app._framework.cqrs.query.QueryHandler;
+import de.kkendzia.myintranet.app._framework.cqrs.query.paged.PagedQuery;
+import de.kkendzia.myintranet.domain.permission.Permission.PermissionID;
 
-public record SearchPermissions(String searchtext) implements Query<SearchPermissions.ResultItem, SearchPermissions.Failure>
+public record SearchPermissions(String searchtext)
+        implements PagedQuery<SearchPermissions.ResultItem, SearchPermissions.Failure>
 {
-    public interface SearchPermissionsHandler extends QueryHandler<SearchPermissions, SearchPermissions.ResultItem, SearchPermissions.Failure>
+    public interface SearchPermissionsHandler
+            extends QueryHandler<SearchPermissions, SearchPermissions.ResultItem, SearchPermissions.Failure>
     {
         @Override
         default Class<SearchPermissions> getQueryClass()
@@ -15,10 +18,13 @@ public record SearchPermissions(String searchtext) implements Query<SearchPermis
     }
 
     public record ResultItem(
-            long id,
+            PermissionID id,
             String name)
     {
-        // just a record
+        public String idString()
+        {
+            return id().toString();
+        }
     }
 
     public enum Failure

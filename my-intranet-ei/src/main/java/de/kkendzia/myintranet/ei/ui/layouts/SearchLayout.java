@@ -109,16 +109,16 @@ public class SearchLayout<T> extends Composite<VerticalLayout>
     {
         void execute(T item);
 
-        class NavigateWithId<T, C extends Component & HasUrlParameter<Long>> implements NavigationAction<T>
+        class NavigateWithId<T, C extends Component & HasUrlParameter<I>, I> implements NavigationAction<T>
         {
             private static final Logger LOGGER = LoggerFactory.getLogger(NavigateWithId.class);
 
             private final Class<C> target;
-            private final SerializableFunction<T, Long> idProvider;
+            private final SerializableFunction<T, I> idProvider;
 
             public NavigateWithId(
                     Class<C> target,
-                    SerializableFunction<T, Long> idProvider)
+                    SerializableFunction<T, I> idProvider)
             {
                 this.target = requireNonNull(target, "target can't be null!");
                 this.idProvider = requireNonNull(idProvider, "idProvider can't be null!");
@@ -127,7 +127,7 @@ public class SearchLayout<T> extends Composite<VerticalLayout>
             @Override
             public void execute(T item)
             {
-                Long id = idProvider.apply(item);
+                I id = idProvider.apply(item);
                 if (id != null)
                 {
                     UI.getCurrent().navigate(target, id);
