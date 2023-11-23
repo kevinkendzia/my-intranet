@@ -31,10 +31,11 @@ public class QueryMediator
         return getHandler(query).fetchOne(query);
     }
 
-    public <Q extends Query<R, F>, R, F> ListQueryResult<R, F> fetchAll(Q query, Paging<R> paging)
+    public <Q extends PagedQuery<R, F>, R, F> ListQueryResult<R, F> fetchAll(Q query, Paging paging)
     {
         return getHandler(query).fetchAll(query, paging);
     }
+
     public <Q extends Query<R, F>, R, F> ListQueryResult<R, F> fetchAll(Q query)
     {
         return getHandler(query).fetchAll(query);
@@ -44,5 +45,10 @@ public class QueryMediator
     private <Q extends Query<R, F>, R, F> QueryHandler<Q, R, F> getHandler(final Q query)
     {
         return (QueryHandler<Q, R, F>) queryHandlerMap.get(query.getClass());
+    }
+    @SuppressWarnings("unchecked")
+    private <Q extends PagedQuery<R, F>, R, F> PagedQueryHandler<Q, R, F> getHandler(final Q query)
+    {
+        return (PagedQueryHandler<Q, R, F>) queryHandlerMap.get(query.getClass());
     }
 }

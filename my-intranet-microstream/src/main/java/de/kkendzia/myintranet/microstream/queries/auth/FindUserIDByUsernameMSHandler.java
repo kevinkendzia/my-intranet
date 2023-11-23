@@ -14,7 +14,7 @@ import java.util.Objects;
 
 @Component
 public class FindUserIDByUsernameMSHandler
-        extends AbstractMSQueryHandler<FindUserIDByUsername, EIUserID, Failure>
+        extends AbstractMSQueryHandler
         implements FindUserIDByUsername.FindUserIDByUsernameHandler
 {
     public FindUserIDByUsernameMSHandler(final MyIntranetRoot root, final StorageManager storageManager)
@@ -23,7 +23,7 @@ public class FindUserIDByUsernameMSHandler
     }
 
     @Override
-    public ListQueryResult<EIUserID, Failure> fetchAll(final FindUserIDByUsername query, final Paging paging)
+    public ListQueryResult<EIUserID, Failure> fetchAll(final FindUserIDByUsername query)
     {
         // TODO: optimize failures
         final EIUser u =

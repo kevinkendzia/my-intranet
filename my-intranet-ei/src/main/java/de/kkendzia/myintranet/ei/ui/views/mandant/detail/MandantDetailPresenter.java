@@ -2,7 +2,11 @@ package de.kkendzia.myintranet.ei.ui.views.mandant.detail;
 
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
+import de.kkendzia.myintranet.app._framework.cqrs.CommandMediator;
+import de.kkendzia.myintranet.app._framework.cqrs.QueryMediator;
+import de.kkendzia.myintranet.app.mandant.queries.FindMandantByID;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
+import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 import de.kkendzia.myintranet.domain.mandant.MandantRepository;
 import de.kkendzia.myintranet.domain.mandant.MandantSetting;
 import de.kkendzia.myintranet.ei.core.presenter.EIPresenter;
@@ -24,26 +28,33 @@ public class MandantDetailPresenter implements EIPresenter
 {
     private static final String DATE_FORMAT = "dd.MM.yyyy";
 
-    @Autowired
-    private MandantRepository mandantDAO;
-    @Autowired
-    private MandantSettingDAO mandantSettingDAO;
+    private QueryMediator quMediator;
+    private CommandMediator cmdMediator;
 
     // STATE
     private Mandant mandant;
 
-    public void loadMandantById(long id)
+    public MandantDetailPresenter(final QueryMediator quMediator, final CommandMediator cmdMediator)
     {
-        this.mandant = mandantDAO.findOptionalById(id).orElseThrow(UnknownIDException::new);
+        this.quMediator = quMediator;
+        this.cmdMediator = cmdMediator;
+    }
+
+    public void loadMandantById(MandantID id)
+    {
+        this.mandant = quMediator.fetchOne(new FindMandantByID(id)).getData();
     }
 
     public void createMandant()
     {
-        this.mandant = new Mandant(0, "", "");
+        this.mandant = new Mandant("x", "unknown");
     }
 
     public void updateMandant()
     {
+        cmdMediator.execute(new CreateMandant());
+        cmdMediator.execute(new UpdateMandant());
+
         if (mandant.getId() <= 0)
         {
             this.mandant = mandantDAO.create(mandant);

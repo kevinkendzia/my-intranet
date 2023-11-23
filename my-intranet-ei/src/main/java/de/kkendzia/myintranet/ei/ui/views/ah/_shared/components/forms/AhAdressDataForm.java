@@ -4,7 +4,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.TextField;
 import de.kkendzia.myintranet.domain.country.Country;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhAdressData;
+import de.kkendzia.myintranet.app.ah.commands.AhAdressData;
 
 import java.util.Collection;
 import java.util.Objects;

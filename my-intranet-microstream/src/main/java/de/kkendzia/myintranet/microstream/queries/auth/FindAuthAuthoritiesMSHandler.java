@@ -9,9 +9,11 @@ import de.kkendzia.myintranet.domain.role.RolePermission;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
+import de.kkendzia.myintranet.microstream._framework.AbstractPagedMSQueryHandler;
 import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
+import java.util.*;
 import java.util.stream.Stream;
 
 import static de.kkendzia.myintranet.app._utils.Reduce.toOnlyElement;
@@ -19,7 +21,7 @@ import static java.util.Comparator.comparing;
 
 @Component
 public class FindAuthAuthoritiesMSHandler
-        extends AbstractMSQueryHandler<FindAuthAuthorities, AuthAuthority, Failure>
+        extends AbstractMSQueryHandler
         implements FindAuthAuthoritiesHandler
 {
     public FindAuthAuthoritiesMSHandler(
@@ -47,9 +49,7 @@ public class FindAuthAuthoritiesMSHandler
     }
 
     @Override
-    public ListQueryResult<AuthAuthority, Failure> fetchAll(
-            final FindAuthAuthorities query,
-            Paging paging)
+    public ListQueryResult<AuthAuthority, Failure> fetchAll(final FindAuthAuthorities query)
     {
         final EIUser user = fetchUser(query);
 
@@ -58,7 +58,7 @@ public class FindAuthAuthoritiesMSHandler
             return ListQueryResult.failure(Failure.NO_USER);
         }
 
-        final Stream<AuthAuthority> authorities =
+        final List<AuthAuthority> authorities =
                 user
                         .getRoles()
                         .ids()
@@ -71,9 +71,10 @@ public class FindAuthAuthoritiesMSHandler
                                         .stream()
                                         .map(this::getPermissionName)
                                         .sorted(String.CASE_INSENSITIVE_ORDER)))
-                        .map(AuthAuthority::new);
+                        .map(AuthAuthority::new)
+                        .toList();
 
-        return map(authorities, paging);
+        return ListQueryResult.success(authorities);
     }
 
 

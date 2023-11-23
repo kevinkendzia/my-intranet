@@ -1,17 +1,17 @@
 package de.kkendzia.myintranet.ei.ui.views.ah.create;
 
+import de.kkendzia.myintranet.app._framework.cqrs.CommandMediator;
+import de.kkendzia.myintranet.app.ah.commands.CreateAh;
 import de.kkendzia.myintranet.domain.ah.Ah;
+import de.kkendzia.myintranet.domain.ah.AhAdress;
 import de.kkendzia.myintranet.domain.ah.AhRepository;
-import de.kkendzia.myintranet.domain.shared.adress.Adress;
-import de.kkendzia.myintranet.domain.shared.adress.AdressDAO;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.domain.mandant.MandantRepository;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhAdressData;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhCoreData;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhMemberData;
+import de.kkendzia.myintranet.app.ah.commands.AhAdressData;
+import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
+import de.kkendzia.myintranet.app.ah.commands.AhMemberData;
 import de.kkendzia.myintranet.ei.ui.views.ah.create.model.AhCreateRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Comparator;
 import java.util.List;
@@ -21,17 +21,18 @@ import static java.util.Objects.requireNonNull;
 @Presenter
 public class AhCreatePresenter
 {
-    @Autowired
     private AhRepository ahDAO;
-    @Autowired
-    private AdressDAO adressDAO;
-    @Autowired
     private MandantRepository mandantDAO;
+
+    private CommandMediator cmdMediator;
 
     // TODO Transactions?
     // TODO MapStruct?
     public long create(AhCreateRequest request)
     {
+        cmdMediator.execute(new CreateAh(request.coreData(),request.adressData(),request.memberData()));
+
+
         requireNonNull(request, "request can't be null!");
         AhCoreData coreData = requireNonNull(request.coreData(), "request.coreData() can't be null!");
         AhAdressData adressData = requireNonNull(
@@ -42,8 +43,7 @@ public class AhCreatePresenter
                 "request.memberData() can't be null!");
 
         // TODO Adresssuche?
-        Adress adress = new Adress(
-                0,
+        AhAdress adress = new AhAdress(
                 adressData.getLine1(),
                 adressData.getLine2(),
                 adressData.getStreet(),

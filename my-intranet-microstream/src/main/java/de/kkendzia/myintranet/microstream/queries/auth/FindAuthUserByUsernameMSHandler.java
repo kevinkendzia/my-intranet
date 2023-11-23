@@ -1,5 +1,8 @@
 package de.kkendzia.myintranet.microstream.queries.auth;
 
+import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler;
+import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.ListQueryResult;
+import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.Paging;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthUserByUsername;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthUserByUsername.Failure;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthUserByUsername.FindAuthUserByUsernameHandler;
@@ -7,17 +10,21 @@ import de.kkendzia.myintranet.app.auth.shared.AuthUser;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
+import de.kkendzia.myintranet.microstream._framework.AbstractPagedMSQueryHandler;
 import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
 import static de.kkendzia.myintranet.app._utils.Reduce.toOnlyElement;
+import static java.util.Comparator.comparing;
 
 @Component
 public class FindAuthUserByUsernameMSHandler
-        extends AbstractMSQueryHandler<FindAuthUserByUsername, AuthUser, Failure>
+        extends AbstractPagedMSQueryHandler<EIUser>
         implements FindAuthUserByUsernameHandler
 {
     public FindAuthUserByUsernameMSHandler(
@@ -25,6 +32,7 @@ public class FindAuthUserByUsernameMSHandler
             final StorageManager storageManager)
     {
         super(root, storageManager);
+        registerSortOrder("username", comparing(EIUser::getUserName));
     }
 
     @Override
@@ -32,30 +40,15 @@ public class FindAuthUserByUsernameMSHandler
             final FindAuthUserByUsername query,
             final Paging paging)
     {
-        return map(fetchUsers(query), x -> , paging);
+        final List<AuthUser> result =
+                applyPaging(fetchUsers(query), paging)
+                        .map(this::mapUser)
+                        .toList();
 
-        if (paging != null)
-        {
-            requireNoOrders(paging);
-            if (paging.comparator() != null)
-            {
-                return ListQueryResult.success(fetchUsers(query)
-                        .skip(paging.offset())
-                        .limit(paging.limit())
-                        .map(FindAuthUserByUsernameMSHandler::mapUser)
-                        .sorted(paging.comparator())
-                        .toList());
-            }
-            return ListQueryResult.success(fetchUsers(query)
-                    .skip(paging.offset())
-                    .limit(paging.limit())
-                    .map(FindAuthUserByUsernameMSHandler::mapUser)
-                    .toList());
-        }
-        return ListQueryResult.success(fetchUsers(query).map(FindAuthUserByUsernameMSHandler::mapUser).toList());
+        return ListQueryResult.success(result);
     }
 
-    private static AuthUser mapUser(final EIUser u)
+    private AuthUser mapUser(final EIUser u)
     {
         return new AuthUser(u.getId(), u.getUserName(), u.getPassword());
     }

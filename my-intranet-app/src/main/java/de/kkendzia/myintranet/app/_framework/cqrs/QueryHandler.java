@@ -1,11 +1,13 @@
 package de.kkendzia.myintranet.app._framework.cqrs;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static de.kkendzia.myintranet.app._utils.Reduce.toOnlyElement;
+import static java.util.Collections.emptyList;
 
 public interface QueryHandler<Q extends QueryHandler.Query<R, F>, R, F>
 {
@@ -21,16 +23,25 @@ public interface QueryHandler<Q extends QueryHandler.Query<R, F>, R, F>
         return fetchAll(query).count();
     }
 
-    ListQueryResult<R, F> fetchAll(Q query, Paging paging);
-
-    default ListQueryResult<R, F> fetchAll(Q query)
-    {
-        return fetchAll(query, null);
-    }
+    ListQueryResult<R, F> fetchAll(Q query);
 
     //region TYPES
     interface Query<R, F>
     {
+    }
+
+    interface PagedQuery<R, F> extends Query<R, F>
+    {
+    }
+
+    interface PagedQueryHandler<Q extends PagedQuery<R, F>, R, F>
+    {
+        ListQueryResult<R, F> fetchAll(Q query, Paging paging);
+
+        default ListQueryResult<R, F> fetchAll(Q query)
+        {
+            return fetchAll(query, null);
+        }
     }
 
     record Paging(
@@ -38,6 +49,15 @@ public interface QueryHandler<Q extends QueryHandler.Query<R, F>, R, F>
             int limit,
             List<Order> orders)
     {
+        public static Paging firstPage(int limit, List<Order> orders)
+        {
+            return new QueryHandler.Paging(0, limit, orders);
+        }
+
+        public static Paging firstPage(int limit)
+        {
+            return firstPage(limit, emptyList());
+        }
     }
 
     record Order(
@@ -117,6 +137,11 @@ public interface QueryHandler<Q extends QueryHandler.Query<R, F>, R, F>
             return getData().stream();
         }
 
+        default List<R> asList()
+        {
+            return stream().toList();
+        }
+
         default long count()
         {
             return getData().size();
@@ -156,6 +181,10 @@ public interface QueryHandler<Q extends QueryHandler.Query<R, F>, R, F>
                     return data;
                 }
             };
+        }
+        static <R, F> ListQueryResult<R, F> success(R data)
+        {
+            return success(List.of(data));
         }
 
         static <R, F> ListQueryResult<R, F> success()

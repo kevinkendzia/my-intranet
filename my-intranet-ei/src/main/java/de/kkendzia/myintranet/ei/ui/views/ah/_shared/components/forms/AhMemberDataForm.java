@@ -7,7 +7,7 @@ import de.kkendzia.myintranet.domain.mitgliedsform.MitgliedsForm;
 import de.kkendzia.myintranet.domain.regulierer.Regulierer;
 import de.kkendzia.myintranet.domain.verband.Verband;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhMemberData;
+import de.kkendzia.myintranet.app.ah.commands.AhMemberData;
 
 import java.util.Collection;
 import java.util.List;

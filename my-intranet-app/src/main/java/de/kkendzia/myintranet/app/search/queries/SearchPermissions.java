@@ -5,7 +5,7 @@ import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.Query;
 
 public record SearchPermissions(String searchtext) implements Query<SearchPermissions.ResultItem, SearchPermissions.Failure>
 {
-    interface SearchPermissionsHandler extends QueryHandler<SearchPermissions, SearchPermissions.ResultItem, SearchPermissions.Failure>
+    public interface SearchPermissionsHandler extends QueryHandler<SearchPermissions, SearchPermissions.ResultItem, SearchPermissions.Failure>
     {
         @Override
         default Class<SearchPermissions> getQueryClass()
@@ -14,7 +14,7 @@ public record SearchPermissions(String searchtext) implements Query<SearchPermis
         }
     }
 
-    record ResultItem(
+    public record ResultItem(
             long id,
             String name)
     {

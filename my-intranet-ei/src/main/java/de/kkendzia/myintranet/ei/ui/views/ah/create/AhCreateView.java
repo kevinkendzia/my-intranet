@@ -24,9 +24,9 @@ import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.Si
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhAdressDataForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhCoreDataForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhMemberDataForm;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhAdressData;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhCoreData;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhMemberData;
+import de.kkendzia.myintranet.app.ah.commands.AhAdressData;
+import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
+import de.kkendzia.myintranet.app.ah.commands.AhMemberData;
 import de.kkendzia.myintranet.ei.ui.views.ah.create.model.AhCreateRequest;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import jakarta.annotation.security.PermitAll;

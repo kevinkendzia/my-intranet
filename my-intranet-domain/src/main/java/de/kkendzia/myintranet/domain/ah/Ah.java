@@ -38,6 +38,7 @@ public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
             final String matchcode,
             final LocalDate enterDate,
             final MandantID mandant,
+            AhAdress adress,
             final ReguliererID regulator,
             final VerbandID verband,
             final MitgliedsFormID membershipForm)
@@ -47,6 +48,9 @@ public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
 
         this.enterDate = enterDate;
         this.mandant = SingleAssociation.fromID(mandant);
+
+        this.adress=adress;
+
         this.regulator = SingleAssociation.fromID(regulator);
         this.verband = SingleAssociation.fromID(verband);
         this.membershipForm = SingleAssociation.fromID(membershipForm);

@@ -4,9 +4,9 @@ import de.kkendzia.myintranet.domain.ah.AhRepository;
 import de.kkendzia.myintranet.ei.core.presenter.AbstractStatefullPresenter;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
 import de.kkendzia.myintranet.ei.ui.errors.UnknownIDError.UnknownIDException;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhAdressData;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhCoreData;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhMemberData;
+import de.kkendzia.myintranet.app.ah.commands.AhAdressData;
+import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
+import de.kkendzia.myintranet.app.ah.commands.AhMemberData;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.model.AhDetailModel;
 
 import static java.util.Objects.requireNonNull;

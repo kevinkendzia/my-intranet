@@ -4,6 +4,8 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.Route;
+import de.kkendzia.myintranet.domain.mandant.Mandant;
+import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.parameters.HasViewParameter;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
@@ -21,6 +23,8 @@ import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.Notification.Error.Message;
@@ -31,7 +35,7 @@ import static de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer.EIMenuKeys.MAND
 @Route(value = MandantDetailView.NAV, layout = EIMainLayout.class)
 @MenuRoute(label = CREATE, parent = MANDANTEN, position = 0)
 @PermitAll
-public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPage>> implements HasViewParameter<Long>
+public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPage>> implements HasViewParameter<String>
 {
     public static final String NAV = MandantRoutes.NAV_ROOT;
     private final MandantDetailPresenter presenter;
@@ -101,13 +105,13 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
         {
             presenter.updateMandant();
             getContent().refreshPages();
-            setViewParameter(presenter.getMandant().getId());
+            setViewParameter(presenter.getMandant().getId().getValue().toString());
             showSuccess(getTranslation(SUCCESS));
         }
     }
 
     @Override
-    public void setParameter(BeforeEvent event, @OptionalParameter Long parameter)
+    public void setParameter(BeforeEvent event, @OptionalParameter String parameter)
     {
         HasViewParameter.super.setParameter(event, parameter);
     }
@@ -115,22 +119,22 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
     @Override
     public void beforeEnterView(BeforeEnterEvent event)
     {
-        Long id = getViewParameter();
-        if (id != null)
+        String id = getViewParameter();
+        if (id == null)
         {
-            if (id == 0)
+            event.forwardTo(MandantDetailView.class, "new");
+        }
+        else
+        {
+            if (Objects.equals(id, "new"))
             {
                 presenter.createMandant();
             }
             else
             {
-                presenter.loadMandantById(id);
+                presenter.loadMandantById(new MandantID(UUID.fromString(id)));
             }
             getContent().refreshPages();
-        }
-        else
-        {
-            event.forwardTo(MandantDetailView.class, 0L);
         }
     }
 }

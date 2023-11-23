@@ -10,7 +10,7 @@ import de.kkendzia.myintranet.domain.ah.Ah.Ahnr;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhCoreData;
+import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
 
 import java.util.Collection;
 import java.util.List;

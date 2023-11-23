@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.app._framework;
+package de.kkendzia.myintranet.app._shared;
 
 public record SimpleSearchFilters(String searchText)
 {

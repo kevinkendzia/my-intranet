@@ -1,8 +1,8 @@
 package de.kkendzia.myintranet.ei.ui.views.ah.create.model;
 
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhAdressData;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhCoreData;
-import de.kkendzia.myintranet.ei.ui.views.ah._shared.model.AhMemberData;
+import de.kkendzia.myintranet.app.ah.commands.AhAdressData;
+import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
+import de.kkendzia.myintranet.app.ah.commands.AhMemberData;
 
 import java.io.Serializable;
 

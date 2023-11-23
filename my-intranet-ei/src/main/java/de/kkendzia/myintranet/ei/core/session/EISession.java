@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 import java.util.List;
 
+import static de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.Paging.firstPage;
 import static java.util.Collections.unmodifiableList;
 
 @Component
@@ -47,7 +48,7 @@ public class EISession implements Serializable
             final var u = context
                     .getAuthenticatedUser(User.class)
                     .orElseThrow(() -> new IllegalStateException("No User-Principal set in SecurityContext!"));
-            userId = queryMediator.execute(new FindUserIDByUsername(u.getUsername()));
+            userId = queryMediator.fetchOne(new FindUserIDByUsername(u.getUsername())).getData();
         }
         return userId;
     }
@@ -59,7 +60,8 @@ public class EISession implements Serializable
 
     public List<ActionItem> getFavoriteActions()
     {
-        return unmodifiableList(queryMediator.execute(new FindFavoriteActions(getCurrentUserID(), 5)));
+        return unmodifiableList(queryMediator.fetchAll(new FindFavoriteActions(getCurrentUserID()), firstPage(5))
+                .asList());
     }
 
     public void addFavoriteAction(ActionItem action)
@@ -69,7 +71,8 @@ public class EISession implements Serializable
 
     public List<ActionItem> getPreviousActions()
     {
-        return unmodifiableList(queryMediator.execute(new FindRecentActions(getCurrentUserID(), 5)));
+        return unmodifiableList(queryMediator.fetchAll(new FindRecentActions(getCurrentUserID()), firstPage(5))
+                .asList());
     }
 
     public void addPreviousAction(ActionItem action)

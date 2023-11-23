@@ -3,6 +3,8 @@ package de.kkendzia.myintranet.app.search.queries;
 import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler;
 import de.kkendzia.myintranet.app._framework.cqrs.QueryHandler.Query;
 
+import java.time.LocalDate;
+
 public record SearchAhs(String searchtext) implements Query<SearchAhs.ResultItem, SearchAhs.Failure>
 {
     interface SearchAhsHandler extends QueryHandler<SearchAhs, SearchAhs.ResultItem, SearchAhs.Failure>
@@ -14,9 +16,12 @@ public record SearchAhs(String searchtext) implements Query<SearchAhs.ResultItem
         }
     }
 
-    record ResultItem(
+    public record ResultItem(
             long id,
-            String name)
+            int ahnr,
+            String matchcode,
+            LocalDate enterDate,
+            LocalDate exitDate)
     {
         // just a record
     }

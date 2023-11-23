@@ -21,6 +21,12 @@ public final class Mandant extends AbstractAggregateRoot<Mandant, Mandant.Mandan
         this.name = name;
     }
 
+    public Mandant(final String key, final String name)
+    {
+        this.key = key;
+        this.name = name;
+    }
+
     public String getKey()
     {
         return key;

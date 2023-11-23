@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.views.ah._shared.model;
+package de.kkendzia.myintranet.app.ah.commands;
 
 import de.kkendzia.myintranet.domain.country.Country;
 

@@ -3,8 +3,10 @@ package de.kkendzia.myintranet.ei.ui.views.admin.permission.search;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.app._framework.SimpleSearchFilters;
-import de.kkendzia.myintranet.app._framework.SimpleSearchItem;
+import de.kkendzia.myintranet.app._shared.SimpleSearchFilters;
+import de.kkendzia.myintranet.app._shared.SimpleSearchItem;
+import de.kkendzia.myintranet.app.search.queries.SearchPermissions;
+import de.kkendzia.myintranet.app.search.queries.SearchPermissions.ResultItem;
 import de.kkendzia.myintranet.domain.permission.Permission;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.view.search.SearchParameters;
@@ -25,7 +27,7 @@ import static java.util.Objects.requireNonNull;
 @Route(value = AdminPermissionSearchView.NAV, layout = EIMainLayout.class)
 @MenuRoute(label = TranslationKeys.SEARCH, parent = EIDrawer.EIMenuKeys.PERMISSION)
 @RolesAllowed(Permission.ROOT)
-public class AdminPermissionSearchView extends AbstractEIView<SearchLayout<SimpleSearchItem>>
+public class AdminPermissionSearchView extends AbstractEIView<SearchLayout<ResultItem>>
 {
     public static final String NAV = "admin/permission";
     private final AdminPermissionSearchPresenter presenter;
@@ -34,11 +36,11 @@ public class AdminPermissionSearchView extends AbstractEIView<SearchLayout<Simpl
     {
         this.presenter = requireNonNull(presenter, "presenter can't be null!");
 
-        SearchLayout<SimpleSearchItem> root = getContent();
-        root.setNavigationAction(new NavigateWithId<>(MandantDetailView.class, SimpleSearchItem::id));
+        SearchLayout<ResultItem> root = getContent();
+        root.setNavigationAction(new NavigateWithId<>(MandantDetailView.class, ResultItem::id));
 
-        Grid<SimpleSearchItem> grid = root.getGrid();
-        addCollapsedColumn(grid, getTranslation(NAME), SimpleSearchItem::name);
+        Grid<ResultItem> grid = root.getGrid();
+        addCollapsedColumn(grid, getTranslation(NAME), ResultItem::name);
         addSpacerColumn(grid);
 
         grid.setItems(presenter.getSearchDataProvider());
@@ -49,8 +51,8 @@ public class AdminPermissionSearchView extends AbstractEIView<SearchLayout<Simpl
     {
         String searchtext = qpValues(SearchParameters.SEARCH_TEXT).findFirst().orElse("");
 
-        SearchLayout<SimpleSearchItem> layout = getContent();
+        SearchLayout<ResultItem> layout = getContent();
         layout.setSearchText(searchtext);
-        presenter.search(new SimpleSearchFilters(searchtext));
+        presenter.search(new SearchPermissions(searchtext));
     }
 }
