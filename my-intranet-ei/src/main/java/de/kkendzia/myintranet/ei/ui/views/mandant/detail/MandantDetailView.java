@@ -4,33 +4,32 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.domain.mandant.Mandant;
-import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.parameters.HasViewParameter;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.page.SaveablePage;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs;
+import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs.PagedTab;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.layouts.TabsLayout;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
+import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailPresenter.EditMode;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages.MandantDetailPage;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages.MandantDetailsPage;
-import de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages.MandantSettingsPage;
 import de.kkendzia.myintranet.ei.ui.views.mandant.routes.MandantRoutes;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.Notification.Error.Message;
+import static de.kkendzia.myintranet.ei.core.utils.HistoryUtil.updateUrl;
 import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showError;
 import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showSuccess;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer.EIMenuKeys.MANDANTEN;
+import static java.util.Objects.requireNonNull;
 
 @Route(value = MandantDetailView.NAV, layout = EIMainLayout.class)
 @MenuRoute(label = CREATE, parent = MANDANTEN, position = 0)
@@ -43,29 +42,28 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
     @Autowired
     public MandantDetailView(MandantDetailPresenter presenter)
     {
-        this.presenter = presenter;
+        this.presenter = requireNonNull(presenter, "presenter can't be null!");
 
         setPageTitle(getTranslation(TranslationKeys.MANDANT));
         setToolbarConfig(
                 () ->
                 {
-                    String title = getTranslation(TranslationKeys.MANDANT) + " " + presenter.getMandant().getName();
+                    String title = getTranslation(TranslationKeys.MANDANT) + " " + presenter.getSheet().getName();
                     ToolbarConfiguration tabConfig = getContent().getTabs().getSelectedPage().getToolbarConfig();
 
                     return new ToolbarConfiguration.Builder()
                             .title(title)
-                            .action(getTranslation(SAVE), () -> saveTabs(presenter))
+                            .action(getTranslation(SAVE), this::saveTabs)
                             .config(tabConfig)
                             .build();
                 });
 
         TabsLayout<MandantDetailPage> root = getContent();
         root.addSelectedPageChangeListener(e -> fireToolbarChange(e.isFromClient()));
-        root.add(new PagedTabs.PagedTab<>(getTranslation(DETAILS), new MandantDetailsPage(presenter)));
-        root.add(new PagedTabs.PagedTab<>(getTranslation(SETTINGS), new MandantSettingsPage(presenter)));
+        root.add(new PagedTab<>(getTranslation(DETAILS), new MandantDetailsPage(presenter)));
     }
 
-    private void saveTabs(MandantDetailPresenter presenter)
+    private void saveTabs()
     {
         PagedTabs<MandantDetailPage> tabs = getContent().getTabs();
         List<MandantDetailPage> pages = tabs.getPages();
@@ -76,7 +74,7 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
         for (MandantDetailPage page : pages)
         {
             if (page instanceof SaveablePage saveablePage
-                    && (presenter.getMandant().isNew() || saveablePage.hasChanges()))
+                    && (presenter.getMode() == EditMode.CREATE || saveablePage.hasChanges()))
             {
                 if (!saveablePage.validate().isOk())
                 {
@@ -103,9 +101,9 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
         }
         else
         {
-            presenter.updateMandant();
+            presenter.save();
             getContent().refreshPages();
-            setViewParameter(presenter.getMandant().getId().getValue().toString());
+            setViewParameter(presenter.getSheet().getId().getValue().toString());
             showSuccess(getTranslation(SUCCESS));
         }
     }
@@ -122,19 +120,10 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
         String id = getViewParameter();
         if (id == null)
         {
-            event.forwardTo(MandantDetailView.class, "new");
+            updateUrl(this, "new");
         }
-        else
-        {
-            if (Objects.equals(id, "new"))
-            {
-                presenter.createMandant();
-            }
-            else
-            {
-                presenter.loadMandantById(new MandantID(UUID.fromString(id)));
-            }
-            getContent().refreshPages();
-        }
+
+        presenter.init(id);
+        getContent().refreshPages();
     }
 }

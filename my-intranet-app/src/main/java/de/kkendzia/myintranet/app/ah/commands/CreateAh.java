@@ -4,6 +4,7 @@ import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler.IDComma
 import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler.IDCommandHandler;
 import de.kkendzia.myintranet.app._framework.result.SingleResult;
 import de.kkendzia.myintranet.app._shared.CreateFailure;
+import de.kkendzia.myintranet.app.ah._shared.AhSheet;
 import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.domain.ah.Ah.AhID;
 import de.kkendzia.myintranet.domain.ah.AhAdress;
@@ -13,9 +14,9 @@ import org.springframework.stereotype.Component;
 import static java.util.Objects.requireNonNull;
 
 public record CreateAh(
-        AhCoreData core,
-        AhAdressData adress,
-        AhMemberData memberShip)
+        AhSheet.CoreSection core,
+        AhSheet.AdressSection adress,
+        AhSheet.MembershipSection memberShip)
         implements IDCommand<AhID, CreateFailure>
 {
     public interface CreateAhHandler extends IDCommandHandler<CreateAh, AhID, CreateFailure>
@@ -42,13 +43,13 @@ public record CreateAh(
         {
             requireNonNull(command, "command can't be null!");
 
-            AhCoreData coreData = requireNonNull(
+            AhSheet.CoreSection coreData = requireNonNull(
                     command.core(),
                     "core can't be null!");
-            AhAdressData adressData = requireNonNull(
+            AhSheet.AdressSection adressData = requireNonNull(
                     command.adress(),
                     "adress can't be null!");
-            AhMemberData memberData = requireNonNull(
+            AhSheet.MembershipSection memberData = requireNonNull(
                     command.memberShip,
                     "memberShip can't be null!");
 

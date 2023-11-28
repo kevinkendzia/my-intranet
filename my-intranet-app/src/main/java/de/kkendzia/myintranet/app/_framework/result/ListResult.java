@@ -18,6 +18,11 @@ public interface ListResult<R, F> extends Result<List<R>, F>
         return stream().toList();
     }
 
+    default VoidResult<F> toVoid()
+    {
+        return isSuccess() ? VoidResult.success() : VoidResult.failure(getFailure());
+    }
+
     default long count()
     {
         return getData().size();

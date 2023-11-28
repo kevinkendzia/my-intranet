@@ -16,9 +16,4 @@ public interface Result<R, F>
     {
         return null;
     }
-
-    default VoidResult<F> toVoid()
-    {
-        return isSuccess() ? VoidResult.success() : VoidResult.failure(getFailure());
-    }
 }

@@ -2,7 +2,7 @@ package de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages;
 
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.BinderValidationStatus;
-import de.kkendzia.myintranet.domain.mandant.Mandant;
+import de.kkendzia.myintranet.app.mandant._shared.MandantSheet;
 import de.kkendzia.myintranet.ei.core.view.page.AbstractPage;
 import de.kkendzia.myintranet.ei.core.view.page.SaveablePage;
 import de.kkendzia.myintranet.ei.ui.components.upload.ImageUpload;
@@ -14,9 +14,10 @@ import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.DETAILS;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.IMAGE;
 import static java.util.Objects.requireNonNull;
 
-public class MandantDetailsPage extends AbstractPage<SectionLayout> implements MandantDetailPage, SaveablePage
+public class MandantDetailsPage extends AbstractPage<SectionLayout>
+        implements MandantDetailPage, SaveablePage<MandantSheet>
 {
-    private final Binder<Mandant> binder = new Binder<>();
+    private final Binder<MandantSheet> binder = new Binder<>();
     private final MandantForm frmMandant = new MandantForm(binder);
     private final ImageUpload imgUpload = new ImageUpload();
 
@@ -32,7 +33,7 @@ public class MandantDetailsPage extends AbstractPage<SectionLayout> implements M
 
         binder
                 .forField(imgUpload)
-                .bind(Mandant::getImage, Mandant::setImage);
+                .bind(MandantSheet::getImage, MandantSheet::setImage);
     }
 
     @Override
@@ -41,7 +42,8 @@ public class MandantDetailsPage extends AbstractPage<SectionLayout> implements M
         return frmMandant.hasChanges();
     }
 
-    public BinderValidationStatus<Mandant> validate()
+    @Override
+    public BinderValidationStatus<MandantSheet> validate()
     {
         return frmMandant.validate();
     }
@@ -52,9 +54,10 @@ public class MandantDetailsPage extends AbstractPage<SectionLayout> implements M
         frmMandant.getBean();
     }
 
+    @Override
     public void refresh()
     {
-        Mandant mandant = presenter.getMandant();
+        MandantSheet mandant = presenter.getSheet();
         frmMandant.setBean(mandant);
         imgUpload.setValue(mandant.getImage());
     }

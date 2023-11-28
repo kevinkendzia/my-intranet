@@ -3,13 +3,13 @@ package de.kkendzia.myintranet.ei.ui.views.ah.create;
 import de.kkendzia.myintranet.app._framework.cqrs.command.CommandMediator;
 import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
 import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Order;
+import de.kkendzia.myintranet.app.ah._shared.AhSheet;
 import de.kkendzia.myintranet.app.ah.commands.CreateAh;
 import de.kkendzia.myintranet.app.mandant.queries.ListMandanten;
 import de.kkendzia.myintranet.app.mandant.queries.ListMandanten.MandantItem;
 import de.kkendzia.myintranet.domain.ah.Ah.AhID;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.model.AhCreateRequest;
 
 import java.util.List;
 
@@ -28,9 +28,12 @@ public class AhCreatePresenter
         this.quMediator = requireNonNull(quMediator, "quMediator can't be null!");
     }
 
-    public AhID create(AhCreateRequest request)
+    public AhID create(AhSheet request)
     {
-        return cmdMediator.call(new CreateAh(request.coreData(), request.adressData(), request.memberData())).getData();
+        return cmdMediator.call(new CreateAh(
+                request.coreSection(),
+                request.adressSection(),
+                request.membershipSection())).getData();
     }
 
     public List<MandantItem> loadMandantItems()

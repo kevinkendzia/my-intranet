@@ -6,7 +6,7 @@ import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
-import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
+import de.kkendzia.myintranet.app.ah._shared.AhSheet;
 import de.kkendzia.myintranet.app.mandant.queries.ListMandanten.MandantItem;
 import de.kkendzia.myintranet.domain.ah.Ah.Ahnr;
 import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
@@ -22,7 +22,7 @@ import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.Validation.REQUIRED;
 import static de.kkendzia.myintranet.ei.core.utils.DataProviderUtil.emptyDataProvider;
 
-public class AhCoreDataForm extends AbstractForm<AhCoreData>
+public class AhCoreDataForm extends AbstractForm<AhSheet.CoreSection>
 {
     private final RadioButtonGroup<MandantItem> rbgMandant = new RadioButtonGroup<>(getTranslation(MANDANT));
     private final IntegerField txtAhnr = new IntegerField(getTranslation(AHNR));
@@ -42,22 +42,22 @@ public class AhCoreDataForm extends AbstractForm<AhCoreData>
                         .withConverter(
                                 mandantItem -> mandantItem,
                                 mandantItem -> mandantItem)
-                        .bind(AhCoreData::getMandant, AhCoreData::setMandant));
+                        .bind(AhSheet.CoreSection::getMandant, AhSheet.CoreSection::setMandant));
         add(
                 txtAhnr,
                 (field, binder) -> binder.forField(field)
                         .asRequired(getTranslation(REQUIRED))
                         .withConverter(Ahnr::new, Ahnr::value)
-                        .bind(AhCoreData::getAhnr, AhCoreData::setAhnr));
+                        .bind(AhSheet.CoreSection::getAhnr, AhSheet.CoreSection::setAhnr));
         add(
                 txtMatchcode,
                 (field, binder) -> binder.forField(field)
                         .asRequired(getTranslation(REQUIRED))
-                        .bind(AhCoreData::getMatchcode, AhCoreData::setMatchcode));
+                        .bind(AhSheet.CoreSection::getMatchcode, AhSheet.CoreSection::setMatchcode));
         add(
                 dpEnter,
                 (field, binder) -> binder.forField(field)
-                        .bind(AhCoreData::getEnterDate, AhCoreData::setEnterDate));
+                        .bind(AhSheet.CoreSection::getEnterDate, AhSheet.CoreSection::setEnterDate));
     }
 
     public void setMandantItems(Collection<MandantItem> mandantItems)

@@ -1,9 +1,7 @@
 package de.kkendzia.myintranet.ei.ui.views.ah.detail;
 
 import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
-import de.kkendzia.myintranet.app.ah.commands.AhAdressData;
-import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
-import de.kkendzia.myintranet.app.ah.commands.AhMemberData;
+import de.kkendzia.myintranet.app.ah._shared.AhSheet;
 import de.kkendzia.myintranet.app.ah.queries.FindAhByID;
 import de.kkendzia.myintranet.domain.ah.Ah.AhID;
 import de.kkendzia.myintranet.ei.core.presenter.AbstractStatefullPresenter;
@@ -27,20 +25,20 @@ public class AhDetailPresenter extends AbstractStatefullPresenter<AhDetailModel>
         final var ah = quMediator.fetchOne(new FindAhByID(id)).getData();
         setState(
                 new AhDetailModel(
-                        new AhCoreData(
+                        new AhSheet.CoreSection(
                                 ah.ahnr(),
                                 ah.matchcode(),
                                 ah.mandant(),
                                 ah.enterDate(),
                                 ah.exitDate()),
-                        new AhAdressData(
+                        new AhSheet.AdressSection(
                                 ah.adress().line1(),
                                 ah.adress().line2(),
                                 ah.adress().street(),
                                 ah.adress().zip(),
                                 ah.adress().city(),
                                 ah.adress().country()),
-                        new AhMemberData(
+                        new AhSheet.MembershipSection(
                                 ah.regulierer(),
                                 ah.verband(),
                                 ah.mitgliedsForm())));

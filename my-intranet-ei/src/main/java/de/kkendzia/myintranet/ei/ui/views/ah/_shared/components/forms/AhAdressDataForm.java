@@ -2,9 +2,9 @@ package de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms;
 
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.TextField;
+import de.kkendzia.myintranet.app.ah._shared.AhSheet;
 import de.kkendzia.myintranet.domain.country.Country;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
-import de.kkendzia.myintranet.app.ah.commands.AhAdressData;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -13,7 +13,7 @@ import java.util.Optional;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static java.util.Objects.requireNonNull;
 
-public class AhAdressDataForm extends AbstractForm<AhAdressData>
+public class AhAdressDataForm extends AbstractForm<AhSheet.AdressSection>
 {
     private final TextField txtLine1 = new TextField(getTranslation(ADRESS_LINE1));
     private final TextField txtLine2 = new TextField(getTranslation(ADRESS_LINE2));
@@ -28,22 +28,31 @@ public class AhAdressDataForm extends AbstractForm<AhAdressData>
         add(
                 txtLine1,
                 2,
-                (field, binder) -> binder.forField(field).bind(AhAdressData::getLine1, AhAdressData::setLine1));
+                (field, binder) -> binder.forField(field)
+                        .bind(AhSheet.AdressSection::getLine1, AhSheet.AdressSection::setLine1));
         add(
                 txtLine2,
                 2,
-                (field, binder) -> binder.forField(field).bind(AhAdressData::getLine2, AhAdressData::setLine2));
+                (field, binder) -> binder.forField(field)
+                        .bind(AhSheet.AdressSection::getLine2, AhSheet.AdressSection::setLine2));
         add(
                 txtStreet,
                 2,
-                (field, binder) -> binder.forField(field).bind(AhAdressData::getStreet, AhAdressData::setStreet));
-        add(txtZip, (field, binder) -> binder.forField(field).bind(AhAdressData::getZip, AhAdressData::setZip));
-        add(txtCity, (field, binder) -> binder.forField(field).bind(AhAdressData::getCity, AhAdressData::setCity));
+                (field, binder) -> binder.forField(field)
+                        .bind(AhSheet.AdressSection::getStreet, AhSheet.AdressSection::setStreet));
+        add(
+                txtZip,
+                (field, binder) -> binder.forField(field)
+                        .bind(AhSheet.AdressSection::getZip, AhSheet.AdressSection::setZip));
+        add(
+                txtCity,
+                (field, binder) -> binder.forField(field)
+                        .bind(AhSheet.AdressSection::getCity, AhSheet.AdressSection::setCity));
         add(
                 cboCountry,
                 2,
                 (field, binder) -> binder.forField(field)
-                        .bind(AhAdressData::getCountry, AhAdressData::setCountry));
+                        .bind(AhSheet.AdressSection::getCountry, AhSheet.AdressSection::setCountry));
     }
 
     public void setCountryItems(Collection<Country> items)

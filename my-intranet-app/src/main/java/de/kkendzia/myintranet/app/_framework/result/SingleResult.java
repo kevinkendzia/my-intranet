@@ -9,6 +9,12 @@ public interface SingleResult<R, F> extends Result<R, F>
         return Optional.ofNullable(getData());
     }
 
+    default VoidResult<F> toVoid()
+    {
+        return isSuccess() ? VoidResult.success() : VoidResult.failure(getFailure());
+    }
+
+
     //region STATIC
     static <R, F> SingleResult<R, F> success(R data)
     {

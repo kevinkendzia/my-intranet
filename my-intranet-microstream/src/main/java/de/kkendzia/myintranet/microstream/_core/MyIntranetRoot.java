@@ -4,7 +4,6 @@ import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.domain.ah.Ah.AhID;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
-import de.kkendzia.myintranet.domain.mandant.MandantSetting;
 import de.kkendzia.myintranet.domain.permission.Permission;
 import de.kkendzia.myintranet.domain.permission.Permission.PermissionID;
 import de.kkendzia.myintranet.domain.role.Role;
@@ -12,12 +11,8 @@ import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
 import one.microstream.integrations.spring.boot.types.Storage;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static java.util.Objects.requireNonNull;
 
 @Storage
 public class MyIntranetRoot
@@ -27,15 +22,15 @@ public class MyIntranetRoot
     private long lastId;
 
     // MANDANT
-    private Map<MandantID, Mandant> mandanten = new HashMap<>();
+    private final Map<MandantID, Mandant> mandanten = new HashMap<>();
 
     // AUTH / USER
-    private Map<EIUserID, EIUser> eiUsers = new HashMap<>();
-    private Map<Role.RoleID,Role> roles = new HashMap<>();
-    private Map<PermissionID, Permission> permissions = new HashMap<>();
+    private final Map<EIUserID, EIUser> eiUsers = new HashMap<>();
+    private final Map<Role.RoleID, Role> roles = new HashMap<>();
+    private final Map<PermissionID, Permission> permissions = new HashMap<>();
 
     // AH
-    private Map<AhID, Ah> ahs = new HashMap<>();
+    private final Map<AhID, Ah> ahs = new HashMap<>();
 
     public boolean isInit()
     {

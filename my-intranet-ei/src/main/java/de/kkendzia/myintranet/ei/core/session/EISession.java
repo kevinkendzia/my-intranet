@@ -66,7 +66,7 @@ public class EISession implements Serializable
 
     public void addFavoriteAction(ActionItem action)
     {
-        commandMediator.execute(new AddFavoriteAction(getCurrentUserID(), action));
+        commandMediator.run(new AddFavoriteAction(getCurrentUserID(), action));
     }
 
     public List<ActionItem> getPreviousActions()
@@ -77,7 +77,7 @@ public class EISession implements Serializable
 
     public void addPreviousAction(ActionItem action)
     {
-        commandMediator.execute(new AddRecentAction(getCurrentUserID(), action));
+        commandMediator.run(new AddRecentAction(getCurrentUserID(), action));
     }
 
     public void logout()

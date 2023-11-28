@@ -2,8 +2,8 @@ package de.kkendzia.myintranet.ei.ui.views.mandant.components;
 
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import de.kkendzia.myintranet.app.mandant._shared.MandantSheet;
 import de.kkendzia.myintranet.domain._core.AbstractID;
-import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
 
@@ -11,9 +11,9 @@ import java.util.UUID;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 
-public class MandantForm extends AbstractForm<Mandant>
+public class MandantForm extends AbstractForm<MandantSheet>
 {
-    public MandantForm(Binder<Mandant> binder)
+    public MandantForm(Binder<MandantSheet> binder)
     {
         super(binder);
 
@@ -27,22 +27,22 @@ public class MandantForm extends AbstractForm<Mandant>
                         .withConverter(
                                 MandantID::new,
                                 AbstractID::getValue)
-                        .bindReadOnly(Mandant::getId));
+                        .bindReadOnly(MandantSheet::getId));
         add(
                 new TextField(getTranslation(KEY)),
                 (field, b) -> b
                         .forField(field)
                         .asRequired()
                         .bind(
-                                Mandant::getKey,
-                                Mandant::setKey));
+                                MandantSheet::getKey,
+                                MandantSheet::setKey));
         add(
                 new TextField(getTranslation(NAME)),
                 (field, b) -> b
                         .forField(field)
                         .asRequired()
                         .bind(
-                                Mandant::getName,
-                                Mandant::setName));
+                                MandantSheet::getName,
+                                MandantSheet::setName));
     }
 }

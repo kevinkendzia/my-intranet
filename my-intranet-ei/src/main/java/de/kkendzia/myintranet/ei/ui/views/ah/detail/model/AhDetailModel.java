@@ -1,15 +1,13 @@
 package de.kkendzia.myintranet.ei.ui.views.ah.detail.model;
 
-import de.kkendzia.myintranet.app.ah.commands.AhAdressData;
-import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
-import de.kkendzia.myintranet.app.ah.commands.AhMemberData;
+import de.kkendzia.myintranet.app.ah._shared.AhSheet;
 
 import java.io.Serializable;
 
 public record AhDetailModel(
-        AhCoreData coreData,
-        AhAdressData adressData,
-        AhMemberData memberData) implements Serializable
+        AhSheet.CoreSection coreData,
+        AhSheet.AdressSection adressData,
+        AhSheet.MembershipSection memberData) implements Serializable
 {
 
 }

@@ -7,8 +7,13 @@ import com.vaadin.flow.router.RouteConfiguration;
 
 import static java.util.Objects.requireNonNull;
 
-public class HistoryUtil
+public final class HistoryUtil
 {
+    private HistoryUtil()
+    {
+        // No Instance!
+    }
+
     public static <C extends Component> void updateUrl(C target, QueryParameters queryParameters)
     {
         requireNonNull(target, "target can't be null!");
@@ -25,7 +30,7 @@ public class HistoryUtil
         requireNonNull(value, "value can't be null!");
 
         //noinspection unchecked
-        String url = RouteConfiguration.forSessionScope().getUrl((Class<C>)target.getClass(), value);
+        String url = RouteConfiguration.forSessionScope().getUrl((Class<C>) target.getClass(), value);
         updateUrl((Component) target, url);
     }
 

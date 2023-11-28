@@ -7,9 +7,7 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
-import de.kkendzia.myintranet.app.ah.commands.AhAdressData;
-import de.kkendzia.myintranet.app.ah.commands.AhCoreData;
-import de.kkendzia.myintranet.app.ah.commands.AhMemberData;
+import de.kkendzia.myintranet.app.ah._shared.AhSheet;
 import de.kkendzia.myintranet.domain.ah.Ah.Ahnr;
 import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
@@ -28,7 +26,6 @@ import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.Si
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhAdressDataForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhCoreDataForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhMemberDataForm;
-import de.kkendzia.myintranet.ei.ui.views.ah.create.model.AhCreateRequest;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import jakarta.annotation.security.PermitAll;
 
@@ -67,10 +64,10 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
     private final AhCoreDataForm frmCore = new AhCoreDataForm();
     private final AhAdressDataForm frmAdress = new AhAdressDataForm();
     private final AhMemberDataForm frmMember = new AhMemberDataForm();
-    private final FormBinder<AhCreateRequest> formBinder = new FormBinder<>();
+    private final FormBinder<AhSheet> formBinder = new FormBinder<>();
 
     private final AhCreatePresenter presenter;
-    private AhCreateRequest request;
+    private AhSheet request;
 
     public AhCreateView(AhCreatePresenter presenter)
     {
@@ -108,9 +105,9 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
         root.addSection(getTranslation(MEMBERSHIP), frmMember);
         root.add(footer);
 
-        formBinder.bind(frmCore, AhCreateRequest::coreData);
-        formBinder.bind(frmAdress, AhCreateRequest::adressData);
-        formBinder.bind(frmMember, AhCreateRequest::memberData);
+        formBinder.bind(frmCore, AhSheet::coreSection);
+        formBinder.bind(frmAdress, AhSheet::adressSection);
+        formBinder.bind(frmMember, AhSheet::membershipSection);
 
         formBinder.addValueChangeListener(e -> formBinder.validate());
     }
@@ -134,8 +131,8 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
     {
         frmCore.setMandantItems(presenter.loadMandantItems());
 
-        request = new AhCreateRequest(
-                new AhCoreData(
+        request = new AhSheet(
+                new AhSheet.CoreSection(
                         new Ahnr(qpValue(PARAM_AHNR, 1)),
                         qpValue(PARAM_MATCHCODE, "new"),
                         qpValue(PARAM_MANDANT_ID).map(MandantID::new)
@@ -143,14 +140,14 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
                                 .orElse(null),
                         qpValue(PARAM_ENTER_DATE, LocalDate.now()),
                         null),
-                new AhAdressData(
+                new AhSheet.AdressSection(
                         qpValue(PARAM_LINE1, ""),
                         qpValue(PARAM_LINE2, ""),
                         qpValue(PARAM_STREET, ""),
                         qpValue(PARAM_ZIP, ""),
                         qpValue(PARAM_CITY, ""),
                         qpValue(PARAM_COUNTRY_ID).flatMap(frmAdress::findCountryItemById).orElse(null)),
-                new AhMemberData(
+                new AhSheet.MembershipSection(
                         qpValue(PARAM_REGULATOR_ID).flatMap(frmMember::findRegulatorItemById).orElse(null),
                         qpValue(PARAM_ASSOCIATION_ID).flatMap(frmMember::findAssociationItemById).orElse(null),
                         qpValue(PARAM_MEMBERSHIPFORM_ID).flatMap(frmMember::findMembershipFormItemById).orElse(null)));

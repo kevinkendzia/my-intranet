@@ -1,17 +1,17 @@
 package de.kkendzia.myintranet.ei.core.view.search;
 
-import com.vaadin.flow.data.provider.*;
+import com.vaadin.flow.data.provider.ConfigurableFilterDataProvider;
+import com.vaadin.flow.data.provider.DataProvider;
+import com.vaadin.flow.data.provider.Query;
 import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
-import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Direction;
-import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Order;
 import de.kkendzia.myintranet.app._framework.cqrs.query.paged.PagedQuery;
 import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Paging;
 import de.kkendzia.myintranet.ei.core.presenter.EISearchPresenter;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static de.kkendzia.myintranet.ei.utils.QueryUtils.mapPaging;
 import static java.util.Objects.requireNonNull;
 
 public abstract class AbstractSearchPresenter<T> implements EISearchPresenter<T>
@@ -62,27 +62,6 @@ public abstract class AbstractSearchPresenter<T> implements EISearchPresenter<T>
                 .or(this::getDefaultQuery)
                 .map(q -> Math.toIntExact(quMediator.count(q)))
                 .orElse(0);
-    }
-
-
-    protected Paging mapPaging(Query<T, PagedQuery<T, ?>> query)
-    {
-        return new Paging(
-                query.getOffset(),
-                query.getLimit(),
-                mapSortOrders(query.getSortOrders()));
-    }
-
-    protected List<Order> mapSortOrders(final List<QuerySortOrder> sortOrders)
-    {
-        return sortOrders
-                .stream()
-                .map(x -> new Order(
-                        x.getSorted(),
-                        x.getDirection() == SortDirection.ASCENDING
-                        ? Direction.ASC
-                        : Direction.DESC))
-                .toList();
     }
 
     public ConfigurableFilterDataProvider<T, Void, PagedQuery<T, ?>> getSearchDataProvider()

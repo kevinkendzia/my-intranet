@@ -3,11 +3,11 @@ package de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
+import de.kkendzia.myintranet.app.ah._shared.AhSheet;
 import de.kkendzia.myintranet.domain.mitgliedsform.MitgliedsForm;
 import de.kkendzia.myintranet.domain.regulierer.Regulierer;
 import de.kkendzia.myintranet.domain.verband.Verband;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
-import de.kkendzia.myintranet.app.ah.commands.AhMemberData;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.Optional;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static de.kkendzia.myintranet.ei.core.utils.DataProviderUtil.emptyDataProvider;
 
-public class AhMemberDataForm extends AbstractForm<AhMemberData>
+public class AhMemberDataForm extends AbstractForm<AhSheet.MembershipSection>
 {
     private final ComboBox<Regulierer> cboRegulator = new ComboBox<>(getTranslation(REGULIERER));
     private final ComboBox<Verband> cboAssociation = new ComboBox<>(getTranslation(VERBAND));
@@ -32,15 +32,17 @@ public class AhMemberDataForm extends AbstractForm<AhMemberData>
         add(
                 cboRegulator,
                 (field, binder) -> binder.forField(field)
-                        .bind(AhMemberData::getRegulator, AhMemberData::setRegulator));
+                        .bind(AhSheet.MembershipSection::getRegulator, AhSheet.MembershipSection::setRegulator));
         add(
                 cboAssociation,
                 (field, binder) -> binder.forField(field)
-                        .bind(AhMemberData::getAssociation, AhMemberData::setAssociation));
+                        .bind(AhSheet.MembershipSection::getAssociation, AhSheet.MembershipSection::setAssociation));
         add(
                 cboMembershipForm,
                 (field, binder) -> binder.forField(field)
-                        .bind(AhMemberData::getMembershipForm, AhMemberData::setMembershipForm));
+                        .bind(
+                                AhSheet.MembershipSection::getMembershipForm,
+                                AhSheet.MembershipSection::setMembershipForm));
     }
 
     public void setRegulatorItems(Collection<Regulierer> items)

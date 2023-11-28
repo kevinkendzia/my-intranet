@@ -3,6 +3,8 @@ package de.kkendzia.myintranet.app._framework.cqrs.query;
 import de.kkendzia.myintranet.app._framework.result.ListResult;
 import de.kkendzia.myintranet.app._framework.result.SingleResult;
 
+import java.io.Serializable;
+
 public interface QueryHandler<Q extends QueryHandler.Query<R, F>, R, F>
 {
     Class<Q> getQueryClass();
@@ -20,7 +22,7 @@ public interface QueryHandler<Q extends QueryHandler.Query<R, F>, R, F>
     ListResult<R, F> fetchAll(Q query);
 
     //region TYPES
-    interface Query<R, F>
+    interface Query<R, F> extends Serializable
     {
     }
     //endregion

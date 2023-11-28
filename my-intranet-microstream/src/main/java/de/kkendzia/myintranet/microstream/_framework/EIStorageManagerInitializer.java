@@ -31,49 +31,49 @@ public class EIStorageManagerInitializer implements StorageManagerInitializer
             // PERMISSIONS
 
             final PermissionID rmPermissionID = new PermissionID();
-            cmdMediator.execute(new CreatePermission(rmPermissionID, "read_mandant"));
+            cmdMediator.run(new CreatePermission(rmPermissionID, "read_mandant"));
 
             final PermissionID wmPermissionID = new PermissionID();
-            cmdMediator.execute(new CreatePermission(wmPermissionID, "write_mandant"));
+            cmdMediator.run(new CreatePermission(wmPermissionID, "write_mandant"));
 
             final PermissionID raPermissionID = new PermissionID();
-            cmdMediator.execute(new CreatePermission(raPermissionID, "read_ah"));
+            cmdMediator.run(new CreatePermission(raPermissionID, "read_ah"));
 
             final PermissionID waPermissionID = new PermissionID();
-            cmdMediator.execute(new CreatePermission(waPermissionID, "write_ah"));
+            cmdMediator.run(new CreatePermission(waPermissionID, "write_ah"));
 
             // ROLES
 
             final RoleID rootRoleId = new RoleID();
-            cmdMediator.execute(new CreateRole(rootRoleId, "root"));
-            cmdMediator.execute(new AssignPermission(rootRoleId, rmPermissionID));
-            cmdMediator.execute(new AssignPermission(rootRoleId, wmPermissionID));
-            cmdMediator.execute(new AssignPermission(rootRoleId, raPermissionID));
-            cmdMediator.execute(new AssignPermission(rootRoleId, waPermissionID));
+            cmdMediator.run(new CreateRole(rootRoleId, "root"));
+            cmdMediator.run(new AssignPermission(rootRoleId, rmPermissionID));
+            cmdMediator.run(new AssignPermission(rootRoleId, wmPermissionID));
+            cmdMediator.run(new AssignPermission(rootRoleId, raPermissionID));
+            cmdMediator.run(new AssignPermission(rootRoleId, waPermissionID));
 
             final RoleID mandantRoleId = new RoleID();
-            cmdMediator.execute(new CreateRole(mandantRoleId, "mandant"));
-            cmdMediator.execute(new AssignPermission(mandantRoleId, rmPermissionID));
-            cmdMediator.execute(new AssignPermission(mandantRoleId, wmPermissionID));
+            cmdMediator.run(new CreateRole(mandantRoleId, "mandant"));
+            cmdMediator.run(new AssignPermission(mandantRoleId, rmPermissionID));
+            cmdMediator.run(new AssignPermission(mandantRoleId, wmPermissionID));
 
             final RoleID ahRoleId = new RoleID();
-            cmdMediator.execute(new CreateRole(ahRoleId, "ah"));
-            cmdMediator.execute(new AssignPermission(ahRoleId, raPermissionID));
-            cmdMediator.execute(new AssignPermission(ahRoleId, waPermissionID));
+            cmdMediator.run(new CreateRole(ahRoleId, "ah"));
+            cmdMediator.run(new AssignPermission(ahRoleId, raPermissionID));
+            cmdMediator.run(new AssignPermission(ahRoleId, waPermissionID));
 
             // USERS
 
             final EIUserID rootUserId = new EIUserID();
-            cmdMediator.execute(new CreateUser(rootUserId, "root", "root"));
-            cmdMediator.execute(new AssignRole(rootUserId, rootRoleId));
+            cmdMediator.run(new CreateUser(rootUserId, "root", "root"));
+            cmdMediator.run(new AssignRole(rootUserId, rootRoleId));
 
             final EIUserID mandantUserId = new EIUserID();
-            cmdMediator.execute(new CreateUser(mandantUserId, "mandant", "mandant"));
-            cmdMediator.execute(new AssignRole(mandantUserId, mandantRoleId));
+            cmdMediator.run(new CreateUser(mandantUserId, "mandant", "mandant"));
+            cmdMediator.run(new AssignRole(mandantUserId, mandantRoleId));
 
             final EIUserID ahUserId = new EIUserID();
-            cmdMediator.execute(new CreateUser(ahUserId, "ah", "ah"));
-            cmdMediator.execute(new AssignRole(ahUserId, ahRoleId));
+            cmdMediator.run(new CreateUser(ahUserId, "ah", "ah"));
+            cmdMediator.run(new AssignRole(ahUserId, ahRoleId));
 
             root.setInit(true);
             sm.storeRoot();

@@ -25,7 +25,7 @@ public class CommandMediator
     }
 
     @SuppressWarnings("unchecked")
-    public <C extends Command<F>, F> VoidResult<F> execute(C command)
+    public <C extends Command<F>, F> VoidResult<F> run(C command)
     {
         final CommandHandler<C, F> handler = (CommandHandler<C, F>) commandHandlerMap.get(command.getClass());
         return handler.run(command);
