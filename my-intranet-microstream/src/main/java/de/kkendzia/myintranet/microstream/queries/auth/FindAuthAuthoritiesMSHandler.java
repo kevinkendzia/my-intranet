@@ -9,7 +9,6 @@ import de.kkendzia.myintranet.app.auth.shared.AuthAuthority;
 import de.kkendzia.myintranet.domain.role.Role;
 import de.kkendzia.myintranet.domain.role.RolePermission;
 import de.kkendzia.myintranet.domain.user.EIUser;
-import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
 import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
@@ -26,10 +25,9 @@ public class FindAuthAuthoritiesMSHandler
         implements FindAuthAuthoritiesHandler
 {
     public FindAuthAuthoritiesMSHandler(
-            final MyIntranetRoot root,
             final StorageManager storageManager)
     {
-        super(root, storageManager);
+        super(storageManager);
     }
 
     @Override

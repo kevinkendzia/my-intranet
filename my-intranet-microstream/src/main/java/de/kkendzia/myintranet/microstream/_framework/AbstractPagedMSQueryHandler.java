@@ -3,7 +3,6 @@ package de.kkendzia.myintranet.microstream._framework;
 import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Direction;
 import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Order;
 import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Paging;
-import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
 import one.microstream.storage.types.StorageManager;
 
 import java.util.Collection;
@@ -18,11 +17,9 @@ public class AbstractPagedMSQueryHandler<T> extends AbstractMSQueryHandler
 {
     private final Map<String, Comparator<T>> comparatorMap = new HashMap<>();
 
-    protected AbstractPagedMSQueryHandler(
-            final MyIntranetRoot root,
-            final StorageManager storageManager)
+    protected AbstractPagedMSQueryHandler(final StorageManager storageManager)
     {
-        super(root, storageManager);
+        super(storageManager);
     }
 
     protected void registerSortOrder(String key, Comparator<T> comparator)

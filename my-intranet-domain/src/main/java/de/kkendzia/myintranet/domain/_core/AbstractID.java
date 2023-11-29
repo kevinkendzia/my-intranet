@@ -27,4 +27,10 @@ public abstract class AbstractID implements ID
     {
         return value;
     }
+
+    @Override
+    public String toString()
+    {
+        return String.valueOf(value);
+    }
 }

@@ -3,21 +3,21 @@ package de.kkendzia.myintranet.domain._core.association;
 import de.kkendzia.myintranet.domain._core.AggregateRoot;
 import de.kkendzia.myintranet.domain._core.ID;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import static java.util.Collections.emptySet;
 import static java.util.Objects.requireNonNull;
 
 public record MultiAssociation<A extends AggregateRoot<A, I>, I extends ID>(Set<I> ids)
 {
     public MultiAssociation()
     {
-        this(emptySet());
+        this(new HashSet<>());
     }
 
     public MultiAssociation(final Set<I> ids)
     {
-        this.ids = requireNonNull(ids, "ids can't be null!");
+        this.ids = new HashSet<>(requireNonNull(ids, "ids can't be null!"));
     }
 
     public void add(final A aggregate)
@@ -28,12 +28,12 @@ public record MultiAssociation<A extends AggregateRoot<A, I>, I extends ID>(Set<
     //region STATIC
     public static <A extends AggregateRoot<A, I>, I extends ID> MultiAssociation<A, I> fromIDs(Set<I> ids)
     {
-        return new MultiAssociation<>(ids);
+        return new MultiAssociation<>(new HashSet<>(ids));
     }
 
     public static <A extends AggregateRoot<A, I>, I extends ID> MultiAssociation<A, I> fromID(I id)
     {
-        return new MultiAssociation<>(Set.of(id));
+        return new MultiAssociation<>(new HashSet<>(Set.of(id)));
     }
     //endregion
 }

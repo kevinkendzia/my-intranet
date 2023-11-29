@@ -15,7 +15,7 @@ public interface AggregateLookup<A extends AggregateRoot<A, I>, I extends ID>
 
     default A getByID(I id)
     {
-        return findByID(id).orElseThrow(() -> new DomainException("Couldn't find Entity by id " + id));
+        return findByID(id).orElseThrow(() -> new DomainException("Couldn't find " + getClass() + " by id " + id));
     }
 
     Stream<A> findAllByID(Collection<I> ids);

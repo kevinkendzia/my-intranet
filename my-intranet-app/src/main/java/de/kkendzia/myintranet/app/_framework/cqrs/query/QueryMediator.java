@@ -9,6 +9,7 @@ import de.kkendzia.myintranet.app._framework.result.SingleResult;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
@@ -20,7 +21,7 @@ public class QueryMediator
 {
     private final Map<Class<? extends Query<?, ?>>, QueryHandler<?, ?, ?>> queryHandlerMap;
 
-    public QueryMediator(final Set<QueryHandler<?, ?, ?>> queryHandlers)
+    public QueryMediator(final Set<? extends QueryHandler<?, ?, ?>> queryHandlers)
     {
         requireNonNull(queryHandlers, "queryHandlers can't be null!");
         this.queryHandlerMap = queryHandlers.stream().collect(toMap(QueryHandler::getQueryClass, identity()));
@@ -49,12 +50,16 @@ public class QueryMediator
     @SuppressWarnings("unchecked")
     private <Q extends Query<R, F>, R, F> QueryHandler<Q, R, F> getHandler(final Q query)
     {
-        return (QueryHandler<Q, R, F>) queryHandlerMap.get(query.getClass());
+        return (QueryHandler<Q, R, F>) Optional
+                .ofNullable(queryHandlerMap.get(query.getClass()))
+                .orElseThrow(() -> new IllegalStateException("QueryHandler for \"" + query.getClass() + "\" wasn't implemented yet!"));
     }
 
     @SuppressWarnings("unchecked")
     private <Q extends PagedQuery<R, F>, R, F> PagedQueryHandler<Q, R, F> getHandler(final Q query)
     {
-        return (PagedQueryHandler<Q, R, F>) queryHandlerMap.get(query.getClass());
+        return (PagedQueryHandler<Q, R, F>) Optional
+                .ofNullable(queryHandlerMap.get(query.getClass()))
+                .orElseThrow(() -> new IllegalStateException("QueryHandler for \"" + query.getClass() + "\" wasn't implemented yet!"));
     }
 }

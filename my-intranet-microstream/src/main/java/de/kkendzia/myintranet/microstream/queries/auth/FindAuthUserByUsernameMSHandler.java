@@ -7,7 +7,6 @@ import de.kkendzia.myintranet.app.auth.queries.FindAuthUserByUsername.Failure;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthUserByUsername.FindAuthUserByUsernameHandler;
 import de.kkendzia.myintranet.app.auth.shared.AuthUser;
 import de.kkendzia.myintranet.domain.user.EIUser;
-import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.AbstractPagedMSQueryHandler;
 import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
@@ -24,10 +23,9 @@ public class FindAuthUserByUsernameMSHandler
         implements FindAuthUserByUsernameHandler
 {
     public FindAuthUserByUsernameMSHandler(
-            final MyIntranetRoot root,
             final StorageManager storageManager)
     {
-        super(root, storageManager);
+        super(storageManager);
         registerSortOrder("username", comparing(EIUser::getUserName));
     }
 

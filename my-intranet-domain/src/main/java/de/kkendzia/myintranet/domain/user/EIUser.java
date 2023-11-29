@@ -4,12 +4,12 @@ import de.kkendzia.myintranet.domain._core.AbstractAggregateRoot;
 import de.kkendzia.myintranet.domain._core.AbstractID;
 import de.kkendzia.myintranet.domain._core.association.MultiAssociation;
 import de.kkendzia.myintranet.domain.role.Role;
+import de.kkendzia.myintranet.domain.role.Role.RoleID;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static java.util.Collections.unmodifiableList;
 import static java.util.Objects.requireNonNull;
 
 public class EIUser extends AbstractAggregateRoot<EIUser, EIUser.EIUserID>
@@ -22,9 +22,14 @@ public class EIUser extends AbstractAggregateRoot<EIUser, EIUser.EIUserID>
     private final List<EIUserAction> recentActions = new ArrayList<>();
 
     // ASSOCIATIONS
-    private final MultiAssociation<Role, Role.RoleID> roles = new MultiAssociation<>();
+    private final MultiAssociation<Role, RoleID> roles = new MultiAssociation<>();
 
-    public EIUser(EIUserID id, final String userName, final String firstName, final String lastName, final String password)
+    public EIUser(
+            EIUserID id,
+            final String userName,
+            final String firstName,
+            final String lastName,
+            final String password)
     {
         super(id);
         this.userName = userName;
@@ -53,14 +58,17 @@ public class EIUser extends AbstractAggregateRoot<EIUser, EIUser.EIUserID>
     {
         return userName;
     }
+
     public String getPassword()
     {
         return password;
     }
-    public MultiAssociation<Role, Role.RoleID> getRoles()
+
+    public MultiAssociation<Role, RoleID> getRoles()
     {
         return roles;
     }
+
     public void assignRole(final Role role)
     {
         // TODO: validation

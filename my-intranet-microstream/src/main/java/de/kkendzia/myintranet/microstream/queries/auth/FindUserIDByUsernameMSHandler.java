@@ -3,9 +3,9 @@ package de.kkendzia.myintranet.microstream.queries.auth;
 import de.kkendzia.myintranet.app._framework.result.ListResult;
 import de.kkendzia.myintranet.app.useractions.queries.FindUserIDByUsername;
 import de.kkendzia.myintranet.app.useractions.queries.FindUserIDByUsername.Failure;
+import de.kkendzia.myintranet.app.useractions.queries.FindUserIDByUsername.FindUserIDByUsernameHandler;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
-import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
 import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
@@ -16,11 +16,11 @@ import java.util.Objects;
 @Component
 public class FindUserIDByUsernameMSHandler
         extends AbstractMSQueryHandler
-        implements FindUserIDByUsername.FindUserIDByUsernameHandler
+        implements FindUserIDByUsernameHandler
 {
-    public FindUserIDByUsernameMSHandler(final MyIntranetRoot root, final StorageManager storageManager)
+    public FindUserIDByUsernameMSHandler(final StorageManager storageManager)
     {
-        super(root, storageManager);
+        super(storageManager);
     }
 
     @Override

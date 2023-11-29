@@ -2,7 +2,6 @@ package de.kkendzia.myintranet.microstream.repositories;
 
 import de.kkendzia.myintranet.domain.permission.Permission;
 import de.kkendzia.myintranet.domain.permission.PermissionRepository;
-import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSRepository;
 import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
@@ -14,10 +13,9 @@ public class PermissionMSRepository extends AbstractMSRepository<Permission, Per
         implements PermissionRepository
 {
     public PermissionMSRepository(
-            final MyIntranetRoot root,
             final StorageManager storageManager)
     {
-        super(root, storageManager);
+        super(storageManager);
     }
 
     @Override

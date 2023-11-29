@@ -2,36 +2,29 @@ package de.kkendzia.myintranet.microstream._framework;
 
 import de.kkendzia.myintranet.domain._core.AggregateRoot;
 import de.kkendzia.myintranet.domain._core.ID;
-import de.kkendzia.myintranet.domain._core.repository.*;
-import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
+import de.kkendzia.myintranet.domain._core.repository.Repository;
 import one.microstream.storage.types.StorageManager;
 
 import java.util.*;
 import java.util.stream.Stream;
 
 import static de.kkendzia.myintranet.domain._core.repository.Repository.requireID;
+import static java.util.Objects.requireNonNull;
 
-public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I extends ID> implements Repository<A, I>
+public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I extends ID>
+        implements Repository<A, I>, HasStorageManager
 {
-    private final MyIntranetRoot root;
     private final StorageManager storageManager;
 
     protected AbstractMSRepository(
-            final MyIntranetRoot root,
             final StorageManager storageManager)
     {
-        this.root = root;
         this.storageManager = storageManager;
     }
 
-    protected StorageManager getStorageManager()
+    public StorageManager getStorageManager()
     {
         return storageManager;
-    }
-
-    protected MyIntranetRoot getRoot()
-    {
-        return root;
     }
 
     protected abstract Map<I, A> getRootCollection();
@@ -69,9 +62,16 @@ public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I exte
     @Override
     public A update(A entity)
     {
+        requireNonNull(entity, "entity can't be null!");
         requireID(entity);
-        List<A> rootCollection = listAll();
-        rootCollection.replaceAll(x -> Objects.equals(x, entity) ? entity : x);
+
+        final var rootCollection = getRootCollection();
+        final var existing = rootCollection.get(entity.getId());
+        if (existing == null)
+        {
+            throw new IllegalStateException("Entity " + entity.getClass() + " with ID " + entity.getId() + " does not exist!");
+        }
+        rootCollection.put(entity.getId(), entity);
         getStorageManager().store(rootCollection);
 
         return entity;
@@ -79,21 +79,36 @@ public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I exte
 
 
     @Override
-    public A add(A aggregate)
+    public A add(A entity)
     {
-        requireID(aggregate);
-        List<A> rootCollection = listAll();
-        rootCollection.add(aggregate);
+        requireNonNull(entity, "entity can't be null!");
+        requireID(entity);
+
+        final var rootCollection = getRootCollection();
+        final var existing = rootCollection.get(entity.getId());
+        if (existing != null)
+        {
+            throw new IllegalStateException("Entity " + entity.getClass() + " with ID " + entity.getId() + " does already exist!");
+        }
+        rootCollection.put(entity.getId(), entity);
         getStorageManager().store(rootCollection);
-        return aggregate;
+
+        return entity;
     }
 
     @Override
-    public void remove(final A aggregate)
+    public void remove(final A entity)
     {
-        requireID(aggregate);
-        List<A> rootCollection = listAll();
-        rootCollection.removeIf(x -> Objects.equals(x, aggregate));
+        requireNonNull(entity, "entity can't be null!");
+        requireID(entity);
+
+        final var rootCollection = getRootCollection();
+        final var existing = rootCollection.get(entity.getId());
+        if (existing == null)
+        {
+            throw new IllegalStateException("Entity " + entity.getClass() + " with ID " + entity.getId() + " does not exist!");
+        }
+        rootCollection.remove(entity.getId());
         getStorageManager().store(rootCollection);
     }
 
@@ -101,8 +116,14 @@ public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I exte
     public void removeByID(I id)
     {
         requireID(id);
-        List<A> rootCollection = listAll();
-        rootCollection.removeIf(x -> Objects.equals(x.getId(), id));
+
+        final var rootCollection = getRootCollection();
+        final var existing = rootCollection.get(id);
+        if (existing == null)
+        {
+            throw new IllegalStateException("Entity with ID " + id + " does not exist!");
+        }
+        rootCollection.remove(id);
         getStorageManager().store(rootCollection);
     }
 }

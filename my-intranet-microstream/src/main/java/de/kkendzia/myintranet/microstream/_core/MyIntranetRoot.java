@@ -19,7 +19,6 @@ public class MyIntranetRoot
 {
     // CORE
     private boolean init;
-    private long lastId;
 
     // MANDANT
     private final Map<MandantID, Mandant> mandanten = new HashMap<>();
@@ -40,11 +39,6 @@ public class MyIntranetRoot
     public void setInit(boolean init)
     {
         this.init = init;
-    }
-
-    public long getLastId()
-    {
-        return lastId;
     }
 
     public Map<MandantID, Mandant> getMandanten()
