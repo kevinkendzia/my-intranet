@@ -8,9 +8,9 @@ import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
 import de.kkendzia.myintranet.app.auth.commands.*;
 import de.kkendzia.myintranet.app.init.commands.SetAppInit;
 import de.kkendzia.myintranet.app.init.queries.IsAppInit;
-import de.kkendzia.myintranet.domain.permission.Permission;
-import de.kkendzia.myintranet.domain.role.Role;
-import de.kkendzia.myintranet.domain.user.EIUser;
+import de.kkendzia.myintranet.domain.permission.Permission.PermissionID;
+import de.kkendzia.myintranet.domain.role.Role.RoleID;
+import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
 import de.kkendzia.myintranet.ei.ui.errors.EIErrorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,48 +59,48 @@ public class EIInitListener implements VaadinServiceInitListener
 
             // PERMISSIONS
 
-            final Permission.PermissionID rmPermissionID = new Permission.PermissionID();
+            final PermissionID rmPermissionID = new PermissionID();
             cmdMediator.run(new CreatePermission(rmPermissionID, "read_mandant"));
 
-            final Permission.PermissionID wmPermissionID = new Permission.PermissionID();
+            final PermissionID wmPermissionID = new PermissionID();
             cmdMediator.run(new CreatePermission(wmPermissionID, "write_mandant"));
 
-            final Permission.PermissionID raPermissionID = new Permission.PermissionID();
+            final PermissionID raPermissionID = new PermissionID();
             cmdMediator.run(new CreatePermission(raPermissionID, "read_ah"));
 
-            final Permission.PermissionID waPermissionID = new Permission.PermissionID();
+            final PermissionID waPermissionID = new PermissionID();
             cmdMediator.run(new CreatePermission(waPermissionID, "write_ah"));
 
             // ROLES
 
-            final Role.RoleID rootRoleId = new Role.RoleID();
+            final RoleID rootRoleId = new RoleID();
             cmdMediator.run(new CreateRole(rootRoleId, "root"));
             cmdMediator.run(new AssignPermission(rootRoleId, rmPermissionID));
             cmdMediator.run(new AssignPermission(rootRoleId, wmPermissionID));
             cmdMediator.run(new AssignPermission(rootRoleId, raPermissionID));
             cmdMediator.run(new AssignPermission(rootRoleId, waPermissionID));
 
-            final Role.RoleID mandantRoleId = new Role.RoleID();
+            final RoleID mandantRoleId = new RoleID();
             cmdMediator.run(new CreateRole(mandantRoleId, "mandant"));
             cmdMediator.run(new AssignPermission(mandantRoleId, rmPermissionID));
             cmdMediator.run(new AssignPermission(mandantRoleId, wmPermissionID));
 
-            final Role.RoleID ahRoleId = new Role.RoleID();
+            final RoleID ahRoleId = new RoleID();
             cmdMediator.run(new CreateRole(ahRoleId, "ah"));
             cmdMediator.run(new AssignPermission(ahRoleId, raPermissionID));
             cmdMediator.run(new AssignPermission(ahRoleId, waPermissionID));
 
             // USERS
 
-            final EIUser.EIUserID rootUserId = new EIUser.EIUserID();
+            final EIUserID rootUserId = new EIUserID();
             cmdMediator.run(new CreateUser(rootUserId, "root", "root"));
             cmdMediator.run(new AssignRole(rootUserId, rootRoleId));
 
-            final EIUser.EIUserID mandantUserId = new EIUser.EIUserID();
+            final EIUserID mandantUserId = new EIUserID();
             cmdMediator.run(new CreateUser(mandantUserId, "mandant", "mandant"));
             cmdMediator.run(new AssignRole(mandantUserId, mandantRoleId));
 
-            final EIUser.EIUserID ahUserId = new EIUser.EIUserID();
+            final EIUserID ahUserId = new EIUserID();
             cmdMediator.run(new CreateUser(ahUserId, "ah", "ah"));
             cmdMediator.run(new AssignRole(ahUserId, ahRoleId));
 

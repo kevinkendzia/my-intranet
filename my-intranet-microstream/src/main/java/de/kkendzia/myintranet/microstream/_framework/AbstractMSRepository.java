@@ -73,8 +73,14 @@ public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I exte
         }
         rootCollection.put(entity.getId(), entity);
         getStorageManager().store(rootCollection);
+        storeAssociations(entity);
 
         return entity;
+    }
+
+    protected void storeAssociations(final A entity)
+    {
+        // optional
     }
 
 
@@ -92,6 +98,7 @@ public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I exte
         }
         rootCollection.put(entity.getId(), entity);
         getStorageManager().store(rootCollection);
+        storeAssociations(entity);
 
         return entity;
     }

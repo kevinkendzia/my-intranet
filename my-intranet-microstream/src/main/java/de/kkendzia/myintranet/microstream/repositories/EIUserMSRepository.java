@@ -23,4 +23,11 @@ public class EIUserMSRepository extends AbstractMSRepository<EIUser, EIUserID> i
         return getRoot().getEiUsers();
     }
 
+    @Override
+    protected void storeAssociations(final EIUser entity)
+    {
+        getStorageManager().store(entity.getRoles().ids());
+        getStorageManager().store(entity.getFavoriteActions());
+        getStorageManager().store(entity.getRecentActions());
+    }
 }
