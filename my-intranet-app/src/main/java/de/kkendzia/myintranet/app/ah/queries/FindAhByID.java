@@ -1,6 +1,6 @@
 package de.kkendzia.myintranet.app.ah.queries;
 
-import de.kkendzia.myintranet.app._framework.cqrs.query.QueryHandler;
+import de.kkendzia.myintranet.app._framework.cqrs.query.SingleResultQuery;
 import de.kkendzia.myintranet.app._shared.FindByIDFailure;
 import de.kkendzia.myintranet.app.mandant.queries.ListMandanten.MandantItem;
 import de.kkendzia.myintranet.domain.ah.Ah;
@@ -12,9 +12,9 @@ import de.kkendzia.myintranet.domain.verband.Verband;
 
 import java.time.LocalDate;
 
-public record FindAhByID(AhID id) implements QueryHandler.Query<FindAhByID.AhData, FindByIDFailure>
+public record FindAhByID(AhID id) implements SingleResultQuery<FindAhByID.AhData, FindByIDFailure>
 {
-    public interface FindAhByIDHandler extends QueryHandler<FindAhByID, AhData, FindByIDFailure>
+    public interface FindAhByIDHandler extends SingleResultQueryHandler<FindAhByID, AhData, FindByIDFailure>
     {
         @Override
         default Class<FindAhByID> getQueryClass()

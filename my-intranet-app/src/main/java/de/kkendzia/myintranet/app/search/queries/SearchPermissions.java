@@ -1,6 +1,5 @@
 package de.kkendzia.myintranet.app.search.queries;
 
-import de.kkendzia.myintranet.app._framework.cqrs.query.QueryHandler;
 import de.kkendzia.myintranet.app._framework.cqrs.query.paged.PagedQuery;
 import de.kkendzia.myintranet.domain.permission.Permission.PermissionID;
 

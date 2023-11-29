@@ -74,6 +74,16 @@ public class EIUser extends AbstractAggregateRoot<EIUser, EIUser.EIUserID>
         // TODO: validation
         roles.add(role);
     }
+
+    public List<EIUserAction> getFavoriteActions()
+    {
+        return favoriteActions;
+    }
+
+    public List<EIUserAction> getRecentActions()
+    {
+        return recentActions;
+    }
     //endregion
 
     //region TYPES

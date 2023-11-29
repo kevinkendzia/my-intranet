@@ -1,10 +1,12 @@
 package de.kkendzia.myintranet.microstream.queries.init;
 
-import de.kkendzia.myintranet.app._framework.result.ListResult;
+import de.kkendzia.myintranet.app._framework.result.SingleResult;
 import de.kkendzia.myintranet.app.init.queries.IsAppInit;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
 import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
+
+import static de.kkendzia.myintranet.app._framework.result.SingleResult.success;
 
 @Component
 public class IsAppInitHandlerMSHandler extends AbstractMSQueryHandler implements IsAppInit.IsAppInitHandler
@@ -15,8 +17,8 @@ public class IsAppInitHandlerMSHandler extends AbstractMSQueryHandler implements
     }
 
     @Override
-    public ListResult<Boolean, Void> fetchAll(final IsAppInit query)
+    public SingleResult<Boolean, Void> fetchOne(final IsAppInit query)
     {
-        return ListResult.success(getRoot().isInit());
+        return success(getRoot().isInit());
     }
 }

@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.microstream.queries.auth;
 
-import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Paging;
-import de.kkendzia.myintranet.app._framework.result.ListResult;
+import de.kkendzia.myintranet.app._framework.result.SingleResult;
+import de.kkendzia.myintranet.app._utils.Reduce;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthUserByUsername;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthUserByUsername.Failure;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthUserByUsername.FindAuthUserByUsernameHandler;
@@ -11,7 +11,6 @@ import de.kkendzia.myintranet.microstream._framework.AbstractPagedMSQueryHandler
 import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -30,16 +29,13 @@ public class FindAuthUserByUsernameMSHandler
     }
 
     @Override
-    public ListResult<AuthUser, Failure> fetchAll(
-            final FindAuthUserByUsername query,
-            final Paging paging)
+    public SingleResult<AuthUser, Failure> fetchOne(final FindAuthUserByUsername query)
     {
-        final List<AuthUser> result =
-                applyPaging(fetchUsers(query), paging)
-                        .map(this::mapUser)
-                        .toList();
-
-        return ListResult.success(result);
+        return fetchUsers(query)
+                .reduce(Reduce.toOnlyElement())
+                .map(this::mapUser)
+                .map(SingleResult::<AuthUser, Failure>success)
+                .orElseGet(() -> SingleResult.failure(Failure.NO_USER));
     }
 
     private AuthUser mapUser(final EIUser u)

@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.microstream.commands;
+package de.kkendzia.myintranet.microstream.commands.init;
 
 import de.kkendzia.myintranet.app._framework.result.VoidResult;
 import de.kkendzia.myintranet.app.init.commands.SetAppInit;

@@ -1,12 +1,15 @@
 package de.kkendzia.myintranet.microstream.queries.mandant;
 
-import de.kkendzia.myintranet.app._framework.result.ListResult;
+import de.kkendzia.myintranet.app._framework.result.SingleResult;
 import de.kkendzia.myintranet.app._shared.FindByIDFailure;
 import de.kkendzia.myintranet.app.mandant._shared.MandantSheet;
 import de.kkendzia.myintranet.app.mandant.queries.GetMandantSheetByID;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
 import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
+
+import static de.kkendzia.myintranet.app._framework.result.SingleResult.failure;
+import static de.kkendzia.myintranet.app._framework.result.SingleResult.success;
 
 @Component
 public class FindMandantByIDMSHandler extends AbstractMSQueryHandler
@@ -19,13 +22,13 @@ public class FindMandantByIDMSHandler extends AbstractMSQueryHandler
     }
 
     @Override
-    public ListResult<MandantSheet, FindByIDFailure> fetchAll(final GetMandantSheetByID query)
+    public SingleResult<MandantSheet, FindByIDFailure> fetchOne(final GetMandantSheetByID query)
     {
         final var mandant = getRoot().getMandanten().get(query.id());
         if (mandant == null)
         {
-            return ListResult.failure(FindByIDFailure.NOT_EXIST);
+            return failure(FindByIDFailure.NOT_EXIST);
         }
-        return ListResult.success(new MandantSheet(mandant));
+        return success(new MandantSheet(mandant));
     }
 }

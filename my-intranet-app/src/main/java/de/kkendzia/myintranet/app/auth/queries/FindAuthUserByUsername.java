@@ -1,12 +1,13 @@
 package de.kkendzia.myintranet.app.auth.queries;
 
-import de.kkendzia.myintranet.app._framework.cqrs.query.paged.PagedQuery;
-import de.kkendzia.myintranet.app._framework.cqrs.query.paged.PagedQueryHandler;
+import de.kkendzia.myintranet.app._framework.cqrs.query.SingleResultQuery;
 import de.kkendzia.myintranet.app.auth.shared.AuthUser;
 
-public record FindAuthUserByUsername(String username) implements PagedQuery<AuthUser, FindAuthUserByUsername.Failure>
+public record FindAuthUserByUsername(String username)
+        implements SingleResultQuery<AuthUser, FindAuthUserByUsername.Failure>
 {
-    public interface FindAuthUserByUsernameHandler extends PagedQueryHandler<FindAuthUserByUsername, AuthUser, Failure>
+    public interface FindAuthUserByUsernameHandler
+            extends SingleResultQueryHandler<FindAuthUserByUsername, AuthUser, Failure>
     {
         default Class<FindAuthUserByUsername> getQueryClass()
         {

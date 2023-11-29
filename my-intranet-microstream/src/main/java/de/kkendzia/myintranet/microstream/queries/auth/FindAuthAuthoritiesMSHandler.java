@@ -1,7 +1,6 @@
 package de.kkendzia.myintranet.microstream.queries.auth;
 
 import de.kkendzia.myintranet.app._framework.result.ListResult;
-import de.kkendzia.myintranet.app._framework.result.SingleResult;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthAuthorities;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthAuthorities.Failure;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthAuthorities.FindAuthAuthoritiesHandler;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static de.kkendzia.myintranet.app._utils.Reduce.toOnlyElement;
 import static java.util.Comparator.comparing;
 
 @Component
@@ -28,23 +26,6 @@ public class FindAuthAuthoritiesMSHandler
             final StorageManager storageManager)
     {
         super(storageManager);
-    }
-
-    @Override
-    public SingleResult<AuthAuthority, Failure> fetchOne(final FindAuthAuthorities query)
-    {
-        final EIUser user = fetchUser(query);
-
-        if (user == null)
-        {
-            return SingleResult.failure(Failure.NO_USER);
-        }
-
-        // TODO: failure instead of exception?!
-        return SingleResult.success(
-                fetchAuthorities(user)
-                        .reduce(toOnlyElement(() -> new IllegalStateException("Found more than 1 Authority!")))
-                        .orElseThrow(() -> new IllegalStateException("Found no Authority!")));
     }
 
     @Override

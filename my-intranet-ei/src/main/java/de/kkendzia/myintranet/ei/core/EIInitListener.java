@@ -53,8 +53,7 @@ public class EIInitListener implements VaadinServiceInitListener
 
     private void initDB()
     {
-        final var init = quMediator.fetchOne(new IsAppInit());
-        if (!init.getData())
+        if (!quMediator.test(new IsAppInit()))
         {
             LOGGER.info("DB wasn't initialized yet! Initializing...");
 
@@ -107,6 +106,10 @@ public class EIInitListener implements VaadinServiceInitListener
 
             cmdMediator.run(new SetAppInit(true));
             LOGGER.info("DB was initialized successfully!");
+        }
+        else
+        {
+            LOGGER.info("DB was already initialized before!");
         }
     }
 }
