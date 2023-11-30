@@ -53,6 +53,7 @@ public final class TranslationKeys
     public static final String PERMISSIONS = "label.permissions";
     public static final String ADMIN = "label.admin";
     public static final String MEMBERSHIP = "label.mitgliedsdaten";
+    public static final String MENU = "label.menu";
     //endregion
 
     private TranslationKeys()

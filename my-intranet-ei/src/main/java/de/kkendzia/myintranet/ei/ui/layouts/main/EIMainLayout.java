@@ -3,8 +3,12 @@ package de.kkendzia.myintranet.ei.ui.layouts.main;
 import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
-import de.kkendzia.myintranet.ei.core.session.EISession;
 import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
+import de.kkendzia.myintranet.ei.core.session.EISession;
+import de.kkendzia.myintranet.ei.ui.layouts.main.appbar.EIAppBar;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.EIDrawer;
+import de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.EIViewWrapper;
+import org.springframework.boot.info.BuildProperties;
 
 import static java.util.Objects.requireNonNull;
 
@@ -17,7 +21,8 @@ public class EIMainLayout
     public EIMainLayout(
             EIMainLayoutPresenter presenter,
             EISession session,
-            AccessAnnotationChecker accessChecker)
+            AccessAnnotationChecker accessChecker,
+            BuildProperties buildProperties)
     {
         requireNonNull(presenter, "presenter can't be null!");
         requireNonNull(session, "session can't be null!");
@@ -25,7 +30,7 @@ public class EIMainLayout
 
         addClassName("ei-main-layout");
         setPrimarySection(Section.DRAWER);
-        addToDrawer(new EIDrawer(accessChecker));
+        addToDrawer(new EIDrawer(accessChecker, buildProperties));
         addToNavbar(new EIAppBar(presenter, session));
     }
 

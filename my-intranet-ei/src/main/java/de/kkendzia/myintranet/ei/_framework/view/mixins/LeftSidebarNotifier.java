@@ -5,7 +5,7 @@ import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.shared.Registration;
-import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration;
+import de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.sidebar.SidebarConfiguration;
 
 public interface LeftSidebarNotifier
 {

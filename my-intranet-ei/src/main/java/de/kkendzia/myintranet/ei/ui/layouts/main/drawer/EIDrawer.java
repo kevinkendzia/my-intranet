@@ -1,26 +1,23 @@
-package de.kkendzia.myintranet.ei.ui.layouts.main;
+package de.kkendzia.myintranet.ei.ui.layouts.main.drawer;
 
 import com.vaadin.flow.component.Composite;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
-import com.vaadin.flow.theme.lumo.LumoUtility.FontSize;
-import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
-import de.kkendzia.myintranet.ei.ui.components.menu.DrawerMenu;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.MenuDefinition;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.AnnotationItemProvider;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.DrawerMenu;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.MenuDefinition;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.annotation.AnnotationItemProvider;
+import org.springframework.boot.info.BuildProperties;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.APP_TITLE;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.AhKeys.AHS;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.MENU;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.MandantKeys.MANDANTEN;
 
 public final class EIDrawer extends Composite<VerticalLayout>
 {
-    public EIDrawer(AccessAnnotationChecker accessAnnotationChecker)
+    public EIDrawer(AccessAnnotationChecker accessAnnotationChecker, BuildProperties buildProperties)
     {
         AnnotationItemProvider itemProvider = new AnnotationItemProvider();
         itemProvider.setRouteFilter(r -> accessAnnotationChecker.hasAccess(r.getNavigationTarget()));
@@ -55,32 +52,13 @@ public final class EIDrawer extends Composite<VerticalLayout>
         menu.setItemProvider(itemProvider);
 
         VerticalLayout root = getContent();
-        root.setPadding(false);
-        root.add(new EIDrawerHeader(getTranslation(APP_TITLE)));
+        root.setPadding(true);
+        root.setAlignItems(Alignment.STRETCH);
+        root.add(new EIDrawerHeader(
+                getTranslation(APP_TITLE),
+                getTranslation(MENU)));
         root.addAndExpand(menu);
-        root.add(new EIDrawerFooter());
-    }
-
-    public static class EIDrawerHeader extends Composite<Header>
-    {
-        public EIDrawerHeader(String title)
-        {
-            H1 appName = new H1(title);
-            appName.addClassNames(FontSize.LARGE, Margin.NONE);
-
-            Header header = getContent();
-            header.setHeight("10em");
-            header.add(appName);
-        }
-    }
-
-    public static class EIDrawerFooter extends Composite<Footer>
-    {
-        public EIDrawerFooter()
-        {
-            Footer root = getContent();
-            root.add(new Span("Version"));
-        }
+        root.add(new EIDrawerFooter(buildProperties));
     }
 
 

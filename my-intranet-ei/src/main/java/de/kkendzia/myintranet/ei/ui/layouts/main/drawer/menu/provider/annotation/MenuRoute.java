@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation;
+package de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.annotation;
 
 import java.lang.annotation.*;
 

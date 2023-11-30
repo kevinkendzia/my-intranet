@@ -2,7 +2,7 @@ package de.kkendzia.myintranet.ei._framework.view.mixins;
 
 import com.vaadin.flow.function.SerializableSupplier;
 import de.kkendzia.myintranet.ei._framework.view.EIView;
-import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration;
+import de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.sidebar.SidebarConfiguration;
 
 import java.util.Optional;
 

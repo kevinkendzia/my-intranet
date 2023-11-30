@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.components.menu;
+package de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu;
 
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
@@ -8,7 +8,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.function.SerializableSupplier;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.AnnotationItemProvider;
+import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.annotation.AnnotationItemProvider;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class DrawerMenu
     public DrawerMenu()
     {
         VerticalLayout root = getContent();
+        root.addClassName(Overflow.HIDDEN);
+        root.setPadding(false);
         root.setAlignItems(STRETCH);
         root.setHeightFull();
         root.add(scroller);

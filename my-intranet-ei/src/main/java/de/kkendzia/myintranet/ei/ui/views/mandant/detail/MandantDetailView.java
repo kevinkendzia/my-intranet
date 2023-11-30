@@ -8,7 +8,7 @@ import de.kkendzia.myintranet.ei._framework.parameters.HasViewParameter;
 import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei._framework.view.page.SaveablePage;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.ErrorKeys.MessageKeys;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs;
 import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs.PagedTab;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
@@ -27,7 +27,7 @@ import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.MandantKeys.MANDANT;
 import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showError;
 import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showSuccess;
-import static de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer.EIMenuKeys.MANDANTEN;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.drawer.EIDrawer.EIMenuKeys.MANDANTEN;
 import static de.kkendzia.myintranet.ei.utils.HistoryUtils.updateUrl;
 import static java.util.Objects.requireNonNull;
 

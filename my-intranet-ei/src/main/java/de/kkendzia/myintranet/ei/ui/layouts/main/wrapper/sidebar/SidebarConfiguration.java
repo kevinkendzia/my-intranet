@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.layouts.main.sidebar;
+package de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.sidebar;
 
 import com.vaadin.flow.function.SerializableRunnable;
 

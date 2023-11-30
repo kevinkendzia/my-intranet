@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.layouts.main;
+package de.kkendzia.myintranet.ei.ui.layouts.main.appbar;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.UI;
@@ -19,7 +19,8 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.session.EISession;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.AnnotationItemProvider;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.annotation.AnnotationItemProvider;
 import de.kkendzia.myintranet.ei.ui.components.search.SearchField;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchPreviewItem;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget;

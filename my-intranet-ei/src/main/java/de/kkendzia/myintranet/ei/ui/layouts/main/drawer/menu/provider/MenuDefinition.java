@@ -1,8 +1,8 @@
-package de.kkendzia.myintranet.ei.ui.components.menu.provider;
+package de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.function.SerializableSupplier;
-import de.kkendzia.myintranet.ei.ui.components.menu.DrawerMenu.TreeItem;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.DrawerMenu.TreeItem;
 
 import java.util.List;
 

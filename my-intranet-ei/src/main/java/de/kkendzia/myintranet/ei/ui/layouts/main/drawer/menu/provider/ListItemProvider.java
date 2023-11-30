@@ -1,6 +1,6 @@
-package de.kkendzia.myintranet.ei.ui.components.menu.provider;
+package de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider;
 
-import de.kkendzia.myintranet.ei.ui.components.menu.DrawerMenu;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.DrawerMenu;
 
 import java.util.List;
 

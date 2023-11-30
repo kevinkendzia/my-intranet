@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation;
+package de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.annotation;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.function.SerializableConsumer;
@@ -7,10 +7,10 @@ import com.vaadin.flow.function.SerializableSupplier;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouteData;
-import de.kkendzia.myintranet.ei.ui.components.menu.DrawerMenu;
-import de.kkendzia.myintranet.ei.ui.components.menu.DrawerMenu.TreeItem;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.MenuDefinition;
-import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.AnnotationItemProvider.AnnotationAnalyzer.AnnotationData;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.DrawerMenu;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.DrawerMenu.TreeItem;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.MenuDefinition;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.annotation.AnnotationItemProvider.AnnotationAnalyzer.AnnotationData;
 
 import java.util.ArrayList;
 import java.util.HashMap;

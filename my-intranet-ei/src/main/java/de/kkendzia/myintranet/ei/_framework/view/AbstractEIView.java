@@ -9,7 +9,7 @@ import com.vaadin.flow.router.RouteParameters;
 import de.kkendzia.myintranet.ei._framework.parameters.ParameterDefinition;
 import de.kkendzia.myintranet.ei._framework.view.mixins.*;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
-import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration;
+import de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.sidebar.SidebarConfiguration;
 
 import java.util.*;
 import java.util.stream.Stream;

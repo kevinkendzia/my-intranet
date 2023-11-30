@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.layouts.main;
+package de.kkendzia.myintranet.ei.ui.layouts.main.wrapper;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
@@ -10,7 +10,7 @@ import de.kkendzia.components.expandablesidebar.ExpandableSidebar.Side;
 import de.kkendzia.myintranet.ei._framework.view.EIView;
 import de.kkendzia.myintranet.ei._framework.view.mixins.*;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ConfigurableToolbar;
-import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfigurator;
+import de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.sidebar.SidebarConfigurator;
 
 import java.util.Optional;
 
