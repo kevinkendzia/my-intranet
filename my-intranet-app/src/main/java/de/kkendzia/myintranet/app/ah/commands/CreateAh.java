@@ -3,7 +3,7 @@ package de.kkendzia.myintranet.app.ah.commands;
 import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler.IDCommand;
 import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler.IDCommandHandler;
 import de.kkendzia.myintranet.app._framework.result.SingleResult;
-import de.kkendzia.myintranet.app._shared.CreateFailure;
+import de.kkendzia.myintranet.app._shared.failures.CreateFailure;
 import de.kkendzia.myintranet.app.ah._shared.AhSheet;
 import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.domain.ah.Ah.AhID;

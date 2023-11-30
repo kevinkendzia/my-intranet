@@ -1,11 +1,13 @@
 package de.kkendzia.myintranet.app.search.queries;
 
 import de.kkendzia.myintranet.app._framework.cqrs.query.paged.PagedQuery;
+import de.kkendzia.myintranet.app._shared.failures.SearchFailure;
 import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
 
-public record SearchEIUsers(String searchtext) implements PagedQuery<SearchEIUsers.ResultItem, SearchEIUsers.Failure>
+public record SearchEIUsers(String searchtext) implements PagedQuery<SearchEIUsers.ResultItem, SearchFailure>
 {
-    interface SearchEIUserHandler extends QueryHandler<SearchEIUsers, SearchEIUsers.ResultItem, SearchEIUsers.Failure>
+    public interface SearchEIUserHandler
+            extends PagedQueryHandler<SearchEIUsers, SearchEIUsers.ResultItem, SearchFailure>
     {
         @Override
         default Class<SearchEIUsers> getQueryClass()
@@ -22,10 +24,5 @@ public record SearchEIUsers(String searchtext) implements PagedQuery<SearchEIUse
         {
             return id().toString();
         }
-    }
-
-    public enum Failure
-    {
-        UNKNOWN
     }
 }

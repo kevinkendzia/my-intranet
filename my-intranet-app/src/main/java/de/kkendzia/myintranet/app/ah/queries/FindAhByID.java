@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.app.ah.queries;
 
 import de.kkendzia.myintranet.app._framework.cqrs.query.SingleResultQuery;
-import de.kkendzia.myintranet.app._shared.FindByIDFailure;
+import de.kkendzia.myintranet.app._shared.failures.FindByIDFailure;
 import de.kkendzia.myintranet.app.mandant.queries.ListMandanten.MandantItem;
 import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.domain.ah.Ah.AhID;

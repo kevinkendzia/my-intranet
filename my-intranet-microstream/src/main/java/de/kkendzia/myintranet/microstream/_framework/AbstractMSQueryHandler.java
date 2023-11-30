@@ -1,20 +1,63 @@
 package de.kkendzia.myintranet.microstream._framework;
 
+import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Direction;
+import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Order;
+import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Paging;
 import one.microstream.storage.types.StorageManager;
 
-import static java.util.Objects.requireNonNull;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
 
-public abstract class AbstractMSQueryHandler implements HasStorageManager
+import static de.kkendzia.myintranet.app._utils.StreamUtil.sortOptionally;
+
+public class AbstractMSQueryHandler<T> extends StorageManagerHolder
 {
-    private final StorageManager storageManager;
+    private final Map<String, Comparator<T>> comparatorMap = new HashMap<>();
 
     protected AbstractMSQueryHandler(final StorageManager storageManager)
     {
-        this.storageManager = requireNonNull(storageManager, "storageManager can't be null!");
+        super(storageManager);
     }
-    
-    public StorageManager getStorageManager()
+
+    protected void registerSortOrder(String key, Comparator<T> comparator)
     {
-        return storageManager;
+        comparatorMap.put(key, comparator);
+    }
+
+    protected Comparator<T> mapSortOrders(Collection<Order> orders)
+    {
+        if (orders == null)
+        {
+            return null;
+        }
+
+        return orders
+                .stream().map(x ->
+                {
+                    final Comparator<T> c = comparatorMap.get(x.property());
+                    if (x.direction() == Direction.DESC)
+                    {
+                        return c.reversed();
+                    }
+                    return c;
+                })
+                .reduce(Comparator::thenComparing)
+                .orElse(null);
+    }
+
+    protected Stream<T> applyPaging(Stream<T> stream, Paging paging)
+    {
+        if (paging != null)
+        {
+            final Comparator<T> comparator = mapSortOrders(paging.orders());
+            return sortOptionally(stream, comparator)
+                    .skip(paging.offset())
+                    .limit(paging.limit());
+        }
+
+        return stream;
     }
 }

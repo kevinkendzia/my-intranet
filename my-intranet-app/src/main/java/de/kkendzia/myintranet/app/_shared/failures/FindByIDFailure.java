@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.app._shared;
+package de.kkendzia.myintranet.app._shared.failures;
 
 public enum FindByIDFailure
 {

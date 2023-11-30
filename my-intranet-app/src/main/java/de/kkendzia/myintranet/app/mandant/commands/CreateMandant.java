@@ -3,7 +3,7 @@ package de.kkendzia.myintranet.app.mandant.commands;
 import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler;
 import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler.IDCommand;
 import de.kkendzia.myintranet.app._framework.result.SingleResult;
-import de.kkendzia.myintranet.app._shared.CreateFailure;
+import de.kkendzia.myintranet.app._shared.failures.CreateFailure;
 import de.kkendzia.myintranet.app.mandant._shared.MandantSheet;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;

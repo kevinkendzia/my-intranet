@@ -7,7 +7,7 @@ public record ListMandanten()
         implements PagedQuery<ListMandanten.MandantItem, ListMandanten.Failure>
 {
     public interface ListMandantenHandler
-            extends QueryHandler<ListMandanten, MandantItem, ListMandanten.Failure>
+            extends PagedQueryHandler<ListMandanten, MandantItem, ListMandanten.Failure>
     {
         @Override
         default Class<ListMandanten> getQueryClass()

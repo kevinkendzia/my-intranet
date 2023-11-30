@@ -1,13 +1,15 @@
 package de.kkendzia.myintranet.app.search.queries;
 
 import de.kkendzia.myintranet.app._framework.cqrs.query.paged.PagedQuery;
+import de.kkendzia.myintranet.app._shared.failures.SearchFailure;
 import de.kkendzia.myintranet.domain.ah.Ah.AhID;
+import de.kkendzia.myintranet.domain.ah.Ah.Ahnr;
 
 import java.time.LocalDate;
 
-public record SearchAhs(String searchtext) implements PagedQuery<SearchAhs.ResultItem, SearchAhs.Failure>
+public record SearchAhs(String searchtext) implements PagedQuery<SearchAhs.ResultItem, SearchFailure>
 {
-    interface SearchAhsHandler extends QueryHandler<SearchAhs, SearchAhs.ResultItem, SearchAhs.Failure>
+    public interface SearchAhsHandler extends PagedQueryHandler<SearchAhs, SearchAhs.ResultItem, SearchFailure>
     {
         @Override
         default Class<SearchAhs> getQueryClass()
@@ -18,7 +20,7 @@ public record SearchAhs(String searchtext) implements PagedQuery<SearchAhs.Resul
 
     public record ResultItem(
             AhID id,
-            int ahnr,
+            Ahnr ahnr,
             String matchcode,
             LocalDate enterDate,
             LocalDate exitDate)
@@ -27,10 +29,5 @@ public record SearchAhs(String searchtext) implements PagedQuery<SearchAhs.Resul
         {
             return id().toString();
         }
-    }
-
-    public enum Failure
-    {
-        UNKNOWN
     }
 }

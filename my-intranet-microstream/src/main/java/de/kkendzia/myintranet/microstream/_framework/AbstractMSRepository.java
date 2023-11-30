@@ -12,19 +12,13 @@ import static de.kkendzia.myintranet.domain._core.repository.Repository.requireI
 import static java.util.Objects.requireNonNull;
 
 public abstract class AbstractMSRepository<A extends AggregateRoot<A, I>, I extends ID>
-        implements Repository<A, I>, HasStorageManager
+        extends StorageManagerHolder
+        implements Repository<A, I>
 {
-    private final StorageManager storageManager;
-
     protected AbstractMSRepository(
             final StorageManager storageManager)
     {
-        this.storageManager = storageManager;
-    }
-
-    public StorageManager getStorageManager()
-    {
-        return storageManager;
+        super(storageManager);
     }
 
     protected abstract Map<I, A> getRootCollection();

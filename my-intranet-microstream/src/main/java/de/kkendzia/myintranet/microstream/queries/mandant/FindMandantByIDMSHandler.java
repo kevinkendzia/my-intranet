@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.microstream.queries.mandant;
 
 import de.kkendzia.myintranet.app._framework.result.SingleResult;
-import de.kkendzia.myintranet.app._shared.FindByIDFailure;
+import de.kkendzia.myintranet.app._shared.failures.FindByIDFailure;
 import de.kkendzia.myintranet.app.mandant._shared.MandantSheet;
 import de.kkendzia.myintranet.app.mandant.queries.GetMandantSheetByID;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;

@@ -7,7 +7,7 @@ import de.kkendzia.myintranet.app.auth.queries.FindAuthUserByUsername.Failure;
 import de.kkendzia.myintranet.app.auth.queries.FindAuthUserByUsername.FindAuthUserByUsernameHandler;
 import de.kkendzia.myintranet.app.auth.shared.AuthUser;
 import de.kkendzia.myintranet.domain.user.EIUser;
-import de.kkendzia.myintranet.microstream._framework.AbstractPagedMSQueryHandler;
+import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
 import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ import static java.util.Comparator.comparing;
 
 @Component
 public class FindAuthUserByUsernameMSHandler
-        extends AbstractPagedMSQueryHandler<EIUser>
+        extends AbstractMSQueryHandler<EIUser>
         implements FindAuthUserByUsernameHandler
 {
     public FindAuthUserByUsernameMSHandler(

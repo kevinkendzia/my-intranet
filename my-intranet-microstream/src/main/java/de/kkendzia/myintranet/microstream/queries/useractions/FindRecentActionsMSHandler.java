@@ -6,14 +6,14 @@ import de.kkendzia.myintranet.app.useractions.queries.FindRecentActions;
 import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.domain.user.EIUserAction;
-import de.kkendzia.myintranet.microstream._framework.AbstractPagedMSQueryHandler;
+import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
 import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import static java.util.Comparator.comparing;
 
 @Component
-public class FindRecentActionsMSHandler extends AbstractPagedMSQueryHandler<EIUserAction>
+public class FindRecentActionsMSHandler extends AbstractMSQueryHandler<EIUserAction>
         implements FindRecentActions.FindRecentActionsHandler
 {
     public FindRecentActionsMSHandler(final StorageManager storageManager)
