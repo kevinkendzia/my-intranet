@@ -5,9 +5,9 @@ import com.vaadin.flow.data.provider.DataProvider;
 import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
 import de.kkendzia.myintranet.app.search.queries.SearchAhs;
 import de.kkendzia.myintranet.app.search.queries.SearchMandanten;
-import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei._framework.presenter.EIPresenter;
 import de.kkendzia.myintranet.ei._framework.presenter.Presenter;
+import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.components.data.QueryDataProvider;
 import de.kkendzia.myintranet.ei.ui.components.data.QueryDataProvider.DefaultQueryFactory;
 import de.kkendzia.myintranet.ei.ui.components.navigation.IdNavigationAction;
@@ -23,6 +23,9 @@ import de.kkendzia.myintranet.ei.ui.views.search.SearchView;
 import java.util.Optional;
 
 import static de.kkendzia.myintranet.ei._framework.view.search.SearchParameters.SEARCH_TEXT;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.AhKeys.AHS;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.MandantKeys.MANDANTEN;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.VlKeys.VLS;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.*;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchPreviewItem.*;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.AH;
@@ -97,11 +100,11 @@ public class EIMainLayoutPresenter implements EIPresenter
     public enum SearchTarget
     {
         AH(
-                TranslationKeys.AHS,
+                AHS,
                 new NavigateWithID<>(AhDetailView.class),
                 new NavigateWithQueryParameters<>(AhSearchView.class)),
         VL(
-                TranslationKeys.VLS,
+                VLS,
                 null,
                 null),
         AKTION(
@@ -109,7 +112,7 @@ public class EIMainLayoutPresenter implements EIPresenter
                 null,
                 null),
         MANDANT(
-                TranslationKeys.MANDANTEN,
+                MANDANTEN,
                 new NavigateWithID<>(MandantDetailView.class),
                 new NavigateWithQueryParameters<>(MandantSearchView.class));
 

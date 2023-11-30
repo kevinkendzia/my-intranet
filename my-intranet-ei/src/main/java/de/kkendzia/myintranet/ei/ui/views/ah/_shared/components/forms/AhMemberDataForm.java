@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.AhKeys.MITGLIEDSFORM;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.AhKeys.VERBAND;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.REGULIERER;
 import static de.kkendzia.myintranet.ei.utils.DataProviderUtils.emptyDataProvider;
 
 public class AhMemberDataForm extends AbstractForm<AhSheet.MembershipSection>

@@ -2,20 +2,6 @@ package de.kkendzia.myintranet.ei.core.i18n;
 
 public final class TranslationKeys
 {
-    //region AH
-    public static final String AHNR = "label.ahnr";
-    public static final String AHS = "label.ahs";
-    public static final String AH = "label.ah";
-    public static final String MITGLIEDSFORM = "label.mitgliedsdaten";
-    public static final String VERBAND = "label.verband";
-    //endregion
-
-    //region VL
-    public static final String VLNR = "label.vlnr";
-    public static final String VLS = "label.vls";
-    public static final String VL = "label.vl";
-    //endregion
-
     //region AKTION
     public static final String AKTIONSNUMMER = "label.aktionsnummer";
     public static final String AKTIONEN = "label.aktionen";
@@ -35,8 +21,6 @@ public final class TranslationKeys
 
     //region OTHER
     public static final String OTHER = "label.other";
-    public static final String MANDANT = "label.mandant";
-    public static final String MANDANTEN = "label.mandanten";
     public static final String MATCHCODE = "label.matchcode";
     public static final String ENTER_DATE = "label.enterDate";
     public static final String EXIT_DATE = "label.exitDate";
@@ -76,46 +60,84 @@ public final class TranslationKeys
         // No Instance!
     }
 
-    public static class Notification
-    {
-        public static class Error
-        {
-            public static final String ERROR = "label.error";
-
-            public static class Message
-            {
-                public static final String NO_CHANGES = "error.msg.noChanges";
-                public static final String VALIDATION_ERROR = "error.msg.validationError";
-            }
-        }
-    }
-
-    public static final class Validation
+    public static final class ValidationKeys
     {
         public static final String REQUIRED = "validation.required";
 
-        private Validation()
+        private ValidationKeys()
         {
             // No Instance!
         }
     }
 
-    public static class Examples
+    public static class ExampleKeys
     {
         public static final String LOREM_S = "lorem.small";
         public static final String LOREM_L = "lorem.large";
 
-        private Examples()
+        private ExampleKeys()
         {
             // No Instance!
         }
     }
 
-    public static class Errors
+    public static class ErrorKeys
     {
-        public static class Messages
+        private ErrorKeys()
         {
+            // No Instance!
+        }
+
+        public static class MessageKeys
+        {
+            public static final String NO_CHANGES = "error.msg.noChanges";
+            public static final String VALIDATION_ERROR = "error.msg.validationError";
             public static final String ID_NOT_FOUND = "error.msg.idNotFound";
+
+            private MessageKeys()
+            {
+                // No Instance!
+            }
+        }
+    }
+
+    public static class MandantKeys
+    {
+        public static final String MANDANT = "label.mandant";
+        public static final String MANDANTEN = "label.mandanten";
+        public static final String SEARCH = "label.mandantSearch";
+
+        private MandantKeys()
+        {
+            // No Instance!
+        }
+    }
+
+    public static class AhKeys
+    {
+        public static final String AHNR = "label.ahnr";
+        public static final String AHS = "label.ahs";
+        public static final String AH = "label.ah";
+        public static final String MITGLIEDSFORM = "label.mitgliedsdaten";
+        public static final String VERBAND = "label.verband";
+        public static final String SEARCH = "label.ahSearch";
+        public static final String CREATE = "label.ahCreate";
+
+        private AhKeys()
+        {
+            // No Instance!
+        }
+    }
+
+    public static class VlKeys
+    {
+        public static final String VLNR = "label.vlnr";
+        public static final String VLS = "label.vls";
+        public static final String VL = "label.vl";
+
+        private VlKeys()
+        {
+            // No Instance!
         }
     }
 }

@@ -15,6 +15,8 @@ import de.kkendzia.myintranet.ei.ui.components.menu.provider.MenuDefinition;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.AnnotationItemProvider;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.APP_TITLE;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.AhKeys.AHS;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.MandantKeys.MANDANTEN;
 
 public final class EIDrawer extends Composite<VerticalLayout>
 {
@@ -28,10 +30,10 @@ public final class EIDrawer extends Composite<VerticalLayout>
                         getTranslation(TranslationKeys.START)),
                 new MenuDefinition(
                         EIMenuKeys.MANDANTEN,
-                        getTranslation(TranslationKeys.MANDANTEN)),
+                        getTranslation(MANDANTEN)),
                 new MenuDefinition(
                         EIMenuKeys.AH,
-                        getTranslation(TranslationKeys.AHS)),
+                        getTranslation(AHS)),
                 new MenuDefinition(
                         EIMenuKeys.ADMIN,
                         getTranslation(TranslationKeys.ADMIN),

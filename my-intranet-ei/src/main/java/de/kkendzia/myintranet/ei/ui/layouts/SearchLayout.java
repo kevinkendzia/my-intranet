@@ -4,22 +4,26 @@ import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.shared.Registration;
+import de.kkendzia.myintranet.ei.ui.components.images.ImageFactory;
 import de.kkendzia.myintranet.ei.ui.components.navigation.ItemNavigationAction;
 import de.kkendzia.myintranet.ei.ui.components.text.Counter;
 import de.kkendzia.myintranet.ei.ui.components.text.CounterRow;
 
 import static com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment.STRETCH;
+import static de.kkendzia.myintranet.ei.core.constants.EITheme.Image.IMG_EMPTY;
 
 public class SearchLayout<T> extends Composite<VerticalLayout>
 {
     private final Span spSearchText = new Span();
     private final Grid<T> grid = new Grid<>();
     private final Counter counter = new Counter();
+    private final Image imgEmpty = ImageFactory.create(IMG_EMPTY);
 
     private ItemNavigationAction<T> navigationAction;
     private Registration regCounter;
@@ -67,7 +71,19 @@ public class SearchLayout<T> extends Composite<VerticalLayout>
 
     private void registerDataProviderListener(DataProvider<T, ?> dataProvider)
     {
-        regCounter = dataProvider.addDataProviderListener(e -> counter.setValue(dataProvider.size(new Query<>())));
+        regCounter = dataProvider.addDataProviderListener(e ->
+        {
+            final var count = dataProvider.size(new Query<>());
+            if (count > 0)
+            {
+                getContent().replace(imgEmpty, grid);
+            }
+            else
+            {
+                getContent().replace(grid, imgEmpty);
+            }
+            counter.setValue(count);
+        });
     }
 
     private void cleanUpRegistrations()

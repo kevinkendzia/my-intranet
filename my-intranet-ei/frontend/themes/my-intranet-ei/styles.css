@@ -35,6 +35,7 @@ h3.sticky-h3 {
 }
 
 .background-image-home {
+    background-image: url("./img/home.svg");
     background-repeat: no-repeat;
     background-position-x: right;
     background-position-y: top;

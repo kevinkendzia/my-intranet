@@ -7,25 +7,26 @@ import de.kkendzia.myintranet.app.search.queries.SearchMandanten;
 import de.kkendzia.myintranet.app.search.queries.SearchMandanten.ResultItem;
 import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei._framework.view.search.SearchParameters;
+import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.navigation.NavigateWithItem;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.MandantKeys.SEARCH;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.NAME;
-import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SEARCH;
-import static de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer.EIMenuKeys.MANDANTEN;
-import static de.kkendzia.myintranet.ei.ui.views.mandant.routes.MandantRoutes.NAV_ROOT;
+import static de.kkendzia.myintranet.ei.ui.views.mandant.MandantRoutes.NAV_ROOT;
 import static de.kkendzia.myintranet.ei.utils.GridColumnFactory.addCollapsedColumn;
 import static de.kkendzia.myintranet.ei.utils.GridColumnFactory.addSpacerColumn;
 import static java.util.Objects.requireNonNull;
 
 @Route(value = MandantSearchView.NAV, layout = EIMainLayout.class)
-@MenuRoute(label = SEARCH, parent = MANDANTEN, position = 1)
+@MenuRoute(label = TranslationKeys.SEARCH, parent = EIDrawer.EIMenuKeys.MANDANTEN, position = 1)
 @PermitAll
 public final class MandantSearchView extends AbstractEIView<SearchLayout<ResultItem>>
 {
@@ -38,6 +39,7 @@ public final class MandantSearchView extends AbstractEIView<SearchLayout<ResultI
     {
         this.presenter = requireNonNull(presenter, "presenter can't be null!");
 
+        setPageTitle(getTranslation(SEARCH));
         setToolbarConfig(new ToolbarConfiguration(getTranslation(SEARCH)));
 
         SearchLayout<ResultItem> root = getContent();

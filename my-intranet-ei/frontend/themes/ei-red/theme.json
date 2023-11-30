@@ -1,4 +1,0 @@
-{
-  "lumoImports" : [ "typography", "color", "spacing", "badge", "utility" ],
-  "parent": "my-intranet-ei"
-}

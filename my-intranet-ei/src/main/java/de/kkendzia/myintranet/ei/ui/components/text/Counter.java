@@ -2,7 +2,9 @@ package de.kkendzia.myintranet.ei.ui.components.text;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.theme.lumo.LumoUtility.TextAlignment;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import static de.kkendzia.myintranet.ei.ui.components.text.Counter.CounterI18N.State.FOUND_ITEMS;
@@ -19,6 +21,7 @@ public class Counter extends Composite<Span>
     public Counter(CounterI18N i18n)
     {
         this.i18n = requireNonNull(i18n, "i18n can't be null!");
+        getContent().addClassName(TextAlignment.RIGHT);
     }
 
     public Counter()
@@ -35,7 +38,7 @@ public class Counter extends Composite<Span>
     }
 
     //region TYPES
-    public static class CounterI18N
+    public static class CounterI18N implements Serializable
     {
         private final Map<State, String> i18nMap;
 

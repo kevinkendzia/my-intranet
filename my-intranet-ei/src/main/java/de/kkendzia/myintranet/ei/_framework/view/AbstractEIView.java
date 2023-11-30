@@ -6,9 +6,8 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.RouteParameters;
-import de.kkendzia.myintranet.ei._framework.view.mixins.*;
 import de.kkendzia.myintranet.ei._framework.parameters.ParameterDefinition;
-import de.kkendzia.myintranet.ei.core.view.mixins.*;
+import de.kkendzia.myintranet.ei._framework.view.mixins.*;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration;
 

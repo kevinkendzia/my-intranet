@@ -9,7 +9,7 @@ import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import org.springframework.http.HttpStatus;
 
-import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.Errors.Messages.ID_NOT_FOUND;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.ErrorKeys.MessageKeys.ID_NOT_FOUND;
 
 @ParentLayout(EIMainLayout.class)
 public class UnknownIDError extends AbstractEIView<EIErrotLayout>

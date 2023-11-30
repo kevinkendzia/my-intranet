@@ -5,8 +5,7 @@ import static java.util.Objects.requireNonNull;
 public class EITheme
 {
     private static final String DIR = "themes";
-    //    public static final String NAME = "my-intranet-ei";
-    public static final String NAME = "ei-red";
+    public static final String NAME = "my-intranet-ei";
 
     private EITheme()
     {
@@ -21,6 +20,7 @@ public class EITheme
     {
         private static final String DIR = "img";
         public static final Image IMG_HOME = new Image("home.svg");
+        public static final Image IMG_EMPTY = new Image("empty.svg");
 
         private final String name;
 

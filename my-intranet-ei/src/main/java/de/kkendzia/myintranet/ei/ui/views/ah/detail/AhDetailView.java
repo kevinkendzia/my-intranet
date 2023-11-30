@@ -6,9 +6,9 @@ import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.domain.ah.Ah.AhID;
-import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei._framework.parameters.HasViewParameter;
 import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
+import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration.ToolbarAction;
@@ -42,7 +42,7 @@ public class AhDetailView
 
         final var header = new SidebarConfiguration.SidebarHeader(
                 getTranslation(TranslationKeys.CREATE),
-                getTranslation(TranslationKeys.Examples.LOREM_S));
+                getTranslation(TranslationKeys.ExampleKeys.LOREM_S));
 
         setLeftSidebarConfig(
                 new SidebarConfiguration.Builder()
@@ -53,7 +53,7 @@ public class AhDetailView
         setRightSidebarConfig(
                 new SidebarConfiguration.Builder()
                         .header(header)
-                        .text(TranslationKeys.Examples.LOREM_L)
+                        .text(TranslationKeys.ExampleKeys.LOREM_L)
                         .build());
 
         setToolbarConfig(
