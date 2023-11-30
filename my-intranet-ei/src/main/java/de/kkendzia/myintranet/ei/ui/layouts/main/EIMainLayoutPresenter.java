@@ -2,47 +2,74 @@ package de.kkendzia.myintranet.ei.ui.layouts.main;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.data.provider.Query;
+import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
+import de.kkendzia.myintranet.app.search.queries.SearchAhs;
+import de.kkendzia.myintranet.app.search.queries.SearchMandanten;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.presenter.EIPresenter;
 import de.kkendzia.myintranet.ei.core.presenter.Presenter;
+import de.kkendzia.myintranet.ei.ui.components.data.QueryDataProvider;
+import de.kkendzia.myintranet.ei.ui.components.data.QueryDataProvider.DefaultQueryFactory;
+import de.kkendzia.myintranet.ei.ui.components.navigation.IdNavigationAction;
+import de.kkendzia.myintranet.ei.ui.components.navigation.NavigateWithID;
+import de.kkendzia.myintranet.ei.ui.components.navigation.NavigateWithQueryParameters;
+import de.kkendzia.myintranet.ei.ui.components.navigation.QueryParametersNavigationAction;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import de.kkendzia.myintranet.ei.ui.views.ah.search.AhSearchView;
+import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
+import de.kkendzia.myintranet.ei.ui.views.mandant.search.MandantSearchView;
 import de.kkendzia.myintranet.ei.ui.views.search.SearchView;
 
-import java.util.stream.Stream;
+import java.util.Optional;
 
 import static de.kkendzia.myintranet.ei.core.view.search.SearchParameters.SEARCH_TEXT;
-import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.DEFAULT;
-import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.HEADER;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.*;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchPreviewItem.*;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.AH;
-import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.OTHER;
+import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.MANDANT;
+import static java.util.Objects.requireNonNull;
 
 @Presenter
 public class EIMainLayoutPresenter implements EIPresenter
 {
+    private final transient QueryMediator quMediator;
+
+    public EIMainLayoutPresenter(final QueryMediator quMediator)
+    {
+        this.quMediator = quMediator;
+    }
+
+    public DataProvider<SearchPreviewItem, String> createSearchPreviewDataProvider()
+    {
+        return new QueryDataProvider<>(
+                quMediator,
+                new DefaultQueryFactory<>(
+                        SearchMandanten::new,
+                        EIMainLayoutPresenter::mapMandantPreviewItem,
+                        searchText -> headerItem(searchText, MANDANT),
+                        searchText -> footerItem(searchText, MANDANT)),
+                new DefaultQueryFactory<>(
+                        SearchAhs::new,
+                        EIMainLayoutPresenter::mapAhPreviewItem,
+                        searchText -> headerItem(searchText, AH),
+                        searchText -> footerItem(searchText, AH)));
+    }
+
     public void search(SearchPreviewItem value)
     {
-        // TODO
-        if (value.id() != null)
+        requireNonNull(value, "value can't be null!");
+        final var id = value.optionalId();
+        final var target = value.optionalTarget();
+        final var searchNavigation = target.flatMap(SearchTarget::getOptionalSearchNavigation);
+        final var detailNavigation = target.flatMap(SearchTarget::getOptionalDetailNavigation);
+
+        if (id.isPresent() && detailNavigation.isPresent())
         {
-            UI.getCurrent().navigate(
-                    switch (value.target)
-                    {
-                        case AH -> AhDetailView.class;
-                        default -> throw new IllegalStateException("Not implemented!");
-                    },
-                    value.id());
+            detailNavigation.ifPresent(n -> n.execute(value.id()));
         }
-        else if (value.target() != null && value.target() != OTHER)
+        else if (searchNavigation.isPresent())
         {
-            UI.getCurrent().navigate(
-                    switch (value.target)
-                    {
-                        case AH -> AhSearchView.class;
-                        default -> throw new IllegalStateException("Not implemented!");
-                    },
-                    SEARCH_TEXT.createQueryParameters(value.searchText()));
+            searchNavigation.ifPresent(n -> n.execute(SEARCH_TEXT.createQueryParameters(value.searchText())));
         }
         else
         {
@@ -50,54 +77,69 @@ public class EIMainLayoutPresenter implements EIPresenter
         }
     }
 
-    public DataProvider<SearchPreviewItem, String> createSearchPreviewDataProvider()
+    //region STATIC
+    private static SearchPreviewItem mapMandantPreviewItem(
+            final SearchMandanten.ResultItem source,
+            final String searchText)
     {
-        return DataProvider.fromFilteringCallbacks(this::searchPreview, this::countPreview);
+        return defaultType(searchText, MANDANT, source.idString(), source.name());
     }
 
-    private Stream<SearchPreviewItem> searchPreview(Query<SearchPreviewItem, String> query)
+    private static SearchPreviewItem mapAhPreviewItem(
+            final SearchAhs.ResultItem source,
+            final String searchText)
     {
-        String searchText = query.getFilter().orElse("");
-
-        return Stream.of(
-                        new SearchPreviewItem(searchText, AH, HEADER, null, "")
-//                        ,
-//                        new SearchPreviewItem(searchText, AH, DEFAULT, 1, "HOMA"),
-//                        new SearchPreviewItem(searchText, AH, DEFAULT, 2, "SEIP"),
-//                        new SearchPreviewItem(searchText, AH, FOOTER, -1, ""),
-//                        new SearchPreviewItem(searchText, VL, HEADER, -1, ""),
-//                        new SearchPreviewItem(searchText, VL, DEFAULT, 1, "ACTONA"),
-//                        new SearchPreviewItem(searchText, AKTION, HEADER, -1, ""),
-//                        new SearchPreviewItem(searchText, AKTION, DEFAULT, 1, "Sommermöbel 2023")
-                )
-                .skip(query.getOffset())
-                .limit(query.getLimit());
+        return defaultType(searchText, AH, source.idString(), source.ahnr() + " " + source.matchcode());
     }
-
-    private int countPreview(Query<SearchPreviewItem, String> query)
-    {
-        return 8;
-    }
+    //endregion
 
     //region TYPES
     public enum SearchTarget
     {
-        // TODO
-        OTHER(TranslationKeys.OTHER),
-        AH(TranslationKeys.AHS),
-        VL(TranslationKeys.VLS),
-        AKTION(TranslationKeys.AKTIONEN);
+        AH(
+                TranslationKeys.AHS,
+                new NavigateWithID<>(AhDetailView.class),
+                new NavigateWithQueryParameters<>(AhSearchView.class)),
+        VL(
+                TranslationKeys.VLS,
+                null,
+                null),
+        AKTION(
+                TranslationKeys.AKTIONEN,
+                null,
+                null),
+        MANDANT(
+                TranslationKeys.MANDANTEN,
+                new NavigateWithID<>(MandantDetailView.class),
+                new NavigateWithQueryParameters<>(MandantSearchView.class));
 
         private final String key;
+        private final IdNavigationAction<String> detailNavigation;
+        private final QueryParametersNavigationAction searchNavigation;
 
-        SearchTarget(String key)
+        SearchTarget(
+                String key,
+                IdNavigationAction<String> detailNavigation,
+                QueryParametersNavigationAction searchNavigation)
         {
             this.key = key;
+            this.detailNavigation = detailNavigation;
+            this.searchNavigation = searchNavigation;
         }
 
         public String getKey()
         {
             return key;
+        }
+
+        public Optional<IdNavigationAction<String>> getOptionalDetailNavigation()
+        {
+            return Optional.ofNullable(detailNavigation);
+        }
+
+        public Optional<QueryParametersNavigationAction> getOptionalSearchNavigation()
+        {
+            return Optional.ofNullable(searchNavigation);
         }
     }
 
@@ -115,12 +157,47 @@ public class EIMainLayoutPresenter implements EIPresenter
             String id,
             String name)
     {
+        public Optional<SearchTarget> optionalTarget()
+        {
+            return Optional.ofNullable(target());
+        }
+
+        public Optional<String> optionalId()
+        {
+            return Optional.ofNullable(id());
+        }
+
+        //region STATIC
         public static SearchPreviewItem custom(
                 String searchText,
                 SearchTarget target)
         {
             return new SearchPreviewItem(searchText, target, DEFAULT, null, searchText);
         }
+
+        public static SearchPreviewItem headerItem(
+                String searchText,
+                SearchTarget target)
+        {
+            return new SearchPreviewItem(searchText, target, HEADER, null, searchText);
+        }
+
+        public static SearchPreviewItem footerItem(
+                String searchText,
+                SearchTarget target)
+        {
+            return new SearchPreviewItem(searchText, target, FOOTER, null, searchText);
+        }
+
+        public static SearchPreviewItem defaultType(
+                String searchText,
+                SearchTarget target,
+                String id,
+                String name)
+        {
+            return new SearchPreviewItem(searchText, target, DEFAULT, id, name);
+        }
+        //endregion
     }
     //endregion
 }

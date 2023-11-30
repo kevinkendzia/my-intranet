@@ -16,7 +16,7 @@ public class SearchField<T> extends AbstractCompositeField<ComboBox<T>, SearchFi
 {
     private SerializablePredicate<T> enabledPredicate = itm -> true;
     private ItemLabelGenerator<T> itemLabelGenerator = String::valueOf;
-    private SerializableFunction<String, T> itemCreator = searchText -> null;
+    private SerializableFunction<String, T> itemFactory = searchText -> null;
 
     public SearchField()
     {
@@ -44,7 +44,7 @@ public class SearchField<T> extends AbstractCompositeField<ComboBox<T>, SearchFi
         cbo.setAllowCustomValue(true);
         cbo.addCustomValueSetListener(e ->
         {
-            T item = getItemCreator().apply(e.getDetail());
+            T item = getItemFactory().apply(e.getDetail());
             if (getEnabledPredicate().test(item))
             {
                 setModelValue(item, true);
@@ -123,14 +123,14 @@ public class SearchField<T> extends AbstractCompositeField<ComboBox<T>, SearchFi
         getContent().setItemLabelGenerator(itemLabelGenerator);
     }
 
-    public void setItemCreator(SerializableFunction<String, T> itemCreator)
+    public void setItemFactory(SerializableFunction<String, T> itemFactory)
     {
-        this.itemCreator = itemCreator;
+        this.itemFactory = itemFactory;
     }
 
-    protected SerializableFunction<String, T> getItemCreator()
+    protected SerializableFunction<String, T> getItemFactory()
     {
-        return itemCreator;
+        return itemFactory;
     }
 
     public void setPlaceholder(String placeholder)

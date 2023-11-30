@@ -9,9 +9,9 @@ import de.kkendzia.myintranet.app.search.queries.SearchAhs.ResultItem;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.search.SearchRoute;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
+import de.kkendzia.myintranet.ei.ui.components.navigation.NavigateWithItem;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout;
-import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout.NavigationAction.NavigateWithId;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer.EIMenuKeys;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget;
@@ -45,7 +45,7 @@ public class AhSearchView
 
         // SEARCH LAYOUT
         SearchLayout<ResultItem> root = getContent();
-        root.setNavigationAction(new NavigateWithId<>(AhDetailView.class, ResultItem::idString));
+        root.setNavigationAction(new NavigateWithItem<>(AhDetailView.class, ResultItem::idString));
 
         Grid<ResultItem> grid = root.getGrid();
         addCollapsedColumn(grid, getTranslation("label.ahnr"), ResultItem::ahnr);

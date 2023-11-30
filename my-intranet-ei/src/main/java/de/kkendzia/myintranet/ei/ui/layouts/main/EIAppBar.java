@@ -18,6 +18,7 @@ import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
 import de.kkendzia.myintranet.ei.core.components.EIComponent;
+import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.session.EISession;
 import de.kkendzia.myintranet.ei.core.utils.RoutingUtil;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.AnnotationItemProvider;
@@ -29,8 +30,6 @@ import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.LOGOUT;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SEARCH;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.DEFAULT;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.FOOTER;
-import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.OTHER;
-import static java.util.Objects.requireNonNullElse;
 
 public class EIAppBar
         extends EIComponent<HorizontalLayout>
@@ -62,29 +61,37 @@ public class EIAppBar
     private void initSearchField(EIMainLayoutPresenter presenter)
     {
         searchField.setEnabledPredicate(item -> item.type() == DEFAULT || item.type() == FOOTER);
-        searchField.setItemLabelGenerator(item ->
-        {
-            String target = getTranslation(item.target().getKey());
-
-            return switch (item.type())
-            {
-                case DEFAULT -> item.name();
-                case HEADER -> target;
-                case FOOTER -> getTranslation(I18N_SEARCH_ITEM_FOOTER, item.searchText(), target);
-            };
-        });
+        searchField.setItemLabelGenerator(this::generateSearchItemLabel);
         searchField.addValueChangeListener(e -> presenter.search(e.getValue()));
-        searchField.setItemCreator(searchText ->
-        {
-            SearchTarget target = RoutingUtil.getCurrentSearchTarget();
-            return new SearchPreviewItem(
-                    searchText,
-                    requireNonNullElse(target, OTHER),
-                    DEFAULT,
-                    null,
-                    searchText);
-        });
+        searchField.setItemFactory(EIAppBar::createSearchItemFromSearchText);
         searchField.setItems(presenter.createSearchPreviewDataProvider());
+    }
+
+    private static SearchPreviewItem createSearchItemFromSearchText(final String searchText)
+    {
+        SearchTarget target = RoutingUtil.getCurrentSearchTarget();
+        return new SearchPreviewItem(
+                searchText,
+                target,
+                DEFAULT,
+                null,
+                searchText);
+    }
+
+    private String generateSearchItemLabel(final SearchPreviewItem item)
+    {
+        final var targetKey = item
+                .optionalTarget()
+                .map(SearchTarget::getKey)
+                .orElse(TranslationKeys.OTHER);
+        String target = getTranslation(targetKey);
+
+        return switch (item.type())
+        {
+            case DEFAULT -> item.name();
+            case HEADER -> target;
+            case FOOTER -> getTranslation(I18N_SEARCH_ITEM_FOOTER, item.searchText(), target);
+        };
     }
 
     @Override

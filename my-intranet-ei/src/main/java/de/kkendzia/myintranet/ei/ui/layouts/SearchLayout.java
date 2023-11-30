@@ -1,23 +1,19 @@
 package de.kkendzia.myintranet.ei.ui.layouts;
 
-import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
-import com.vaadin.flow.function.SerializableFunction;
-import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.shared.Registration;
+import de.kkendzia.myintranet.ei.ui.components.navigation.ItemNavigationAction;
 import de.kkendzia.myintranet.ei.ui.components.text.Counter;
 import de.kkendzia.myintranet.ei.ui.components.text.CounterRow;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.Serializable;
 
 import static com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment.STRETCH;
-import static java.util.Objects.requireNonNull;
 
 public class SearchLayout<T> extends Composite<VerticalLayout>
 {
@@ -25,7 +21,7 @@ public class SearchLayout<T> extends Composite<VerticalLayout>
     private final Grid<T> grid = new Grid<>();
     private final Counter counter = new Counter();
 
-    private NavigationAction<T> navigationAction;
+    private ItemNavigationAction<T> navigationAction;
     private Registration regCounter;
 
     public SearchLayout()
@@ -83,7 +79,7 @@ public class SearchLayout<T> extends Composite<VerticalLayout>
         }
     }
 
-    public void setNavigationAction(NavigationAction<T> navigationAction)
+    public void setNavigationAction(ItemNavigationAction<T> navigationAction)
     {
         this.navigationAction = navigationAction;
     }
@@ -102,42 +98,4 @@ public class SearchLayout<T> extends Composite<VerticalLayout>
     {
         spSearchText.setText(getTranslation("search.description", searchtext));
     }
-
-    //region TYPES
-    @FunctionalInterface
-    public interface NavigationAction<T> extends Serializable
-    {
-        void execute(T item);
-
-        class NavigateWithId<T, C extends Component & HasUrlParameter<I>, I> implements NavigationAction<T>
-        {
-            private static final Logger LOGGER = LoggerFactory.getLogger(NavigateWithId.class);
-
-            private final Class<C> target;
-            private final SerializableFunction<T, I> idProvider;
-
-            public NavigateWithId(
-                    Class<C> target,
-                    SerializableFunction<T, I> idProvider)
-            {
-                this.target = requireNonNull(target, "target can't be null!");
-                this.idProvider = requireNonNull(idProvider, "idProvider can't be null!");
-            }
-
-            @Override
-            public void execute(T item)
-            {
-                I id = idProvider.apply(item);
-                if (id != null)
-                {
-                    UI.getCurrent().navigate(target, id);
-                }
-                else
-                {
-                    LOGGER.debug("No id provided, won't navigate!");
-                }
-            }
-        }
-    }
-    //endregion
 }

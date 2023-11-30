@@ -10,8 +10,8 @@ import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.view.search.SearchParameters;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
+import de.kkendzia.myintranet.ei.ui.components.navigation.NavigateWithItem;
 import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout;
-import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout.NavigationAction.NavigateWithId;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
 import jakarta.annotation.security.RolesAllowed;
@@ -35,7 +35,7 @@ public class AdminUserSearchView extends AbstractEIView<SearchLayout<ResultItem>
         this.presenter = requireNonNull(presenter, "presenter can't be null!");
 
         SearchLayout<ResultItem> root = getContent();
-        root.setNavigationAction(new NavigateWithId<>(MandantDetailView.class, ResultItem::idString));
+        root.setNavigationAction(new NavigateWithItem<>(MandantDetailView.class, ResultItem::idString));
 
         Grid<ResultItem> grid = root.getGrid();
         addCollapsedColumn(grid, getTranslation(NAME), ResultItem::name);
