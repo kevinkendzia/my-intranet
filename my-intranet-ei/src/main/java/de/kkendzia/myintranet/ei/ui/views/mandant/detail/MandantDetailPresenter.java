@@ -7,9 +7,8 @@ import de.kkendzia.myintranet.app.mandant.commands.CreateMandant;
 import de.kkendzia.myintranet.app.mandant.commands.UpdateMandant;
 import de.kkendzia.myintranet.app.mandant.queries.GetMandantSheetByID;
 import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
-import de.kkendzia.myintranet.ei.core.presenter.EIPresenter;
-import de.kkendzia.myintranet.ei.core.presenter.Presenter;
-import de.kkendzia.myintranet.ei.core.utils.Result;
+import de.kkendzia.myintranet.ei._framework.presenter.EIPresenter;
+import de.kkendzia.myintranet.ei._framework.presenter.Presenter;
 
 import static de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailPresenter.EditMode.CREATE;
 import static de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailPresenter.EditMode.EDIT;
@@ -72,11 +71,6 @@ public class MandantDetailPresenter implements EIPresenter
     {
         CREATE,
         EDIT
-    }
-
-    public enum AddSettingFailure implements Result.Failure
-    {
-        ALREADY_EXISTS
     }
     //endregion
 }

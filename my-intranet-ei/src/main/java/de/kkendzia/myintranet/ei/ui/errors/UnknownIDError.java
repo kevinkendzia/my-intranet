@@ -9,12 +9,13 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.ErrorParameter;
 import com.vaadin.flow.router.HasErrorParameter;
 import com.vaadin.flow.router.ParentLayout;
-import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
+import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import org.springframework.http.HttpStatus;
 
 @ParentLayout(EIMainLayout.class)
-public class UnknownIDError extends AbstractEIView<VerticalLayout> implements HasErrorParameter<UnknownIDError.UnknownIDException>
+public class UnknownIDError extends AbstractEIView<VerticalLayout>
+        implements HasErrorParameter<UnknownIDError.UnknownIDException>
 {
     private final H1 hTitle = new H1(getTranslation("label.error"));
     private final H2 hDescription = new H2(getTranslation("label.error"));

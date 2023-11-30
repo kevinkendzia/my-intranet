@@ -4,8 +4,8 @@ import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
 import de.kkendzia.myintranet.app.ah._shared.AhSheet;
 import de.kkendzia.myintranet.app.ah.queries.FindAhByID;
 import de.kkendzia.myintranet.domain.ah.Ah.AhID;
-import de.kkendzia.myintranet.ei.core.presenter.AbstractStatefullPresenter;
-import de.kkendzia.myintranet.ei.core.presenter.Presenter;
+import de.kkendzia.myintranet.ei._framework.presenter.AbstractStatefullPresenter;
+import de.kkendzia.myintranet.ei._framework.presenter.Presenter;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.model.AhDetailModel;
 
 import static java.util.Objects.requireNonNull;
@@ -13,7 +13,7 @@ import static java.util.Objects.requireNonNull;
 @Presenter
 public class AhDetailPresenter extends AbstractStatefullPresenter<AhDetailModel>
 {
-    private final QueryMediator quMediator;
+    private final transient QueryMediator quMediator;
 
     public AhDetailPresenter(final QueryMediator quMediator)
     {

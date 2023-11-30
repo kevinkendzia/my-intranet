@@ -7,11 +7,11 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition;
-import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
+import de.kkendzia.myintranet.ei._framework.parameters.ParameterDefinition;
+import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 
-import static de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition.booleanParam;
-import static de.kkendzia.myintranet.ei.core.parameters.ParameterDefinition.stringParam;
+import static de.kkendzia.myintranet.ei._framework.parameters.ParameterDefinition.booleanParam;
+import static de.kkendzia.myintranet.ei._framework.parameters.ParameterDefinition.stringParam;
 
 @Route(LoginView.NAV)
 @AnonymousAllowed

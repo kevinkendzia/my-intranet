@@ -1,5 +1,6 @@
 package de.kkendzia.myintranet.ei.ui.layouts.main;
 
+import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Header;
@@ -8,7 +9,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import com.vaadin.flow.theme.lumo.LumoUtility.FontSize;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
-import de.kkendzia.myintranet.ei.core.components.EIComponent;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.components.menu.DrawerMenu;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.MenuDefinition;
@@ -16,7 +16,7 @@ import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.Annotati
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.APP_TITLE;
 
-public final class EIDrawer extends EIComponent<VerticalLayout>
+public final class EIDrawer extends Composite<VerticalLayout>
 {
     public EIDrawer(AccessAnnotationChecker accessAnnotationChecker)
     {
@@ -59,7 +59,7 @@ public final class EIDrawer extends EIComponent<VerticalLayout>
         root.add(new EIDrawerFooter());
     }
 
-    public static class EIDrawerHeader extends EIComponent<Header>
+    public static class EIDrawerHeader extends Composite<Header>
     {
         public EIDrawerHeader(String title)
         {
@@ -72,7 +72,7 @@ public final class EIDrawer extends EIComponent<VerticalLayout>
         }
     }
 
-    public static class EIDrawerFooter extends EIComponent<Footer>
+    public static class EIDrawerFooter extends Composite<Footer>
     {
         public EIDrawerFooter()
         {

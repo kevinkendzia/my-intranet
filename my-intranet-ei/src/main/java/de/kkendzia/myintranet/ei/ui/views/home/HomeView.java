@@ -23,14 +23,14 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility.FontSize;
 import com.vaadin.flow.theme.lumo.LumoUtility.FontWeight;
 import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
-import de.kkendzia.myintranet.ei.core.utils.GridColumnFactory;
-import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
+import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.text.MultiLineTitle;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import de.kkendzia.myintranet.ei.ui.views.home.HomeViewPresenter.ActionItem;
 import de.kkendzia.myintranet.ei.ui.views.home.HomeViewPresenter.NewsItem;
+import de.kkendzia.myintranet.ei.utils.GridColumnFactory;
 import jakarta.annotation.security.PermitAll;
 
 import java.util.List;

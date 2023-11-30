@@ -9,7 +9,6 @@ import com.vaadin.flow.function.SerializableSupplier;
 import de.kkendzia.components.expandablesidebar.ExpandableSidebar;
 import de.kkendzia.components.expandablesidebar.ExpandableSidebarHeader;
 import de.kkendzia.components.expandablesidebar.ExpandableSidebarToggle;
-import de.kkendzia.myintranet.ei.core.components.ComponentFactory;
 import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.SidebarAction;
 import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.SidebarHeader;
 import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfiguration.SidebarText;

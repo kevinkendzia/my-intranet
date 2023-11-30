@@ -6,8 +6,8 @@ import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.app.search.queries.SearchAhs;
 import de.kkendzia.myintranet.app.search.queries.SearchAhs.ResultItem;
-import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.core.view.search.SearchRoute;
+import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
+import de.kkendzia.myintranet.ei._framework.view.search.SearchRoute;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.navigation.NavigateWithItem;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
@@ -20,8 +20,8 @@ import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SEARCH;
-import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.*;
-import static de.kkendzia.myintranet.ei.core.view.search.SearchParameters.SEARCH_TEXT;
+import static de.kkendzia.myintranet.ei._framework.view.search.SearchParameters.SEARCH_TEXT;
+import static de.kkendzia.myintranet.ei.utils.GridColumnFactory.*;
 
 @Route(value = "ah/search", layout = EIMainLayout.class)
 @MenuRoute(label = SEARCH, parent = EIMenuKeys.AH, position = 1)

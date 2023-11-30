@@ -7,8 +7,8 @@ import de.kkendzia.myintranet.app.search.queries.SearchPermissions;
 import de.kkendzia.myintranet.app.search.queries.SearchPermissions.ResultItem;
 import de.kkendzia.myintranet.domain.permission.Permission;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
-import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.core.view.search.SearchParameters;
+import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
+import de.kkendzia.myintranet.ei._framework.view.search.SearchParameters;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.navigation.NavigateWithItem;
 import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout;
@@ -18,8 +18,8 @@ import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
 import jakarta.annotation.security.RolesAllowed;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.NAME;
-import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.addCollapsedColumn;
-import static de.kkendzia.myintranet.ei.core.utils.GridColumnFactory.addSpacerColumn;
+import static de.kkendzia.myintranet.ei.utils.GridColumnFactory.addCollapsedColumn;
+import static de.kkendzia.myintranet.ei.utils.GridColumnFactory.addSpacerColumn;
 import static java.util.Objects.requireNonNull;
 
 @Route(value = AdminPermissionSearchView.NAV, layout = EIMainLayout.class)

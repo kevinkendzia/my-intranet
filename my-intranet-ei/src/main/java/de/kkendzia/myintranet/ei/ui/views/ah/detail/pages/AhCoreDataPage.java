@@ -1,6 +1,6 @@
 package de.kkendzia.myintranet.ei.ui.views.ah.detail.pages;
 
-import de.kkendzia.myintranet.ei.core.view.page.AbstractLazyPage;
+import de.kkendzia.myintranet.ei._framework.view.page.AbstractLazyPage;
 import de.kkendzia.myintranet.ei.ui.components.form.FormBinder;
 import de.kkendzia.myintranet.ei.ui.layouts.SectionLayout;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhAdressDataForm;

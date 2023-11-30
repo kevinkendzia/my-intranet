@@ -7,7 +7,7 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
-import de.kkendzia.myintranet.ei.core.view.page.EIPage;
+import de.kkendzia.myintranet.ei._framework.view.page.EIPage;
 import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs;
 
 public class TabsLayout<T extends EIPage> extends Composite<VerticalLayout>

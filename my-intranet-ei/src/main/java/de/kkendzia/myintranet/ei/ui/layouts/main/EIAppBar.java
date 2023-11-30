@@ -17,14 +17,13 @@ import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
-import de.kkendzia.myintranet.ei.core.components.EIComponent;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.core.session.EISession;
-import de.kkendzia.myintranet.ei.core.utils.RoutingUtil;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.AnnotationItemProvider;
 import de.kkendzia.myintranet.ei.ui.components.search.SearchField;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchPreviewItem;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget;
+import de.kkendzia.myintranet.ei.utils.RouteUtils;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.LOGOUT;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.SEARCH;
@@ -32,7 +31,7 @@ import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.Se
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.FOOTER;
 
 public class EIAppBar
-        extends EIComponent<HorizontalLayout>
+        extends Composite<HorizontalLayout>
         implements AfterNavigationObserver, LocaleChangeObserver
 {
     //region CONSTANTS
@@ -69,7 +68,7 @@ public class EIAppBar
 
     private static SearchPreviewItem createSearchItemFromSearchText(final String searchText)
     {
-        SearchTarget target = RoutingUtil.getCurrentSearchTarget();
+        SearchTarget target = RouteUtils.getCurrentSearchTarget();
         return new SearchPreviewItem(
                 searchText,
                 target,
@@ -108,13 +107,13 @@ public class EIAppBar
 
     private String getSearchPlaceholder()
     {
-        SearchTarget target = RoutingUtil.getCurrentSearchTarget();
+        SearchTarget target = RouteUtils.getCurrentSearchTarget();
         if (target != null)
         {
             return getTranslation(I18N_SEARCH_IN, getTranslation(target.getKey()));
         }
 
-        String pageTitle = RoutingUtil.getPageTitle();
+        String pageTitle = RouteUtils.getPageTitle();
         return pageTitle != null
                ? getTranslation(I18N_SEARCH_IN, pageTitle)
                : getTranslation(SEARCH);

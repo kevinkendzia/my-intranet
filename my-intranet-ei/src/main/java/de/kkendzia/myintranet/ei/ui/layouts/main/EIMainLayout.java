@@ -4,7 +4,7 @@ import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import de.kkendzia.myintranet.ei.core.session.EISession;
-import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
+import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 
 import static java.util.Objects.requireNonNull;
 

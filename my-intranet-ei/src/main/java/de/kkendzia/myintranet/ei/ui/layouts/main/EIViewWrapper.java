@@ -7,8 +7,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
 import de.kkendzia.components.expandablesidebar.ExpandableSidebar.Side;
-import de.kkendzia.myintranet.ei.core.view.EIView;
-import de.kkendzia.myintranet.ei.core.view.mixins.*;
+import de.kkendzia.myintranet.ei._framework.view.EIView;
+import de.kkendzia.myintranet.ei._framework.view.mixins.*;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ConfigurableToolbar;
 import de.kkendzia.myintranet.ei.ui.layouts.main.sidebar.SidebarConfigurator;
 

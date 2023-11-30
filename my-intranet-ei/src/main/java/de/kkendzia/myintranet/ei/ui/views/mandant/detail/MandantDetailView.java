@@ -5,9 +5,9 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.Route;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
-import de.kkendzia.myintranet.ei.core.parameters.HasViewParameter;
-import de.kkendzia.myintranet.ei.core.view.AbstractEIView;
-import de.kkendzia.myintranet.ei.core.view.page.SaveablePage;
+import de.kkendzia.myintranet.ei._framework.parameters.HasViewParameter;
+import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
+import de.kkendzia.myintranet.ei._framework.view.page.SaveablePage;
 import de.kkendzia.myintranet.ei.ui.components.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs;
 import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs.PagedTab;
@@ -25,10 +25,10 @@ import java.util.List;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.Notification.Error.Message;
-import static de.kkendzia.myintranet.ei.core.utils.HistoryUtil.updateUrl;
 import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showError;
 import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showSuccess;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIDrawer.EIMenuKeys.MANDANTEN;
+import static de.kkendzia.myintranet.ei.utils.HistoryUtils.updateUrl;
 import static java.util.Objects.requireNonNull;
 
 @Route(value = MandantDetailView.NAV, layout = EIMainLayout.class)

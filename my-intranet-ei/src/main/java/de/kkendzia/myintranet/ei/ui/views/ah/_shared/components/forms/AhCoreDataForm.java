@@ -20,7 +20,7 @@ import java.util.Optional;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.Validation.REQUIRED;
-import static de.kkendzia.myintranet.ei.core.utils.DataProviderUtil.emptyDataProvider;
+import static de.kkendzia.myintranet.ei.utils.DataProviderUtils.emptyDataProvider;
 
 public class AhCoreDataForm extends AbstractForm<AhSheet.CoreSection>
 {

@@ -6,8 +6,8 @@ import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
 import de.kkendzia.myintranet.app.search.queries.SearchAhs;
 import de.kkendzia.myintranet.app.search.queries.SearchMandanten;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
-import de.kkendzia.myintranet.ei.core.presenter.EIPresenter;
-import de.kkendzia.myintranet.ei.core.presenter.Presenter;
+import de.kkendzia.myintranet.ei._framework.presenter.EIPresenter;
+import de.kkendzia.myintranet.ei._framework.presenter.Presenter;
 import de.kkendzia.myintranet.ei.ui.components.data.QueryDataProvider;
 import de.kkendzia.myintranet.ei.ui.components.data.QueryDataProvider.DefaultQueryFactory;
 import de.kkendzia.myintranet.ei.ui.components.navigation.IdNavigationAction;
@@ -22,7 +22,7 @@ import de.kkendzia.myintranet.ei.ui.views.search.SearchView;
 
 import java.util.Optional;
 
-import static de.kkendzia.myintranet.ei.core.view.search.SearchParameters.SEARCH_TEXT;
+import static de.kkendzia.myintranet.ei._framework.view.search.SearchParameters.SEARCH_TEXT;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.*;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchPreviewItem.*;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchTarget.AH;

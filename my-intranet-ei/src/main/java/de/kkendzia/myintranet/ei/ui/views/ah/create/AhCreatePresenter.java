@@ -9,7 +9,7 @@ import de.kkendzia.myintranet.app.mandant.queries.ListMandanten;
 import de.kkendzia.myintranet.app.mandant.queries.ListMandanten.MandantItem;
 import de.kkendzia.myintranet.domain.ah.Ah.AhID;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
-import de.kkendzia.myintranet.ei.core.presenter.Presenter;
+import de.kkendzia.myintranet.ei._framework.presenter.Presenter;
 
 import java.util.List;
 

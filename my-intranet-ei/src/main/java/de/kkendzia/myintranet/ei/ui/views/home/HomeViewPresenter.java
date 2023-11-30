@@ -1,8 +1,8 @@
 package de.kkendzia.myintranet.ei.ui.views.home;
 
 import com.vaadin.flow.data.provider.DataProvider;
-import de.kkendzia.myintranet.ei.core.presenter.EIPresenter;
-import de.kkendzia.myintranet.ei.core.presenter.Presenter;
+import de.kkendzia.myintranet.ei._framework.presenter.EIPresenter;
+import de.kkendzia.myintranet.ei._framework.presenter.Presenter;
 
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
