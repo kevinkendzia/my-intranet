@@ -1,5 +1,8 @@
 package de.kkendzia.myintranet.domain._core;
 
-public interface ID extends ValueObject
+import java.io.Serializable;
+
+public interface ID extends ValueObject, Serializable
 {
+    // marker
 }

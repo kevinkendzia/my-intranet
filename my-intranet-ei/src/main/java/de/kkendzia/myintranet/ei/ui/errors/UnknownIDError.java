@@ -1,45 +1,44 @@
 package de.kkendzia.myintranet.ei.ui.errors;
 
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.ErrorParameter;
 import com.vaadin.flow.router.HasErrorParameter;
 import com.vaadin.flow.router.ParentLayout;
+import de.kkendzia.myintranet.domain._core.ID;
 import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import org.springframework.http.HttpStatus;
 
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.Errors.Messages.ID_NOT_FOUND;
+
 @ParentLayout(EIMainLayout.class)
-public class UnknownIDError extends AbstractEIView<VerticalLayout>
+public class UnknownIDError extends AbstractEIView<EIErrotLayout>
         implements HasErrorParameter<UnknownIDError.UnknownIDException>
 {
-    private final H1 hTitle = new H1(getTranslation("label.error"));
-    private final H2 hDescription = new H2(getTranslation("label.error"));
-
-    public UnknownIDError()
-    {
-        VerticalLayout root = getContent();
-        root.setAlignItems(Alignment.CENTER);
-        root.setJustifyContentMode(JustifyContentMode.CENTER);
-        root.add(hTitle);
-        root.add(hDescription);
-    }
-
     @Override
     public int setErrorParameter(
             BeforeEnterEvent event,
             ErrorParameter<UnknownIDException> parameter)
     {
-        hDescription.setText(getTranslation("label.error.notFound"));
+        getContent().setDescription(getTranslation(ID_NOT_FOUND));
         return HttpStatus.NOT_FOUND.value();
     }
 
+    //region TYPES
     public static class UnknownIDException extends RuntimeException
     {
-        //   TODO: Implement!
+        private final ID id;
+
+        public UnknownIDException(final ID id)
+        {
+            super("ID %s was NOT found!".formatted(id));
+            this.id = id;
+        }
+
+        public ID getId()
+        {
+            return id;
+        }
     }
+    //endregion
 }

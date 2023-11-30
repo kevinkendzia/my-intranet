@@ -110,4 +110,12 @@ public final class TranslationKeys
             // No Instance!
         }
     }
+
+    public static class Errors
+    {
+        public static class Messages
+        {
+            public static final String ID_NOT_FOUND = "error.msg.idNotFound";
+        }
+    }
 }

@@ -57,6 +57,7 @@ public final class MandantSearchView extends AbstractEIView<SearchLayout<ResultI
 
         SearchLayout<ResultItem> layout = getContent();
         layout.setSearchText(searchtext);
+
         presenter.search(new SearchMandanten(searchtext));
     }
 }
