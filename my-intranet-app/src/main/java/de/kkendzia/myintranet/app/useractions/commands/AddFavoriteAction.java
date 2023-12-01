@@ -10,6 +10,7 @@ import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
 import de.kkendzia.myintranet.domain.user.EIUserAction;
 import org.springframework.stereotype.Component;
 
+import static de.kkendzia.myintranet.app._framework.result.VoidResult.success;
 import static java.util.Objects.requireNonNull;
 
 public record AddFavoriteAction(
@@ -39,9 +40,13 @@ public record AddFavoriteAction(
         public VoidResult<Failure> run(final AddFavoriteAction command)
         {
             final EIUser user = repository.getByID(command.userId());
-            user.addFavoriteAction(new EIUserAction(command.item().title(), command.item().route()));
+            user.addFavoriteAction(new EIUserAction(command.item().getTitle(), command.item().getRoute()));
+            if (user.getFavoriteActions().size() > 5)
+            {
+                user.getFavoriteActions().remove(0);
+            }
             repository.update(user);
-            return VoidResult.success();
+            return success();
         }
     }
 

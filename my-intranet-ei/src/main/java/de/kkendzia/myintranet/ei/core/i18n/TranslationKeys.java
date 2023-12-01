@@ -2,24 +2,6 @@ package de.kkendzia.myintranet.ei.core.i18n;
 
 public final class TranslationKeys
 {
-    //region AKTION
-    public static final String AKTIONSNUMMER = "label.aktionsnummer";
-    public static final String AKTIONEN = "label.aktionen";
-    public static final String AKTION = "label.aktion";
-    //endregion
-
-    //region ADRESS
-    public static final String ADRESS = "label.adress";
-    public static final String ADRESS_LINE1 = "label.adressLine1";
-    public static final String ADRESS_LINE2 = "label.adressLine2";
-    public static final String STREET = "label.street";
-    public static final String ZIP = "label.zip";
-    public static final String CITY = "label.city";
-    public static final String COUNTRY = "label.country";
-    //endregion
-
-
-    //region OTHER
     public static final String OTHER = "label.other";
     public static final String MATCHCODE = "label.matchcode";
     public static final String ENTER_DATE = "label.enterDate";
@@ -54,11 +36,43 @@ public final class TranslationKeys
     public static final String ADMIN = "label.admin";
     public static final String MEMBERSHIP = "label.mitgliedsdaten";
     public static final String MENU = "label.menu";
-    //endregion
+    public static final String NEWS = "news";
+    public static final String NOTIFICATIONS = "notifications";
+    public static final String FAVORITES = "favorites";
+    public static final String RECENT = "recent";
+    public static final String EMPTY = "empty";
 
     private TranslationKeys()
     {
         // No Instance!
+    }
+
+    public static class AppKeys
+    {
+        public static final String APP_WELCOME = "app.title.pre";
+        public static final String APP_TITLE = "app.title";
+        public static final String APP_DESCRIPTION = "app.description";
+
+        private AppKeys()
+        {
+            // No Instance!
+        }
+    }
+
+    public static class AdressKeys
+    {
+        public static final String ADRESS = "label.adress";
+        public static final String ADRESS_LINE1 = "label.adressLine1";
+        public static final String ADRESS_LINE2 = "label.adressLine2";
+        public static final String STREET = "label.street";
+        public static final String ZIP = "label.zip";
+        public static final String CITY = "label.city";
+        public static final String COUNTRY = "label.country";
+
+        private AdressKeys()
+        {
+            // No Instance!
+        }
     }
 
     public static final class ValidationKeys
@@ -137,6 +151,18 @@ public final class TranslationKeys
         public static final String VL = "label.vl";
 
         private VlKeys()
+        {
+            // No Instance!
+        }
+    }
+
+    public static class AktionKeys
+    {
+        public static final String AKTIONSNUMMER = "label.aktionsnummer";
+        public static final String AKTIONEN = "label.aktionen";
+        public static final String AKTION = "label.aktion";
+
+        private AktionKeys()
         {
             // No Instance!
         }

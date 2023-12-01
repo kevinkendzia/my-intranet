@@ -10,17 +10,17 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 
-import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.AdressKeys;
 import static java.util.Objects.requireNonNull;
 
 public class AhAdressDataForm extends AbstractForm<AhSheet.AdressSection>
 {
-    private final TextField txtLine1 = new TextField(getTranslation(ADRESS_LINE1));
-    private final TextField txtLine2 = new TextField(getTranslation(ADRESS_LINE2));
-    private final TextField txtStreet = new TextField(getTranslation(STREET));
-    private final TextField txtZip = new TextField(getTranslation(ZIP));
-    private final TextField txtCity = new TextField(getTranslation(CITY));
-    private final ComboBox<Country> cboCountry = new ComboBox<>(getTranslation(COUNTRY));
+    private final TextField txtLine1 = new TextField(getTranslation(AdressKeys.ADRESS_LINE1));
+    private final TextField txtLine2 = new TextField(getTranslation(AdressKeys.ADRESS_LINE2));
+    private final TextField txtStreet = new TextField(getTranslation(AdressKeys.STREET));
+    private final TextField txtZip = new TextField(getTranslation(AdressKeys.ZIP));
+    private final TextField txtCity = new TextField(getTranslation(AdressKeys.CITY));
+    private final ComboBox<Country> cboCountry = new ComboBox<>(getTranslation(AdressKeys.COUNTRY));
     private Collection<Country> countryItems;
 
     public AhAdressDataForm()

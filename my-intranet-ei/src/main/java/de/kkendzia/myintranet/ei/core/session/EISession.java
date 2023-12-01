@@ -2,23 +2,13 @@ package de.kkendzia.myintranet.ei.core.session;
 
 import com.vaadin.flow.spring.annotation.VaadinSessionScope;
 import com.vaadin.flow.spring.security.AuthenticationContext;
-import de.kkendzia.myintranet.app._framework.cqrs.command.CommandMediator;
 import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
-import de.kkendzia.myintranet.app.useractions.commands.AddFavoriteAction;
-import de.kkendzia.myintranet.app.useractions.commands.AddRecentAction;
-import de.kkendzia.myintranet.app.useractions.queries.FindFavoriteActions;
-import de.kkendzia.myintranet.app.useractions.queries.FindRecentActions;
 import de.kkendzia.myintranet.app.useractions.queries.FindUserIDByUsername;
-import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
 import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.List;
-
-import static de.kkendzia.myintranet.app._framework.cqrs.query.paged.Paging.firstPage;
-import static java.util.Collections.unmodifiableList;
 
 @Component
 @VaadinSessionScope
@@ -26,62 +16,50 @@ public class EISession implements Serializable
 {
     private final transient AuthenticationContext context;
     private final transient QueryMediator queryMediator;
-    private final transient CommandMediator commandMediator;
 
     // STATE
-    private EIUserID userId;
+    private SessionUser user;
 
     public EISession(
             final AuthenticationContext context,
-            final QueryMediator queryMediator,
-            final CommandMediator commandMediator)
+            final QueryMediator queryMediator)
     {
         this.context = context;
         this.queryMediator = queryMediator;
-        this.commandMediator = commandMediator;
     }
 
-    public EIUserID getCurrentUserID()
+    public SessionUser user()
     {
-        if (userId == null)
+        if (user == null)
         {
-            final var u = context
+            final var authUser = context
                     .getAuthenticatedUser(User.class)
                     .orElseThrow(() -> new IllegalStateException("No User-Principal set in SecurityContext!"));
-            userId = queryMediator.fetchOne(new FindUserIDByUsername(u.getUsername())).getData();
+            final EIUserID userId = queryMediator.fetchOne(new FindUserIDByUsername(authUser.getUsername())).getData();
+            this.user = new SessionUser(userId, authUser.getUsername());
         }
-        return userId;
+        return user;
     }
 
-    public String getUserName()
+    public EIUserID userId()
     {
-        return context.getPrincipalName().orElse("UNKNOWN");
+        return user().id();
     }
 
-    public List<ActionItem> getFavoriteActions()
+    public String username()
     {
-        return unmodifiableList(queryMediator.fetchAll(new FindFavoriteActions(getCurrentUserID()), firstPage(5))
-                .toList());
-    }
-
-    public void addFavoriteAction(ActionItem action)
-    {
-        commandMediator.run(new AddFavoriteAction(getCurrentUserID(), action));
-    }
-
-    public List<ActionItem> getPreviousActions()
-    {
-        return unmodifiableList(queryMediator.fetchAll(new FindRecentActions(getCurrentUserID()), firstPage(5))
-                .toList());
-    }
-
-    public void addPreviousAction(ActionItem action)
-    {
-        commandMediator.run(new AddRecentAction(getCurrentUserID(), action));
+        return user().username();
     }
 
     public void logout()
     {
         context.logout();
+    }
+
+    public record SessionUser(
+            EIUserID id,
+            String username) implements Serializable
+    {
+        // just a record
     }
 }

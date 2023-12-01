@@ -2,9 +2,15 @@ package de.kkendzia.myintranet.ei.ui.layouts.main;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.data.provider.DataProvider;
+import com.vaadin.flow.spring.annotation.RouteScope;
+import de.kkendzia.myintranet.app._framework.cqrs.command.CommandMediator;
 import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
 import de.kkendzia.myintranet.app.search.queries.SearchAhs;
 import de.kkendzia.myintranet.app.search.queries.SearchMandanten;
+import de.kkendzia.myintranet.app.useractions.commands.AddFavoriteAction;
+import de.kkendzia.myintranet.app.useractions.queries.FindFavoriteActions;
+import de.kkendzia.myintranet.app.useractions.queries.FindRecentActions;
+import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
 import de.kkendzia.myintranet.ei._framework.presenter.EIPresenter;
 import de.kkendzia.myintranet.ei._framework.presenter.Presenter;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
@@ -12,6 +18,7 @@ import de.kkendzia.myintranet.ei.core.navigation.IdNavigationAction;
 import de.kkendzia.myintranet.ei.core.navigation.NavigateWithID;
 import de.kkendzia.myintranet.ei.core.navigation.NavigateWithQueryParameters;
 import de.kkendzia.myintranet.ei.core.navigation.QueryParametersNavigationAction;
+import de.kkendzia.myintranet.ei.core.session.EISession;
 import de.kkendzia.myintranet.ei.ui.tools.data.MultiQueryDataProvider;
 import de.kkendzia.myintranet.ei.ui.tools.data.MultiQueryDataProvider.DefaultQueryFactory;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
@@ -20,8 +27,10 @@ import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
 import de.kkendzia.myintranet.ei.ui.views.mandant.search.MandantSearchView;
 import de.kkendzia.myintranet.ei.ui.views.search.SearchView;
 
+import java.util.List;
 import java.util.Optional;
 
+import static de.kkendzia.myintranet.app._framework.cqrs.query.paged.Paging.firstPage;
 import static de.kkendzia.myintranet.ei._framework.view.search.SearchParameters.SEARCH_TEXT;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.AhKeys.AHS;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.MandantKeys.MANDANTEN;
@@ -33,13 +42,18 @@ import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.Se
 import static java.util.Objects.requireNonNull;
 
 @Presenter
+@RouteScope
 public class EIMainLayoutPresenter implements EIPresenter
 {
     private final transient QueryMediator quMediator;
+    private final transient CommandMediator cmdMediator;
+    private final EISession session;
 
-    public EIMainLayoutPresenter(final QueryMediator quMediator)
+    public EIMainLayoutPresenter(final QueryMediator quMediator, CommandMediator cmdMediator, EISession session)
     {
         this.quMediator = quMediator;
+        this.cmdMediator = cmdMediator;
+        this.session = session;
     }
 
     public DataProvider<SearchPreviewItem, String> createSearchPreviewDataProvider()
@@ -80,6 +94,22 @@ public class EIMainLayoutPresenter implements EIPresenter
         }
     }
 
+    public List<ActionItem> fetchRecentActions(final int limit)
+    {
+        return quMediator.fetchAll(new FindRecentActions(session.userId()), firstPage(limit)).toList();
+    }
+
+    public List<ActionItem> fetchFavoriteActions(final int limit)
+    {
+        return quMediator.fetchAll(new FindFavoriteActions(session.userId()), firstPage(limit)).toList();
+    }
+
+    public void addFavoriteAction(ActionItem action)
+    {
+        cmdMediator.run(new AddFavoriteAction(session.userId(), action));
+    }
+
+
     //region STATIC
     private static SearchPreviewItem mapMandantPreviewItem(
             final SearchMandanten.ResultItem source,
@@ -108,7 +138,7 @@ public class EIMainLayoutPresenter implements EIPresenter
                 null,
                 null),
         AKTION(
-                TranslationKeys.AKTIONEN,
+                TranslationKeys.AktionKeys.AKTIONEN,
                 null,
                 null),
         MANDANT(

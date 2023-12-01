@@ -14,11 +14,11 @@ import de.kkendzia.myintranet.ei._framework.parameters.ParameterDefinition;
 import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
 import de.kkendzia.myintranet.ei.ui.components.form.FormBinder;
-import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.layouts.SectionLayout;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.sidebar.SidebarConfiguration;
 import de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.sidebar.SidebarConfiguration.SidebarAction;
 import de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.sidebar.SidebarConfiguration.SidebarHeader;
@@ -101,7 +101,7 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
 
         SectionLayout root = getContent();
         root.addSection(getTranslation(COMMON), frmCore);
-        root.addSection(getTranslation(ADRESS), frmAdress);
+        root.addSection(getTranslation(AdressKeys.ADRESS), frmAdress);
         root.addSection(getTranslation(MEMBERSHIP), frmMember);
         root.add(footer);
 

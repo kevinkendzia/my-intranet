@@ -27,7 +27,7 @@ public class AhCoreDataPage extends AbstractLazyPage<SectionLayout> implements A
 
         final var root = getContent();
         root.addSection(getTranslation(COMMON), frmCoreData);
-        root.addSection(getTranslation(ADRESS), frmAdressData);
+        root.addSection(getTranslation(AdressKeys.ADRESS), frmAdressData);
         root.addSection(getTranslation(MEMBERSHIP), frmMemberData);
 
         formBinder.bind(frmCoreData, AhDetailModel::coreData);

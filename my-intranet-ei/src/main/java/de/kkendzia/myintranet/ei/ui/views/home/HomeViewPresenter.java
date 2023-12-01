@@ -33,13 +33,13 @@ public class HomeViewPresenter implements EIPresenter
     public DataProvider<ActionItem, Void> createRecentActionDataProvider()
     {
         return new QueryDataProvider<ActionItem>(quMediator)
-                .withConvertedFilter(unused -> new FindRecentActions(session.getCurrentUserID()));
+                .withConvertedFilter(unused -> new FindRecentActions(session.userId()));
     }
 
     public DataProvider<ActionItem, Void> createFavoriteActionDataProvider()
     {
         return new QueryDataProvider<ActionItem>(quMediator)
-                .withConvertedFilter(unused -> new FindFavoriteActions(session.getCurrentUserID()));
+                .withConvertedFilter(unused -> new FindFavoriteActions(session.userId()));
     }
 
     public DataProvider<NewsItem, Void> createNewsDataProvider()
@@ -51,6 +51,6 @@ public class HomeViewPresenter implements EIPresenter
     public DataProvider<NotificationItem, Void> createNotificationsDataProvider()
     {
         return new QueryDataProvider<NotificationItem>(quMediator)
-                .withConvertedFilter(unused -> new FindUnseenNotifications(session.getCurrentUserID()));
+                .withConvertedFilter(unused -> new FindUnseenNotifications(session.userId()));
     }
 }
