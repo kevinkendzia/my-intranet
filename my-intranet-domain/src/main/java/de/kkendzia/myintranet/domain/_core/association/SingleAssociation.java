@@ -3,19 +3,41 @@ package de.kkendzia.myintranet.domain._core.association;
 import de.kkendzia.myintranet.domain._core.AggregateRoot;
 import de.kkendzia.myintranet.domain._core.ID;
 
-public record SingleAssociation<A extends AggregateRoot<A, I>, I extends ID>(I id)
+import static java.util.Objects.requireNonNull;
+
+public record SingleAssociation<A extends AggregateRoot<A, I>, I extends ID>(I id) implements Association
 {
-    //region STATIC
-    public static <A extends AggregateRoot<A, I>, I extends ID> SingleAssociation<A, I> fromID(
-            I id)
+    @Override
+    public boolean isEmpty()
     {
-        return new SingleAssociation<>(id);
+        return id == null;
     }
 
-    public static <A extends AggregateRoot<A, I>, I extends ID> SingleAssociation<A, I> fromAggregate(
+    //region STATIC
+    public static <A extends AggregateRoot<A, I>, I extends ID> SingleAssociation<A, I> emptySingleLink()
+    {
+        return new SingleAssociation<>(null);
+    }
+
+    public static <A extends AggregateRoot<A, I>, I extends ID> SingleAssociation<A, I> requiredSingleLink(I id)
+    {
+        return new SingleAssociation<>(requireNonNull(id, "id can't be null!"));
+    }
+
+    public static <A extends AggregateRoot<A, I>, I extends ID> SingleAssociation<A, I> requiredSingleLink(A aggregate)
+    {
+        return requiredSingleLink(requireNonNull(aggregate, "aggregate can't be null!").getId());
+    }
+
+    public static <A extends AggregateRoot<A, I>, I extends ID> SingleAssociation<A, I> optionalSingleLink(I id)
+    {
+        return id != null ? new SingleAssociation<>(id) : emptySingleLink();
+    }
+
+    public static <A extends AggregateRoot<A, I>, I extends ID> SingleAssociation<A, I> optionalSingleLink(
             A aggregate)
     {
-        return new SingleAssociation<>(aggregate.getId());
+        return aggregate != null ? requiredSingleLink(aggregate.getId()) : emptySingleLink();
     }
     //endregion
 }

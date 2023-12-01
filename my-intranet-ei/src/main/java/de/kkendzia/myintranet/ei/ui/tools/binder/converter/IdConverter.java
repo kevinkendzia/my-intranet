@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.components.binder.converter;
+package de.kkendzia.myintranet.ei.ui.tools.binder.converter;
 
 import com.vaadin.flow.data.binder.Result;
 import com.vaadin.flow.data.binder.ValueContext;

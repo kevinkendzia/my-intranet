@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.components.navigation;
+package de.kkendzia.myintranet.ei.core.navigation;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;

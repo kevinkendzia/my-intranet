@@ -8,7 +8,7 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
-public record MultiAssociation<A extends AggregateRoot<A, I>, I extends ID>(Set<I> ids)
+public record MultiAssociation<A extends AggregateRoot<A, I>, I extends ID>(Set<I> ids) implements Association
 {
     public MultiAssociation()
     {
@@ -20,12 +20,23 @@ public record MultiAssociation<A extends AggregateRoot<A, I>, I extends ID>(Set<
         this.ids = new HashSet<>(requireNonNull(ids, "ids can't be null!"));
     }
 
+    @Override
+    public boolean isEmpty()
+    {
+        return ids.isEmpty();
+    }
+
     public void add(final A aggregate)
     {
         ids.add(aggregate.getId());
     }
 
     //region STATIC
+    public static <A extends AggregateRoot<A, I>, I extends ID> MultiAssociation<A, I> emptyMultLink()
+    {
+        return new MultiAssociation<>();
+    }
+
     public static <A extends AggregateRoot<A, I>, I extends ID> MultiAssociation<A, I> fromIDs(Set<I> ids)
     {
         return new MultiAssociation<>(new HashSet<>(ids));

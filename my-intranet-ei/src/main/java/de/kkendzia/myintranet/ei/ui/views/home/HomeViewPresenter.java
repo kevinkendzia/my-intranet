@@ -1,65 +1,56 @@
 package de.kkendzia.myintranet.ei.ui.views.home;
 
 import com.vaadin.flow.data.provider.DataProvider;
+import com.vaadin.flow.spring.annotation.RouteScope;
+import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
+import de.kkendzia.myintranet.app.news.queries.FindCurrentNews;
+import de.kkendzia.myintranet.app.news.queries.FindCurrentNews.NewsItem;
+import de.kkendzia.myintranet.app.notification.queries.FindUnseenNotifications;
+import de.kkendzia.myintranet.app.notification.queries.FindUnseenNotifications.NotificationItem;
+import de.kkendzia.myintranet.app.useractions.queries.FindFavoriteActions;
+import de.kkendzia.myintranet.app.useractions.queries.FindRecentActions;
+import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
 import de.kkendzia.myintranet.ei._framework.presenter.EIPresenter;
 import de.kkendzia.myintranet.ei._framework.presenter.Presenter;
+import de.kkendzia.myintranet.ei.core.session.EISession;
+import de.kkendzia.myintranet.ei.ui.tools.data.QueryDataProvider;
 
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import static java.util.Objects.requireNonNull;
 
 @Presenter
+@RouteScope
 public class HomeViewPresenter implements EIPresenter
 {
-    public DataProvider<ActionItem, Void> createActionDataProvider(boolean favorites)
+    private final transient QueryMediator quMediator;
+    private final EISession session;
+
+    public HomeViewPresenter(final QueryMediator quMediator, EISession session)
     {
-        return DataProvider.fromCallbacks(
-                query -> fetchActionItems(favorites, query.getOffset(), query.getLimit()),
-                query -> Math.toIntExact(countActionItems(favorites)));
+        this.quMediator = requireNonNull(quMediator, "quMediator can't be null!");
+        this.session = requireNonNull(session, "session can't be null!");
     }
 
-    public long countActionItems(final boolean favorites)
+    public DataProvider<ActionItem, Void> createRecentActionDataProvider()
     {
-        return 5;
+        return new QueryDataProvider<ActionItem>(quMediator)
+                .withConvertedFilter(unused -> new FindRecentActions(session.getCurrentUserID()));
     }
 
-    public Stream<ActionItem> fetchActionItems(final boolean favorites, int offset, final int limit)
+    public DataProvider<ActionItem, Void> createFavoriteActionDataProvider()
     {
-        return IntStream.range(offset, limit)
-                .boxed()
-                .map(i -> new ActionItem("Action " + i, "ah/search"));
+        return new QueryDataProvider<ActionItem>(quMediator)
+                .withConvertedFilter(unused -> new FindFavoriteActions(session.getCurrentUserID()));
     }
 
     public DataProvider<NewsItem, Void> createNewsDataProvider()
     {
-        return DataProvider.fromCallbacks(
-                query -> fetchNewsItems(query.getOffset(), query.getLimit()),
-                query -> Math.toIntExact(countNewsItems()));
+        return new QueryDataProvider<NewsItem>(quMediator)
+                .withConvertedFilter(unused -> new FindCurrentNews());
     }
 
-    public long countNewsItems()
+    public DataProvider<NotificationItem, Void> createNotificationsDataProvider()
     {
-        return 5;
-    }
-
-    public Stream<NewsItem> fetchNewsItems(int offset, final int limit)
-    {
-        return IntStream.range(offset, limit)
-                .boxed()
-                .map(i -> new NewsItem("News " + i, "Meeeeeeeeeesssssssssssssaaaaaaaaaaaaaaaaaaaage!", false));
-    }
-
-    public record ActionItem(
-            String title,
-            String route)
-    {
-        // just a record
-    }
-
-    public record NewsItem(
-            String title,
-            String message,
-            boolean seen)
-    {
-        // just a record
+        return new QueryDataProvider<NotificationItem>(quMediator)
+                .withConvertedFilter(unused -> new FindUnseenNotifications(session.getCurrentUserID()));
     }
 }

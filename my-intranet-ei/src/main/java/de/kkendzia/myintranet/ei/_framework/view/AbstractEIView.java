@@ -2,6 +2,9 @@ package de.kkendzia.myintranet.ei._framework.view;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.function.SerializableConsumer;
+import com.vaadin.flow.i18n.LocaleChangeEvent;
+import com.vaadin.flow.i18n.LocaleChangeObserver;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.HasDynamicTitle;
@@ -20,6 +23,7 @@ public abstract class AbstractEIView<C extends Component>
         extends Composite<C>
         implements
         EIView,
+        LocaleChangeObserver,
         HasDynamicTitle,
         BeforeEnterObserver,
         HasToolbarConfig,
@@ -32,10 +36,22 @@ public abstract class AbstractEIView<C extends Component>
     private String pageTitle;
     private final Map<ParameterDefinition<?>, List<?>> qpValueMap = new HashMap<>();
     private final Map<ParameterDefinition<?>, Object> rpValueMap = new HashMap<>();
+    private final Set<SerializableConsumer<LocaleChangeEvent>> localeChangeConsumers = new HashSet<>();
 
     protected AbstractEIView()
     {
         addClassName("ei-view");
+    }
+
+    protected void registerLocaleChangeConsumer(SerializableConsumer<LocaleChangeEvent> localeChangeConsumer)
+    {
+        localeChangeConsumers.add(localeChangeConsumer);
+    }
+
+    @Override
+    public void localeChange(final LocaleChangeEvent event)
+    {
+        localeChangeConsumers.forEach(c -> c.accept(event));
     }
 
     protected void registerQueryParameter(ParameterDefinition<?> definition)
@@ -148,13 +164,4 @@ public abstract class AbstractEIView<C extends Component>
     {
         // optional
     }
-
-//    protected void updateURL()
-//    {
-//        String deepLinkingUrl = RouteConfiguration.forSessionScope().getUrl(getClass());
-//        getUI().orElseThrow(() -> new IllegalArgumentException("UI is NOT accessible!"))
-//                .getPage()
-//                .getHistory()
-//                .replaceState(null, deepLinkingUrl);
-//    }
 }

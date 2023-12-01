@@ -8,12 +8,12 @@ import de.kkendzia.myintranet.app.search.queries.SearchMandanten;
 import de.kkendzia.myintranet.ei._framework.presenter.EIPresenter;
 import de.kkendzia.myintranet.ei._framework.presenter.Presenter;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
-import de.kkendzia.myintranet.ei.ui.components.data.QueryDataProvider;
-import de.kkendzia.myintranet.ei.ui.components.data.QueryDataProvider.DefaultQueryFactory;
-import de.kkendzia.myintranet.ei.ui.components.navigation.IdNavigationAction;
-import de.kkendzia.myintranet.ei.ui.components.navigation.NavigateWithID;
-import de.kkendzia.myintranet.ei.ui.components.navigation.NavigateWithQueryParameters;
-import de.kkendzia.myintranet.ei.ui.components.navigation.QueryParametersNavigationAction;
+import de.kkendzia.myintranet.ei.core.navigation.IdNavigationAction;
+import de.kkendzia.myintranet.ei.core.navigation.NavigateWithID;
+import de.kkendzia.myintranet.ei.core.navigation.NavigateWithQueryParameters;
+import de.kkendzia.myintranet.ei.core.navigation.QueryParametersNavigationAction;
+import de.kkendzia.myintranet.ei.ui.tools.data.MultiQueryDataProvider;
+import de.kkendzia.myintranet.ei.ui.tools.data.MultiQueryDataProvider.DefaultQueryFactory;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
 import de.kkendzia.myintranet.ei.ui.views.ah.search.AhSearchView;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailView;
@@ -44,7 +44,7 @@ public class EIMainLayoutPresenter implements EIPresenter
 
     public DataProvider<SearchPreviewItem, String> createSearchPreviewDataProvider()
     {
-        return new QueryDataProvider<>(
+        return new MultiQueryDataProvider<>(
                 quMediator,
                 new DefaultQueryFactory<>(
                         SearchMandanten::new,

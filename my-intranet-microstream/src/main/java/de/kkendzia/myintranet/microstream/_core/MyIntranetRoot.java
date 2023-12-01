@@ -4,6 +4,10 @@ import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.domain.ah.Ah.AhID;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
+import de.kkendzia.myintranet.domain.news.News;
+import de.kkendzia.myintranet.domain.news.News.NewsID;
+import de.kkendzia.myintranet.domain.notification.UserNotification;
+import de.kkendzia.myintranet.domain.notification.UserNotification.UserNotificationID;
 import de.kkendzia.myintranet.domain.permission.Permission;
 import de.kkendzia.myintranet.domain.permission.Permission.PermissionID;
 import de.kkendzia.myintranet.domain.role.Role;
@@ -30,6 +34,10 @@ public class MyIntranetRoot
 
     // AH
     private final Map<AhID, Ah> ahs = new HashMap<>();
+
+    // NEWS & NOTIFICATIONS
+    private final Map<NewsID, News> news = new HashMap<>();
+    private final Map<UserNotificationID, UserNotification> notifications = new HashMap<>();
 
     public boolean isInit()
     {
@@ -64,5 +72,15 @@ public class MyIntranetRoot
     public Map<AhID, Ah> getAhs()
     {
         return ahs;
+    }
+
+    public Map<NewsID, News> getNews()
+    {
+        return news;
+    }
+
+    public Map<UserNotificationID, UserNotification> getNotifications()
+    {
+        return notifications;
     }
 }

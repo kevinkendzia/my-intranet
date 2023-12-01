@@ -10,7 +10,7 @@ import de.kkendzia.myintranet.app.useractions.queries.FindFavoriteActions;
 import de.kkendzia.myintranet.app.useractions.queries.FindRecentActions;
 import de.kkendzia.myintranet.app.useractions.queries.FindUserIDByUsername;
 import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
-import de.kkendzia.myintranet.domain.user.EIUser;
+import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
@@ -25,11 +25,11 @@ import static java.util.Collections.unmodifiableList;
 public class EISession implements Serializable
 {
     private final transient AuthenticationContext context;
-    private final QueryMediator queryMediator;
-    private final CommandMediator commandMediator;
+    private final transient QueryMediator queryMediator;
+    private final transient CommandMediator commandMediator;
 
     // STATE
-    private EIUser.EIUserID userId;
+    private EIUserID userId;
 
     public EISession(
             final AuthenticationContext context,
@@ -41,7 +41,7 @@ public class EISession implements Serializable
         this.commandMediator = commandMediator;
     }
 
-    private EIUser.EIUserID getCurrentUserID()
+    public EIUserID getCurrentUserID()
     {
         if (userId == null)
         {

@@ -24,7 +24,7 @@ public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
     private final String matchcode;
     private final LocalDate enterDate;
     private LocalDate exitDate;
-    private AhAdress adress;
+    private final AhAdress adress;
 
     // ASSOCIATIONS
 
@@ -47,13 +47,13 @@ public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
         this.matchcode = requireNonNull(matchcode, "matchcode can't be null!");
 
         this.enterDate = enterDate;
-        this.mandant = SingleAssociation.fromID(mandant);
+        this.mandant = SingleAssociation.requiredSingleLink(mandant);
 
-        this.adress=adress;
+        this.adress = adress;
 
-        this.regulator = SingleAssociation.fromID(regulator);
-        this.verband = SingleAssociation.fromID(verband);
-        this.membershipForm = SingleAssociation.fromID(membershipForm);
+        this.regulator = SingleAssociation.optionalSingleLink(regulator);
+        this.verband = SingleAssociation.optionalSingleLink(verband);
+        this.membershipForm = SingleAssociation.optionalSingleLink(membershipForm);
     }
 
     public void exitNow()
@@ -108,7 +108,7 @@ public final class Ah extends AbstractAggregateRoot<Ah, Ah.AhID>
     }
     //endregion
 
-    //region VALUE TYPES
+    //region TYPES
     public static class AhID extends AbstractID
     {
         public AhID(final UUID value)

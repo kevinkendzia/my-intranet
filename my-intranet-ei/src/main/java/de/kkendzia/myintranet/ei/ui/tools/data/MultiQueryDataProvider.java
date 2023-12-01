@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.components.data;
+package de.kkendzia.myintranet.ei.ui.tools.data;
 
 import com.vaadin.flow.data.provider.AbstractBackEndDataProvider;
 import com.vaadin.flow.data.provider.Query;
@@ -16,24 +16,24 @@ import java.util.stream.Stream;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Stream.concat;
 
-public class QueryDataProvider<T> extends AbstractBackEndDataProvider<T, String>
+public class MultiQueryDataProvider<T> extends AbstractBackEndDataProvider<T, String>
 {
     private final transient QueryMediator quMediator;
     private List<QueryFactory<?, T>> queryFactories;
 
-    public QueryDataProvider(QueryMediator quMediator, final List<QueryFactory<?, T>> queryFactories)
+    public MultiQueryDataProvider(QueryMediator quMediator, final List<QueryFactory<?, T>> queryFactories)
     {
         this.quMediator = requireNonNull(quMediator, "quMediator can't be null!");
         this.queryFactories = requireNonNull(queryFactories, "queryFactories can't be null!");
     }
 
     @SafeVarargs
-    public QueryDataProvider(QueryMediator quMediator, final QueryFactory<?, T>... queryFactories)
+    public MultiQueryDataProvider(QueryMediator quMediator, final QueryFactory<?, T>... queryFactories)
     {
         this(quMediator, List.of(queryFactories));
     }
 
-    public QueryDataProvider(QueryMediator quMediator)
+    public MultiQueryDataProvider(QueryMediator quMediator)
     {
         this(quMediator, new ArrayList<>());
     }
