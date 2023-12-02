@@ -17,6 +17,12 @@ public record AddRecentAction(
         EIUserID userId,
         ActionItem item) implements Command<AddRecentAction.Failure>
 {
+    public AddRecentAction
+    {
+        requireNonNull(userId, "userId can't be null!");
+        requireNonNull(item, "item can't be null!");
+    }
+
     interface AddRecentActionHandler extends CommandHandler<AddRecentAction, Failure>
     {
         @Override
