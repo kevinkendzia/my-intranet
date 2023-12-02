@@ -49,6 +49,8 @@ public final class EIDrawer extends Composite<VerticalLayout>
         itemProvider.setFallbackKey(EIMenuKeys.OTHER);
 
         DrawerMenu menu = new DrawerMenu();
+        menu.setRootGroupCollapsible(false);
+        menu.setRootGroupLabels(false);
         menu.setItemProvider(itemProvider);
 
         VerticalLayout root = getContent();
