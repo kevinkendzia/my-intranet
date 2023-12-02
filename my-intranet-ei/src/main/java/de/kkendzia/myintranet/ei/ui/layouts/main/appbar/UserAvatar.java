@@ -13,7 +13,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.RouteConfiguration;
-import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
+import de.kkendzia.myintranet.app.useractions._shared.ActionItem;
 import de.kkendzia.myintranet.ei.core.session.EISession;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter;
 import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.annotation.AnnotationItemProvider;
@@ -66,7 +66,9 @@ public class UserAvatar extends Composite<Avatar>
         List<ActionItem> actions = presenter.fetchRecentActions(5);
         if (!actions.isEmpty())
         {
-            actions.forEach(a -> subMenu.addItem(a.getTitle()));
+            actions.forEach(a -> subMenu.addItem(
+                    a.getTitle(),
+                    e -> UI.getCurrent().navigate(a.getRoute())));
         }
         else
         {
@@ -85,7 +87,6 @@ public class UserAvatar extends Composite<Avatar>
 
         if (!favoriteActions.isEmpty())
         {
-            subMenu.add(new Hr());
             favoriteActions.forEach(a -> subMenu.addItem(
                     a.getTitle(),
                     e -> UI.getCurrent().navigate(a.getRoute())));

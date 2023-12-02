@@ -1,6 +1,7 @@
 package de.kkendzia.myintranet.ei.core;
 
 import com.vaadin.flow.server.ServiceInitEvent;
+import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.server.VaadinService;
 import com.vaadin.flow.server.VaadinServiceInitListener;
 import de.kkendzia.myintranet.app._framework.cqrs.command.CommandMediator;
@@ -8,6 +9,9 @@ import de.kkendzia.myintranet.app._framework.cqrs.query.QueryMediator;
 import de.kkendzia.myintranet.app.auth.commands.*;
 import de.kkendzia.myintranet.app.init.commands.SetAppInit;
 import de.kkendzia.myintranet.app.init.queries.IsAppInit;
+import de.kkendzia.myintranet.app.useractions._shared.ActionItem;
+import de.kkendzia.myintranet.app.useractions.commands.AddRecentAction;
+import de.kkendzia.myintranet.app.useractions.queries.FindUserIDByUsername;
 import de.kkendzia.myintranet.domain.permission.Permission.PermissionID;
 import de.kkendzia.myintranet.domain.role.Role.RoleID;
 import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
@@ -52,7 +56,14 @@ public class EIInitListener implements VaadinServiceInitListener
         {
             uiEvent.getUI().addAfterNavigationListener(navEvent ->
             {
-//                cmdMediator.run(new AddRecentAction(null, new ActionItem("", "")));
+                final var request = VaadinRequest.getCurrent();
+                final var principal = request.getUserPrincipal();
+                final var path = navEvent.getLocation().getPath();
+                if (principal != null && !path.isEmpty())
+                {
+                    final var userId = quMediator.fetchOne(new FindUserIDByUsername(principal.getName())).getData();
+                    cmdMediator.run(new AddRecentAction(userId, new ActionItem(path, path)));
+                }
             });
         });
 

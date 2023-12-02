@@ -7,9 +7,9 @@ import de.kkendzia.myintranet.app.news.queries.FindCurrentNews;
 import de.kkendzia.myintranet.app.news.queries.FindCurrentNews.NewsItem;
 import de.kkendzia.myintranet.app.notification.queries.FindUnseenNotifications;
 import de.kkendzia.myintranet.app.notification.queries.FindUnseenNotifications.NotificationItem;
+import de.kkendzia.myintranet.app.useractions._shared.ActionItem;
 import de.kkendzia.myintranet.app.useractions.queries.FindFavoriteActions;
 import de.kkendzia.myintranet.app.useractions.queries.FindRecentActions;
-import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
 import de.kkendzia.myintranet.ei._framework.presenter.EIPresenter;
 import de.kkendzia.myintranet.ei._framework.presenter.Presenter;
 import de.kkendzia.myintranet.ei.core.session.EISession;
@@ -32,25 +32,29 @@ public class HomeViewPresenter implements EIPresenter
 
     public DataProvider<ActionItem, Void> createRecentActionDataProvider()
     {
-        return new QueryDataProvider<ActionItem>(quMediator)
-                .withConvertedFilter(unused -> new FindRecentActions(session.userId()));
+        final var dp = new QueryDataProvider<ActionItem>(quMediator).withConfigurableFilter();
+        dp.setFilter(new FindRecentActions(session.userId()));
+        return dp;
     }
 
     public DataProvider<ActionItem, Void> createFavoriteActionDataProvider()
     {
-        return new QueryDataProvider<ActionItem>(quMediator)
-                .withConvertedFilter(unused -> new FindFavoriteActions(session.userId()));
+        final var dp = new QueryDataProvider<ActionItem>(quMediator).withConfigurableFilter();
+        dp.setFilter(new FindFavoriteActions(session.userId()));
+        return dp;
     }
 
     public DataProvider<NewsItem, Void> createNewsDataProvider()
     {
-        return new QueryDataProvider<NewsItem>(quMediator)
-                .withConvertedFilter(unused -> new FindCurrentNews());
+        final var dp = new QueryDataProvider<NewsItem>(quMediator).withConfigurableFilter();
+        dp.setFilter(new FindCurrentNews());
+        return dp;
     }
 
     public DataProvider<NotificationItem, Void> createNotificationsDataProvider()
     {
-        return new QueryDataProvider<NotificationItem>(quMediator)
-                .withConvertedFilter(unused -> new FindUnseenNotifications(session.userId()));
+        final var dp = new QueryDataProvider<NotificationItem>(quMediator).withConfigurableFilter();
+        dp.setFilter(new FindUnseenNotifications(session.userId()));
+        return dp;
     }
 }

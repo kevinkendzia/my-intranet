@@ -6,13 +6,19 @@ import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
+import com.vaadin.flow.component.orderedlayout.FlexLayout.FlexWrap;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.provider.QuerySortOrder;
+import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import de.kkendzia.myintranet.app.news.queries.FindCurrentNews.NewsItem;
 import de.kkendzia.myintranet.app.notification.queries.FindUnseenNotifications.NotificationItem;
-import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
+import de.kkendzia.myintranet.app.useractions._shared.ActionItem;
+import de.kkendzia.myintranet.domain.user.EIUserAction;
 import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.components.text.MultiLineTitle;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
@@ -23,10 +29,13 @@ import de.kkendzia.myintranet.ei.ui.views.home.components.HorizontalList;
 import de.kkendzia.myintranet.ei.utils.GridColumnFactory;
 import jakarta.annotation.security.PermitAll;
 
+import java.util.List;
+
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.AppKeys.APP_DESCRIPTION;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.AppKeys.APP_WELCOME;
 import static de.kkendzia.myintranet.ei.ui.components.ComponentFactory.xLargeLabel;
+import static java.util.Comparator.comparing;
 import static java.util.Objects.requireNonNull;
 
 @Route(value = "", layout = EIMainLayout.class)
@@ -66,11 +75,15 @@ public class HomeView extends AbstractEIView<VerticalLayout>
         final HorizontalList<ActionItem> row1 = new HorizontalList<>();
         registerLocaleChangeConsumer(e -> row1.setLabel(getTranslation(RECENT)));
         row1.setRenderer(new ComponentRenderer<>(HomeActionButton::new));
+        row1.setComparator(comparing(ActionItem::getTimestamp).reversed());
+        row1.setSortOrders(List.of(new QuerySortOrder(EIUserAction.PROPERTY_TIMESTAMP, SortDirection.DESCENDING)));
         row1.setItems(presenter.createRecentActionDataProvider());
 
         final HorizontalList<ActionItem> row2 = new HorizontalList<>();
         registerLocaleChangeConsumer(e -> row2.setLabel(getTranslation(FAVORITES)));
         row2.setRenderer(new ComponentRenderer<>(HomeActionButton::new));
+        row2.setComparator(comparing(ActionItem::getTimestamp).reversed());
+        row2.setSortOrders(List.of(new QuerySortOrder(EIUserAction.PROPERTY_TIMESTAMP, SortDirection.DESCENDING)));
         row2.setItems(presenter.createFavoriteActionDataProvider());
 
         /*
@@ -92,6 +105,11 @@ public class HomeView extends AbstractEIView<VerticalLayout>
 
         notificationsGrid.setItems(presenter.createNotificationsDataProvider());
 
+        final var vlNotifications = new VerticalLayout();
+        vlNotifications.setPadding(false);
+        vlNotifications.add(notificationsGridLabel);
+        vlNotifications.add(notificationsGrid);
+
         /*
          * NEWS
          */
@@ -111,6 +129,27 @@ public class HomeView extends AbstractEIView<VerticalLayout>
 
         newsGrid.setItems(presenter.createNewsDataProvider());
 
+        final var vlNews = new VerticalLayout();
+        vlNews.setPadding(false);
+        vlNews.add(newsGridLabel);
+        vlNews.add(newsGrid);
+
+        /*
+         * GRID - FLEX
+         */
+
+        final var flexLayout = new FlexLayout();
+        flexLayout.addClassName(Gap.MEDIUM);
+        flexLayout.setFlexWrap(FlexWrap.WRAP);
+        flexLayout.add(vlNotifications);
+        flexLayout.setFlexBasis("10em", vlNotifications);
+        flexLayout.setFlexShrink(1, vlNotifications);
+        flexLayout.setFlexGrow(1, vlNotifications);
+        flexLayout.add(vlNews);
+        flexLayout.setFlexBasis("10em", vlNews);
+        flexLayout.setFlexShrink(1, vlNews);
+        flexLayout.setFlexGrow(1, vlNews);
+
         /*
          * ROOT
          */
@@ -125,9 +164,6 @@ public class HomeView extends AbstractEIView<VerticalLayout>
         root.add(description);
         root.add(row1);
         root.add(row2);
-        root.add(notificationsGridLabel);
-        root.addAndExpand(notificationsGrid);
-        root.add(newsGridLabel);
-        root.addAndExpand(newsGrid);
+        root.addAndExpand(flexLayout);
     }
 }

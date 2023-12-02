@@ -3,7 +3,7 @@ package de.kkendzia.myintranet.app.useractions.commands;
 import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler;
 import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler.Command;
 import de.kkendzia.myintranet.app._framework.result.VoidResult;
-import de.kkendzia.myintranet.app.useractions.shared.ActionItem;
+import de.kkendzia.myintranet.app.useractions._shared.ActionItem;
 import de.kkendzia.myintranet.domain._core.repository.Repository;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;

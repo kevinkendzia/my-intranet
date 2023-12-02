@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.app.useractions.shared;
+package de.kkendzia.myintranet.app.useractions._shared;
 
 import java.time.LocalDateTime;
 

@@ -121,16 +121,10 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
         if (id == null)
         {
             event.forwardTo(NAV, "new");
-        }
-        else if (Objects.equals(id, "new"))
-        {
-            presenter.init(null);
-        }
-        else
-        {
-            presenter.init(id);
+            return;
         }
 
+        presenter.init(Objects.equals(id, "new") ? null : id);
         getContent().refreshPages();
     }
 }
