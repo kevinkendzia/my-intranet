@@ -4,5 +4,4 @@ import java.io.Serializable;
 
 public interface ID extends ValueObject, Serializable
 {
-    // marker
 }

@@ -48,6 +48,14 @@ public class EIInitListener implements VaadinServiceInitListener
             e.getSession().setErrorHandler(new EIErrorHandler());
         });
 
+        service.addUIInitListener(uiEvent ->
+        {
+            uiEvent.getUI().addAfterNavigationListener(navEvent ->
+            {
+//                cmdMediator.run(new AddRecentAction(null, new ActionItem("", "")));
+            });
+        });
+
         LOGGER.info("EI-Service initialized!");
     }
 
@@ -109,7 +117,7 @@ public class EIInitListener implements VaadinServiceInitListener
         }
         else
         {
-            LOGGER.info("DB was already initialized before!");
+            LOGGER.info("DB already initialized!");
         }
     }
 }
