@@ -25,7 +25,7 @@ public class EIDrawerFooter extends Composite<Footer> implements ThemableLayout
         vlContent.add(new Span(format(buildProperties.getTime())));
 
         final var details = new Details("Version " + buildProperties.getVersion());
-        details.setContent(vlContent);
+        details.add(vlContent);
 
         Footer root = getContent();
         root.add(details);
