@@ -108,6 +108,7 @@ public final class TranslationKeys
             public static final String NO_CHANGES = "error.msg.noChanges";
             public static final String VALIDATION_ERROR = "error.msg.validationError";
             public static final String ID_NOT_FOUND = "error.msg.idNotFound";
+            public static final String NO_MANDANT = "error.msg.noMandant";
 
             private MessageKeys()
             {
@@ -121,6 +122,7 @@ public final class TranslationKeys
         public static final String MANDANT = "label.mandant";
         public static final String MANDANTEN = "label.mandanten";
         public static final String SEARCH = "label.mandantSearch";
+        public static final String CREATE = "label.mandantCreate";
 
         private MandantKeys()
         {
@@ -149,6 +151,7 @@ public final class TranslationKeys
         public static final String VLNR = "label.vlnr";
         public static final String VLS = "label.vls";
         public static final String VL = "label.vl";
+        public static final String CREATE = "label.vlCreate";
 
         private VlKeys()
         {
@@ -161,6 +164,7 @@ public final class TranslationKeys
         public static final String AKTIONSNUMMER = "label.aktionsnummer";
         public static final String AKTIONEN = "label.aktionen";
         public static final String AKTION = "label.aktion";
+        public static final String CREATE = "label.aktionCreate";
 
         private AktionKeys()
         {

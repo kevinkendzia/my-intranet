@@ -9,7 +9,6 @@ import de.kkendzia.myintranet.app.search.queries.SearchAhs.ResultItem;
 import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei._framework.view.search.SearchRoute;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
-import de.kkendzia.myintranet.ei.core.navigation.NavigateWithItem;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.layouts.SearchLayout;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
@@ -22,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static de.kkendzia.myintranet.ei._framework.view.search.SearchParameters.SEARCH_TEXT;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
+import static de.kkendzia.myintranet.ei.core.navigation.NavigateWithItem.to;
 import static de.kkendzia.myintranet.ei.utils.GridColumnFactory.*;
 
 @Route(value = "ah/search", layout = EIMainLayout.class)
@@ -46,7 +46,7 @@ public class AhSearchView
 
         // SEARCH LAYOUT
         SearchLayout<ResultItem> root = getContent();
-        root.setNavigationAction(new NavigateWithItem<>(AhDetailView.class, ResultItem::idString));
+        root.setNavigationAction(to(AhDetailView.class, ResultItem::idString));
 
         Grid<ResultItem> grid = root.getGrid();
         addCollapsedColumn(grid, getTranslation(AhKeys.AHNR), ResultItem::ahnr);

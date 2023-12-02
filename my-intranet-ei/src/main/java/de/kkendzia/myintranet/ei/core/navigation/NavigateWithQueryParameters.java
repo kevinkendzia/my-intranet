@@ -3,32 +3,30 @@ package de.kkendzia.myintranet.ei.core.navigation;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.QueryParameters;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import static java.util.Objects.requireNonNull;
+import java.io.Serializable;
 
-public class NavigateWithQueryParameters<C extends Component> implements QueryParametersNavigationAction
+import static org.slf4j.LoggerFactory.getLogger;
+
+@FunctionalInterface
+public interface NavigateWithQueryParameters extends Serializable
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(NavigateWithQueryParameters.class);
+    void execute(QueryParameters queryParameters);
 
-    private final Class<C> target;
-
-    public NavigateWithQueryParameters(Class<C> target)
+    //region STATIC
+    static NavigateWithQueryParameters to(Class<? extends Component> target)
     {
-        this.target = requireNonNull(target, "target can't be null!");
-    }
-
-    @Override
-    public void execute(QueryParameters queryParameters)
-    {
-        if (queryParameters != null)
+        return qp ->
         {
-            UI.getCurrent().navigate(target, queryParameters);
-        }
-        else
-        {
-            LOGGER.debug("No queryParameters provided, won't navigate!");
-        }
+            if (qp != null)
+            {
+                UI.getCurrent().navigate(target, qp);
+            }
+            else
+            {
+                getLogger(NavigateWithQueryParameters.class).debug("No QueryParameters provided, won't navigate!");
+            }
+        };
     }
+    //endregion
 }

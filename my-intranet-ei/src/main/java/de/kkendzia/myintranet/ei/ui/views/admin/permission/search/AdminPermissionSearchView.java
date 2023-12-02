@@ -35,7 +35,7 @@ public class AdminPermissionSearchView extends AbstractEIView<SearchLayout<Resul
         this.presenter = requireNonNull(presenter, "presenter can't be null!");
 
         SearchLayout<ResultItem> root = getContent();
-        root.setNavigationAction(new NavigateWithItem<>(MandantDetailView.class, ResultItem::idString));
+        root.setNavigationAction(NavigateWithItem.to(MandantDetailView.class, ResultItem::idString));
 
         Grid<ResultItem> grid = root.getGrid();
         addCollapsedColumn(grid, getTranslation(NAME), ResultItem::name);

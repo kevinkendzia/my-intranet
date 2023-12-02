@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import static de.kkendzia.myintranet.app._utils.StreamUtil.sortOptionally;
+import static java.util.Objects.requireNonNull;
 
 public class AbstractMSQueryHandler<T> extends StorageManagerHolder
 {
@@ -35,9 +36,12 @@ public class AbstractMSQueryHandler<T> extends StorageManagerHolder
         }
 
         return orders
-                .stream().map(x ->
+                .stream()
+                .map(x ->
                 {
-                    final Comparator<T> c = comparatorMap.get(x.property());
+                    final Comparator<T> c = requireNonNull(
+                            comparatorMap.get(x.property()),
+                            "comparatorMap.get(x.property()) can't be null!");
                     if (x.direction() == Direction.DESC)
                     {
                         return c.reversed();

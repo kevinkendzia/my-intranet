@@ -27,6 +27,7 @@ import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhAdressDa
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhCoreDataForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhMemberDataForm;
 import de.kkendzia.myintranet.ei.ui.views.ah.detail.AhDetailView;
+import de.kkendzia.myintranet.ei.ui.views.ah.errors.NoMandantError.NoMandantException;
 import jakarta.annotation.security.PermitAll;
 
 import java.time.LocalDate;
@@ -77,7 +78,7 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
 
         setToolbarConfig(
                 new ToolbarConfiguration.Builder()
-                        .title(getTranslation("ah.create"))
+                        .title(getTranslation(AhKeys.CREATE))
                         .build());
 
         setRightSidebarConfig(
@@ -129,7 +130,14 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
     @Override
     protected void beforeEnterView(BeforeEnterEvent event)
     {
-        frmCore.setMandantItems(presenter.loadMandantItems());
+        final var mandanten = presenter.loadMandantItems();
+        if (mandanten.isEmpty())
+        {
+            event.rerouteToError(NoMandantException.class);
+            return;
+        }
+
+        frmCore.setMandantItems(mandanten);
 
         request = new AhSheet(
                 new AhSheet.CoreSection(

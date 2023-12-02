@@ -13,11 +13,8 @@ import de.kkendzia.myintranet.app.useractions.queries.FindFavoriteActions;
 import de.kkendzia.myintranet.app.useractions.queries.FindRecentActions;
 import de.kkendzia.myintranet.ei._framework.presenter.EIPresenter;
 import de.kkendzia.myintranet.ei._framework.presenter.Presenter;
-import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
-import de.kkendzia.myintranet.ei.core.navigation.IdNavigationAction;
-import de.kkendzia.myintranet.ei.core.navigation.NavigateWithID;
+import de.kkendzia.myintranet.ei.core.navigation.NavigateWithId;
 import de.kkendzia.myintranet.ei.core.navigation.NavigateWithQueryParameters;
-import de.kkendzia.myintranet.ei.core.navigation.QueryParametersNavigationAction;
 import de.kkendzia.myintranet.ei.core.session.EISession;
 import de.kkendzia.myintranet.ei.ui.tools.data.MultiQueryDataProvider;
 import de.kkendzia.myintranet.ei.ui.tools.data.MultiQueryDataProvider.DefaultQueryFactory;
@@ -33,6 +30,7 @@ import java.util.Optional;
 import static de.kkendzia.myintranet.app._framework.cqrs.query.paged.Paging.firstPage;
 import static de.kkendzia.myintranet.ei._framework.view.search.SearchParameters.SEARCH_TEXT;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.AhKeys.AHS;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.AktionKeys.AKTIONEN;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.MandantKeys.MANDANTEN;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.VlKeys.VLS;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayoutPresenter.SearchItemType.*;
@@ -131,29 +129,29 @@ public class EIMainLayoutPresenter implements EIPresenter
     {
         AH(
                 AHS,
-                new NavigateWithID<>(AhDetailView.class),
-                new NavigateWithQueryParameters<>(AhSearchView.class)),
+                NavigateWithId.to(AhDetailView.class),
+                NavigateWithQueryParameters.to(AhSearchView.class)),
         VL(
                 VLS,
                 null,
                 null),
         AKTION(
-                TranslationKeys.AktionKeys.AKTIONEN,
+                AKTIONEN,
                 null,
                 null),
         MANDANT(
                 MANDANTEN,
-                new NavigateWithID<>(MandantDetailView.class),
-                new NavigateWithQueryParameters<>(MandantSearchView.class));
+                NavigateWithId.to(MandantDetailView.class),
+                NavigateWithQueryParameters.to(MandantSearchView.class));
 
         private final String key;
-        private final IdNavigationAction<String> detailNavigation;
-        private final QueryParametersNavigationAction searchNavigation;
+        private final NavigateWithId<String> detailNavigation;
+        private final NavigateWithQueryParameters searchNavigation;
 
         SearchTarget(
                 String key,
-                IdNavigationAction<String> detailNavigation,
-                QueryParametersNavigationAction searchNavigation)
+                NavigateWithId<String> detailNavigation,
+                NavigateWithQueryParameters searchNavigation)
         {
             this.key = key;
             this.detailNavigation = detailNavigation;
@@ -165,12 +163,12 @@ public class EIMainLayoutPresenter implements EIPresenter
             return key;
         }
 
-        public Optional<IdNavigationAction<String>> getOptionalDetailNavigation()
+        public Optional<NavigateWithId<String>> getOptionalDetailNavigation()
         {
             return Optional.ofNullable(detailNavigation);
         }
 
-        public Optional<QueryParametersNavigationAction> getOptionalSearchNavigation()
+        public Optional<NavigateWithQueryParameters> getOptionalSearchNavigation()
         {
             return Optional.ofNullable(searchNavigation);
         }

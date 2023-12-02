@@ -10,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.shared.Registration;
-import de.kkendzia.myintranet.ei.core.navigation.ItemNavigationAction;
+import de.kkendzia.myintranet.ei.core.navigation.NavigateWithItem;
 import de.kkendzia.myintranet.ei.ui.components.images.ImageFactory;
 import de.kkendzia.myintranet.ei.ui.components.text.Counter;
 import de.kkendzia.myintranet.ei.ui.components.text.CounterRow;
@@ -25,7 +25,7 @@ public class SearchLayout<T> extends Composite<VerticalLayout>
     private final Counter counter = new Counter();
     private final Image imgEmpty = ImageFactory.create(IMG_EMPTY);
 
-    private ItemNavigationAction<T> navigationAction;
+    private NavigateWithItem<T> navigationAction;
     private Registration regCounter;
 
     public SearchLayout()
@@ -95,7 +95,7 @@ public class SearchLayout<T> extends Composite<VerticalLayout>
         }
     }
 
-    public void setNavigationAction(ItemNavigationAction<T> navigationAction)
+    public void setNavigationAction(NavigateWithItem<T> navigationAction)
     {
         this.navigationAction = navigationAction;
     }

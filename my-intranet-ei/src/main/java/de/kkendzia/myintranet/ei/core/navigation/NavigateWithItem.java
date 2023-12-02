@@ -4,37 +4,33 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.router.HasUrlParameter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import static java.util.Objects.requireNonNull;
+import java.io.Serializable;
 
-public class NavigateWithItem<T, C extends Component & HasUrlParameter<I>, I> implements ItemNavigationAction<T>
+import static org.slf4j.LoggerFactory.getLogger;
+
+@FunctionalInterface
+public interface NavigateWithItem<T> extends Serializable
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(NavigateWithItem.class);
+    void execute(T item);
 
-    private final Class<C> target;
-    private final SerializableFunction<T, I> idProvider;
-
-    public NavigateWithItem(
+    //region STATIC
+    static <T, C extends Component & HasUrlParameter<I>, I> NavigateWithItem<T> to(
             Class<C> target,
-            SerializableFunction<T, I> idProvider)
+            final SerializableFunction<T, I> idProvider)
     {
-        this.target = requireNonNull(target, "target can't be null!");
-        this.idProvider = requireNonNull(idProvider, "idProvider can't be null!");
-    }
-
-    @Override
-    public void execute(T item)
-    {
-        I id = idProvider.apply(item);
-        if (id != null)
+        return item ->
         {
-            UI.getCurrent().navigate(target, id);
-        }
-        else
-        {
-            LOGGER.debug("No id provided, won't navigate!");
-        }
+            I id = idProvider.apply(item);
+            if (id != null)
+            {
+                UI.getCurrent().navigate(target, id);
+            }
+            else
+            {
+                getLogger(NavigateWithItem.class).debug("No item provided, won't navigate!");
+            }
+        };
     }
+    //endregion
 }

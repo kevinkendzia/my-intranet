@@ -9,19 +9,14 @@ import java.io.Serializable;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @FunctionalInterface
-public interface Navigate extends Serializable
+public interface NavigateWithId<I> extends Serializable
 {
-    void execute();
+    void execute(I id);
 
     //region STATIC
-    static Navigate to(Class<? extends Component> target)
+    static <I, C extends Component & HasUrlParameter<I>> NavigateWithId<I> to(Class<C> target)
     {
-        return () -> UI.getCurrent().navigate(target);
-    }
-
-    static <I, C extends Component & HasUrlParameter<I>> Navigate to(Class<C> target, I id)
-    {
-        return () ->
+        return id ->
         {
             if (id != null)
             {
@@ -29,7 +24,7 @@ public interface Navigate extends Serializable
             }
             else
             {
-                getLogger(Navigate.class).debug("No id provided, won't navigate!");
+                getLogger(NavigateWithId.class).debug("No id provided, won't navigate!");
             }
         };
     }

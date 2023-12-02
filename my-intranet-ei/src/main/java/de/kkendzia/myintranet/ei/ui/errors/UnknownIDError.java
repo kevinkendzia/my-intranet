@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.ErrorKeys.MessageKeys.ID_NOT_FOUND;
 
 @ParentLayout(EIMainLayout.class)
-public class UnknownIDError extends AbstractEIView<EIErrotLayout>
+public class UnknownIDError extends AbstractEIView<ErrotLayout>
         implements HasErrorParameter<UnknownIDError.UnknownIDException>
 {
     @Override
