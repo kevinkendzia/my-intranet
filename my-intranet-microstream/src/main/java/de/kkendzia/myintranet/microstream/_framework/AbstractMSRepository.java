@@ -3,7 +3,7 @@ package de.kkendzia.myintranet.microstream._framework;
 import de.kkendzia.myintranet.domain._core.AggregateRoot;
 import de.kkendzia.myintranet.domain._core.ID;
 import de.kkendzia.myintranet.domain._core.repository.Repository;
-import one.microstream.storage.types.StorageManager;
+import org.eclipse.store.storage.types.StorageManager;
 
 import java.util.*;
 import java.util.stream.Stream;

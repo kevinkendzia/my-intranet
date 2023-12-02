@@ -7,7 +7,7 @@ import de.kkendzia.myintranet.app.search.queries.SearchEIUsers;
 import de.kkendzia.myintranet.app.search.queries.SearchEIUsers.SearchEIUserHandler;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import one.microstream.storage.types.StorageManager;
+import org.eclipse.store.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 @Component

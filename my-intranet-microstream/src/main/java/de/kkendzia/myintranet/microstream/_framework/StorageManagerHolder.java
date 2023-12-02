@@ -1,6 +1,6 @@
 package de.kkendzia.myintranet.microstream._framework;
 
-import one.microstream.storage.types.StorageManager;
+import org.eclipse.store.storage.types.StorageManager;
 
 import static java.util.Objects.requireNonNull;
 

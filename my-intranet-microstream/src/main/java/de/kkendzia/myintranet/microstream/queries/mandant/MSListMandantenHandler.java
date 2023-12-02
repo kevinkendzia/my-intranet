@@ -5,7 +5,7 @@ import de.kkendzia.myintranet.app._framework.result.ListResult;
 import de.kkendzia.myintranet.app.mandant.queries.ListMandanten;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import one.microstream.storage.types.StorageManager;
+import org.eclipse.store.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Stream;

@@ -3,7 +3,7 @@ package de.kkendzia.myintranet.microstream._framework;
 import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Direction;
 import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Order;
 import de.kkendzia.myintranet.app._framework.cqrs.query.paged.Paging;
-import one.microstream.storage.types.StorageManager;
+import org.eclipse.store.storage.types.StorageManager;
 
 import java.util.Collection;
 import java.util.Comparator;

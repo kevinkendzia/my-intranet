@@ -9,7 +9,7 @@ import de.kkendzia.myintranet.domain.role.Role;
 import de.kkendzia.myintranet.domain.role.RolePermission;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import one.microstream.storage.types.StorageManager;
+import org.eclipse.store.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import static java.util.Comparator.comparing;
 
 @Component
 public class FindAuthAuthoritiesMSHandler
-        extends AbstractMSQueryHandler
+        extends AbstractMSQueryHandler<EIUser>
         implements FindAuthAuthoritiesHandler
 {
     public FindAuthAuthoritiesMSHandler(

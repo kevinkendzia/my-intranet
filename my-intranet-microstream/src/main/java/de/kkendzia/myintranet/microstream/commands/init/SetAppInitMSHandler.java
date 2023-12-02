@@ -3,7 +3,7 @@ package de.kkendzia.myintranet.microstream.commands.init;
 import de.kkendzia.myintranet.app._framework.result.VoidResult;
 import de.kkendzia.myintranet.app.init.commands.SetAppInit;
 import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
-import one.microstream.storage.types.StorageManager;
+import org.eclipse.store.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import static java.util.Objects.requireNonNull;

@@ -8,7 +8,7 @@ import de.kkendzia.myintranet.app.notification.queries.FindUnseenNotifications.F
 import de.kkendzia.myintranet.app.notification.queries.FindUnseenNotifications.NotificationItem;
 import de.kkendzia.myintranet.domain.notification.UserNotification;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import one.microstream.storage.types.StorageManager;
+import org.eclipse.store.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;

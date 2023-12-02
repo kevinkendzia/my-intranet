@@ -8,7 +8,7 @@ import de.kkendzia.myintranet.app.useractions.queries.FindRecentActions.FindRece
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.domain.user.EIUserAction;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import one.microstream.storage.types.StorageManager;
+import org.eclipse.store.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import static de.kkendzia.myintranet.app._framework.result.ListResult.success;

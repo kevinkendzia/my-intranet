@@ -8,7 +8,7 @@ import de.kkendzia.myintranet.app.search.queries.SearchMandanten.ResultItem;
 import de.kkendzia.myintranet.app.search.queries.SearchMandanten.SearchMandantenHandler;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import one.microstream.storage.types.StorageManager;
+import org.eclipse.store.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 @Component
