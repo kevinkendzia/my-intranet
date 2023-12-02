@@ -124,7 +124,7 @@ public class UserAvatar extends Composite<Avatar>
                 final var bean = binder.getBean();
                 bean.setTimestamp(LocalDateTime.now());
                 presenter.addFavoriteAction(bean);
-                subMenuFavorites.addItem(title, ev -> UI.getCurrent().navigate(url));
+                subMenuFavorites.addItem(bean.getTitle(), ev -> UI.getCurrent().navigate(url));
                 dlg.close();
             }
             else

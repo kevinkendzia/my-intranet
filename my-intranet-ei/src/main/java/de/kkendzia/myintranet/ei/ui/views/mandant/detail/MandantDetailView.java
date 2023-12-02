@@ -8,12 +8,12 @@ import de.kkendzia.myintranet.ei._framework.parameters.HasViewParameter;
 import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei._framework.view.page.SaveablePage;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.ErrorKeys.MessageKeys;
-import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs;
 import de.kkendzia.myintranet.ei.ui.components.tabs.PagedTabs.PagedTab;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.layouts.TabsLayout;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
+import de.kkendzia.myintranet.ei.ui.layouts.main.drawer.menu.provider.annotation.MenuRoute;
 import de.kkendzia.myintranet.ei.ui.views.mandant.MandantRoutes;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailPresenter.EditMode;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages.MandantDetailPage;
@@ -22,13 +22,13 @@ import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Objects;
 
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.*;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.MandantKeys.MANDANT;
 import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showError;
 import static de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory.showSuccess;
 import static de.kkendzia.myintranet.ei.ui.layouts.main.drawer.EIDrawer.EIMenuKeys.MANDANTEN;
-import static de.kkendzia.myintranet.ei.utils.HistoryUtils.updateUrl;
 import static java.util.Objects.requireNonNull;
 
 @Route(value = MandantDetailView.NAV, layout = EIMainLayout.class)
@@ -120,10 +120,17 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
         String id = getViewParameter();
         if (id == null)
         {
-            updateUrl(this, "new");
+            event.forwardTo(NAV, "new");
+        }
+        else if (Objects.equals(id, "new"))
+        {
+            presenter.init(null);
+        }
+        else
+        {
+            presenter.init(id);
         }
 
-        presenter.init(id);
         getContent().refreshPages();
     }
 }
