@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.components.upload;
+package de.kkendzia.myintranet.ei.ui.components.files.upload;
 
 import com.vaadin.flow.component.AbstractCompositeField;
 import com.vaadin.flow.component.html.Image;

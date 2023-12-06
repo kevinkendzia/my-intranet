@@ -1,15 +1,15 @@
 package de.kkendzia.myintranet.domain.notification;
 
-import de.kkendzia.myintranet.domain._core.AbstractAggregateRoot;
-import de.kkendzia.myintranet.domain._core.AbstractID;
-import de.kkendzia.myintranet.domain._core.association.SingleAssociation;
+import de.kkendzia.myintranet.domain._core.elements.AbstractAggregateRoot;
+import de.kkendzia.myintranet.domain._core.elements.AbstractID;
+import de.kkendzia.myintranet.domain._core.elements.association.SingleAssociation;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import static de.kkendzia.myintranet.domain._core.association.SingleAssociation.requiredSingleLink;
+import static de.kkendzia.myintranet.domain._core.elements.association.SingleAssociation.requiredSingleLink;
 
 public class UserNotification extends AbstractAggregateRoot<UserNotification, UserNotification.UserNotificationID>
 {

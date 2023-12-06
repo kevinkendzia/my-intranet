@@ -1,9 +1,9 @@
 package de.kkendzia.myintranet.domain.ah;
 
-import de.kkendzia.myintranet.domain._core.AbstractAggregateRoot;
-import de.kkendzia.myintranet.domain._core.AbstractID;
-import de.kkendzia.myintranet.domain._core.ValueObject;
-import de.kkendzia.myintranet.domain._core.association.SingleAssociation;
+import de.kkendzia.myintranet.domain._core.elements.AbstractAggregateRoot;
+import de.kkendzia.myintranet.domain._core.elements.AbstractID;
+import de.kkendzia.myintranet.domain._core.elements.ValueObject;
+import de.kkendzia.myintranet.domain._core.elements.association.SingleAssociation;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 import de.kkendzia.myintranet.domain.mitgliedsform.MitgliedsForm;

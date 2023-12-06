@@ -76,7 +76,7 @@ public class MandantDetailView extends AbstractEIView<TabsLayout<MandantDetailPa
             if (page instanceof SaveablePage saveablePage
                     && (presenter.getMode() == EditMode.CREATE || saveablePage.hasChanges()))
             {
-                if (!saveablePage.validate().isOk())
+                if (saveablePage.validate().hasErrors())
                 {
                     // 21.10.2023 KK TODO: Optimize! (Reset?)
 //                        tabs

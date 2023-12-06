@@ -1,7 +1,7 @@
-package de.kkendzia.myintranet.domain._core.association;
+package de.kkendzia.myintranet.domain._core.elements.association;
 
-import de.kkendzia.myintranet.domain._core.AggregateRoot;
-import de.kkendzia.myintranet.domain._core.ID;
+import de.kkendzia.myintranet.domain._core.elements.AggregateRoot;
+import de.kkendzia.myintranet.domain._core.elements.ID;
 
 import java.util.HashSet;
 import java.util.Set;

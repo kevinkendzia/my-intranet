@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.domain._core;
+package de.kkendzia.myintranet.domain._core.elements;
 
 // TODO: move HasMutableId down?
 public class AbstractEntity<A extends AggregateRoot<A, ?>, I extends ID> implements Entity<A, I>, HasMutableId<I>

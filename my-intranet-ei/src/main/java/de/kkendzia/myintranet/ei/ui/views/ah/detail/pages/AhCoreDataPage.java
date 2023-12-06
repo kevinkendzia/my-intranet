@@ -1,8 +1,8 @@
 package de.kkendzia.myintranet.ei.ui.views.ah.detail.pages;
 
 import de.kkendzia.myintranet.ei._framework.view.page.AbstractLazyPage;
-import de.kkendzia.myintranet.ei.ui.components.form.FormBinder;
 import de.kkendzia.myintranet.ei.ui.layouts.SectionLayout;
+import de.kkendzia.myintranet.ei.ui.tools.binder.BufferedBinderList;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhAdressDataForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhCoreDataForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhMemberDataForm;
@@ -14,11 +14,7 @@ import static java.util.Objects.requireNonNull;
 
 public class AhCoreDataPage extends AbstractLazyPage<SectionLayout> implements AhDetailPage
 {
-    private final AhCoreDataForm frmCoreData = new AhCoreDataForm();
-    private final AhAdressDataForm frmAdressData = new AhAdressDataForm();
-    private final AhMemberDataForm frmMemberData = new AhMemberDataForm();
-    private final FormBinder<AhDetailModel> formBinder = new FormBinder<>();
-
+    private final BufferedBinderList<AhDetailModel> binderList = new BufferedBinderList<>();
     private final AhDetailPresenter presenter;
 
     public AhCoreDataPage(AhDetailPresenter presenter)
@@ -26,19 +22,18 @@ public class AhCoreDataPage extends AbstractLazyPage<SectionLayout> implements A
         this.presenter = requireNonNull(presenter, "presenter can't be null!");
 
         final var root = getContent();
+        AhCoreDataForm frmCoreData = new AhCoreDataForm(binderList.createBinder(AhDetailModel::coreData));
         root.addSection(getTranslation(COMMON), frmCoreData);
+        AhAdressDataForm frmAdressData = new AhAdressDataForm(binderList.createBinder(AhDetailModel::adressData));
         root.addSection(getTranslation(AdressKeys.ADRESS), frmAdressData);
+        AhMemberDataForm frmMemberData = new AhMemberDataForm(binderList.createBinder(AhDetailModel::membershipData));
         root.addSection(getTranslation(MEMBERSHIP), frmMemberData);
-
-        formBinder.bind(frmCoreData, AhDetailModel::coreData);
-        formBinder.bind(frmAdressData, AhDetailModel::adressData);
-        formBinder.bind(frmMemberData, AhDetailModel::memberData);
     }
 
     @Override
     protected void onLoad()
     {
         AhDetailModel model = presenter.getState();
-        formBinder.setBean(model);
+        binderList.readBeanAndCache(model);
     }
 }

@@ -13,7 +13,6 @@ import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 import de.kkendzia.myintranet.ei._framework.parameters.ParameterDefinition;
 import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.core.i18n.TranslationKeys;
-import de.kkendzia.myintranet.ei.ui.components.form.FormBinder;
 import de.kkendzia.myintranet.ei.ui.components.notification.EINotificationFactory;
 import de.kkendzia.myintranet.ei.ui.components.toolbar.ToolbarConfiguration;
 import de.kkendzia.myintranet.ei.ui.layouts.SectionLayout;
@@ -23,6 +22,7 @@ import de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.sidebar.SidebarConfigur
 import de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.sidebar.SidebarConfiguration.SidebarAction;
 import de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.sidebar.SidebarConfiguration.SidebarHeader;
 import de.kkendzia.myintranet.ei.ui.layouts.main.wrapper.sidebar.SidebarConfiguration.SidebarText;
+import de.kkendzia.myintranet.ei.ui.tools.binder.BufferedBinderList;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhAdressDataForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhCoreDataForm;
 import de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms.AhMemberDataForm;
@@ -62,10 +62,11 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
     private static final ParameterDefinition<Long> PARAM_MEMBERSHIPFORM_ID = longParam("membershipform");
     //endregion
 
-    private final AhCoreDataForm frmCore = new AhCoreDataForm();
-    private final AhAdressDataForm frmAdress = new AhAdressDataForm();
-    private final AhMemberDataForm frmMember = new AhMemberDataForm();
-    private final FormBinder<AhSheet> formBinder = new FormBinder<>();
+    private final BufferedBinderList<AhSheet> binderList = new BufferedBinderList<>();
+
+    private final AhCoreDataForm frmCore = new AhCoreDataForm(binderList.createBinder(AhSheet::coreSection));
+    private final AhAdressDataForm frmAdress = new AhAdressDataForm(binderList.createBinder(AhSheet::adressSection));
+    private final AhMemberDataForm frmMember = new AhMemberDataForm(binderList.createBinder(AhSheet::membershipSection));
 
     private final AhCreatePresenter presenter;
     private AhSheet request;
@@ -106,16 +107,12 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
         root.addSection(getTranslation(MEMBERSHIP), frmMember);
         root.add(footer);
 
-        formBinder.bind(frmCore, AhSheet::coreSection);
-        formBinder.bind(frmAdress, AhSheet::adressSection);
-        formBinder.bind(frmMember, AhSheet::membershipSection);
-
-        formBinder.addValueChangeListener(e -> formBinder.validate());
+        binderList.addValueChangeListener(e -> binderList.validateAll());
     }
 
     private void create()
     {
-        if (formBinder.writeBeanIfValid())
+        if (binderList.writeBeanToCacheIfValid())
         {
             final var id = presenter.create(request);
             EINotificationFactory.showSuccess(TranslationKeys.SUCCESS);
@@ -160,6 +157,6 @@ public class AhCreateView extends AbstractEIView<SectionLayout>
                         qpValue(PARAM_ASSOCIATION_ID).flatMap(frmMember::findAssociationItemById).orElse(null),
                         qpValue(PARAM_MEMBERSHIPFORM_ID).flatMap(frmMember::findMembershipFormItemById).orElse(null)));
 
-        formBinder.setBean(request);
+        binderList.readBeanAndCache(request);
     }
 }

@@ -2,7 +2,7 @@ package de.kkendzia.myintranet.app._framework.cqrs.command;
 
 import de.kkendzia.myintranet.app._framework.result.SingleResult;
 import de.kkendzia.myintranet.app._framework.result.VoidResult;
-import de.kkendzia.myintranet.domain._core.ID;
+import de.kkendzia.myintranet.domain._core.elements.ID;
 
 public interface CommandHandler<C extends CommandHandler.Command<F>, F>
 {

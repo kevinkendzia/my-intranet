@@ -4,7 +4,7 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.ErrorParameter;
 import com.vaadin.flow.router.HasErrorParameter;
 import com.vaadin.flow.router.ParentLayout;
-import de.kkendzia.myintranet.domain._core.ID;
+import de.kkendzia.myintranet.domain._core.elements.ID;
 import de.kkendzia.myintranet.ei._framework.view.AbstractEIView;
 import de.kkendzia.myintranet.ei.ui.layouts.main.EIMainLayout;
 import org.springframework.http.HttpStatus;

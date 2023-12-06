@@ -1,6 +1,6 @@
 package de.kkendzia.myintranet.domain._core.repository;
 
-import de.kkendzia.myintranet.domain._core.AggregateRoot;
+import de.kkendzia.myintranet.domain._core.elements.AggregateRoot;
 
 import java.util.List;
 import java.util.stream.Stream;

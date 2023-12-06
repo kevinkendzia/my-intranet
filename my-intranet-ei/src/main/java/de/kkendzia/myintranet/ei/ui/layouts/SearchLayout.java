@@ -11,7 +11,7 @@ import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.shared.Registration;
 import de.kkendzia.myintranet.ei.core.navigation.NavigateWithItem;
-import de.kkendzia.myintranet.ei.ui.components.images.ImageFactory;
+import de.kkendzia.myintranet.ei.ui.components.files.images.ImageFactory;
 import de.kkendzia.myintranet.ei.ui.components.text.Counter;
 import de.kkendzia.myintranet.ei.ui.components.text.CounterRow;
 

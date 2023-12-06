@@ -1,9 +1,9 @@
 package de.kkendzia.myintranet.domain._core.repository;
 
-import de.kkendzia.myintranet.domain._core.AggregateRoot;
-import de.kkendzia.myintranet.domain._core.ID;
-import de.kkendzia.myintranet.domain._core.association.MultiAssociation;
-import de.kkendzia.myintranet.domain._core.association.SingleAssociation;
+import de.kkendzia.myintranet.domain._core.elements.AggregateRoot;
+import de.kkendzia.myintranet.domain._core.elements.ID;
+import de.kkendzia.myintranet.domain._core.elements.association.MultiAssociation;
+import de.kkendzia.myintranet.domain._core.elements.association.SingleAssociation;
 
 import java.util.List;
 import java.util.Optional;

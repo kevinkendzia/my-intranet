@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.domain.role;
 
-import de.kkendzia.myintranet.domain._core.AbstractEntity;
-import de.kkendzia.myintranet.domain._core.AbstractID;
+import de.kkendzia.myintranet.domain._core.elements.AbstractEntity;
+import de.kkendzia.myintranet.domain._core.elements.AbstractID;
 import de.kkendzia.myintranet.domain.permission.Permission;
 
 import java.util.UUID;

@@ -1,10 +1,12 @@
 package de.kkendzia.myintranet.ei._framework.view.page;
 
-import com.vaadin.flow.data.binder.BinderValidationStatus;
+import de.kkendzia.myintranet.app._framework.result.VoidResult;
 
-public interface SaveablePage<T> extends EIPage
+import java.util.List;
+
+public interface SaveablePage extends EIPage
 {
-    BinderValidationStatus<T> validate();
+    VoidResult<List<String>> validate();
 
     boolean hasChanges();
 

@@ -3,7 +3,7 @@ package de.kkendzia.myintranet.ei.ui.views.mandant.components;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import de.kkendzia.myintranet.app.mandant._shared.MandantSheet;
-import de.kkendzia.myintranet.domain._core.AbstractID;
+import de.kkendzia.myintranet.domain._core.elements.AbstractID;
 import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 import de.kkendzia.myintranet.ei.ui.components.form.AbstractForm;
 

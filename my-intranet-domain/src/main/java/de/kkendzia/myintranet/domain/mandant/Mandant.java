@@ -1,62 +1,71 @@
 package de.kkendzia.myintranet.domain.mandant;
 
-import de.kkendzia.myintranet.domain._core.AbstractAggregateRoot;
-import de.kkendzia.myintranet.domain._core.AbstractID;
+import de.kkendzia.myintranet.domain._core.elements.AbstractAggregateRoot;
+import de.kkendzia.myintranet.domain._core.elements.AbstractID;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+
+import static java.util.Objects.requireNonNull;
 
 public final class Mandant extends AbstractAggregateRoot<Mandant, Mandant.MandantID>
 {
     public static final String PROPERTY_NAME = "name";
 
-    private String key;
-    private String name;
-    private byte[] image;
+    private String shortName;
+    private String longName;
+    private Set<MandantFile> files;
+
+    public Mandant(final MandantID id, final String shortName, final String longName, final Set<MandantFile> files)
+    {
+        super(id);
+        this.shortName = requireNonNull(shortName, "shortName can't be null!");
+        this.longName = requireNonNull(longName, "longName can't be null!");
+        this.files = requireNonNull(files, "files can't be null!");
+    }
 
     public Mandant(
             MandantID id,
-            String key,
-            String name)
+            String shortName,
+            String longName)
     {
-        super(id);
-        this.key = key;
-        this.name = name;
+        this(id, shortName, longName, new HashSet<>());
     }
 
-    public Mandant(final String key, final String name)
+    public Mandant(final String shortName, final String longName)
     {
-        this.key = key;
-        this.name = name;
+        this(new MandantID(), shortName, longName, new HashSet<>());
     }
 
-    public String getKey()
+    public String getShortName()
     {
-        return key;
+        return shortName;
     }
 
-    public void setKey(String key)
+    public void setShortName(String shortName)
     {
-        this.key = key;
+        this.shortName = shortName;
     }
 
-    public String getName()
+    public String getLongName()
     {
-        return name;
+        return longName;
     }
 
-    public void setName(String name)
+    public void setLongName(String longName)
     {
-        this.name = name;
+        this.longName = longName;
     }
 
-    public byte[] getImage()
+    public Set<MandantFile> getFiles()
     {
-        return this.image;
+        return files;
     }
 
-    public void setImage(byte[] image)
+    public void setFiles(final Set<MandantFile> files)
     {
-        this.image = image;
+        this.files = files;
     }
 
     //region TYPES

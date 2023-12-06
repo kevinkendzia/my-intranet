@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.domain._core.repository;
 
-import de.kkendzia.myintranet.domain._core.AggregateRoot;
-import de.kkendzia.myintranet.domain._core.ID;
+import de.kkendzia.myintranet.domain._core.elements.AggregateRoot;
+import de.kkendzia.myintranet.domain._core.elements.ID;
 import de.kkendzia.myintranet.domain._core.exception.DomainException;
 
 import java.util.Collection;

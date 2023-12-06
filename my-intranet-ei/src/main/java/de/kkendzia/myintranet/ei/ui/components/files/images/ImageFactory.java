@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.ei.ui.components.images;
+package de.kkendzia.myintranet.ei.ui.components.files.images;
 
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;

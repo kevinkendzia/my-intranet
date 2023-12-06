@@ -16,4 +16,9 @@ public interface Result<R, F>
     {
         return null;
     }
+
+    default boolean hasErrors()
+    {
+        return !isSuccess();
+    }
 }

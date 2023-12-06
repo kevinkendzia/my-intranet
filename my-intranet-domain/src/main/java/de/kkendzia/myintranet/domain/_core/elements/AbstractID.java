@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.domain._core;
+package de.kkendzia.myintranet.domain._core.elements;
 
 import java.util.Objects;
 import java.util.UUID;

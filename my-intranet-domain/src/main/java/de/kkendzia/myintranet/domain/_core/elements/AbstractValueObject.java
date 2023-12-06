@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.domain._core;
+package de.kkendzia.myintranet.domain._core.elements;
 
 /**
  * Base class for ValueObjects to enforce overrides for equals() & hashCode().

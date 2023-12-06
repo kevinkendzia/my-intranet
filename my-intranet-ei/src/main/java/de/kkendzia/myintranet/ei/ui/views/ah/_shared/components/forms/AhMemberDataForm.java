@@ -1,6 +1,7 @@
 package de.kkendzia.myintranet.ei.ui.views.ah._shared.components.forms;
 
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
 import de.kkendzia.myintranet.app.ah._shared.AhSheet;
@@ -21,27 +22,27 @@ import static de.kkendzia.myintranet.ei.utils.DataProviderUtils.emptyDataProvide
 
 public class AhMemberDataForm extends AbstractForm<AhSheet.MembershipSection>
 {
-    private final ComboBox<Regulierer> cboRegulator = new ComboBox<>(getTranslation(REGULIERER));
-    private final ComboBox<Verband> cboAssociation = new ComboBox<>(getTranslation(VERBAND));
-    private final ComboBox<MitgliedsForm> cboMembershipForm = new ComboBox<>(getTranslation(MITGLIEDSFORM));
-
     private DataProvider<Regulierer, String> dpRegulator = emptyDataProvider();
     private DataProvider<Verband, String> dpAssociation = emptyDataProvider();
     private DataProvider<MitgliedsForm, String> dpMembershipForm = emptyDataProvider();
 
-    public AhMemberDataForm()
+    public AhMemberDataForm(Binder<AhSheet.MembershipSection> binder)
     {
+        super(binder);
+        ComboBox<Regulierer> cboRegulator = new ComboBox<>(getTranslation(REGULIERER));
         add(
                 cboRegulator,
-                (field, binder) -> binder.forField(field)
+                (field, b) -> b.forField(field)
                         .bind(AhSheet.MembershipSection::getRegulator, AhSheet.MembershipSection::setRegulator));
+        ComboBox<Verband> cboAssociation = new ComboBox<>(getTranslation(VERBAND));
         add(
                 cboAssociation,
-                (field, binder) -> binder.forField(field)
+                (field, b) -> b.forField(field)
                         .bind(AhSheet.MembershipSection::getAssociation, AhSheet.MembershipSection::setAssociation));
+        ComboBox<MitgliedsForm> cboMembershipForm = new ComboBox<>(getTranslation(MITGLIEDSFORM));
         add(
                 cboMembershipForm,
-                (field, binder) -> binder.forField(field)
+                (field, b) -> b.forField(field)
                         .bind(
                                 AhSheet.MembershipSection::getMembershipForm,
                                 AhSheet.MembershipSection::setMembershipForm));

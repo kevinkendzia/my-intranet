@@ -4,7 +4,7 @@ import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler.Command
 import de.kkendzia.myintranet.app._framework.cqrs.command.CommandHandler.IDCommand;
 import de.kkendzia.myintranet.app._framework.result.SingleResult;
 import de.kkendzia.myintranet.app._framework.result.VoidResult;
-import de.kkendzia.myintranet.domain._core.ID;
+import de.kkendzia.myintranet.domain._core.elements.ID;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

@@ -1,8 +1,8 @@
 package de.kkendzia.myintranet.domain.user;
 
-import de.kkendzia.myintranet.domain._core.AbstractAggregateRoot;
-import de.kkendzia.myintranet.domain._core.AbstractID;
-import de.kkendzia.myintranet.domain._core.association.MultiAssociation;
+import de.kkendzia.myintranet.domain._core.elements.AbstractAggregateRoot;
+import de.kkendzia.myintranet.domain._core.elements.AbstractID;
+import de.kkendzia.myintranet.domain._core.elements.association.MultiAssociation;
 import de.kkendzia.myintranet.domain.news.News;
 import de.kkendzia.myintranet.domain.news.News.NewsID;
 import de.kkendzia.myintranet.domain.notification.UserNotification;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static de.kkendzia.myintranet.domain._core.association.MultiAssociation.emptyMultLink;
+import static de.kkendzia.myintranet.domain._core.elements.association.MultiAssociation.emptyMultLink;
 import static java.util.Objects.requireNonNull;
 
 public class EIUser extends AbstractAggregateRoot<EIUser, EIUser.EIUserID>

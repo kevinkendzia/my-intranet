@@ -1,6 +1,6 @@
 package de.kkendzia.myintranet.domain.user;
 
-import de.kkendzia.myintranet.domain._core.AbstractValueObject;
+import de.kkendzia.myintranet.domain._core.elements.AbstractValueObject;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

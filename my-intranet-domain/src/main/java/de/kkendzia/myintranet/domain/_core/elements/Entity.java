@@ -1,4 +1,4 @@
-package de.kkendzia.myintranet.domain._core;
+package de.kkendzia.myintranet.domain._core.elements;
 
 public interface Entity<A extends AggregateRoot<A, ?>, I extends ID> extends HasId<I>
 {

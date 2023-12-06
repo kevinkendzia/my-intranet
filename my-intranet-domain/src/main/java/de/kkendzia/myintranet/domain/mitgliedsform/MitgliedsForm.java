@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.domain.mitgliedsform;
 
-import de.kkendzia.myintranet.domain._core.AbstractAggregateRoot;
-import de.kkendzia.myintranet.domain._core.AbstractID;
+import de.kkendzia.myintranet.domain._core.elements.AbstractAggregateRoot;
+import de.kkendzia.myintranet.domain._core.elements.AbstractID;
 
 import java.util.UUID;
 

@@ -3,6 +3,7 @@ package de.kkendzia.myintranet.ei.ui.layouts;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.HasOrderedComponents;
+import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Section;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
@@ -15,7 +16,7 @@ import de.kkendzia.myintranet.ei.core.constants.EIStyles;
 import static de.kkendzia.myintranet.ei.core.constants.EIStyles.SCROLL_SNAP_Y;
 import static java.util.Objects.requireNonNull;
 
-public class SectionLayout extends Composite<VerticalLayout> implements HasOrderedComponents
+public class SectionLayout extends Composite<VerticalLayout> implements HasOrderedComponents, HasSize
 {
     public SectionLayout()
     {
