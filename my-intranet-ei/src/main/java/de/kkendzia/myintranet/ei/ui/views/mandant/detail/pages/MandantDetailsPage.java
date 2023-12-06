@@ -1,8 +1,9 @@
 package de.kkendzia.myintranet.ei.ui.views.mandant.detail.pages;
 
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.binder.ValidationException;
-import com.vaadin.flow.server.StreamResource;
 import de.kkendzia.myintranet.app._framework.result.VoidResult;
 import de.kkendzia.myintranet.app.mandant._shared.MandantSheet;
 import de.kkendzia.myintranet.app.mandant._shared.MandantSheet.File;
@@ -13,12 +14,16 @@ import de.kkendzia.myintranet.ei.ui.layouts.SectionLayout;
 import de.kkendzia.myintranet.ei.ui.tools.binder.BufferedBinderList;
 import de.kkendzia.myintranet.ei.ui.views.mandant.components.MandantForm;
 import de.kkendzia.myintranet.ei.ui.views.mandant.detail.MandantDetailPresenter;
+import de.kkendzia.myintranet.ei.utils.GridColumnFactory;
 
-import java.io.ByteArrayInputStream;
 import java.util.List;
 
+import static com.vaadin.flow.component.grid.Grid.SelectionMode.NONE;
 import static com.vaadin.flow.component.orderedlayout.FlexLayout.FlexWrap.WRAP;
 import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.DETAILS;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.FileKeys.MIME_TYPE;
+import static de.kkendzia.myintranet.ei.core.i18n.TranslationKeys.FileKeys.NAME;
+import static de.kkendzia.myintranet.ei.utils.ResourceUtils.streamResource;
 import static java.util.Objects.requireNonNull;
 
 public class MandantDetailsPage extends AbstractPage<FlexLayout>
@@ -31,12 +36,18 @@ public class MandantDetailsPage extends AbstractPage<FlexLayout>
     {
         this.presenter = requireNonNull(presenter, "presenter can't be null!");
 
-        ImagePreview<File> imagePreview =
-                new ImagePreview<>(item ->
-                        new StreamResource(item.name(), () -> new ByteArrayInputStream(item.data())));
-        final var ipStyle = imagePreview.getStyle();
-        ipStyle.set("flex", "1 1 22em");
-        imagePreview.setMaxWidth("44em");
+        ImagePreview<File> imagePreview = new ImagePreview<>(item -> streamResource(item.name(), item.preview()));
+        final Grid<File> fileGrid = new Grid<>();
+        fileGrid.setSelectionMode(NONE);
+        final var fileColumns = new GridColumnFactory<>(fileGrid);
+        fileColumns.addExpandedColumn(getTranslation(NAME), File::name);
+        fileColumns.addCollapsedColumn(getTranslation(MIME_TYPE), File::mimeType);
+
+        final var vlLeft = new VerticalLayout();
+        vlLeft.getStyle().set("flex", "1 1 22em");
+        vlLeft.setMaxWidth("44em");
+        vlLeft.add(imagePreview);
+        vlLeft.add(fileGrid);
 
         MandantForm frmMandant = new MandantForm(binder.createBinder());
 
@@ -47,7 +58,7 @@ public class MandantDetailsPage extends AbstractPage<FlexLayout>
 
         FlexLayout root = getContent();
         root.setFlexWrap(WRAP);
-        root.add(imagePreview);
+        root.add(vlLeft);
         root.add(sectionLayout);
 
         binder

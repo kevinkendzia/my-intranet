@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.app.mandant._shared;
 
 import de.kkendzia.myintranet.domain.mandant.Mandant;
-import de.kkendzia.myintranet.domain.mandant.MandantFile;
+import de.kkendzia.myintranet.domain.mandant.Mandant.MandantID;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -12,12 +12,12 @@ import static java.util.stream.Collectors.toSet;
 
 public class MandantSheet
 {
-    private Mandant.MandantID id;
+    private MandantID id;
     private String key;
     private String name;
     private Set<File> files;
 
-    public MandantSheet(final Mandant.MandantID id, final String key, final String name, final Set<File> files)
+    public MandantSheet(final MandantID id, final String key, final String name, final Set<File> files)
     {
         this.id = id;
         this.key = key;
@@ -33,16 +33,16 @@ public class MandantSheet
                 mandant.getLongName(),
                 mandant.getFiles()
                         .stream()
-                        .map(f -> new File(f.getId(), f.getFilename(), f.getData()))
+                        .map(f -> new File(f.getFilename(), f.getMimeType(), f.getData()))
                         .collect(toSet()));
     }
 
-    public Mandant.MandantID getId()
+    public MandantID getId()
     {
         return id;
     }
 
-    public void setId(final Mandant.MandantID id)
+    public void setId(final MandantID id)
     {
         this.id = id;
     }
@@ -79,9 +79,9 @@ public class MandantSheet
 
     //region TYPES
     public record File(
-            MandantFile.MandantFileID id,
             String name,
-            byte[] data)
+            String mimeType,
+            byte[] preview)
     {
         @Override
         public boolean equals(final Object o)
@@ -95,16 +95,16 @@ public class MandantSheet
                 return false;
             }
             final File file = (File) o;
-            return Objects.equals(id, file.id) && Objects.equals(
-                    name,
-                    file.name) && Arrays.equals(data, file.data);
+            return Objects.equals(name, file.name) && Objects.equals(
+                    mimeType,
+                    file.mimeType) && Arrays.equals(preview, file.preview);
         }
 
         @Override
         public int hashCode()
         {
-            int result = Objects.hash(id, name);
-            result = 31 * result + Arrays.hashCode(data);
+            int result = Objects.hash(name, mimeType);
+            result = 31 * result + Arrays.hashCode(preview);
             return result;
         }
 
@@ -112,9 +112,9 @@ public class MandantSheet
         public String toString()
         {
             return new StringJoiner(", ", File.class.getSimpleName() + "[", "]")
-                    .add("id=" + id)
                     .add("name='" + name + "'")
-                    .add("data=" + Arrays.toString(data))
+                    .add("mimeType='" + mimeType + "'")
+                    .add("preview=" + Arrays.toString(preview))
                     .toString();
         }
     }

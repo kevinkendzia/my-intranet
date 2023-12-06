@@ -171,4 +171,15 @@ public final class TranslationKeys
             // No Instance!
         }
     }
+
+    public final class FileKeys
+    {
+        public static final String NAME = "filename";
+        public static final String MIME_TYPE = "mimeType";
+
+        private FileKeys()
+        {
+            // No Instance!
+        }
+    }
 }

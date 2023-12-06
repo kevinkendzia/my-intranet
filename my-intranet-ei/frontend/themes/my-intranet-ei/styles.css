@@ -1,10 +1,11 @@
 @import 'variables.css';
-@import 'async-container-styles.css';
 @import 'layouts/section-layout.css';
+@import 'layouts/media.css';
+@import 'components/async-container.css';
 @import 'components/combobox.css';
 @import 'components/toolbar.css';
-@import 'layouts/media.css';
 @import 'components/scrollbar.css';
+@import 'components/image-preview.css';
 
 h3.sticky-h3 {
     position: sticky;

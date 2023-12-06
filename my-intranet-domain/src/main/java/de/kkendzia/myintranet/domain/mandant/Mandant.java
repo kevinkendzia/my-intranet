@@ -2,6 +2,7 @@ package de.kkendzia.myintranet.domain.mandant;
 
 import de.kkendzia.myintranet.domain._core.elements.AbstractAggregateRoot;
 import de.kkendzia.myintranet.domain._core.elements.AbstractID;
+import de.kkendzia.myintranet.domain._shared.File;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,9 +16,9 @@ public final class Mandant extends AbstractAggregateRoot<Mandant, Mandant.Mandan
 
     private String shortName;
     private String longName;
-    private Set<MandantFile> files;
+    private Set<File> files;
 
-    public Mandant(final MandantID id, final String shortName, final String longName, final Set<MandantFile> files)
+    public Mandant(final MandantID id, final String shortName, final String longName, final Set<File> files)
     {
         super(id);
         this.shortName = requireNonNull(shortName, "shortName can't be null!");
@@ -58,12 +59,12 @@ public final class Mandant extends AbstractAggregateRoot<Mandant, Mandant.Mandan
         this.longName = longName;
     }
 
-    public Set<MandantFile> getFiles()
+    public Set<File> getFiles()
     {
         return files;
     }
 
-    public void setFiles(final Set<MandantFile> files)
+    public void setFiles(final Set<File> files)
     {
         this.files = files;
     }
