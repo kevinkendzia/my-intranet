@@ -9,7 +9,7 @@ import de.kkendzia.myintranet.domain.role.Role;
 import de.kkendzia.myintranet.domain.role.RolePermission;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import org.eclipse.store.storage.types.StorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -8,7 +8,7 @@ import de.kkendzia.myintranet.app.search.queries.SearchAhs.ResultItem;
 import de.kkendzia.myintranet.app.search.queries.SearchAhs.SearchAhsHandler;
 import de.kkendzia.myintranet.domain.ah.Ah;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import org.eclipse.store.storage.types.StorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 @Component

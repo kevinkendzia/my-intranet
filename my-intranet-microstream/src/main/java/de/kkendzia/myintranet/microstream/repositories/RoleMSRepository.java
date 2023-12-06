@@ -3,7 +3,7 @@ package de.kkendzia.myintranet.microstream.repositories;
 import de.kkendzia.myintranet.domain.role.Role;
 import de.kkendzia.myintranet.domain.role.RoleRepository;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSRepository;
-import org.eclipse.store.storage.types.StorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

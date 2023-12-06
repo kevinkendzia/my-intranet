@@ -8,7 +8,7 @@ import de.kkendzia.myintranet.app.search.queries.SearchPermissions.ResultItem;
 import de.kkendzia.myintranet.app.search.queries.SearchPermissions.SearchPermissionsHandler;
 import de.kkendzia.myintranet.domain.permission.Permission;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import org.eclipse.store.storage.types.StorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 @Component

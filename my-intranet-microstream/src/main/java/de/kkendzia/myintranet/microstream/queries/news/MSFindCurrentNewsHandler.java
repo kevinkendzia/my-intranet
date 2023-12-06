@@ -8,7 +8,7 @@ import de.kkendzia.myintranet.app.news.queries.FindCurrentNews.FindCurrentNewsHa
 import de.kkendzia.myintranet.app.news.queries.FindCurrentNews.NewsItem;
 import de.kkendzia.myintranet.domain.news.News;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import org.eclipse.store.storage.types.StorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -13,10 +13,12 @@ import de.kkendzia.myintranet.domain.permission.Permission.PermissionID;
 import de.kkendzia.myintranet.domain.role.Role;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
+import one.microstream.integrations.spring.boot.types.Storage;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Storage
 public class MyIntranetRoot
 {
     // CORE

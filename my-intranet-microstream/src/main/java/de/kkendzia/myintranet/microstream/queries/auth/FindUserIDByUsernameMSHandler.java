@@ -4,10 +4,10 @@ import de.kkendzia.myintranet.app._framework.result.SingleResult;
 import de.kkendzia.myintranet.app.useractions.queries.FindUserIDByUsername;
 import de.kkendzia.myintranet.app.useractions.queries.FindUserIDByUsername.Failure;
 import de.kkendzia.myintranet.app.useractions.queries.FindUserIDByUsername.FindUserIDByUsernameHandler;
-import de.kkendzia.myintranet.domain._core.AbstractEntity;
+import de.kkendzia.myintranet.domain._core.elements.AbstractEntity;
 import de.kkendzia.myintranet.domain.user.EIUser.EIUserID;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import org.eclipse.store.storage.types.StorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;

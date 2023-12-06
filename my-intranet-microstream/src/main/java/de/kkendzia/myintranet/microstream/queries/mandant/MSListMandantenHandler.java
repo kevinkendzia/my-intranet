@@ -5,7 +5,7 @@ import de.kkendzia.myintranet.app._framework.result.ListResult;
 import de.kkendzia.myintranet.app.mandant.queries.ListMandanten;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import org.eclipse.store.storage.types.StorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Stream;
@@ -20,7 +20,7 @@ public class MSListMandantenHandler
     public MSListMandantenHandler(final StorageManager storageManager)
     {
         super(storageManager);
-        registerSortOrder("name", comparing(Mandant::getName));
+        registerSortOrder("name", comparing(Mandant::getLongName));
     }
 
     @Override
@@ -30,7 +30,7 @@ public class MSListMandantenHandler
     {
         final Stream<Mandant> mandanten = getRoot().getMandanten().values().stream();
         final Stream<Mandant> paged = applyPaging(mandanten, paging);
-        final var mapped = paged.map(m -> new ListMandanten.MandantItem(m.getId(), m.getName())).toList();
+        final var mapped = paged.map(m -> new ListMandanten.MandantItem(m.getId(), m.getLongName())).toList();
         return ListResult.success(mapped);
     }
 }

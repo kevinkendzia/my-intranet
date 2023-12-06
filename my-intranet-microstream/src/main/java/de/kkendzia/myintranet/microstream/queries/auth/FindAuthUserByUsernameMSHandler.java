@@ -8,7 +8,7 @@ import de.kkendzia.myintranet.app.auth.queries.FindAuthUserByUsername.FindAuthUs
 import de.kkendzia.myintranet.app.auth.shared.AuthUser;
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import org.eclipse.store.storage.types.StorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;

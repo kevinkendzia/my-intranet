@@ -8,7 +8,7 @@ import de.kkendzia.myintranet.app.search.queries.SearchMandanten.ResultItem;
 import de.kkendzia.myintranet.app.search.queries.SearchMandanten.SearchMandantenHandler;
 import de.kkendzia.myintranet.domain.mandant.Mandant;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import org.eclipse.store.storage.types.StorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,11 +26,11 @@ public class MSSearchMandantenHandler extends AbstractMSQueryHandler<Mandant> im
                 .getMandanten()
                 .values()
                 .stream()
-                .filter(u -> u.getName().toLowerCase().contains(query.searchtext().toLowerCase()));
+                .filter(u -> u.getLongName().toLowerCase().contains(query.searchtext().toLowerCase()));
 
         return ListResult.success(
                 applyPaging(mandanten, paging)
-                        .map(u -> new ResultItem(u.getId(), u.getName()))
+                        .map(u -> new ResultItem(u.getId(), u.getLongName()))
                         .toList());
     }
 }

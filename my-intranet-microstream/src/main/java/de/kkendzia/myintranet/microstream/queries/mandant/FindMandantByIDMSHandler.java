@@ -5,7 +5,7 @@ import de.kkendzia.myintranet.app._shared.failures.FindByIDFailure;
 import de.kkendzia.myintranet.app.mandant._shared.MandantSheet;
 import de.kkendzia.myintranet.app.mandant.queries.GetMandantSheetByID;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import org.eclipse.store.storage.types.StorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import static de.kkendzia.myintranet.app._framework.result.SingleResult.failure;

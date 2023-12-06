@@ -9,7 +9,7 @@ import de.kkendzia.myintranet.app.useractions.queries.FindFavoriteActions.FindFa
 import de.kkendzia.myintranet.domain.user.EIUser;
 import de.kkendzia.myintranet.domain.user.EIUserAction;
 import de.kkendzia.myintranet.microstream._framework.AbstractMSQueryHandler;
-import org.eclipse.store.storage.types.StorageManager;
+import one.microstream.storage.types.StorageManager;
 import org.springframework.stereotype.Component;
 
 import static java.util.Comparator.comparing;

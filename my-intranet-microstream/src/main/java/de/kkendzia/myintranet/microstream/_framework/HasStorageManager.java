@@ -1,7 +1,7 @@
 package de.kkendzia.myintranet.microstream._framework;
 
 import de.kkendzia.myintranet.microstream._core.MyIntranetRoot;
-import org.eclipse.store.storage.types.StorageManager;
+import one.microstream.storage.types.StorageManager;
 
 public interface HasStorageManager
 {
