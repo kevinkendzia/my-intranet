@@ -1,0 +1,43 @@
+@import 'variables.css';
+@import 'layouts/section-layout.css';
+@import 'layouts/media.css';
+@import 'components/async-container.css';
+@import 'components/combobox.css';
+@import 'components/toolbar.css';
+@import 'components/scrollbar.css';
+@import '../../../../my-intranet-components/vaadin-image-preview/src/main/resources/META-INF/resources/frontend/image-preview.css';
+
+h3.sticky-h3 {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--lumo-base-color);
+    padding-bottom: var(--lumo-space-s);
+}
+
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.sticky-bottom {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+}
+
+.scroll-snap-align-start {
+    scroll-snap-align: start;
+}
+
+.scroll-snap-y {
+    scroll-snap-type: y proximity;
+}
+
+.background-image-home {
+    background-image: url("img/home.svg");
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: top;
+}
