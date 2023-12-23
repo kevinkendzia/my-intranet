@@ -1,6 +1,7 @@
 package de.kkendzia.components.imagepreview;
 
 import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
@@ -12,9 +13,7 @@ import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.shared.Registration;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.Collections.*;
 import static java.util.Objects.requireNonNull;
@@ -24,54 +23,141 @@ public class ImagePreview<T>
         extends AbstractCompositeField<Div, ImagePreview<T>, Set<T>>
         implements MultiSelect<ImagePreview<T>, T>, HasSize
 {
-    private final Image imgPreview = new Image();
-    private final Div imageLayout = new Div();
-    private final Div imageAdd = new Div();
+    private final Div mainImageLayout = new Div();
+    private final Image imgMain = new Image();
+    private final Button btnPrevious = new Button(VaadinIcon.CHEVRON_CIRCLE_LEFT_O.create());
+    private final Button btnNext = new Button(VaadinIcon.CHEVRON_CIRCLE_RIGHT_O.create());
+
+    private final Div itemLayout = new Div();
+    private final Button btnAdd = new Button(VaadinIcon.PLUS_CIRCLE.create());
 
     private final ResourceFactory<T> resourceFactory;
+
+    // STATE
+    private SelectionImage<T> selectedImage;
+    private final List<SelectionImage<T>> selectionImages = new ArrayList<>();
 
     public ImagePreview(ResourceFactory<T> resourceFactory)
     {
         super(new LinkedHashSet<>());
         this.resourceFactory = requireNonNull(resourceFactory, "resourceProvider can't be null!");
 
-        imgPreview.addClassName("image-preview-image");
+        imgMain.addClassName("main-image");
+        imgMain.add(btnPrevious);
+        imgMain.add(btnNext);
 
-        imageAdd.addClassName("image-preview-add");
-        imageAdd.add(VaadinIcon.PLUS_CIRCLE.create());
-        imageAdd.addClickListener(e -> fireEvent(new AddImageEvent<>(this, e.isFromClient())));
+        btnPrevious.addClassName("previous-button");
+        btnPrevious.addClickListener(e -> previousImage());
+        btnNext.addClassName("next-button");
+        btnNext.addClickListener(e -> nextImage());
 
-        imageLayout.addClassName("image-preview-item-container");
-        imageLayout.add(imageAdd);
+        mainImageLayout.addClassName("main-image-layout");
+        mainImageLayout.add(btnPrevious);
+        mainImageLayout.add(imgMain);
+        mainImageLayout.add(btnNext);
 
-        final var root = getContent();
+        btnAdd.addClassName("add-button");
+        btnAdd.addClickListener(e -> fireEvent(new AddImageEvent<>(this, e.isFromClient())));
+
+        itemLayout.addClassName("item-layout");
+        itemLayout.add(btnAdd);
+
+        final Div root = getContent();
         root.addClassName("image-preview");
-        root.add(imageLayout);
-        root.add(imgPreview);
+        root.add(itemLayout);
+        root.add(mainImageLayout);
+    }
+
+    private void previousImage()
+    {
+        if (selectionImages.size() <= 1)
+        {
+            return;
+        }
+
+        if (selectedImage != null)
+        {
+            final var curIndex = selectionImages.indexOf(selectedImage);
+            final var previousIndex = curIndex - 1;
+            if (previousIndex >= 0)
+            {
+                final SelectionImage<T> previousComponent = selectionImages.get(previousIndex);
+                selectImage(previousComponent);
+            }
+            else
+            {
+                final SelectionImage<T> lastComponent = selectionImages.get(selectionImages.size() - 1);
+                selectImage(lastComponent);
+            }
+        }
+        else
+        {
+            final SelectionImage<T> lastComponent = selectionImages.get(selectionImages.size() - 1);
+            selectImage(lastComponent);
+        }
+    }
+
+    private void nextImage()
+    {
+        if (selectionImages.size() <= 1)
+        {
+            return;
+        }
+
+        if (selectedImage != null)
+        {
+            final var curIndex = selectionImages.indexOf(selectedImage);
+            final var nextIndex = curIndex + 1;
+            if (selectionImages.size() > nextIndex)
+            {
+                final SelectionImage<T> nextComponent = selectionImages.get(nextIndex);
+                selectImage(nextComponent);
+            }
+            else
+            {
+                final SelectionImage<T> firstComponent = selectionImages.get(0);
+                selectImage(firstComponent);
+            }
+        }
+        else
+        {
+            final SelectionImage<T> firstComponent = selectionImages.get(0);
+            selectImage(firstComponent);
+        }
     }
 
     @Override
     protected void setPresentationValue(final Set<T> newPresentationValue)
     {
-        imageLayout.removeAll();
-        imageLayout.add(imageAdd);
+        itemLayout.removeAll();
+        itemLayout.add(btnAdd);
 
         if (newPresentationValue != null)
         {
             newPresentationValue.forEach(item ->
             {
-                final var img = new SelectionImage<>(item, resourceFactory);
-                img.addClickListener(e ->
-                {
-                    final var preview = e.getSource();
-                    final var factory = preview.getResourceFactory();
-                    imgPreview.setSrc(factory.create(preview.getItem()));
-                });
-                imageLayout.add(img);
+                SelectionImage<T> img = new SelectionImage<>(item, resourceFactory);
+                img.addClickListener(e -> selectImage(e.getSource()));
+                selectionImages.add(img);
+                itemLayout.add(img);
             });
 
-            newPresentationValue.stream().findFirst().ifPresent(i -> imgPreview.setSrc(resourceFactory.create(i)));
+            selectionImages.stream().findFirst().ifPresent(this::selectImage);
         }
+    }
+
+    private void selectImage(final SelectionImage<T> image)
+    {
+        if (this.selectedImage != null)
+        {
+            selectedImage.setSelected(false);
+        }
+
+        final ResourceFactory<T> factory = image.getResourceFactory();
+        imgMain.setSrc(factory.create(image.getItem()));
+        this.selectedImage = image;
+        selectedImage.scrollIntoView();
+        selectedImage.setSelected(true);
     }
 
     @Override
@@ -86,17 +172,9 @@ public class ImagePreview<T>
         super.setValue(value != null ? value : emptySet());
     }
 
-//    @SafeVarargs
-//    public final void setValue(T... items)
-//    {
-//        Set<T> value = new LinkedHashSet<>(List.of(items));
-//        setValue(value);
-//    }
-
     public void setValue(Collection<T> items)
     {
-        Set<T> value = new LinkedHashSet<>(items);
-        setValue(value);
+        setValue(new LinkedHashSet<>(items));
     }
 
     @Override
@@ -158,6 +236,11 @@ public class ImagePreview<T>
         public ResourceFactory<T> getResourceFactory()
         {
             return resourceFactory;
+        }
+
+        public void setSelected(final boolean selected)
+        {
+            getElement().setAttribute("selected", selected);
         }
     }
 
