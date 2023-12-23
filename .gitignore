@@ -76,3 +76,17 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 .idea/misc.xml
+
+# VAADIN
+node_modules/
+frontend/generated/
+pnpmfile.js
+.npmrc
+webpack.generated.js
+vite.generated.ts
+tsconfig.json
+types.d.ts
+index.html
+
+generated/
+build
